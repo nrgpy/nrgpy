@@ -8,26 +8,30 @@ import re
 class sympro_txt_read(object): # object is path to SPRO_export.txt file
     
     # read txt file into data, site_info and ch_info dataframes
-    def __init__(self, filename):
+    def __init__(self, filename='', **kwargs):
         self.filename = filename
+        self.filter = kwargs.get('filter', '')
         
-        i = 0
-        with open(self.filename) as infile:
-            for line in infile:
-                if line == "Data\n":
-                    break 
-                else:
-                    i = i + 1
-        with open(self.filename) as myfile:
-            self.head = "".join([next(myfile) for x in range(2)])
-        header_len = i + 1
-        read_len = header_len - 5
-        self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", index_col=False,
-                                     nrows=read_len, usecols=[0,1], header=None)
-        self.site_info = self.site_info.iloc[:self.site_info.ix[self.site_info[0]=='Data'].index.tolist()[0]+1]
-        self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t")
-        self.first_timestamp = self.data.iloc[0]['Timestamp']
-        self.arrange_ch_info()
+        if self.filename:
+            i = 0
+            with open(self.filename) as infile:
+                for line in infile:
+                    if line == "Data\n":
+                        break 
+                    else:
+                        i = i + 1
+            with open(self.filename) as myfile:
+                self.head = "".join([next(myfile) for x in range(2)])
+            header_len = i + 1
+            read_len = header_len - 5
+            self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", index_col=False,
+                                        nrows=read_len, usecols=[0,1], header=None)
+            self.site_info = self.site_info.iloc[:self.site_info.ix[self.site_info[0]=='Data'].index.tolist()[0]+1]
+            self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t")
+            self.first_timestamp = self.data.iloc[0]['Timestamp']
+            self.arrange_ch_info()
+        else:
+            print('instance created, no filename specified')
         
     def __repr__(self):
         return '<class {}: {} >'.format(self.__class__.__name__,self.filename)
@@ -69,6 +73,37 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
         
         return self
 
+    def concat_txt(self, output_txt=False, **kwargs):
+        txt_dir = kwargs.get('txt_dir', '')
+        out_file = kwargs.get('out_file', '')
+        self.filter = kwargs.get('filter', '')
+        import datetime
+        first_file = True
+        for f in sorted(os.listdir(txt_dir)):
+            if self.filter in f:
+                if first_file == True:
+                    first_file = False
+                    base = sympro_txt_read(txt_dir + f)
+                    pass
+                else:
+                    file_path = txt_dir + f
+                    try:
+                        s = sympro_txt_read(file_path)
+                        s.output_txt_file()
+                        base.data = base.data.append(s.data, sort=False)
+                    except:
+                        print("could not concat {0}".format(file_path))
+                        pass
+            else:
+                pass
+        if output_txt == True:
+            if out_file == "":
+                out_file = datetime.datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
+            base.data.to_csv(txt_dir + out_file, sep=',', index=False)
+        self.data = base.data
+        self.ch_info = s.ch_info
+        
+        
     def select_channels(self, epe=False, soiling=False): 
         # for EPE formatting
         ch_anem = ['Anem','Anemometer','anem','anemometer','Anemômetro','anemômetro']
@@ -440,5 +475,6 @@ def shift_timestamps(txt_folder="", seconds=3600, output_txt=True):
             concat_txt.data = pd.concat([concat_txt.data,_fut.data])
     concat_txt.output_txt_file(standard=True)
     return concat_txt
+
 
     

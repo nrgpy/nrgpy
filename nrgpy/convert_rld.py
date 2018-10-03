@@ -6,11 +6,11 @@ import pandas as pd
 from pathlib import Path
 import requests
 import subprocess
-#from sympro_txt import sympro_txt_read
+from sympro_txt import sympro_txt_read
 import zipfile
 
 
-class convert_rld(object):
+class local(object):
     
     def __init__(self, **kwargs):
         self.raw_dir = kwargs.get('raw_dir', '')
@@ -22,10 +22,10 @@ class convert_rld(object):
         #self.directory()
         #self.single_file()
     
-    def info():
+    def info(self):
         usage = """
         ------------------------------------------------------------------------------
-        convert_rld(): 
+        local(): 
         
         For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.
         This method uses locally installed SymphoniePRO Desktop software to convert
@@ -64,35 +64,10 @@ class convert_rld(object):
         """
         print(usage)
 
-    def concat_txt(self,**kwargs):
-        txt_dir = kwargs.get('txt_dir', self.out_dir)
-        out_file = kwargs.get('out_file', '')
-        import datetime
-        first_file = True
-        for f in sorted(os.listdir(txt_dir)):
-            if self.filter in f:
-                if first_file == True:
-                    first_file = False
-                    base = sympro_txt_read(txt_dir + f)
-                    pass
-                else:
-                    file_path = txt_dir + f
-                    try:
-                        s = sympro_txt_read(file_path)
-                        s.output_txt_file()
-                        base.data = base.data.append(s.data, sort=False)
-                    except:
-                        print("could not concat {0}".format(file_path))
-                        pass
-            else:
-                pass
-        if out_file == "":
-            out_file = datetime.datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
-        base.data.to_csv(txt_dir + out_file, sep=',', index=False)
-        return base.data
-        
+
     def directory(self):
         file_filter = self.raw_dir + self.filter + '*' + '.rld'
+        print(file_filter)
         try:
             if self.password != '':
                 encryption = "/pass {0}".format(self.password)
