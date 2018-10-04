@@ -1,6 +1,7 @@
 #!/bin/usr/python
 import base64
 import io
+import glob
 import os
 import pandas as pd
 from pathlib import Path
@@ -100,14 +101,14 @@ class local(object):
                 pass
             
 
-    def single_file(self, filepath):
+    def single_file(self, filepath=''):
         cmd = [self.sympro_path, "/cmd", "convert", "/file", '"'+filepath+'"', "/type", '"'+self.convert_type+'"',"/outputdir", '"'+self.out_dir[:-1]+'"']
         try:
             print("{0} ... \t\t".format(filepath), end="", flush=True)
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
             print("[DONE]")
         except:
-            print("[FAILED]")
+            print("\n\t processing {0} [FAILED]".format(filepath))
             pass
         
 
@@ -117,39 +118,56 @@ class nrg_convert_api(object):
     """
         blah blah blah, michael should fill this out
     """
-
-    def __init__(self, **kwargs):    
-        self.filefilter = kwargs.get('filefilter', "")
-        self.directory = kwargs.get('directory', os.getcwd())
-        self.token = kwargs.get('token', "")
-        self.headertype = kwargs.get('headertype', 'columnonly')
+    def __init__(self, rld_dir='', out_dir='', filter='', encryption_pass='',
+                 token='', headertype='columnonly', **kwargs):    
+        self.rld_dir = rld_dir
+        self.out_dir = out_dir
+        self.filter = filter
+        self.encryption_pass = encryption_pass
+        self.token = token
+        self.headertype = headertype
     
         self.NrgUrl = 'https://nrgconvert.azurewebsites.net/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
 #        self.process()
 
     def process(self):
-        pathlist = Path(self.directory).glob(self.filefilter + '*.rld')
-        for rldFilePath in pathlist:
+        if os.path.exists(self.out_dir):
+            pass
+        else:
             try:
-                sourceRld = str(rldFilePath)
-                print("Processing: {0} ... \t\t".format(sourceRld), end="", flush=True)
-                RldFileBytes = open(sourceRld,'rb').read()
+                print("output directory does not exist, creating...", end="", flush=True)
+                os.makedirs(self.out_dir)
+                print("[OK]")
+            except:
+                print('[FAILED]')
+
+        filelist = glob.glob(os.path.join(self.rld_dir, self.filter + '*.rld'))
+        for rld in filelist:
+            try:
+                print("Processing: {0} ... \t\t".format(rld), end="", flush=True)
+                RldFileBytes = open(rld,'rb').read()
                 EncodedFileBytes = base64.encodebytes(RldFileBytes)
 
-                Data = {'apitoken':'[token]',
+                Data = {'apitoken': self.token,
                         'headertype': self.headertype, #standard | columnonly | none
                         'filebytearray': EncodedFileBytes} 
 
                 self.resp=requests.post(data=Data, url=self.NrgUrl)
 
                 zippedDataFile = zipfile.ZipFile(io.BytesIO(self.resp.content))
+                regDataFile = self.resp.content
 
                 name = zippedDataFile.infolist().pop()
-                with open(os.path.basename(rldFilePath)[:-4] + '.txt','wb') as outputfile:
+                
+                #zippedDataFile.extractall(path=self.out_dir)
+
+                with open(os.path.join(self.out_dir, "".join(rld.split("/")[-1:])[:-4] + '.txt'),'wb') as outputfile:
                     outputfile.write(zippedDataFile.read(name))
+                    #outputfile.write(regDataFile)
                 print("[DONE]")
 
             except:
                 print("[FAILED]")
-                print('unable to process file: {0}'.format(sourceRld))
+                print('unable to process file: {0}'.format(rld))
+                print(str(self.resp.status_code) + " " + self.resp.reason)
                 pass

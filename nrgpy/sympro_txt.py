@@ -1,4 +1,5 @@
 #!/bin/usr/python
+import datetime
 from datetime import datetime, timedelta
 import os
 import pandas as pd
@@ -27,7 +28,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
             self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", index_col=False,
                                         nrows=read_len, usecols=[0,1], header=None)
             self.site_info = self.site_info.iloc[:self.site_info.ix[self.site_info[0]=='Data'].index.tolist()[0]+1]
-            self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t")
+            self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t", encoding='iso-8859-1')
             self.first_timestamp = self.data.iloc[0]['Timestamp']
             self.arrange_ch_info()
         else:
@@ -73,18 +74,21 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
         
         return self
 
-    def concat_txt(self, output_txt=False, **kwargs):
-        txt_dir = kwargs.get('txt_dir', '')
-        out_file = kwargs.get('out_file', '')
+    def concat_txt(self, output_txt=False, txt_dir='', out_file='',
+                    header='standard', **kwargs):
         self.filter = kwargs.get('filter', '')
-        import datetime
         first_file = True
         for f in sorted(os.listdir(txt_dir)):
             if self.filter in f:
+                print("trying {0}".format(f))
                 if first_file == True:
                     first_file = False
-                    base = sympro_txt_read(txt_dir + f)
-                    pass
+                    try:
+                        base = sympro_txt_read(txt_dir + f)
+                        pass
+                    except IndexError:
+                        print('Only standard SymPRO headertypes accepted')
+                        break
                 else:
                     file_path = txt_dir + f
                     try:
@@ -100,8 +104,11 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
             if out_file == "":
                 out_file = datetime.datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
-        self.data = base.data
         self.ch_info = s.ch_info
+        self.ch_list = s.ch_list
+        self.data = base.data
+        self.head = s.head
+        self.site_info = s.site_info
         
         
     def select_channels(self, epe=False, soiling=False): 
