@@ -174,14 +174,16 @@ class nrg_convert_api(object):
                     outputfile.write(zippedDataFile.read(name))
 
                 #fix windows newline garbage
-                #try:
-                #    filename = os.path.join(self.out_dir, "".join(rld.split("\\")[-1:])[:-4] + '.txt')
-                #    fileContents = open(filename,"r").read().replace(0x0D,0x0D0A)
-                #    f = open(filename,"w", newline="\n")
-                #    f.write(fileContents)
-                #    f.close()
-                #except:
-                #    print("Could not convert Windows newline characters properly; file may be unstable")
+                try:
+                    filename = os.path.join(self.out_dir, "".join(rld.split("\\")[-1:])[:-4] + '.txt')
+                    fileContents = open(filename,"r").read()
+                    f = open(filename,"w", newline="\n")
+                    f.write(fileContents)
+                    f.close()
+                except:
+                    print("Could not convert Windows newline characters properly; file may be unstable")
+
+                print("[DONE]")
 
                 print("[DONE]")
 
