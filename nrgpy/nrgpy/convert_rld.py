@@ -13,8 +13,8 @@ import zipfile
 class local(object):
     
     def __init__(self, **kwargs):
-        self.raw_dir = kwargs.get('raw_dir', '')
-        self.out_dir  = kwargs.get('out_dir', '')
+        self.raw_dir = kwargs.get('raw_dir', '').replace('/','\\')
+        self.out_dir  = kwargs.get('out_dir', '').replace('/','\\')
         self.password = kwargs.get('password', '')
         self.sympro_path = kwargs.get('sympro_path', r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"')
         self.convert_type = kwargs.get('convert_type', 'meas')
@@ -66,17 +66,27 @@ class local(object):
 
 
     def directory(self):
+        if os.path.exists(self.out_dir):
+            pass
+        else:
+            try:
+                print("output directory does not exist, creating...", end="", flush=True)
+                os.makedirs(self.out_dir)
+                print("[OK]")
+            except:
+                print('[FAILED]')
         file_filter = self.raw_dir + self.filter + '*' + '.rld'
         print(file_filter)
         try:
             if self.password != '':
-                encryption = "/pass {0}".format(self.password)
+                encryption = '/pass "{0}"'.format(self.password)
             else:
                 encryption = ''
         except:
             print('could not parse password')
         try:
             print('\nConverting files in {0}\n'.format(self.raw_dir))
+            print('Saving outputs to {0}'.format(self.out_dir))
             cmd = [self.sympro_path, "/cmd", "convert", "/file", '"'+file_filter+'"', encryption,  "/outputdir", '"'+self.out_dir[:-1]+'"']
             #print(" ".join(cmd))
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
@@ -102,6 +112,7 @@ class local(object):
             
 
     def single_file(self, filepath=''):
+        self.filepath = filepath.replace('/','\\')
         cmd = [self.sympro_path, "/cmd", "convert", "/file", '"'+filepath+'"', "/type", '"'+self.convert_type+'"',"/outputdir", '"'+self.out_dir[:-1]+'"']
         try:
             print("{0} ... \t\t".format(filepath), end="", flush=True)
@@ -120,8 +131,8 @@ class nrg_convert_api(object):
     """
     def __init__(self, rld_dir='', out_dir='', filter='', encryption_pass='',
                  token='', headertype='columnonly', **kwargs):    
-        self.rld_dir = rld_dir
-        self.out_dir = out_dir
+        self.rld_dir = rld_dir.replace('/','\\')
+        self.out_dir = out_dir.replace('/','\\')
         self.filter = filter
         self.encryption_pass = encryption_pass
         self.token = token
@@ -158,12 +169,20 @@ class nrg_convert_api(object):
                 regDataFile = self.resp.content
 
                 name = zippedDataFile.infolist().pop()
-                
-                #zippedDataFile.extractall(path=self.out_dir)
 
-                with open(os.path.join(self.out_dir, "".join(rld.split("/")[-1:])[:-4] + '.txt'),'wb') as outputfile:
+                with open(os.path.join(self.out_dir, "".join(rld.split("\\")[-1:])[:-4] + '.txt'),'wb') as outputfile:
                     outputfile.write(zippedDataFile.read(name))
-                    #outputfile.write(regDataFile)
+
+                #fix windows newline garbage
+                #try:
+                #    filename = os.path.join(self.out_dir, "".join(rld.split("\\")[-1:])[:-4] + '.txt')
+                #    fileContents = open(filename,"r").read().replace(0x0D,0x0D0A)
+                #    f = open(filename,"w", newline="\n")
+                #    f.write(fileContents)
+                #    f.close()
+                #except:
+                #    print("Could not convert Windows newline characters properly; file may be unstable")
+
                 print("[DONE]")
 
             except:
