@@ -130,13 +130,17 @@ class nrg_convert_api(object):
         blah blah blah, michael should fill this out
     """
     def __init__(self, rld_dir='', out_dir='', filter='', encryption_pass='',
-                 token='', headertype='columnonly', **kwargs):    
+                 token='', header_type='standard', export_type='meas', 
+                 export_format='csv_zipped', **kwargs):    
         self.rld_dir = rld_dir.replace('/','\\')
         self.out_dir = out_dir.replace('/','\\')
-        self.filter = filter
         self.encryption_pass = encryption_pass
+        self.export_format = export_format
+        self.export_type = export_type
+        self.filter = filter
+        self.header_type = header_type
         self.token = token
-        self.headertype = headertype
+        
     
         self.NrgUrl = 'https://nrgconvert.azurewebsites.net/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
 #        self.process()
@@ -152,6 +156,11 @@ class nrg_convert_api(object):
             except:
                 print('[FAILED]')
 
+        #if self.encryption_pass:
+        #    encryption = "'encryptionpassword':{0},".format(self.encryption_pass)
+        #else:
+        #    encryption = "'',"
+
         filelist = glob.glob(os.path.join(self.rld_dir, self.filter + '*.rld'))
         for rld in filelist:
             try:
@@ -160,7 +169,9 @@ class nrg_convert_api(object):
                 EncodedFileBytes = base64.encodebytes(RldFileBytes)
 
                 Data = {'apitoken': self.token,
-                        'headertype': self.headertype, #standard | columnonly | none
+                        'encryptionpassword': self.encryption_pass,
+                        'headertype': self.header_type, #standard | columnonly | none
+                        'exportformat': self.export_format, # csv_zipped (default) | parquet
                         'filebytearray': EncodedFileBytes} 
 
                 self.resp=requests.post(data=Data, url=self.NrgUrl)
@@ -169,21 +180,21 @@ class nrg_convert_api(object):
                 regDataFile = self.resp.content
 
                 name = zippedDataFile.infolist().pop()
+                outFileName =  "".join(rld.split("\\")[-1:])[:-4] + '_' + self.export_type +  '.txt'
 
-                with open(os.path.join(self.out_dir, "".join(rld.split("\\")[-1:])[:-4] + '.txt'),'wb') as outputfile:
+
+                with open(os.path.join(self.out_dir, outFileName),'wb') as outputfile:
                     outputfile.write(zippedDataFile.read(name))
 
                 #fix windows newline garbage
                 try:
-                    filename = os.path.join(self.out_dir, "".join(rld.split("\\")[-1:])[:-4] + '.txt')
+                    filename = os.path.join(self.out_dir, outFileName)
                     fileContents = open(filename,"r").read()
                     f = open(filename,"w", newline="\n")
                     f.write(fileContents)
                     f.close()
                 except:
                     print("Could not convert Windows newline characters properly; file may be unstable")
-
-                print("[DONE]")
 
                 print("[DONE]")
 
