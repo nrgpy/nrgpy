@@ -13,7 +13,7 @@ setup(name='nrgpy',
             'convert_rld',
       ],
       install_requires=[
-            'pandas',
+            'pandas>=0.23.0',
             'pyarrow',
       ],
       zip_safe=False)
