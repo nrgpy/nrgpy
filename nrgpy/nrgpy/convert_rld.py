@@ -190,7 +190,7 @@ class nrg_convert_api(object):
                 try:
                     filename = os.path.join(self.out_dir, outFileName)
                     fileContents = open(filename,"r").read()
-                    f = open(filename,"w", newline="\n")
+                    f = open(filename,"w", newline="\r\n")
                     f.write(fileContents)
                     f.close()
                 except:
