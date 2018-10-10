@@ -13,16 +13,16 @@ import zipfile
 class local(object):
     
     def __init__(self, **kwargs):
-        self.raw_dir = kwargs.get('raw_dir', '').replace('/','\\')
+        self.rld_dir = kwargs.get('rld_dir', '').replace('/','\\')
         self.out_dir  = kwargs.get('out_dir', '').replace('/','\\')
-        self.password = kwargs.get('password', '')
+        self.encryption_pass = kwargs.get('encryption_pass', '')
         self.sympro_path = kwargs.get('sympro_path', r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"')
         self.convert_type = kwargs.get('convert_type', 'meas')
         self.filter = kwargs.get('filter', '')
         #self.directory()
         #self.single_file()
     
-    def info(self):
+    def __info__(self):
         usage = """
         ------------------------------------------------------------------------------
         local(): 
@@ -33,15 +33,15 @@ class local(object):
         
         requirements:
             1. installation of SymphoniePRO Desktop Software on Windows 7 or later
-            2. pandas
+            2. pandas >= v0.23 
             3. sympro_txt.py
         
         kwargs:
-            1. raw_dir: default = '', or specify directory. Note for unc values, you 
+            1. rld_dir: default = '', or specify directory. Note for unc values, you 
                         will need to escape all forward slashes, e.g.
-                        raw_dir = "\\\\sol\\techsupport\\data\\"
+                        rld_dir = "\\\\sol\\techsupport\\data\\"
             2. out_dir: default = '', see note for 1.
-            3. password: default = '', specify data encryption password if logger is 
+            3. encryption_pass: default = '', specify data encryption password if logger is 
                         set up for that.
             4. sympro_path: default= "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
             5. convert_type: default='meas', alternately specify 'comm', 'diag', sample', or 'events'
@@ -54,7 +54,7 @@ class local(object):
                         include self.filter into one txt file with header from first file.
                         out_file can be specified; defaults to %Y-%m-%d_SymPRO.txt in 
                         current directory.
-            directory(): processes all rld files in self.raw_dir, outputs to txt files 
+            directory(): processes all rld files in self.rld_dir, outputs to txt files 
                         to out_dir
             info(): prints this message.
             rename_rld(): uses
@@ -75,17 +75,17 @@ class local(object):
                 print("[OK]")
             except:
                 print('[FAILED]')
-        file_filter = self.raw_dir + self.filter + '*' + '.rld'
+        file_filter = self.rld_dir + self.filter + '*' + '.rld'
         print(file_filter)
         try:
-            if self.password != '':
-                encryption = '/pass "{0}"'.format(self.password)
+            if self.encryption_pass != '':
+                encryption = '/pass "{0}"'.format(self.encryption_pass)
             else:
                 encryption = ''
         except:
-            print('could not parse password')
+            print('could not parse encryption_pass')
         try:
-            print('\nConverting files in {0}\n'.format(self.raw_dir))
+            print('\nConverting files in {0}\n'.format(self.rld_dir))
             print('Saving outputs to {0}'.format(self.out_dir))
             cmd = [self.sympro_path, "/cmd", "convert", "/file", '"'+file_filter+'"', encryption,  "/outputdir", '"'+self.out_dir[:-1]+'"']
             #print(" ".join(cmd))
@@ -97,8 +97,8 @@ class local(object):
     def rename_rlds(self, **kwargs):
         renamer_path = kwargs.get('renamer_path', r"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/Default Application Files/Utilities/NrgRldSiteSerialRename.exe")
         
-        for f in os.listdir(self.raw_dir):
-            filepath = self.raw_dir + f
+        for f in os.listdir(self.rld_dir):
+            filepath = self.rld_dir + f
             if f[-4:].lower()==".rld" and self.filter in f:
                 rename_cmd = [renamer_path, '"'+filepath+'"']
                 try:
@@ -156,11 +156,6 @@ class nrg_convert_api(object):
             except:
                 print('[FAILED]')
 
-        #if self.encryption_pass:
-        #    encryption = "'encryptionpassword':{0},".format(self.encryption_pass)
-        #else:
-        #    encryption = "'',"
-
         filelist = glob.glob(os.path.join(self.rld_dir, self.filter + '*.rld'))
         for rld in filelist:
             try:
@@ -201,5 +196,8 @@ class nrg_convert_api(object):
             except:
                 print("[FAILED]")
                 print('unable to process file: {0}'.format(rld))
-                print(str(self.resp.status_code) + " " + self.resp.reason)
+                print(str(self.resp.status_code) + " " + self.resp.reason + "\n"
+                      + str(self.resp.content))
                 pass
+
+        print('\nQueue processed\n')

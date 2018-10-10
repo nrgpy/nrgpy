@@ -80,11 +80,12 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
         first_file = True
         for f in sorted(os.listdir(txt_dir)):
             if self.filter in f:
-                print("trying {0}".format(f))
+                print("Adding {0} ...\t\t".format(f), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:
                         base = sympro_txt_read(txt_dir + f)
+                        print("[OK]")
                         pass
                     except IndexError:
                         print('Only standard SymPRO headertypes accepted')
@@ -93,9 +94,10 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                     file_path = txt_dir + f
                     try:
                         s = sympro_txt_read(file_path)
-                        s.output_txt_file()
                         base.data = base.data.append(s.data, sort=False)
+                        print("[OK]")
                     except:
+                        print("[FAILED]")
                         print("could not concat {0}".format(file_path))
                         pass
             else:
@@ -106,7 +108,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
         self.ch_info = s.ch_info
         self.ch_list = s.ch_list
-        self.data = base.data
+        self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
         self.head = s.head
         self.site_info = s.site_info
         
