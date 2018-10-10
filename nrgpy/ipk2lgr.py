@@ -46,15 +46,13 @@ def ipk2lgr(ipkfile):
             int(line)
             ipkline.append(str(int(line)))
         except:        
-            ipkline.append(line[1:-3])
+            ipkline.append(line[1:-2])
 
     # assign smtp port if older IPK file
     if len(ipkline) < 35:
         smtpport = str(25)
     else:
         smtpport = str(ipkline[35])
-
-    print(smtpport)
 
     # get iPack type
     try:
@@ -117,18 +115,19 @@ def ipk2lgr(ipkfile):
         writearray.append("Frequency="+callinterval(int(ipkline[17])))
         writearray.append("Time(UTC)=12:00")
         writearray.append("Duration=1 Hour")
+        # write array to file
+        print("\nWriting data to {0}  ...\t\t".format(lgrfilename), end="", flush=True)
+        for row in writearray:
+            lgrfile.write("%s\n" % row)
 
+        lgrfile.close()
+        print("[DONE]")
        
     except: 
         lgrfile.close()
-        print("Bang, you're dead")
+        print("Unable to convert file".format(ipkfile))
 
-    # write array to file
-    print(writearray)
-    for row in writearray:
-        lgrfile.write("%s\n" % row)
 
-    lgrfile.close()
 
 
 def callinterval(original):
@@ -142,7 +141,6 @@ def callinterval(original):
         callint = str(original / 86400) + " Days"
     elif int(original) > 520000:
         callint = "Weekly"
-    print(callint)
     return callint
  
 
