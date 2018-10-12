@@ -12,13 +12,22 @@ import zipfile
 
 class local(object):
     
-    def __init__(self, **kwargs):
-        self.rld_dir = kwargs.get('rld_dir', '').replace('/','\\')
-        self.out_dir  = kwargs.get('out_dir', '').replace('/','\\')
-        self.encryption_pass = kwargs.get('encryption_pass', '')
-        self.sympro_path = kwargs.get('sympro_path', r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"')
-        self.convert_type = kwargs.get('convert_type', 'meas')
-        self.filter = kwargs.get('filter', '')
+    def __init__(self, rld_dir='', out_dir='', encryption_pass='',
+                 sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
+                 convert_type='meas', filter='', **kwargs):
+        self.rld_dir = rld_dir.replace('/','\\')
+        self.out_dir  = out_dir.replace('/','\\')
+        self.encryption_pass = encryption_pass
+        self.sympro_path = sympro_path
+        self.convert_type = convert_type
+        self.filter = filter
+        if self.check_platform() == 'win32':
+            pass
+        else:
+            print("""
+            convert_rld.local() method ONLY compatible with Windows OS. 
+            Please use convert_rld.nrg_convert_api() method instead.
+            """)
         #self.directory()
         #self.single_file()
     
@@ -64,7 +73,10 @@ class local(object):
         """
         print(usage)
 
-
+    def check_platform(self):
+        from sys import platform
+        return(platform)
+        
     def directory(self):
         if os.path.exists(self.out_dir):
             pass
@@ -87,10 +99,23 @@ class local(object):
         try:
             print('\nConverting files in {0}\n'.format(self.rld_dir))
             print('Saving outputs to {0}'.format(self.out_dir))
-            cmd = [self.sympro_path, "/cmd", "convert", "/file", '"'+file_filter+'"', encryption,  "/outputdir", '"'+self.out_dir[:-1]+'"']
+            cmd = [self.sympro_path, 
+                   "/cmd", "convert", 
+                   "/file", '"'+file_filter+'"', 
+                   encryption,  
+                   "/outputdir", '"'+self.out_dir[:-1]+'"'
+            ]
             #print(" ".join(cmd))
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
             print('\nTXT files saved in {0}\n'.format(self.out_dir))
+        except FileNotFoundError:
+            print("""
+                  No instance of SymphoniePRO Desktop Application found.
+
+                  Please follow the link below to download and install this software:
+                  https://www.nrgsystems.com/support/product-support/software/symphoniepro-desktop-application
+
+                  """)
         except:
             print('Whoops! something went wrong...')
 
@@ -127,7 +152,8 @@ class local(object):
 
 class nrg_convert_api(object):
     """
-        blah blah blah, michael should fill this out
+        Uses NRG hosted web-based API to convert RLD
+        files to zipped CSV (text) format.
     """
     def __init__(self, rld_dir='', out_dir='', filter='', encryption_pass='',
                  token='', header_type='standard', export_type='meas', 
@@ -141,8 +167,8 @@ class nrg_convert_api(object):
         self.header_type = header_type
         self.token = token
         
-    
-        self.NrgUrl = 'https://nrgconvert.azurewebsites.net/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
+        from nrg_api_url import nrgApiUrl
+        self.NrgUrl = nrgApiUrl
 #        self.process()
 
     def process(self):
