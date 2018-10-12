@@ -25,8 +25,9 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 self.head = "".join([next(myfile) for x in range(2)])
             header_len = i + 1
             read_len = header_len - 5
-            self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", index_col=False,
-                                        nrows=read_len, usecols=[0,1], header=None)
+            self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", 
+                                        index_col=False, nrows=read_len, 
+                                        usecols=[0,1], header=None)
             self.site_info = self.site_info.iloc[:self.site_info.ix[self.site_info[0]=='Data'].index.tolist()[0]+1]
             self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t", encoding='iso-8859-1')
             self.first_timestamp = self.data.iloc[0]['Timestamp']
@@ -305,9 +306,10 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
             except:
                 print("could not calculate SR column")        
 
-    
-    def output_txt_file(self, epe=False, soiling=False, standard=False, shift_timestamps=False):
-        if epe == True:
+
+    def output_txt_file(self, output_type='standard', epe=False, soiling=False, standard=False, 
+                        shift_timestamps=False):
+        if output_type == 'epe':
             output_name = self.filename[:-4]+"_EPE.txt"
             output_file = open(output_name, 'w+', encoding='utf-16')
             output_file.truncate()
@@ -335,7 +337,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
             f.close()
             
         else:
-            if soiling == True:
+            if output_type == 'soiling':
                 output_name = self.filename[:-4]+"_soiling.txt"
                 output_file = open(output_name, 'w+', encoding = 'utf-16')
                 output_file.truncate()
@@ -394,7 +396,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                                         index_label=False, line_terminator="\n")
                 output_file.close()
                 
-            if standard == True:
+            if output_type == 'standard':
                 output_name = self.filename[:-4]+"_standard.txt"
                 output_file = open(output_name, 'w+', encoding = 'utf-16')
                 output_file.truncate()
@@ -415,6 +417,11 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
         return self
     
     def insert_blank_header_rows(self):
+        """
+            function used to insert blank rows when using shift_timestamps() 
+            function so that the resulting text file looks and feels like an
+            original Sympro Desktop exported
+        """
         blank_list = []
         for i in self.site_info[self.site_info[0].str.contains("Export Parameter")==True].index:
           blank_list.append(i)
@@ -455,7 +462,11 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
         return self
     
 def shift_timestamps(txt_folder="", seconds=3600, output_txt=True):
-    # 424012.33 hours is for initial support, 2018-07-31
+    """
+        Takes as input a folder of exported standard text files and
+        time to shift in seconds.
+        
+    """    
     file_list = []
     for f in sorted(os.listdir(txt_folder)):
         try:
