@@ -9,11 +9,10 @@ setup(name='nrgpy',
       license='MIT',
       keywords='nrg systems rld symphonie symphoniepro',
       packages=[
-            'sympro_txt',
-            'convert_rld',
+            'nrgpy'
       ],
       install_requires=[
-            'pandas>=0.23.0',
+            'pandas>=0.23',
             'pyarrow',
       ],
       zip_safe=False)
