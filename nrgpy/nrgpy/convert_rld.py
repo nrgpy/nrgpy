@@ -158,8 +158,12 @@ class nrg_convert_api(object):
     def __init__(self, rld_dir='', out_dir='', filter='', encryption_pass='',
                  token='', header_type='standard', export_type='meas', 
                  export_format='csv_zipped', **kwargs):    
-        self.rld_dir = rld_dir.replace('/','\\')
-        self.out_dir = out_dir.replace('/','\\')
+        if local.check_platform == 'win32':
+            self.rld_dir = rld_dir.replace('/','\\')
+            self.out_dir = out_dir.replace('/','\\')
+        else:
+            self.rld_dir = rld_dir.replace('\\','/')
+            self.out_dir = out_dir.replace('\\','/')
         self.encryption_pass = encryption_pass
         self.export_format = export_format
         self.export_type = export_type
@@ -177,12 +181,14 @@ class nrg_convert_api(object):
         else:
             try:
                 print("output directory does not exist, creating...", end="", flush=True)
-                os.makedirs(self.out_dir)
+                os.makedirs(self.out_dir, exists_ok=True)
                 print("[OK]")
             except:
                 print('[FAILED]')
 
-        filelist = glob.glob(os.path.join(self.rld_dir, self.filter + '*.rld'))
+        filelist = glob.glob(self.rld_dir + self.filter + '*.rld')
+        print(filelist)
+        print(self.rld_dir)
         for rld in filelist:
             try:
                 print("Processing: {0} ... \t\t".format(rld), end="", flush=True)
