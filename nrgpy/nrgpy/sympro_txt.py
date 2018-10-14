@@ -472,8 +472,7 @@ def shift_timestamps(txt_folder="", seconds=3600, output_txt=True):
         try:
             f = os.path.join(txt_folder, f)
             fut = sympro_txt_read(f)
-            fut.data['Timestamp'] = pd.to_datetime(fut.data['Timestamp']) + 
-                                    timedelta(seconds=seconds)
+            fut.data['Timestamp'] = pd.to_datetime(fut.data['Timestamp']) + timedelta(seconds=seconds)
             if output_txt == True:
                 fut.output_txt_file(shift_timestamps=True)
                 file_list.append(fut.output_name)
