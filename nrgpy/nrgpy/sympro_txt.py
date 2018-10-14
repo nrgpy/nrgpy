@@ -356,7 +356,6 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 output_file.close()
                 
             if shift_timestamps == True:
-                print("shifting timestamps... {0}".format(self.filename))
                 os.makedirs(out_dir, exist_ok=True)
                 site_num = self.site_info.loc[4][1]
                 #if datetime.strptime(self.first_timestamp, '%Y-%m-%d %H:%M:%S') > datetime(1980,1,1):
@@ -473,9 +472,8 @@ def shift_timestamps(txt_folder="", seconds=3600):
     for f in sorted(os.listdir(txt_folder)):
         try:
             f = os.path.join(txt_folder, f)
-            print("processing {0} ...\t\t", .format(f), end="", flush=True)
+            print("shifting timestamps {0} ...\t\t".format(f), end="", flush=True)
             fut = sympro_txt_read(f)
-            print("{0} read OK".format(f))
             fut.data['Timestamp'] = pd.to_datetime(fut.data['Timestamp']) + timedelta(seconds=seconds)
             fut.output_txt_file(shift_timestamps=True, out_dir=out_dir)
             print('[OK]')
