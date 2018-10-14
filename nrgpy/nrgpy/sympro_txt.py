@@ -307,9 +307,10 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 print("could not calculate SR column")        
 
 
-    def output_txt_file(self, output_type='standard', epe=False, soiling=False, standard=False, 
-                        shift_timestamps=False):
-        if output_type == 'epe':
+    def output_txt_file(self, epe=False, soiling=False, standard=False, 
+                        shift_timestamps=False, **kwargs):
+        out_dir = kwargs.get('out_dir', '')
+        if epe == True:
             output_name = self.filename[:-4]+"_EPE.txt"
             output_file = open(output_name, 'w+', encoding='utf-16')
             output_file.truncate()
@@ -337,7 +338,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
             f.close()
             
         else:
-            if output_type == 'soiling':
+            if soiling == True:
                 output_name = self.filename[:-4]+"_soiling.txt"
                 output_file = open(output_name, 'w+', encoding = 'utf-16')
                 output_file.truncate()
@@ -356,19 +357,17 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 
             if shift_timestamps == True:
                 print("shifting timestamps... {0}".format(self.filename))
-                cwd = os.getcwd()
-                out_dir = cwd + "\\std_exports\\"
                 os.makedirs(out_dir, exist_ok=True)
                 site_num = self.site_info.loc[4][1]
-                if datetime.strptime(self.first_timestamp, '%Y-%m-%d %H:%M:%S') > datetime(1980,1,1):
-                    print("{0} skipped...".format(self.filename))
-                    return self
-                else:
-                    file_date = str(self.data.iloc[0]['Timestamp']).replace(" ","_").replace(":",".")[:-3]
-                    file_num = self.filename.split("_")[len(self.filename.split("_")) - 2]
-                    file_name = site_num + '_' + file_date + '_' + file_num + "_meas.txt"
-                    output_name = os.path.join(out_dir, file_name)
-                    self.output_name = output_name
+                #if datetime.strptime(self.first_timestamp, '%Y-%m-%d %H:%M:%S') > datetime(1980,1,1):
+                #    print("{0} skipped...".format(self.filename))
+                #    return self
+                #else:
+                file_date = str(self.data.iloc[0]['Timestamp']).replace(" ","_").replace(":",".")[:-3]
+                file_num = self.filename.split("_")[len(self.filename.split("_")) - 2]
+                file_name = site_num + '_' + file_date + '_' + file_num + "_meas.txt"
+                output_name = os.path.join(out_dir, file_name)
+                self.output_name = output_name
                 output_file = open(output_name, 'w+', encoding = 'utf-8')
                 output_file.truncate()
                 output_file.write(self.head)       
@@ -396,7 +395,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                                         index_label=False, line_terminator="\n")
                 output_file.close()
                 
-            if output_type == 'standard':
+            if standard == True:
                 output_name = self.filename[:-4]+"_standard.txt"
                 output_file = open(output_name, 'w+', encoding = 'utf-16')
                 output_file.truncate()
@@ -461,40 +460,28 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
            
         return self
     
-def shift_timestamps(txt_folder="", seconds=3600, output_txt=True):
+def shift_timestamps(txt_folder="", seconds=3600):
     """
         Takes as input a folder of exported standard text files and
         time to shift in seconds.
         
     """    
-    file_list = []
+    out_dir = os.path.join(txt_folder, "shifted_timestamps")
+    os.makedirs(out_dir, exist_ok=True)
+
+
     for f in sorted(os.listdir(txt_folder)):
         try:
             f = os.path.join(txt_folder, f)
+            print(f)
             fut = sympro_txt_read(f)
+            print("{0} read OK".format(f))
             fut.data['Timestamp'] = pd.to_datetime(fut.data['Timestamp']) + timedelta(seconds=seconds)
-            if output_txt == True:
-                fut.output_txt_file(shift_timestamps=True)
-                file_list.append(fut.output_name)
+            fut.output_txt_file(shift_timestamps=True, out_dir=out_dir)
         except:
             print("unable to process {0}".format(f))
             pass
-    out_dir = txt_folder + "\\std_exports\\"
-    for f in sorted(os.listdir(out_dir)):
-        first_file = os.path.join(out_dir, f)
-        break
-    concat_txt = sympro_txt_read(first_file)
-    skip_file = True # remove first file from list
-    for f in sorted(os.listdir(out_dir)):
-        if skip_file == True:
-            skip_file = False
-            pass
-        else:
-            f = os.path.join(out_dir, f)
-            _fut = sympro_txt_read(f)
-            concat_txt.data = pd.concat([concat_txt.data,_fut.data])
-    concat_txt.output_txt_file(standard=True)
-    return concat_txt
+
 
 
     
