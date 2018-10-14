@@ -473,12 +473,14 @@ def shift_timestamps(txt_folder="", seconds=3600):
     for f in sorted(os.listdir(txt_folder)):
         try:
             f = os.path.join(txt_folder, f)
-            print(f)
+            print("processing {0} ...\t\t", .format(f), end="", flush=True)
             fut = sympro_txt_read(f)
             print("{0} read OK".format(f))
             fut.data['Timestamp'] = pd.to_datetime(fut.data['Timestamp']) + timedelta(seconds=seconds)
             fut.output_txt_file(shift_timestamps=True, out_dir=out_dir)
+            print('[OK]')
         except:
+            print('[FAILED]')
             print("unable to process {0}".format(f))
             pass
 
