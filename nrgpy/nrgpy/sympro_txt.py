@@ -6,12 +6,27 @@ import pandas as pd
 import re
 
 
-class sympro_txt_read(object): # object is path to SPRO_export.txt file
-    
+class sympro_txt_read(object): 
+    """
+    Class of pandas dataframes created from SymPRO standard txt output.
+    1. ch_info: pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
+    2. ch_list: list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
+    3. data: pandas dataframe of all data
+    4. head: lines at the top of the txt file..., used when rebuilding timeshifted files
+    5. site_info: unorganized list of file header
+
+    If a filename is passed when calling class, the file is read in alone. Otherwise,
+    and instance of the class is created, and the concat_txt function may be called to
+    combine all txt files in a directory.
+
+    filter may be used on any part of the filename, to combine a subset of text files in
+    a directory.
+
+
+    """
     # read txt file into data, site_info and ch_info dataframes
     def __init__(self, filename='', **kwargs):
         self.filename = filename
-        self.filter = kwargs.get('filter', '')
         
         if self.filename:
             i = 0
@@ -114,7 +129,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
         self.site_info = s.site_info
         
         
-    def select_channels(self, epe=False, soiling=False): 
+    def select_channels_for_reformat(self, epe=False, soiling=False): 
         # for EPE formatting
         ch_anem = ['Anem','Anemometer','anem','anemometer','Anemômetro','anemômetro']
         ch_vane = ['Vane','vane','Direction','direction','Veleta','veleta','Direção','direção','Vane w/Offset']
@@ -149,7 +164,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 self.temp = self.ch_info.loc[self.ch_info['Units:'].isin(ch_temp)].sort_values(['Height:'],ascending=False).iloc[[0]]
             except:
                 self.temp = None
-            self.make_header()
+            self.make_header_for_epe()
 
         # select channels needed for soiling calculation
         if soiling == True:
@@ -162,7 +177,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 print("SC and PV Temp fields unavailable for calculation")
         return self
 
-    def format_data(self):
+    def format_data_for_epe(self):
         baro_ch = "Ch" + str(self.baro['Channel:'].iloc[0]) + "_"
         temp_ch = "Ch" + str(self.temp['Channel:'].iloc[0]) + "_"
         relh_ch = "Ch" + str(self.relh['Channel:'].iloc[0]) + "_"
@@ -221,7 +236,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
 
         return self 
 
-    def make_header(self):
+    def make_header_for_epe(self):
         array     = ['Site Number:']
         sitenum   = self.site_info.loc[self.site_info[0].isin(array)][1].to_string().split(" ")[-1]
         starttime = self.data.head(1).as_matrix()[0][0].replace("-","").replace(" ","").replace(":","")
@@ -293,18 +308,19 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 self.data['SR'] = self.data['I_soiled_SC'] / (I_soiled_SC_0 * (1 + (alpha * (self.data['T_soiled'] - T0))) * (self.data['G'] / G0))
             except:
                 print("could not calculate SR column")
-                
-        if method == "IEEE":
-            try:
-                # calculate G
-                self.data['G'] = G0 * (self.data['I_clean_SC'] * (1 - alpha * (self.data['T_clean'] - T0))) / I_clean_SC_0
-            except:
-                print("could not calculate G column")
-            try:
-                # calculate SR
-                self.data['SR'] = self.data['I_soiled_SC'] / (I_soiled_SC_0 * (1 + (alpha * (self.data['T_soiled'] - T0))) * (self.data['G'] / G0))
-            except:
-                print("could not calculate SR column")        
+
+        # Following method not approved for use.        
+        #if method == "IEEE":
+        #    try:
+        #        # calculate G
+        #        self.data['G'] = G0 * (self.data['I_clean_SC'] * (1 - alpha * (self.data['T_clean'] - T0))) / I_clean_SC_0
+        #    except:
+        #        print("could not calculate G column")
+        #    try:
+        #        # calculate SR
+        #        self.data['SR'] = self.data['I_soiled_SC'] / (I_soiled_SC_0 * (1 + (alpha * (self.data['T_soiled'] - T0))) * (self.data['G'] / G0))
+        #    except:
+        #        print("could not calculate SR column")        
 
 
     def output_txt_file(self, epe=False, soiling=False, standard=False, 
