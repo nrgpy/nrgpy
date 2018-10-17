@@ -1,9 +1,14 @@
 from setuptools import setup
 
-setup(name='nrgpy',
+with open("README.md", "r") as fh:
+      long_description = fh.read()
+
+setup(
+      name='nrgpy',
       version='0.1.0',
       description='library for handling NRG Systems data files',
-      url='',
+      long_description=long_description,
+      url='https://github.com/nrgpy/nrgpy',
       author='NRG Systems, Inc.',
       author_email='support@nrgsystems.com',
       license='MIT',
@@ -15,4 +20,5 @@ setup(name='nrgpy',
             'pandas>=0.23',
             'pyarrow',
       ],
-      zip_safe=False)
+      zip_safe=False
+)
