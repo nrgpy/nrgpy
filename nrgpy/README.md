@@ -2,7 +2,7 @@
 
 NRGPy is the Python package for processing NRG SymphoniePRO Data files
 
-- Website and source: https://github.com/nrgsystems/nrgpy
+- Website and source: https://github.com/nrgpy/nrgpy
 - Support: support@nrgsystems.com
 
 It provides:
@@ -13,6 +13,7 @@ It provides:
 - Tools for reading text exports into Pandas dataframes
 - Timestamp adjustment (of text files)
 
+***
 ## Examples:
 
 ### Convert a folder of RLD files to Text:
