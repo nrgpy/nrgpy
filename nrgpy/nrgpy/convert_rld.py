@@ -74,10 +74,16 @@ class local(object):
         print(usage)
 
     def check_platform(self):
+        """
+        determine which operating system python is running on
+        """
         from sys import platform
         return(platform)
         
     def directory(self):
+        """
+        processes all rld files in self.rld_dir, outputs to txt files to out_dir
+        """
         if os.path.exists(self.out_dir):
             pass
         else:
@@ -117,23 +123,31 @@ class local(object):
 
                   """)
         except:
-            print('Whoops! something went wrong...')
+            print('Unable to process files in directory')
 
     def rename_rlds(self, **kwargs):
-        renamer_path = kwargs.get('renamer_path', r"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/Default Application Files/Utilities/NrgRldSiteSerialRename.exe")
+        """
+        uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number
+        and logger serial number. This function is only compatible with Windows>=7 AND
+        a local installation of SymphoniePRO Desktop software
+        """
+        try:
+            renamer_path = kwargs.get('renamer_path', r"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/Default Application Files/Utilities/NrgRldSiteSerialRename.exe")
         
-        for f in os.listdir(self.rld_dir):
-            filepath = self.rld_dir + f
-            if f[-4:].lower()==".rld" and self.filter in f:
-                rename_cmd = [renamer_path, '"'+filepath+'"']
-                try:
-                    subprocess.run(" ".join(rename_cmd), stdout=subprocess.PIPE)
-                except:
-                    print("Unable to rename {0}".format(f))
-                    pass
+            for f in os.listdir(self.rld_dir):
+                filepath = self.rld_dir + f
+                if f[-4:].lower()==".rld" and self.filter in f:
+                    rename_cmd = [renamer_path, '"'+filepath+'"']
+                    try:
+                        subprocess.run(" ".join(rename_cmd), stdout=subprocess.PIPE)
+                    except:
+                        print("Unable to rename {0}".format(f))
+                        pass
                     
-            else:
-                pass
+                else:
+                    pass
+        except:
+            print('Could not rename files')
             
 
     def single_file(self, filepath=''):
@@ -152,8 +166,13 @@ class local(object):
 
 class nrg_convert_api(object):
     """
-        Uses NRG hosted web-based API to convert RLD
-        files to zipped CSV (text) format.
+    Uses NRG hosted web-based API to convert RLD files to zipped CSV (text) format.
+    The URL is pulled from the nrg_api_url.py file. Note that there is a token 
+    placeholder in nrg_api_url.py that will be used if
+    
+    1. it is not blank
+    2. a valid token is NOT passed as an argument
+    
     """
     def __init__(self, rld_dir='', out_dir='', filter='', encryption_pass='',
                  token='', header_type='standard', export_type='meas', 
@@ -171,8 +190,10 @@ class nrg_convert_api(object):
         self.header_type = header_type
         self.token = token
         
-        from nrg_api_url import nrgApiUrl
+        from nrg_api_url import nrgApiUrl, token as tk
         self.NrgUrl = nrgApiUrl
+        if len(tk) > 10 and len(self.token) < 10:
+            self.token = tk
 #        self.process()
 
     def process(self):
