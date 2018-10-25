@@ -59,7 +59,6 @@ def ipk2lgr(ipkfile):
         ipacktype, apn = ipackinfo(ipkline[18])
     except:
         ipacktype, apn = ipackinfo_backup(ipkline[0])
-    print("iPack type = "+ipacktype)
 
     # write the settings into a new lgr file
     try:

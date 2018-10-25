@@ -6,12 +6,27 @@ import pandas as pd
 import re
 
 
-class sympro_txt_read(object): # object is path to SPRO_export.txt file
-    
+class sympro_txt_read(object): 
+    """
+    Class of pandas dataframes created from SymPRO standard txt output.
+    1. ch_info: pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
+    2. ch_list: list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
+    3. data: pandas dataframe of all data
+    4. head: lines at the top of the txt file..., used when rebuilding timeshifted files
+    5. site_info: unorganized list of file header
+
+    If a filename is passed when calling class, the file is read in alone. Otherwise,
+    and instance of the class is created, and the concat_txt function may be called to
+    combine all txt files in a directory.
+
+    filter may be used on any part of the filename, to combine a subset of text files in
+    a directory.
+
+
+    """
     # read txt file into data, site_info and ch_info dataframes
     def __init__(self, filename='', **kwargs):
         self.filename = filename
-        self.filter = kwargs.get('filter', '')
         
         if self.filename:
             i = 0
@@ -25,8 +40,9 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 self.head = "".join([next(myfile) for x in range(2)])
             header_len = i + 1
             read_len = header_len - 5
-            self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", index_col=False,
-                                        nrows=read_len, usecols=[0,1], header=None)
+            self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", 
+                                        index_col=False, nrows=read_len, 
+                                        usecols=[0,1], header=None)
             self.site_info = self.site_info.iloc[:self.site_info.ix[self.site_info[0]=='Data'].index.tolist()[0]+1]
             self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t", encoding='iso-8859-1')
             self.first_timestamp = self.data.iloc[0]['Timestamp']
@@ -80,11 +96,12 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
         first_file = True
         for f in sorted(os.listdir(txt_dir)):
             if self.filter in f:
-                print("trying {0}".format(f))
+                print("Adding {0} ...\t\t".format(f), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:
                         base = sympro_txt_read(txt_dir + f)
+                        print("[OK]")
                         pass
                     except IndexError:
                         print('Only standard SymPRO headertypes accepted')
@@ -93,9 +110,10 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                     file_path = txt_dir + f
                     try:
                         s = sympro_txt_read(file_path)
-                        s.output_txt_file()
                         base.data = base.data.append(s.data, sort=False)
+                        print("[OK]")
                     except:
+                        print("[FAILED]")
                         print("could not concat {0}".format(file_path))
                         pass
             else:
@@ -106,12 +124,12 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
         self.ch_info = s.ch_info
         self.ch_list = s.ch_list
-        self.data = base.data
+        self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
         self.head = s.head
         self.site_info = s.site_info
         
         
-    def select_channels(self, epe=False, soiling=False): 
+    def select_channels_for_reformat(self, epe=False, soiling=False): 
         # for EPE formatting
         ch_anem = ['Anem','Anemometer','anem','anemometer','Anemômetro','anemômetro']
         ch_vane = ['Vane','vane','Direction','direction','Veleta','veleta','Direção','direção','Vane w/Offset']
@@ -146,7 +164,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 self.temp = self.ch_info.loc[self.ch_info['Units:'].isin(ch_temp)].sort_values(['Height:'],ascending=False).iloc[[0]]
             except:
                 self.temp = None
-            self.make_header()
+            self.make_header_for_epe()
 
         # select channels needed for soiling calculation
         if soiling == True:
@@ -159,7 +177,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 print("SC and PV Temp fields unavailable for calculation")
         return self
 
-    def format_data(self):
+    def format_data_for_epe(self):
         baro_ch = "Ch" + str(self.baro['Channel:'].iloc[0]) + "_"
         temp_ch = "Ch" + str(self.temp['Channel:'].iloc[0]) + "_"
         relh_ch = "Ch" + str(self.relh['Channel:'].iloc[0]) + "_"
@@ -218,7 +236,7 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
 
         return self 
 
-    def make_header(self):
+    def make_header_for_epe(self):
         array     = ['Site Number:']
         sitenum   = self.site_info.loc[self.site_info[0].isin(array)][1].to_string().split(" ")[-1]
         starttime = self.data.head(1).as_matrix()[0][0].replace("-","").replace(" ","").replace(":","")
@@ -290,21 +308,24 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 self.data['SR'] = self.data['I_soiled_SC'] / (I_soiled_SC_0 * (1 + (alpha * (self.data['T_soiled'] - T0))) * (self.data['G'] / G0))
             except:
                 print("could not calculate SR column")
-                
-        if method == "IEEE":
-            try:
-                # calculate G
-                self.data['G'] = G0 * (self.data['I_clean_SC'] * (1 - alpha * (self.data['T_clean'] - T0))) / I_clean_SC_0
-            except:
-                print("could not calculate G column")
-            try:
-                # calculate SR
-                self.data['SR'] = self.data['I_soiled_SC'] / (I_soiled_SC_0 * (1 + (alpha * (self.data['T_soiled'] - T0))) * (self.data['G'] / G0))
-            except:
-                print("could not calculate SR column")        
 
-    
-    def output_txt_file(self, epe=False, soiling=False, standard=False, shift_timestamps=False):
+        # Following method not approved for use.        
+        #if method == "IEEE":
+        #    try:
+        #        # calculate G
+        #        self.data['G'] = G0 * (self.data['I_clean_SC'] * (1 - alpha * (self.data['T_clean'] - T0))) / I_clean_SC_0
+        #    except:
+        #        print("could not calculate G column")
+        #    try:
+        #        # calculate SR
+        #        self.data['SR'] = self.data['I_soiled_SC'] / (I_soiled_SC_0 * (1 + (alpha * (self.data['T_soiled'] - T0))) * (self.data['G'] / G0))
+        #    except:
+        #        print("could not calculate SR column")        
+
+
+    def output_txt_file(self, epe=False, soiling=False, standard=False, 
+                        shift_timestamps=False, **kwargs):
+        out_dir = kwargs.get('out_dir', '')
         if epe == True:
             output_name = self.filename[:-4]+"_EPE.txt"
             output_file = open(output_name, 'w+', encoding='utf-16')
@@ -351,20 +372,17 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
                 output_file.close()
                 
             if shift_timestamps == True:
-                print("shifting timestamps... {0}".format(self.filename))
-                cwd = os.getcwd()
-                out_dir = cwd + "\\std_exports\\"
                 os.makedirs(out_dir, exist_ok=True)
                 site_num = self.site_info.loc[4][1]
-                if datetime.strptime(self.first_timestamp, '%Y-%m-%d %H:%M:%S') > datetime(1980,1,1):
-                    print("{0} skipped...".format(self.filename))
-                    return self
-                else:
-                    file_date = str(self.data.iloc[0]['Timestamp']).replace(" ","_").replace(":",".")[:-3]
-                    file_num = self.filename.split("_")[len(self.filename.split("_")) - 2]
-                    file_name = site_num + '_' + file_date + '_' + file_num + "_meas.txt"
-                    output_name = os.path.join(out_dir, file_name)
-                    self.output_name = output_name
+                #if datetime.strptime(self.first_timestamp, '%Y-%m-%d %H:%M:%S') > datetime(1980,1,1):
+                #    print("{0} skipped...".format(self.filename))
+                #    return self
+                #else:
+                file_date = str(self.data.iloc[0]['Timestamp']).replace(" ","_").replace(":",".")[:-3]
+                file_num = self.filename.split("_")[len(self.filename.split("_")) - 2]
+                file_name = site_num + '_' + file_date + '_' + file_num + "_meas.txt"
+                output_name = os.path.join(out_dir, file_name)
+                self.output_name = output_name
                 output_file = open(output_name, 'w+', encoding = 'utf-8')
                 output_file.truncate()
                 output_file.write(self.head)       
@@ -413,6 +431,11 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
         return self
     
     def insert_blank_header_rows(self):
+        """
+            function used to insert blank rows when using shift_timestamps() 
+            function so that the resulting text file looks and feels like an
+            original Sympro Desktop exported
+        """
         blank_list = []
         for i in self.site_info[self.site_info[0].str.contains("Export Parameter")==True].index:
           blank_list.append(i)
@@ -452,36 +475,29 @@ class sympro_txt_read(object): # object is path to SPRO_export.txt file
            
         return self
     
-def shift_timestamps(txt_folder="", seconds=3600, output_txt=True):
-    # 424012.33 hours is for initial support, 2018-07-31
-    file_list = []
+def shift_timestamps(txt_folder="", seconds=3600):
+    """
+        Takes as input a folder of exported standard text files and
+        time to shift in seconds.
+        
+    """    
+    out_dir = os.path.join(txt_folder, "shifted_timestamps")
+    os.makedirs(out_dir, exist_ok=True)
+
+
     for f in sorted(os.listdir(txt_folder)):
         try:
             f = os.path.join(txt_folder, f)
+            print("shifting timestamps {0} ...\t\t".format(f), end="", flush=True)
             fut = sympro_txt_read(f)
             fut.data['Timestamp'] = pd.to_datetime(fut.data['Timestamp']) + timedelta(seconds=seconds)
-            if output_txt == True:
-                fut.output_txt_file(shift_timestamps=True)
-                file_list.append(fut.output_name)
+            fut.output_txt_file(shift_timestamps=True, out_dir=out_dir)
+            print('[OK]')
         except:
+            print('[FAILED]')
             print("unable to process {0}".format(f))
             pass
-    out_dir = os.getcwd() + "\\std_exports\\"
-    for f in sorted(os.listdir(out_dir)):
-        first_file = os.path.join(out_dir, f)
-        break
-    concat_txt = sympro_txt_read(first_file)
-    skip_file = True # remove first file from list
-    for f in sorted(os.listdir(out_dir)):
-        if skip_file == True:
-            skip_file = False
-            pass
-        else:
-            f = os.path.join(out_dir, f)
-            _fut = sympro_txt_read(f)
-            concat_txt.data = pd.concat([concat_txt.data,_fut.data])
-    concat_txt.output_txt_file(standard=True)
-    return concat_txt
+
 
 
     

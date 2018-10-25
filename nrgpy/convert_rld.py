@@ -12,17 +12,26 @@ import zipfile
 
 class local(object):
     
-    def __init__(self, **kwargs):
-        self.raw_dir = kwargs.get('raw_dir', '')
-        self.out_dir  = kwargs.get('out_dir', '')
-        self.password = kwargs.get('password', '')
-        self.sympro_path = kwargs.get('sympro_path', r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"')
-        self.convert_type = kwargs.get('convert_type', 'meas')
-        self.filter = kwargs.get('filter', '')
+    def __init__(self, rld_dir='', out_dir='', encryption_pass='',
+                 sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
+                 convert_type='meas', filter='', **kwargs):
+        self.rld_dir = rld_dir.replace('/','\\')
+        self.out_dir  = out_dir.replace('/','\\')
+        self.encryption_pass = encryption_pass
+        self.sympro_path = sympro_path
+        self.convert_type = convert_type
+        self.filter = filter
+        if self.check_platform() == 'win32':
+            pass
+        else:
+            print("""
+            convert_rld.local() method ONLY compatible with Windows OS. 
+            Please use convert_rld.nrg_convert_api() method instead.
+            """)
         #self.directory()
         #self.single_file()
     
-    def info(self):
+    def __info__(self):
         usage = """
         ------------------------------------------------------------------------------
         local(): 
@@ -33,15 +42,15 @@ class local(object):
         
         requirements:
             1. installation of SymphoniePRO Desktop Software on Windows 7 or later
-            2. pandas
+            2. pandas >= v0.23 
             3. sympro_txt.py
         
         kwargs:
-            1. raw_dir: default = '', or specify directory. Note for unc values, you 
+            1. rld_dir: default = '', or specify directory. Note for unc values, you 
                         will need to escape all forward slashes, e.g.
-                        raw_dir = "\\\\sol\\techsupport\\data\\"
+                        rld_dir = "\\\\sol\\techsupport\\data\\"
             2. out_dir: default = '', see note for 1.
-            3. password: default = '', specify data encryption password if logger is 
+            3. encryption_pass: default = '', specify data encryption password if logger is 
                         set up for that.
             4. sympro_path: default= "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
             5. convert_type: default='meas', alternately specify 'comm', 'diag', sample', or 'events'
@@ -54,7 +63,7 @@ class local(object):
                         include self.filter into one txt file with header from first file.
                         out_file can be specified; defaults to %Y-%m-%d_SymPRO.txt in 
                         current directory.
-            directory(): processes all rld files in self.raw_dir, outputs to txt files 
+            directory(): processes all rld files in self.rld_dir, outputs to txt files 
                         to out_dir
             info(): prints this message.
             rename_rld(): uses
@@ -64,44 +73,85 @@ class local(object):
         """
         print(usage)
 
-
+    def check_platform(self):
+        """
+        determine which operating system python is running on
+        """
+        from sys import platform
+        return(platform)
+        
     def directory(self):
-        file_filter = self.raw_dir + self.filter + '*' + '.rld'
+        """
+        processes all rld files in self.rld_dir, outputs to txt files to out_dir
+        """
+        if os.path.exists(self.out_dir):
+            pass
+        else:
+            try:
+                print("output directory does not exist, creating...", end="", flush=True)
+                os.makedirs(self.out_dir)
+                print("[OK]")
+            except:
+                print('[FAILED]')
+        file_filter = self.rld_dir + self.filter + '*' + '.rld'
         print(file_filter)
         try:
-            if self.password != '':
-                encryption = "/pass {0}".format(self.password)
+            if self.encryption_pass != '':
+                encryption = '/pass "{0}"'.format(self.encryption_pass)
             else:
                 encryption = ''
         except:
-            print('could not parse password')
+            print('could not parse encryption_pass')
         try:
-            print('\nConverting files in {0}\n'.format(self.raw_dir))
-            cmd = [self.sympro_path, "/cmd", "convert", "/file", '"'+file_filter+'"', encryption,  "/outputdir", '"'+self.out_dir[:-1]+'"']
+            print('\nConverting files in {0}\n'.format(self.rld_dir))
+            print('Saving outputs to {0}'.format(self.out_dir))
+            cmd = [self.sympro_path, 
+                   "/cmd", "convert", 
+                   "/file", '"'+file_filter+'"', 
+                   encryption,  
+                   "/outputdir", '"'+self.out_dir[:-1]+'"'
+            ]
             #print(" ".join(cmd))
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
             print('\nTXT files saved in {0}\n'.format(self.out_dir))
+        except FileNotFoundError:
+            print("""
+                  No instance of SymphoniePRO Desktop Application found.
+
+                  Please follow the link below to download and install this software:
+                  https://www.nrgsystems.com/support/product-support/software/symphoniepro-desktop-application
+
+                  """)
         except:
-            print('Whoops! something went wrong...')
+            print('Unable to process files in directory')
 
     def rename_rlds(self, **kwargs):
-        renamer_path = kwargs.get('renamer_path', r"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/Default Application Files/Utilities/NrgRldSiteSerialRename.exe")
+        """
+        uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number
+        and logger serial number. This function is only compatible with Windows>=7 AND
+        a local installation of SymphoniePRO Desktop software
+        """
+        try:
+            renamer_path = kwargs.get('renamer_path', r"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/Default Application Files/Utilities/NrgRldSiteSerialRename.exe")
         
-        for f in os.listdir(self.raw_dir):
-            filepath = self.raw_dir + f
-            if f[-4:].lower()==".rld" and self.filter in f:
-                rename_cmd = [renamer_path, '"'+filepath+'"']
-                try:
-                    subprocess.run(" ".join(rename_cmd), stdout=subprocess.PIPE)
-                except:
-                    print("Unable to rename {0}".format(f))
-                    pass
+            for f in os.listdir(self.rld_dir):
+                filepath = self.rld_dir + f
+                if f[-4:].lower()==".rld" and self.filter in f:
+                    rename_cmd = [renamer_path, '"'+filepath+'"']
+                    try:
+                        subprocess.run(" ".join(rename_cmd), stdout=subprocess.PIPE)
+                    except:
+                        print("Unable to rename {0}".format(f))
+                        pass
                     
-            else:
-                pass
+                else:
+                    pass
+        except:
+            print('Could not rename files')
             
 
     def single_file(self, filepath=''):
+        self.filepath = filepath.replace('/','\\')
         cmd = [self.sympro_path, "/cmd", "convert", "/file", '"'+filepath+'"', "/type", '"'+self.convert_type+'"',"/outputdir", '"'+self.out_dir[:-1]+'"']
         try:
             print("{0} ... \t\t".format(filepath), end="", flush=True)
@@ -116,18 +166,36 @@ class local(object):
 
 class nrg_convert_api(object):
     """
-        blah blah blah, michael should fill this out
+    Uses NRG hosted web-based API to convert RLD files to zipped CSV (text) format.
+    The URL is pulled from the nrg_api_url.py file. Note that there is a token 
+    placeholder in nrg_api_url.py that will be used if
+    
+    1. it is not blank
+    2. a valid token is NOT passed as an argument
+    
     """
     def __init__(self, rld_dir='', out_dir='', filter='', encryption_pass='',
-                 token='', headertype='columnonly', **kwargs):    
-        self.rld_dir = rld_dir
-        self.out_dir = out_dir
-        self.filter = filter
+                 token='', header_type='standard', export_type='meas', 
+                 export_format='csv_zipped', **kwargs):    
+        if local.check_platform == 'win32':
+            self.rld_dir = rld_dir.replace('/','\\')
+            self.out_dir = out_dir.replace('/','\\')
+        else:
+            self.rld_dir = rld_dir.replace('\\','/')
+            self.out_dir = out_dir.replace('\\','/')
         self.encryption_pass = encryption_pass
+        self.export_format = export_format
+        self.export_type = export_type
+        self.filter = filter
+        self.header_type = header_type
         self.token = token
-        self.headertype = headertype
-    
-        self.NrgUrl = 'https://nrgconvert.azurewebsites.net/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
+        
+        from nrg_api_url import nrgApiUrl, token as tk
+        self.NrgUrl = nrgApiUrl
+        if len(tk) > 10 and len(self.token) < 10:
+            self.token = tk
+        if self.token == '':
+            print('\n\nA valid token is required to use the nrg_convert_api.\nPlease contact support@nrgsystems.com for an API token')
 #        self.process()
 
     def process(self):
@@ -136,12 +204,14 @@ class nrg_convert_api(object):
         else:
             try:
                 print("output directory does not exist, creating...", end="", flush=True)
-                os.makedirs(self.out_dir)
+                os.makedirs(self.out_dir, exists_ok=True)
                 print("[OK]")
             except:
                 print('[FAILED]')
 
-        filelist = glob.glob(os.path.join(self.rld_dir, self.filter + '*.rld'))
+        filelist = glob.glob(self.rld_dir + self.filter + '*.rld')
+        print(filelist)
+        print(self.rld_dir)
         for rld in filelist:
             try:
                 print("Processing: {0} ... \t\t".format(rld), end="", flush=True)
@@ -149,7 +219,9 @@ class nrg_convert_api(object):
                 EncodedFileBytes = base64.encodebytes(RldFileBytes)
 
                 Data = {'apitoken': self.token,
-                        'headertype': self.headertype, #standard | columnonly | none
+                        'encryptionpassword': self.encryption_pass,
+                        'headertype': self.header_type, #standard | columnonly | none
+                        'exportformat': self.export_format, # csv_zipped (default) | parquet
                         'filebytearray': EncodedFileBytes} 
 
                 self.resp=requests.post(data=Data, url=self.NrgUrl)
@@ -158,16 +230,29 @@ class nrg_convert_api(object):
                 regDataFile = self.resp.content
 
                 name = zippedDataFile.infolist().pop()
-                
-                #zippedDataFile.extractall(path=self.out_dir)
+                outFileName =  "".join(rld.split("\\")[-1:])[:-4] + '_' + self.export_type +  '.txt'
 
-                with open(os.path.join(self.out_dir, "".join(rld.split("/")[-1:])[:-4] + '.txt'),'wb') as outputfile:
+
+                with open(os.path.join(self.out_dir, outFileName),'wb') as outputfile:
                     outputfile.write(zippedDataFile.read(name))
-                    #outputfile.write(regDataFile)
+
+                #fix windows newline garbage
+                try:
+                    filename = os.path.join(self.out_dir, outFileName)
+                    fileContents = open(filename,"r").read()
+                    f = open(filename,"w", newline="\r\n")
+                    f.write(fileContents)
+                    f.close()
+                except:
+                    print("Could not convert Windows newline characters properly; file may be unstable")
+
                 print("[DONE]")
 
             except:
                 print("[FAILED]")
                 print('unable to process file: {0}'.format(rld))
-                print(str(self.resp.status_code) + " " + self.resp.reason)
+                print(str(self.resp.status_code) + " " + self.resp.reason + "\n"
+                      + str(self.resp.content))
                 pass
+
+        print('\nQueue processed\n')
