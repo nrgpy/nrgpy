@@ -1,4 +1,5 @@
 #!/bin/usr/python
+
 import base64
 import io
 import glob
@@ -9,6 +10,8 @@ import requests
 import subprocess
 import zipfile
 
+nrgApiUrl = 'https://nrgconvert.azurewebsites.net/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
+tk = ''
 
 class local(object):
     
@@ -190,7 +193,7 @@ class nrg_convert_api(object):
         self.header_type = header_type
         self.token = token
         
-        from nrg_api_url import nrgApiUrl, token as tk
+        #import nrgApiUrl, token as tk
         self.NrgUrl = nrgApiUrl
         if len(tk) > 10 and len(self.token) < 10:
             self.token = tk
@@ -210,8 +213,8 @@ class nrg_convert_api(object):
                 print('[FAILED]')
 
         filelist = glob.glob(self.rld_dir + self.filter + '*.rld')
-        print(filelist)
-        print(self.rld_dir)
+        #print(filelist)
+        #print(self.rld_dir)
         for rld in filelist:
             try:
                 print("Processing: {0} ... \t\t".format(rld), end="", flush=True)
