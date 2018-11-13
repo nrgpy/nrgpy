@@ -5,5 +5,6 @@ NRG Convert API location
     is called.
 """
 
-nrgApiUrl='https://nrgconvert.azurewebsites.net/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
+#nrgApiUrl='https://nrgconvert.azurewebsites.net/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
+nrgApiUrl='https://services.nrgsystems.com/'
 token=''
