@@ -122,11 +122,14 @@ class sympro_txt_read(object):
             if out_file == "":
                 out_file = datetime.datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
-        self.ch_info = s.ch_info
-        self.ch_list = s.ch_list
-        self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
-        self.head = s.head
-        self.site_info = s.site_info
+        try:
+            self.ch_info = s.ch_info
+            self.ch_list = s.ch_list
+            self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
+            self.head = s.head
+            self.site_info = s.site_info
+        except UnboundLocalError:
+            print("No files match to contatenate")
         
         
     def select_channels_for_reformat(self, epe=False, soiling=False): 
