@@ -16,14 +16,21 @@ It provides:
 ***
 ## Examples:
 
-### Convert a folder of RLD files to Text:
+### Convert a folder of RLD files to Text with SymphoniePRO Desktop Software:
     from nrgpy.convert_rld import local
     date_filter = '2018-10' # filter on any text in the filenames
-
     text_folder_name = 'text_outputs/'
     fut = local(rld_dir='', out_dir=text_folder_name, filter=date_filter)
     fut.directory()
 
+### Convert a folder of RLD files to Text with NRG Convert API
+
+    from nrgpy.convert_rld import nrg_convert_api
+    site_filter = "000175"
+    rld_directory = "rlds"
+    token = "contact support@nrgsystems.com for token"
+    fut = nrg_convert_api(filter=site_filter, rld_dir=rld_directory, token=token)
+    fut.process()
 
 ### Read files
     from nrgpy.sympro_txt import sympro_txt_read
