@@ -10,20 +10,20 @@ import requests
 import subprocess
 import zipfile
 
-nrgApiUrl = 'https://services.nrgsystems.com'
+nrgApiUrl = 'https://services.nrgsystems.com/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
 tk = ''
 
 class local(object):
     
     def __init__(self, rld_dir='', out_dir='', encryption_pass='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
-                 convert_type='meas', filter='', **kwargs):
+                 convert_type='meas', site_filter='', **kwargs):
         self.rld_dir = rld_dir.replace('/','\\')
         self.out_dir  = out_dir.replace('/','\\')
         self.encryption_pass = encryption_pass
         self.sympro_path = sympro_path
         self.convert_type = convert_type
-        self.filter = filter
+        self.site_filter = site_filter
         if self.check_platform() == 'win32':
             pass
         else:
@@ -57,13 +57,13 @@ class local(object):
                         set up for that.
             4. sympro_path: default= "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
             5. convert_type: default='meas', alternately specify 'comm', 'diag', sample', or 'events'
-            6. filter: default = '', or specify part or all of the file you'd like to
-                        filter on. Eg. filter='123456_2018-09' would filter on site 123456
+            6. site_filter: default = '', or specify part or all of the file you'd like to
+                        filter on. Eg. site_filter='123456_2018-09' would filter on site 123456
                         and only the month of September in 2018.
         
         functions:
             concat_txt(): combines all txt files in txt_dir (out_dir by default) that 
-                        include self.filter into one txt file with header from first file.
+                        include self.site_filter into one txt file with header from first file.
                         out_file can be specified; defaults to %Y-%m-%d_SymPRO.txt in 
                         current directory.
             directory(): processes all rld files in self.rld_dir, outputs to txt files 
@@ -96,7 +96,7 @@ class local(object):
                 print("[OK]")
             except:
                 print('[FAILED]')
-        file_filter = self.rld_dir + self.filter + '*' + '.rld'
+        file_filter = self.rld_dir + self.site_filter + '*' + '.rld'
         print(file_filter)
         try:
             if self.encryption_pass != '':
@@ -139,7 +139,7 @@ class local(object):
         
             for f in os.listdir(self.rld_dir):
                 filepath = self.rld_dir + f
-                if f[-4:].lower()==".rld" and self.filter in f:
+                if f[-4:].lower()==".rld" and self.site_filter in f:
                     rename_cmd = [renamer_path, '"'+filepath+'"']
                     try:
                         subprocess.run(" ".join(rename_cmd), stdout=subprocess.PIPE)
@@ -177,7 +177,7 @@ class nrg_convert_api(object):
     2. a valid token is NOT passed as an argument
     
     """
-    def __init__(self, rld_dir='', out_dir='', filter='', encryption_pass='',
+    def __init__(self, rld_dir='', out_dir='', site_filter='', encryption_pass='',
                  token='', header_type='standard', export_type='meas', 
                  export_format='csv_zipped', **kwargs):    
         if local.check_platform == 'win32':
@@ -189,7 +189,7 @@ class nrg_convert_api(object):
         self.encryption_pass = encryption_pass
         self.export_format = export_format
         self.export_type = export_type
-        self.filter = filter
+        self.site_filter = site_filter
         self.header_type = header_type
         self.token = token
         
@@ -212,7 +212,7 @@ class nrg_convert_api(object):
             except:
                 print('[FAILED]')
 
-        filelist = glob.glob(self.rld_dir + self.filter + '*.rld')
+        filelist = glob.glob(self.rld_dir + self.site_filter + '*.rld')
         #print(filelist)
         #print(self.rld_dir)
         for rld in filelist:
