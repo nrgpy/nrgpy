@@ -24,7 +24,7 @@ It provides:
     from nrgpy.convert_rld import local
     date_filter = '2018-10' # filter on any text in the filenames
     text_folder_name = 'text_outputs/'
-    fut = local(rld_dir='', out_dir=text_folder_name, filter=date_filter)
+    fut = local(rld_dir='', out_dir=text_folder_name, site_filter=date_filter)
     fut.directory()
 
 ### Convert a folder of RLD files to Text with NRG Convert API
@@ -41,4 +41,4 @@ It provides:
     from nrgpy.sympro_txt import sympro_txt_read
 
     sympro_dfs = sympro_txt_read()
-    sympro_dfs.concat_txt(txt_dir=text_folder_name, filter=site_filter, output_txt=False)
+    sympro_dfs.concat_txt(txt_dir=text_folder_name, site_filter=site_filter, output_txt=False)
