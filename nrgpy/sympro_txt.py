@@ -1,6 +1,7 @@
 #!/bin/usr/python
 import datetime
 from datetime import datetime, timedelta
+from glob import glob
 import os
 import pandas as pd
 import re
@@ -93,21 +94,23 @@ class sympro_txt_read(object):
     def concat_txt(self, output_txt=False, txt_dir='', out_file='',
                     header='standard', **kwargs):
         self.filter = kwargs.get('filter', '')
+        self.txt_dir = txt_dir#.replace("/","\\")
         first_file = True
-        for f in sorted(os.listdir(txt_dir)):
+        files = sorted(glob(self.txt_dir + '*.txt'))
+        for f in files:
             if self.filter in f:
                 print("Adding {0} ...\t\t".format(f), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:
-                        base = sympro_txt_read(txt_dir + f)
+                        base = sympro_txt_read(f)
                         print("[OK]")
                         pass
                     except IndexError:
                         print('Only standard SymPRO headertypes accepted')
                         break
                 else:
-                    file_path = txt_dir + f
+                    file_path = f
                     try:
                         s = sympro_txt_read(file_path)
                         base.data = base.data.append(s.data, sort=False)
@@ -122,7 +125,6 @@ class sympro_txt_read(object):
             if out_file == "":
                 out_file = datetime.datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
-<<<<<<< HEAD
         try:
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
@@ -131,13 +133,11 @@ class sympro_txt_read(object):
             self.site_info = s.site_info
         except UnboundLocalError:
             print("No files match to contatenate")
-=======
         self.ch_info = s.ch_info
         self.ch_list = s.ch_list
         self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
         self.head = s.head
         self.site_info = s.site_info
->>>>>>> 6fe2f72943f46208ed0a1794e004af85e78fb7bc
         
         
     def select_channels_for_reformat(self, epe=False, soiling=False): 
@@ -509,10 +509,3 @@ def shift_timestamps(txt_folder="", seconds=3600):
             print("unable to process {0}".format(f))
             pass
 
-
-
-<<<<<<< HEAD
-    
-=======
-    
->>>>>>> 6fe2f72943f46208ed0a1794e004af85e78fb7bc

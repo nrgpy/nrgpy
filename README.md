@@ -14,6 +14,10 @@ It provides:
 - Timestamp adjustment (of text files)
 
 ***
+## Installation:
+
+    pip install nrgpy
+
 ## Examples:
 
 ### Convert a folder of RLD files to Text with SymphoniePRO Desktop Software:
@@ -33,7 +37,8 @@ It provides:
     fut.process()
 
 ### Read files
+    site_filter = "000175"
     from nrgpy.sympro_txt import sympro_txt_read
 
     sympro_dfs = sympro_txt_read()
-    sympro_dfs.concat_txt(txt_dir=text_folder_name, output_txt=False)
+    sympro_dfs.concat_txt(txt_dir=text_folder_name, filter="000175", output_txt=False)
