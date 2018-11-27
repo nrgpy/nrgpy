@@ -92,13 +92,13 @@ class sympro_txt_read(object):
         return self
 
     def concat_txt(self, output_txt=False, txt_dir='', out_file='',
-                    header='standard', **kwargs):
-        self.filter = kwargs.get('filter', '')
+                    header='standard', site_filter='', **kwargs):
+        self.site_filter = site_filter
         self.txt_dir = txt_dir#.replace("/","\\")
         first_file = True
         files = sorted(glob(self.txt_dir + '*.txt'))
         for f in files:
-            if self.filter in f:
+            if self.site_filter in f:
                 print("Adding {0} ...\t\t".format(f), end="", flush=True)
                 if first_file == True:
                     first_file = False
