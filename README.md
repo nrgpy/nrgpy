@@ -41,4 +41,4 @@ It provides:
     from nrgpy.sympro_txt import sympro_txt_read
 
     sympro_dfs = sympro_txt_read()
-    sympro_dfs.concat_txt(txt_dir=text_folder_name, filter="000175", output_txt=False)
+    sympro_dfs.concat_txt(txt_dir=text_folder_name, filter=site_filter, output_txt=False)
