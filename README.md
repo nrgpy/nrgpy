@@ -33,7 +33,7 @@ It provides:
     site_filter = "000175"
     rld_directory = "rlds"
     token = "contact support@nrgsystems.com for token"
-    fut = nrg_convert_api(filter=site_filter, rld_dir=rld_directory, token=token)
+    fut = nrg_convert_api(site_filter=site_filter, rld_dir=rld_directory, token=token)
     fut.process()
 
 ### Read files
