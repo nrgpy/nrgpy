@@ -212,7 +212,7 @@ class nrg_convert_api(object):
             except:
                 print('[FAILED]')
 
-        filelist = glob.glob(self.rld_dir + self.site_filter + '*.rld')
+        filelist = sorted(glob.glob(self.rld_dir + self.site_filter + '*.rld'))
         #print(filelist)
         #print(self.rld_dir)
         for rld in filelist:
