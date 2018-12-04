@@ -228,17 +228,13 @@ class nrg_convert_api(object):
                         'filebytearray': EncodedFileBytes} 
 
                 self.resp=requests.post(data=Data, url=self.NrgUrl)
-
                 zippedDataFile = zipfile.ZipFile(io.BytesIO(self.resp.content))
                 regDataFile = self.resp.content
-
                 name = zippedDataFile.infolist().pop()
                 outFileName =  "".join(rld.split("\\")[-1:])[:-4] + '_' + self.export_type +  '.txt'
 
-
                 with open(os.path.join(self.out_dir, outFileName),'wb') as outputfile:
                     outputfile.write(zippedDataFile.read(name))
-
                 #fix windows newline garbage
                 try:
                     filename = os.path.join(self.out_dir, outFileName)
