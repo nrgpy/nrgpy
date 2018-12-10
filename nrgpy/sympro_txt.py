@@ -54,6 +54,9 @@ class sympro_txt_read(object):
         return '<class {}: {} >'.format(self.__class__.__name__,self.filename)
     
     def arrange_ch_info(self): # create dataframe of channel info
+        """
+        creates ch_info dataframe and ch_list array
+        """
         array = ['Channel:',
                  'Export Channel:',
                  'Effective Date:',
@@ -129,6 +132,7 @@ class sympro_txt_read(object):
             if out_file == "":
                 out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
+            self.out_file = out_file
         try:
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
