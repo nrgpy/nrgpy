@@ -8,25 +8,24 @@ import re
 
 
 class sympro_txt_read(object): 
-    """
-    Class of pandas dataframes created from SymPRO standard txt output.
-    1. ch_info: pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
-    2. ch_list: list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
-    3. data: pandas dataframe of all data
-    4. head: lines at the top of the txt file..., used when rebuilding timeshifted files
-    5. site_info: unorganized list of file header
-
-    If a filename is passed when calling class, the file is read in alone. Otherwise,
-    and instance of the class is created, and the concat_txt function may be called to
-    combine all txt files in a directory.
-
-    filter may be used on any part of the filename, to combine a subset of text files in
-    a directory.
-
-
-    """
     # read txt file into data, site_info and ch_info dataframes
     def __init__(self, filename='', **kwargs):
+        """
+        Class of pandas dataframes created from SymPRO standard txt output.
+        1. ch_info: pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
+        2. ch_list: list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
+        3. data: pandas dataframe of all data
+        4. head: lines at the top of the txt file..., used when rebuilding timeshifted files
+        5. site_info: unorganized list of file header
+
+        If a filename is passed when calling class, the file is read in alone. Otherwise,
+        and instance of the class is created, and the concat_txt function may be called to
+        combine all txt files in a directory.
+
+        filter may be used on any part of the filename, to combine a subset of text files in
+        a directory.
+        """
+
         self.filename = filename
         
         if self.filename:
@@ -91,8 +90,13 @@ class sympro_txt_read(object):
         
         return self
 
+
     def concat_txt(self, output_txt=False, txt_dir='', out_file='',
                     header='standard', site_filter='', **kwargs):
+        """
+        Will concatenate all text files in the txt_dir that match
+        the site_filter argument. Note these are both blank by default.
+        """
         self.site_filter = site_filter
         self.txt_dir = txt_dir#.replace("/","\\")
         first_file = True
@@ -123,7 +127,7 @@ class sympro_txt_read(object):
                 pass
         if output_txt == True:
             if out_file == "":
-                out_file = datetime.datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
+                out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
         try:
             self.ch_info = s.ch_info
@@ -141,6 +145,15 @@ class sympro_txt_read(object):
         
         
     def select_channels_for_reformat(self, epe=False, soiling=False): 
+        """
+        determines which of the channel headers fit those required for post-processing for either
+
+            a. EPE formatting 
+            b. soiling ratio calculation
+
+        Note that this formatting requires the the channel headers to be full (requires
+        Local export of text files, as of 0.1.8.
+        """
         # for EPE formatting
         ch_anem = ['Anem','Anemometer','anem','anemometer','Anemômetro','anemômetro']
         ch_vane = ['Vane','vane','Direction','direction','Veleta','veleta','Direção','direção','Vane w/Offset']
@@ -187,6 +200,7 @@ class sympro_txt_read(object):
             except:
                 print("SC and PV Temp fields unavailable for calculation")
         return self
+
 
     def format_data_for_epe(self):
         baro_ch = "Ch" + str(self.baro['Channel:'].iloc[0]) + "_"
@@ -246,6 +260,7 @@ class sympro_txt_read(object):
             self.data['CH19'], self.data['CH20'], self.data['CH21'], self.data['CH22'] = "000"
 
         return self 
+
 
     def make_header_for_epe(self):
         array     = ['Site Number:']
@@ -381,14 +396,11 @@ class sympro_txt_read(object):
                     self.data.round(6).to_csv(f, header=True, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")
                 output_file.close()
+
                 
             if shift_timestamps == True:
                 os.makedirs(out_dir, exist_ok=True)
                 site_num = self.site_info.loc[4][1]
-                #if datetime.strptime(self.first_timestamp, '%Y-%m-%d %H:%M:%S') > datetime(1980,1,1):
-                #    print("{0} skipped...".format(self.filename))
-                #    return self
-                #else:
                 file_date = str(self.data.iloc[0]['Timestamp']).replace(" ","_").replace(":",".")[:-3]
                 file_num = self.filename.split("_")[len(self.filename.split("_")) - 2]
                 file_name = site_num + '_' + file_date + '_' + file_num + "_meas.txt"
@@ -440,6 +452,7 @@ class sympro_txt_read(object):
 
         
         return self
+
     
     def insert_blank_header_rows(self):
         """
@@ -485,6 +498,7 @@ class sympro_txt_read(object):
            i = i + 1
            
         return self
+
     
 def shift_timestamps(txt_folder="", seconds=3600):
     """
