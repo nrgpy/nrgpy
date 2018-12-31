@@ -56,7 +56,7 @@ class local(object):
             3. encryption_pass: default = '', specify data encryption password if logger is 
                         set up for that.
             4. sympro_path: default= "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
-            5. convert_type: default='meas', alternately specify 'comm', 'diag', sample', or 'events'
+            5. convert_type: default='meas', alternately specify 'comm', 'diag', 'sample', or 'events'
             6. site_filter: default = '', or specify part or all of the file you'd like to
                         filter on. Eg. site_filter='123456_2018-09' would filter on site 123456
                         and only the month of September in 2018.
@@ -112,6 +112,7 @@ class local(object):
                    "/cmd", "convert", 
                    "/file", '"'+file_filter+'"', 
                    encryption,  
+                   "/type", '"'+self.convert_type+'"',
                    "/outputdir", '"'+self.out_dir[:-1]+'"'
             ]
             #print(" ".join(cmd))
