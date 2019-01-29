@@ -18,6 +18,7 @@ setup(
       ],
       install_requires=[
             'pandas>=0.23',
+            'requests',
       ],
       python_requires='>=3.0',
       zip_safe=False
