@@ -5,6 +5,7 @@ from glob import glob
 import os
 import pandas as pd
 import re
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path
 
 
 class sympro_txt_read(object): 
@@ -95,17 +96,22 @@ class sympro_txt_read(object):
 
 
     def concat_txt(self, output_txt=False, txt_dir='', out_file='',
-                    header='standard', site_filter='', **kwargs):
+                    file_type='meas', header='standard', site_filter='',
+                    **kwargs):
         """
         Will concatenate all text files in the txt_dir that match
         the site_filter argument. Note these are both blank by default.
         """
         self.site_filter = site_filter
-        self.txt_dir = txt_dir#.replace("/","\\")
+        self.file_type = file_type
+        if check_platform == 'win32':
+            self.txt_dir = windows_folder_path(txt_dir)
+        else:
+            self.txt_dir = linux_folder_path(txt_dir)
         first_file = True
         files = sorted(glob(self.txt_dir + '*.txt'))
         for f in files:
-            if self.site_filter in f:
+            if self.site_filter in f and self.file_type in f:
                 print("Adding {0} ...\t\t".format(f), end="", flush=True)
                 if first_file == True:
                     first_file = False

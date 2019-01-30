@@ -9,6 +9,7 @@ from pathlib import Path
 import requests
 import subprocess
 import zipfile
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path
 
 nrgApiUrl = 'https://services.nrgsystems.com/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
 tk = ''
@@ -18,13 +19,13 @@ class local(object):
     def __init__(self, rld_dir='', out_dir='', encryption_pass='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
                  convert_type='meas', site_filter='', **kwargs):
-        self.rld_dir = rld_dir.replace('/','\\')
-        self.out_dir  = out_dir.replace('/','\\')
+        self.rld_dir = windows_folder_path(rld_dir)
+        self.out_dir  = windows_folder_path(out_dir)
         self.encryption_pass = encryption_pass
         self.sympro_path = sympro_path
         self.convert_type = convert_type
         self.site_filter = site_filter
-        if self.check_platform() == 'win32':
+        if check_platform() == 'win32':
             pass
         else:
             print("""
@@ -76,12 +77,6 @@ class local(object):
         """
         print(usage)
 
-    def check_platform(self):
-        """
-        determine which operating system python is running on
-        """
-        from sys import platform
-        return(platform)
         
     def directory(self):
         """
@@ -181,12 +176,16 @@ class nrg_convert_api(object):
     def __init__(self, rld_dir='', out_dir='', site_filter='', encryption_pass='',
                  token='', header_type='standard', export_type='meas', 
                  export_format='csv_zipped', **kwargs):    
-        if local.check_platform == 'win32':
-            self.rld_dir = rld_dir.replace('/','\\')
-            self.out_dir = out_dir.replace('/','\\')
+        if check_platform == 'win32':
+            self.platform = 'win32'
+            self.folder_split = '\\'
+            self.rld_dir = windows_folder_path(rld_dir)
+            self.out_dir = windows_folder_path(out_dir)
         else:
-            self.rld_dir = rld_dir.replace('\\','/')
-            self.out_dir = out_dir.replace('\\','/')
+            self.platform = 'linux'
+            self.folder_split = '/'
+            self.rld_dir = linux_folder_path(rld_dir)
+            self.out_dir = linux_folder_path(out_dir)
         self.encryption_pass = encryption_pass
         self.export_format = export_format
         self.export_type = export_type
@@ -232,7 +231,7 @@ class nrg_convert_api(object):
                 zippedDataFile = zipfile.ZipFile(io.BytesIO(self.resp.content))
                 regDataFile = self.resp.content
                 name = zippedDataFile.infolist().pop()
-                outFileName =  "".join(rld.split("\\")[-1:])[:-4] + '_' + self.export_type +  '.txt'
+                outFileName =  "".join(rld.split(self.folder_split)[-1:])[:-4] + '_' + self.export_type +  '.txt'
 
                 with open(os.path.join(self.out_dir, outFileName),'wb') as outputfile:
                     outputfile.write(zippedDataFile.read(name))
