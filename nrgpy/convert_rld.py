@@ -176,7 +176,7 @@ class nrg_convert_api(object):
     def __init__(self, rld_dir='', out_dir='', site_filter='', encryption_pass='',
                  token='', header_type='standard', export_type='meas', 
                  export_format='csv_zipped', **kwargs):    
-        if check_platform == 'win32':
+        if check_platform() == 'win32':
             self.platform = 'win32'
             self.folder_split = '\\'
             self.rld_dir = windows_folder_path(rld_dir)
@@ -235,6 +235,7 @@ class nrg_convert_api(object):
 
                 with open(os.path.join(self.out_dir, outFileName),'wb') as outputfile:
                     outputfile.write(zippedDataFile.read(name))
+
                 #fix windows newline garbage
                 try:
                     filename = os.path.join(self.out_dir, outFileName)
