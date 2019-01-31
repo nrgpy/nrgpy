@@ -104,7 +104,7 @@ class sympro_txt_read(object):
         """
         self.site_filter = site_filter
         self.file_type = file_type
-        if check_platform == 'win32':
+        if check_platform() == 'win32':
             self.txt_dir = windows_folder_path(txt_dir)
         else:
             self.txt_dir = linux_folder_path(txt_dir)
@@ -147,6 +147,7 @@ class sympro_txt_read(object):
             self.site_info = s.site_info
         except UnboundLocalError:
             print("No files match to contatenate")
+            return self
         self.ch_info = s.ch_info
         self.ch_list = s.ch_list
         self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
