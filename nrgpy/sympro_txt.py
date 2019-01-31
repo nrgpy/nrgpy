@@ -146,8 +146,8 @@ class sympro_txt_read(object):
             self.head = s.head
             self.site_info = s.site_info
         except UnboundLocalError:
-            print("No files match to contatenate")
-            return self
+            print("No files match to contatenate.")
+            return None
         self.ch_info = s.ch_info
         self.ch_list = s.ch_list
         self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
