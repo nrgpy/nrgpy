@@ -1,0 +1,5 @@
+venv/
+nrgpy.egg-info/
+__pycache__/
+build/
+dist/

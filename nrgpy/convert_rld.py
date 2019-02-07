@@ -9,13 +9,50 @@ from pathlib import Path
 import requests
 import subprocess
 import zipfile
+from nrgpy.api_connect import nrgApiUrl, token as tk
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path
 
-nrgApiUrl = 'https://services.nrgsystems.com/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
-tk = ''
 
 class local(object):
+    """
+    ------------------------------------------------------------------------------
+    local(): 
     
+    For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.
+    This method uses locally installed SymphoniePRO Desktop software to convert
+    *.rld files to txt format (tab-delimited-text).
+    
+    requirements:
+        1. installation of SymphoniePRO Desktop Software on Windows 7 or later
+        2. pandas >= v0.23 
+        3. sympro_txt.py
+    
+    kwargs:
+        1. rld_dir: default = '', or specify directory. Note for unc values, you 
+                    will need to escape all forward slashes, e.g.
+                    rld_dir = "\\\\sol\\techsupport\\data\\"
+        2. out_dir: default = '', see note for 1.
+        3. encryption_pass: default = '', specify data encryption password if logger is 
+                    set up for that.
+        4. sympro_path: default= "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
+        5. convert_type: default='meas', alternately specify 'comm', 'diag', 'sample', or 'events'
+        6. site_filter: default = '', or specify part or all of the file you'd like to
+                    filter on. Eg. site_filter='123456_2018-09' would filter on site 123456
+                    and only the month of September in 2018.
+    
+    functions:
+        concat_txt(): combines all txt files in txt_dir (out_dir by default) that 
+                    include self.site_filter into one txt file with header from first file.
+                    out_file can be specified; defaults to %Y-%m-%d_SymPRO.txt in 
+                    current directory.
+        directory(): processes all rld files in self.rld_dir, outputs to txt files 
+                    to out_dir
+        info(): prints this message.
+        rename_rld(): uses
+        single_file(): pass single file's complete path for export.
+    ------------------------------------------------------------------------------
+    
+    """
     def __init__(self, rld_dir='', out_dir='', encryption_pass='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
                  convert_type='meas', site_filter='', **kwargs):
@@ -32,52 +69,8 @@ class local(object):
             convert_rld.local() method ONLY compatible with Windows OS. 
             Please use convert_rld.nrg_convert_api() method instead.
             """)
-        #self.directory()
-        #self.single_file()
     
-    def __info__(self):
-        usage = """
-        ------------------------------------------------------------------------------
-        local(): 
-        
-        For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.
-        This method uses locally installed SymphoniePRO Desktop software to convert
-        *.rld files to txt format (tab-delimited-text).
-        
-        requirements:
-            1. installation of SymphoniePRO Desktop Software on Windows 7 or later
-            2. pandas >= v0.23 
-            3. sympro_txt.py
-        
-        kwargs:
-            1. rld_dir: default = '', or specify directory. Note for unc values, you 
-                        will need to escape all forward slashes, e.g.
-                        rld_dir = "\\\\sol\\techsupport\\data\\"
-            2. out_dir: default = '', see note for 1.
-            3. encryption_pass: default = '', specify data encryption password if logger is 
-                        set up for that.
-            4. sympro_path: default= "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
-            5. convert_type: default='meas', alternately specify 'comm', 'diag', 'sample', or 'events'
-            6. site_filter: default = '', or specify part or all of the file you'd like to
-                        filter on. Eg. site_filter='123456_2018-09' would filter on site 123456
-                        and only the month of September in 2018.
-        
-        functions:
-            concat_txt(): combines all txt files in txt_dir (out_dir by default) that 
-                        include self.site_filter into one txt file with header from first file.
-                        out_file can be specified; defaults to %Y-%m-%d_SymPRO.txt in 
-                        current directory.
-            directory(): processes all rld files in self.rld_dir, outputs to txt files 
-                        to out_dir
-            info(): prints this message.
-            rename_rld(): uses
-            single_file(): pass single file's complete path for export.
-        ------------------------------------------------------------------------------
-        
-        """
-        print(usage)
 
-        
     def directory(self):
         """
         processes all rld files in self.rld_dir, outputs to txt files to out_dir
@@ -251,8 +244,7 @@ class nrg_convert_api(object):
             except:
                 print("[FAILED]")
                 print('unable to process file: {0}'.format(rld))
-                print(str(self.resp.status_code) + " " + self.resp.reason + "\n"
-                      + str(self.resp.content))
+                print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
                 pass
 
         print('\nQueue processed\n')
