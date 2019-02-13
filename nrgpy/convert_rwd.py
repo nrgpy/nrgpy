@@ -153,6 +153,10 @@ class local(object):
         txt_file_path = "\\".join([self.ScaledData,txt_file_name])
         out_path = "\\".join([self.out_dir,txt_file_name])
         cmd = ['copy',txt_file_path,out_path]
+        try:
+            subprocess.check_output(cmd, shell=True)
+        except:
+            print('unable to move {}'.format(_f))
 
 
 
