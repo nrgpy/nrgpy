@@ -25,17 +25,24 @@ class local(object):
 
 
     functions -
-          check_sdr : checks operating system for SDR installation
-        export_file :
+        check_sdr : checks operating system for SDR installation
+          convert : process files
 
     """
 
 
-    def __init__(self, rwd_dir='', out_dir='', filename='', encryption_pass='',
-                 sdr_path=r'"C:/NRG/SymDR/SDR.exe"',
+    def __init__(self, rwd_dir='', out_dir='', filename='', encryption_pin='',
+                 sdr_path=r'C:/NRG/SymDR/SDR.exe',
                  convert_type='meas', site_filter='', **kwargs):
+        if encryption_pin != '':
+            self.command_switch = '/z'
+        else:
+            self.command_switch = '/q'
         self.encryption_pin = encryption_pin
-        self.sdr_path = sdr_path
+        self.sdr_path = windows_folder_path(sdr_path)
+        self.root_folder = "\\".join(self.sdr_path.split('\\')[:-2])
+        self.RawData = self.root_folder + '\\RawData\\'
+        self.ScaledData = self.root_folder + '\\ScaledData\\'
         self.site_filter = site_filter
         self.rwd_dir = windows_folder_path(rld_dir) # rwd_dir must be in Windows format, even if using Wine
         self.platform = check_platform()
@@ -50,7 +57,9 @@ class local(object):
             # check if SDR is installed...
             self.check_sdr()
             # EXCEPT: print instructions for installation (maybe there's an "install_SDR_on_Linux.sh" script)
-
+        if filename != '':
+            self.filename = filename
+            self.single_file()
 
     def check_sdr(self):
         """
@@ -78,9 +87,75 @@ class local(object):
                 break
 
     
-    def export_file(self, filename):
-        # clear RawData and ScaledData folders
-        # copy RWD file to RawData folder
-        # convert the file
-        # copy exported file from ScaledData to self.out_dir
-  
+    def convert(self):
+        """
+        process rwd files
+        """
+        # create a list of files to export
+        self.list_files()
+        # copy RWD file to RawData folder, site subfolder (1234)
+        self.copy_rwd_files()
+        # convert the files in the list
+        for f in self.rwd_file_list[0]:
+            site_num = f[:4]
+            self.single_file("\\".join([self.RawData,site_num,f]))
+
+
+    def list_files(self):
+        """
+        get list of files in rwd_dir
+        """
+        self.dir_paths = []
+        self.rwd_file_list = []
+        for dirpath, subdirs, files in os.walk(self.rwd_dir):
+            self.dir_paths.append(dirpath)
+            for x in files:
+                if self.site_filter in x:
+                    self.rwd_file_list.append(x)
+
+
+    def single_file(self, _f):
+        """
+        process for converting a single file
+        """
+        cmd = [self.sdr_path, self.command_switch, self.encryption_pin, _f]
+        if self.platform == 'linux':
+            cmd.insert(0, 'wine')
+        try:
+            subprocess.check_output(" ".join(cmd), shell=True)
+        except:
+            print('unable to convert {}. check ScaledData folder for log file'.format(_f))
+            
+            
+    def copy_rwd_files(self):
+        """
+        copy RWD files from self.RawData to self.rwd_dir
+        """
+        for f in self.rwd_file_list:
+            site_num = f[:4]
+            site_folder = "\\".join([self.RawData,site_num])
+            try:
+                subprocess.check_output(['md',site_folder])
+            except:
+                pass
+            try:
+                cmd = ['copy',"\\".join([paths[0]), f]),"\\".join([site_folder, f])] 
+                subprocess.check_output(cmd, shell=True)
+            except:
+                print('unable to convert {}'.format(f))
+
+
+    def copy_txt_file(self, _f):
+        """
+        copy TXT file from self.ScaledData to self.out_dir
+        """
+        txt_file_name = _f[:-4],'.txt'
+        txt_file_path = "\\".join([self.ScaledData,txt_file_name])
+        out_path = "\\".join([self.out_dir,txt_file_name])
+        cmd = ['copy',txt_file_path,out_path]
+
+
+
+
+
+
