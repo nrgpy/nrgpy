@@ -12,6 +12,7 @@ def check_platform():
 
 def affirm_directory(directory):
     """
+    create directory if not exists, print status to terminal
     """
     if os.path.exists(directory):
         pass
