@@ -48,8 +48,6 @@ class local(object):
             pass
         else:
             self.out_dir = linux_folder_path(out_dir)
-            # check if Wine is installed... 
-            self.check_wine()
             # check if SDR is installed...
             self.check_sdr()
             # EXCEPT: print instructions for installation (maybe there's an "install_SDR_on_Linux.sh" script)
