@@ -50,12 +50,13 @@ class local(object):
     """
     def __init__(self, rld_dir='', out_dir='', encryption_pass='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
-                 convert_type='meas', site_filter='', **kwargs):
+                 convert_type='meas', nec='', site_filter='', **kwargs):
         self.rld_dir = windows_folder_path(rld_dir)
         self.out_dir  = windows_folder_path(out_dir)
         self.encryption_pass = encryption_pass
         self.sympro_path = sympro_path
         self.convert_type = convert_type
+        self.nec = nec
         self.site_filter = site_filter
         if 'file_filter' in kwargs:
             file_filter = kwargs.get('file_filter')
@@ -82,12 +83,20 @@ class local(object):
         except:
             print('could not parse encryption_pass')
         try:
+            if self.nec != '':
+                nec = '/config "{0}"'.format(self.nec)
+            else:
+                nec = ''
+        except:
+            print('could not parse encryption_pass')            
+        try:
             print('\nConverting files in {0}\n'.format(self.rld_dir))
             print('Saving outputs to {0}'.format(self.out_dir))
             cmd = [self.sympro_path, 
                    "/cmd", "convert", 
-                   "/file", '"'+"\\".join([self.rld_dir, self.site_filter])+'*"', 
-                   encryption,  
+                   "/file", '"'+"\\".join([self.rld_dir, self.site_filter])+'*.rld"', 
+                   encryption,
+                   nec,  
                    "/type", '"'+self.convert_type+'"',
                    "/outputdir", '"'+self.out_dir[:-1]+'"'
             ]
