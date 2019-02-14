@@ -39,12 +39,12 @@ class local(object):
         else:
             self.command_switch = '/q'
         self.encryption_pin = encryption_pin
-        self.sdr_path = windows_folder_path(sdr_path)
+        self.sdr_path = windows_folder_path(sdr_path)[:-1]
         self.root_folder = "\\".join(self.sdr_path.split('\\')[:-2])
         self.RawData = self.root_folder + '\\RawData\\'
         self.ScaledData = self.root_folder + '\\ScaledData\\'
         self.site_filter = site_filter
-        self.rwd_dir = windows_folder_path(rld_dir) # rwd_dir must be in Windows format, even if using Wine
+        self.rwd_dir = windows_folder_path(rwd_dir) # rwd_dir must be in Windows format, even if using Wine
         self.platform = check_platform()
         if self.platform == 'win32':
             self.out_dir = windows_folder_path(out_dir)
@@ -69,22 +69,23 @@ class local(object):
             # do the windows check
             try:
                 os.path.exists(self.sdr_path)
+                self.sdr_ok = True
             except:
+                self.sdr_ok = False
                 print('SDR not installed. Please install SDR or check path.\nhttps://www.nrgsystems.com/support/product-support/software/symphonie-data-retriever-software')
-                break
         else:
             # do the linux check
             try:
                 subprocess.check_output(['wine','--version'])
             except NotADirectoryError:
                 print('System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable.')
-                break
             try:
                 subprocess.check_output(['wine',self.sdr_path,'/s','test.rwd'])
                 print('SDR test OK!')
+                self.sdr_ok = True
             except:
+                self.sdr_ok = False
                 print('SDR unable to start')
-                break
 
     
     def convert(self):
@@ -96,9 +97,14 @@ class local(object):
         # copy RWD file to RawData folder, site subfolder (1234)
         self.copy_rwd_files()
         # convert the files in the list
-        for f in self.rwd_file_list[0]:
+        for f in self.rwd_file_list:
             site_num = f[:4]
-            self.single_file("\\".join([self.RawData,site_num,f]))
+            try:
+                self._filename = "\\".join([self.RawData+site_num,f])
+                print(self._filename)
+                self.single_file(self._filename)
+            except:
+                print('file conversion failed on {}'.format(self._filename))
 
 
     def list_files(self):
@@ -110,7 +116,7 @@ class local(object):
         for dirpath, subdirs, files in os.walk(self.rwd_dir):
             self.dir_paths.append(dirpath)
             for x in files:
-                if self.site_filter in x:
+                if x.startswith(self.site_filter) and x.lower().endswith('.rwd'):
                     self.rwd_file_list.append(x)
 
 
@@ -122,8 +128,12 @@ class local(object):
         if self.platform == 'linux':
             cmd.insert(0, 'wine')
         try:
+            print("Converting {}\t\t".format(_f), end="", flush=True)
             subprocess.check_output(" ".join(cmd), shell=True)
+            self.copy_txt_file(_f.split('\\')[-1])
+            print("[DONE]")
         except:
+            print("[FAILED]")
             print('unable to convert {}. check ScaledData folder for log file'.format(_f))
             
             
@@ -132,29 +142,36 @@ class local(object):
         copy RWD files from self.RawData to self.rwd_dir
         """
         for f in self.rwd_file_list:
-            site_num = f[:4]
-            site_folder = "\\".join([self.RawData,site_num])
-            try:
-                subprocess.check_output(['md',site_folder])
-            except:
-                pass
-            try:
-                cmd = ['copy',"\\".join([paths[0]), f]),"\\".join([site_folder, f])] 
-                subprocess.check_output(cmd, shell=True)
-            except:
-                print('unable to convert {}'.format(f))
+            if self.site_filter in f:
+                site_num = f[:4]
+                site_folder = "\\".join([self.RawData,site_num])
+                print(site_folder)
+                try:
+                    if os.path.exists(site_folder):
+                        pass
+                    else:
+                        subprocess.check_output(['md',site_folder], shell=True)
+                except:
+                    print("couldn't create {}".format(site_folder))
+                    pass
+                try:
+                    cmd = ['copy',"\\".join([self.dir_paths[0], f]),"\\".join([site_folder, f])] 
+                    print(" ".join(cmd))
+                    subprocess.check_output(cmd, shell=True)
+                except:
+                    print('unable to copy file to RawData folder:  {}'.format(f))
 
 
     def copy_txt_file(self, _f):
         """
         copy TXT file from self.ScaledData to self.out_dir
         """
-        txt_file_name = _f[:-4],'.txt'
+        txt_file_name = _f[:-4] + '.txt'
         txt_file_path = "\\".join([self.ScaledData,txt_file_name])
         out_path = "\\".join([self.out_dir,txt_file_name])
         cmd = ['copy',txt_file_path,out_path]
         try:
-            subprocess.check_output(cmd, shell=True)
+            subprocess.check_output(" ".join(cmd), shell=True)
         except:
             print('unable to move {}'.format(_f))
 
