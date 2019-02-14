@@ -3,7 +3,7 @@
 import os
 import pandas as pd
 import subprocess
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory
 
 
 class local(object):
@@ -85,17 +85,18 @@ class local(object):
     def convert(self):
         """
         process rwd files
+            1 - create list of RWD files that match filtering
+            2 - copy RWD files to RawData directory
+            3 - create out_dir if necessary
+            4 - iterate through files
         """
-        # create a list of files to export
         self.list_files()
-        # copy RWD file to RawData folder, site subfolder (1234)
         self.copy_rwd_files()
-        # convert the files in the list
+        affirm_directory(self.out_dir)
         for f in self.rwd_file_list:
             site_num = f[:4]
             try:
                 self._filename = "\\".join([self.RawData+site_num,f])
-                print(self._filename)
                 self.single_file(self._filename)
             except:
                 print('file conversion failed on {}'.format(self._filename))

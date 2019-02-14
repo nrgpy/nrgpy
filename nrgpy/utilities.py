@@ -1,4 +1,5 @@
 #!/bin/usr/python
+import os
 
 
 def check_platform():
@@ -7,6 +8,21 @@ def check_platform():
     """
     from sys import platform
     return(platform)
+
+
+def affirm_directory(directory):
+    """
+    """
+    if os.path.exists(directory):
+        pass
+    else:
+        try:
+            print("output directory does not exist, creating...", end="", flush=True)
+            os.makedirs(directory)
+            print("[OK]")
+        except:
+            print('[FAILED]')
+
 
 
 def windows_folder_path(folder_path):

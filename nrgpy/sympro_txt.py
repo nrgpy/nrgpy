@@ -9,7 +9,6 @@ from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_pa
 
 
 class sympro_txt_read(object): 
-    # read txt file into data, site_info and ch_info dataframes
     def __init__(self, filename='', **kwargs):
         """
         Class of pandas dataframes created from SymPRO standard txt output.

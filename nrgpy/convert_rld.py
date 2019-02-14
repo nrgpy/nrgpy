@@ -10,7 +10,7 @@ import requests
 import subprocess
 import zipfile
 from nrgpy.api_connect import nrgApiUrl, token as tk
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory
 
 
 class local(object):
@@ -62,6 +62,9 @@ class local(object):
         self.sympro_path = sympro_path
         self.convert_type = convert_type
         self.site_filter = site_filter
+        if 'file_filter' in kwargs:
+            file_filter = kwargs.get('file_filter')
+            self.site_filter = file_filter
         if check_platform() == 'win32':
             pass
         else:
@@ -75,17 +78,7 @@ class local(object):
         """
         processes all rld files in self.rld_dir, outputs to txt files to out_dir
         """
-        if os.path.exists(self.out_dir):
-            pass
-        else:
-            try:
-                print("output directory does not exist, creating...", end="", flush=True)
-                os.makedirs(self.out_dir)
-                print("[OK]")
-            except:
-                print('[FAILED]')
-        file_filter = self.rld_dir + self.site_filter + '*' + '.rld'
-        print(file_filter)
+        affirm_directory(self.out_dir)
         try:
             if self.encryption_pass != '':
                 encryption = '/pass "{0}"'.format(self.encryption_pass)
@@ -98,12 +91,12 @@ class local(object):
             print('Saving outputs to {0}'.format(self.out_dir))
             cmd = [self.sympro_path, 
                    "/cmd", "convert", 
-                   "/file", '"'+file_filter+'"', 
+                   "/file", '"'+"\\".join([self.rld_dir, self.site_filter])+'*"', 
                    encryption,  
                    "/type", '"'+self.convert_type+'"',
                    "/outputdir", '"'+self.out_dir[:-1]+'"'
             ]
-            #print(" ".join(cmd))
+            print(" ".join(cmd))
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
             print('\nTXT files saved in {0}\n'.format(self.out_dir))
         except FileNotFoundError:
