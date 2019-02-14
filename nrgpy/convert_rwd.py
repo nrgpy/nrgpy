@@ -140,7 +140,6 @@ class local(object):
             if self.site_filter in f:
                 site_num = f[:4]
                 site_folder = "\\".join([self.RawData,site_num])
-                print(site_folder)
                 try:
                     if os.path.exists(site_folder):
                         pass

@@ -22,10 +22,6 @@ class local(object):
     This method uses locally installed SymphoniePRO Desktop software to convert
     *.rld files to txt format (tab-delimited-text).
     
-    requirements:
-        1. installation of SymphoniePRO Desktop Software on Windows 7 or later
-        2. pandas >= v0.23 
-        3. sympro_txt.py
     
     kwargs:
         1. rld_dir: default = '', or specify directory. Note for unc values, you 
@@ -47,7 +43,6 @@ class local(object):
                     current directory.
         directory(): processes all rld files in self.rld_dir, outputs to txt files 
                     to out_dir
-        info(): prints this message.
         rename_rld(): uses
         single_file(): pass single file's complete path for export.
     ------------------------------------------------------------------------------
