@@ -3,6 +3,7 @@
 import os
 import pandas as pd
 import subprocess
+import shutil
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory
 
 
@@ -18,6 +19,7 @@ class local(object):
            site_filter : '', filters files on text in filename
                rwd_dir : '', folder to check for RWD files
                out_dir : '', folder to save exported TXT files into
+           wine_folder : '~/.wine/drive_c/', for linux installations
 
 
     functions -
@@ -29,7 +31,8 @@ class local(object):
 
     def __init__(self, rwd_dir='', out_dir='', filename='', encryption_pin='',
                  sdr_path=r'C:/NRG/SymDR/SDR.exe',
-                 convert_type='meas', site_filter='', **kwargs):
+                 convert_type='meas', site_filter='', 
+                 wine_folder='~/.wine/drive_c/', **kwargs):
         if encryption_pin != '':
             self.command_switch = '/z'
         else:
@@ -44,16 +47,16 @@ class local(object):
         self.platform = check_platform()
         if self.platform == 'win32':
             self.out_dir = windows_folder_path(out_dir)
-            # do windows conversion
+            self.file_path_joiner = '\\'            
             pass
         else:
             self.out_dir = linux_folder_path(out_dir)
-            # check if SDR is installed...
             self.check_sdr()
-            # EXCEPT: print instructions for installation (maybe there's an "install_SDR_on_Linux.sh" script)
+            self.file_path_joiner = '/'
         if filename != '':
             self.filename = filename
             self.single_file()
+        self.wine_folder = wine_folder
 
     def check_sdr(self):
         """
@@ -97,7 +100,7 @@ class local(object):
             site_num = f[:4]
             try:
                 self._filename = "\\".join([self.RawData+site_num,f])
-                self.single_file(self._filename)
+                self.single_file()
             except:
                 print('file conversion failed on {}'.format(self._filename))
 
@@ -108,24 +111,33 @@ class local(object):
         """
         self.dir_paths = []
         self.rwd_file_list = []
-        for dirpath, subdirs, files in os.walk(self.rwd_dir):
+        if self.platform == 'win32':
+            walk_path = self.rwd_dir
+        else:
+            walk_path = linux_folder_path(self.rwd_dir)
+        for dirpath, subdirs, files in os.walk(walk_path):
             self.dir_paths.append(dirpath)
             for x in files:
                 if x.startswith(self.site_filter) and x.lower().endswith('.rwd'):
                     self.rwd_file_list.append(x)
 
 
-    def single_file(self, _f):
+    def single_file(self):
         """
         process for converting a single file
         """
-        cmd = [self.sdr_path, self.command_switch, self.encryption_pin, _f]
+        _f = self._filename
         if self.platform == 'linux':
-            cmd.insert(0, 'wine')
+            self.sdr_path = windows_folder_path(self.sdr_path)[:-1]
+            _f = windows_folder_path(_f)[:-1]
+            wine = 'wine'
+        else:
+            wine = ''
+        cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
         try:
             print("Converting {}\t\t".format(_f), end="", flush=True)
             subprocess.check_output(" ".join(cmd), shell=True)
-            self.copy_txt_file(_f.split('\\')[-1])
+            self.copy_txt_file(_f.split(self.file_path_joiner)[-1])
             print("[DONE]")
         except:
             print("[FAILED]")
@@ -140,18 +152,18 @@ class local(object):
             if self.site_filter in f:
                 site_num = f[:4]
                 site_folder = "\\".join([self.RawData,site_num])
+                copy_cmd = 'copy'
+                if self.platform == 'linux':
+                    site_folder = ''.join([self.wine_folder,'NRG/RawData/',site_num])
+                    copy_cmd = 'cp'
                 try:
-                    if os.path.exists(site_folder):
-                        pass
-                    else:
-                        subprocess.check_output(['md',site_folder], shell=True)
+                    affirm_directory(site_folder)
                 except:
                     print("couldn't create {}".format(site_folder))
                     pass
                 try:
-                    cmd = ['copy',"\\".join([self.dir_paths[0], f]),"\\".join([site_folder, f])] 
-                    print(" ".join(cmd))
-                    subprocess.check_output(cmd, shell=True)
+                    cmd = [copy_cmd,"".join([self.dir_paths[0], f]),self.file_path_joiner.join([site_folder, f])] 
+                    subprocess.check_output(" ".join(cmd), shell=True)
                 except:
                     print('unable to copy file to RawData folder:  {}'.format(f))
 
@@ -162,9 +174,16 @@ class local(object):
         """
         txt_file_name = _f[:-4] + '.txt'
         txt_file_path = "\\".join([self.ScaledData,txt_file_name])
-        out_path = "\\".join([self.out_dir,txt_file_name])
+        out_path = file_path_joiner.join([self.out_dir,txt_file_name])
         cmd = ['copy',txt_file_path,out_path]
+        if self.platform == 'linux':
+            out_path = linux_folder_path(self.out_dir) + txt_file_name
+            txt_file_path = ''.join([self.wine_folder, 'NRG/ScaledData/',txt_file_name])
+            print(txt_file_path)
+            print(out_path)
+            shutil.copy(txt_file_path, out_path)
         try:
+            print(" ".join(cmd))
             subprocess.check_output(" ".join(cmd), shell=True)
         except:
             print('unable to move {}'.format(_f))

@@ -18,7 +18,7 @@ def affirm_directory(directory):
         pass
     else:
         try:
-            print("output directory does not exist, creating...", end="", flush=True)
+            print("output directory does not exist, creating...\t\t", end="", flush=True)
             os.makedirs(directory)
             print("[OK]")
         except:

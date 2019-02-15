@@ -114,6 +114,11 @@ class local(object):
         except:
             print('Unable to process files in directory')
 
+
+    def convert(self):
+        self.directory()
+
+
     def rename_rlds(self, **kwargs):
         """
         uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number
