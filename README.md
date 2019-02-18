@@ -62,3 +62,19 @@ out_directory = 'C:/Users/[user]/txt/'
 converter = local(site_filter=site_filter, rwd_dir=rwd_directory, out_dir=out_directory)
 converter.convert()
 ```
+
+#### Convert a folder of RWD files to Text with Symphonie Data Retriever _on Linux_
+```python
+from nrgpy.convert_rwd import local
+rwd_directory = '/home/user/datafiles/rwd'
+out_directory = '/home/user/datafiles/txt'
+wine_directory = '/home/user/prefix32/drive_c/'
+
+
+converter = local(site_filter=site_filter, 
+                  rwd_dir=rwd_directory, 
+                  out_dir=out_directory,
+                  wine_folder=wine_directory,
+                  )
+converter.convert()
+```
