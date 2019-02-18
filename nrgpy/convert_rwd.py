@@ -142,7 +142,7 @@ class local(object):
             print("[FAILED")
             print('unable to convert {}. check ScaledData folder for log file'.format(_f))
         try:
-            print("Copying {}\t\t\t".format(_f[:-3]+'txt'), end="", flush=True)
+            print("\tCopying {}\t\t".format(_f[:-3]+'txt'), end="", flush=True)
             self.copy_txt_file()
             print("[DONE]")
         except:
@@ -187,7 +187,15 @@ class local(object):
         if self.platform == 'linux':
             out_path = linux_folder_path(self.out_dir) + txt_file_name
             txt_file_path = ''.join([self.wine_folder, 'NRG/ScaledData/',txt_file_name])
+        try:
             shutil.copy(txt_file_path, out_path)
+            try:
+                os.remove(txt_file_path)
+            except:
+                print("{0} remains in {1}".format(txt_file_name, self.ScaledData))
+        except:
+            print("Unable to copy {0} to {1}".format(txt_file_name,self.out_dir))
+
 
 
 
