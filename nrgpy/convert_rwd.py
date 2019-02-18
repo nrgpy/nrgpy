@@ -137,11 +137,17 @@ class local(object):
         try:
             print("Converting {}\t\t".format(_f), end="", flush=True)
             subprocess.check_output(" ".join(cmd), shell=True)
-            self.copy_txt_file(_f.split(self.file_path_joiner)[-1])
+            print("[DONE]")
+        except:
+            print("[FAILED")
+            print('unable to convert {}. check ScaledData folder for log file'.format(_f))
+        try:
+            print("Copying {}\t\t\t".format(_f[:-3]+'txt'), end="", flush=True)
+            self.copy_txt_file()
             print("[DONE]")
         except:
             print("[FAILED]")
-            print('unable to convert {}. check ScaledData folder for log file'.format(_f))
+            print('unable to copy {} to text folder'.format(_f))
             
             
     def copy_rwd_files(self):
@@ -168,25 +174,21 @@ class local(object):
                     print('unable to copy file to RawData folder:  {}'.format(f))
 
 
-    def copy_txt_file(self, _f):
+    def copy_txt_file(self):
         """
         copy TXT file from self.ScaledData to self.out_dir
         """
-        txt_file_name = _f[:-4] + '.txt'
-        txt_file_path = "\\".join([self.ScaledData,txt_file_name])
-        out_path = file_path_joiner.join([self.out_dir,txt_file_name])
-        cmd = ['copy',txt_file_path,out_path]
+        try:
+            txt_file_name = self._filename.split('\\')[-1][:-4] + '.txt'
+            txt_file_path = "\\".join([self.ScaledData,txt_file_name])
+            out_path = self.file_path_joiner.join([self.out_dir,txt_file_name])
+        except:
+            print("could not do the needful")
         if self.platform == 'linux':
             out_path = linux_folder_path(self.out_dir) + txt_file_name
             txt_file_path = ''.join([self.wine_folder, 'NRG/ScaledData/',txt_file_name])
-            print(txt_file_path)
-            print(out_path)
             shutil.copy(txt_file_path, out_path)
-        try:
-            print(" ".join(cmd))
-            subprocess.check_output(" ".join(cmd), shell=True)
-        except:
-            print('unable to move {}'.format(_f))
+
 
 
 
