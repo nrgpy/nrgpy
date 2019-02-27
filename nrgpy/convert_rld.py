@@ -10,7 +10,7 @@ import requests
 import subprocess
 import zipfile
 from nrgpy.api_connect import nrgApiUrl, token as tk
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files
 
 
 class local(object):
@@ -90,7 +90,8 @@ class local(object):
         except:
             print('could not parse encryption_pass')            
         try:
-            print('\nConverting files in {0}\n'.format(self.rld_dir))
+            rld_count = count_files(self.rld_dir, self.site_filter, 'rld')
+            print('\nConverting {0} files from {1}\n'.format(rld_count, self.rld_dir))
             print('Saving outputs to {0}'.format(self.out_dir))
             cmd = [self.sympro_path, 
                    "/cmd", "convert", 
@@ -100,9 +101,19 @@ class local(object):
                    "/type", '"'+self.convert_type+'"',
                    "/outputdir", '"'+self.out_dir[:-1]+'"'
             ]
-            print(" ".join(cmd))
+            print('\nUsing command line script:\n{}'.format(" ".join(cmd)))
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
             print('\nTXT files saved in {0}\n'.format(self.out_dir))
+            txt_count = count_files(self.out_dir, self.site_filter, 'txt')
+            log_count, log_files = count_files(self.out_dir, self.site_filter, 'log', show_files=True)
+            print('RLDs in    : {}'.format(rld_count))
+            print('TXTs out   : {}'.format(txt_count))
+            print('LOGs out   : {}'.format(log_count))
+            if len(log_files) > 0:
+                print('Log files created:')
+                for _filename in log_files:
+                    print('\t{}'.format(_filename))
+            print('----------------\nDifference : {}'.format(rld_count - (txt_count + log_count)))
         except FileNotFoundError:
             print("""
                   No instance of SymphoniePRO Desktop Application found.
@@ -116,6 +127,8 @@ class local(object):
 
 
     def convert(self):
+        self.directory()
+    def process(self):
         self.directory()
 
 
