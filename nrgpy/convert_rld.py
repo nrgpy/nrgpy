@@ -14,36 +14,36 @@ from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_pa
 
 
 class local(object):
-    """
-    ------------------------------------------------------------------------------
-    local(): 
-    
+    """    
     For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.
     This method uses locally installed SymphoniePRO Desktop software to convert
     *.rld files to txt format (tab-delimited-text).
     
     
-    kwargs:
-        1. rld_dir: default = '', or specify directory. Note for unc values, you 
-                    will need to escape all forward slashes, e.g.
-                    rld_dir = "\\\\sol\\techsupport\\data\\"
-        2. out_dir: default = '', see note for 1.
-        3. encryption_pass: default = '', specify data encryption password if logger is 
-                    set up for that.
-        4. sympro_path: default= "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
-        5. convert_type: default='meas', alternately specify 'comm', 'diag', 'sample', or 'events'
-        6. site_filter: default = '', or specify part or all of the file you'd like to
-                    filter on. Eg. site_filter='123456_2018-09' would filter on site 123456
-                    and only the month of September in 2018.
+    parameters:
+                rld_dir: '', or specify directory. Note for unc values, you 
+                          will need to escape all forward slashes, e.g.
+                          rld_dir = "\\\\sol\\techsupport\\data\\" 
+                          or use the r'\\path\to\dir' approach
+                out_dir: '', see note for 1.
+        encryption_pass: '', specify data encryption password if logger is 
+                          set up for that.
+            sympro_path: "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
+           convert_type: 'meas', alternately specify 'comm', 'diag', 'sample', or 'events'
+                    nec: '', path to nec file
+            site_filter: '', or specify part or all of the file you'd like to
+                          filter on. Eg. site_filter='123456_2018-09' would filter on site 123456
+                          and only the month of September in 2018.
     
     functions:
-        concat_txt(): combines all txt files in txt_dir (out_dir by default) that 
-                    include self.site_filter into one txt file with header from first file.
-                    out_file can be specified; defaults to %Y-%m-%d_SymPRO.txt in 
-                    current directory.
-        directory(): processes all rld files in self.rld_dir, outputs to txt files 
-                    to out_dir
-        rename_rld(): uses
+         concat_txt(): combines all txt files in txt_dir (out_dir by default) that 
+                       include self.site_filter into one txt file with header from first file.
+                       out_file can be specified; defaults to %Y-%m-%d_SymPRO.txt in 
+                       current directory.
+          directory(): processes all rld files in self.rld_dir, outputs to txt files 
+                       to out_dir ( aliases = convert() and process() )
+         rename_rld(): for calling the site-serial renaming tool to insert the serial number
+                       into the filename
         single_file(): pass single file's complete path for export.
     ------------------------------------------------------------------------------
     
