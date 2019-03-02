@@ -49,7 +49,58 @@ class symplus3(object):
         self.txt_dir = txt_dir
         self.output_file = output_file
         self.site_filter = site_filter
-        pass
+        if check_platform() == 'win32':
+            self.txt_dir = windows_folder_path(txt_dir)
+        else:
+            self.txt_dir = linux_folder_path(txt_dir)
+        first_file = True
+        files = sorted(glob(self.txt_dir + '*.txt'))
+        # setup site-info, ch-info with first file
+        # probably create dataframe of any channel changes
+        ## presence of log file indicates sensor change? maybe?
+        for f in files:
+            if self.site_filter in f:
+                print("Adding {0} ...\t\t".format(f), end="", flush=True)
+                if first_file == True:
+                    first_file = False
+                    try:
+                        base = single_file(f)
+                        print("[OK]")
+                        pass
+                    except IndexError:
+                        print('Only standard SymPRO headertypes accepted')
+                        break
+                else:
+                    file_path = f
+                    try:
+                        s = sympro_txt_read(file_path)
+                        base.data = base.data.append(s.data, sort=False)
+                        print("[OK]")
+                    except:
+                        print("[FAILED]")
+                        print("could not concat {0}".format(file_path))
+                        pass
+            else:
+                pass
+        if output_txt == True:
+            if out_file == "":
+                out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
+            base.data.to_csv(txt_dir + out_file, sep=',', index=False)
+            self.out_file = out_file
+        try:
+            self.ch_info = s.ch_info
+            self.ch_list = s.ch_list
+            self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
+            self.head = s.head
+            self.site_info = s.site_info
+        except UnboundLocalError:
+            print("No files match to contatenate.")
+            return None
+        self.ch_info = s.ch_info
+        self.ch_list = s.ch_list
+        self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
+        self.head = s.head
+        self.site_info = s.site_info        pass
 
 
     def get_site_info(self):
