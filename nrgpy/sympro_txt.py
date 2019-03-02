@@ -53,7 +53,7 @@ class sympro_txt_read(object):
     def __repr__(self):
         return '<class {}: {} >'.format(self.__class__.__name__,self.filename)
     
-    def arrange_ch_info(self): # create dataframe of channel info
+    def arrange_ch_info(self): 
         """
         creates ch_info dataframe and ch_list array
         """
