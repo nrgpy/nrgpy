@@ -6,9 +6,9 @@ def return_array(data_file_type):
     return data file header parameter array
     based on data_file_type
     """
-    if data_file_type.to_lower() in ["symplus3", "symphonieplus3", "sp3"]:
+    if data_file_type.lower() in ["symplus3", "symphonieplus3", "sp3"]:
         return_sp3_ch_info()
-    elif data_file_type.to_lower() in ["sympro", "symphoniepro"]:
+    elif data_file_type.lower() in ["sympro", "symphoniepro"]:
         return_spro_ch_info()
     else:
         return 0
