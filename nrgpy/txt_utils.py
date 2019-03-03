@@ -5,15 +5,16 @@ from glob import glob
 import os
 import pandas as pd
 import re
+from nrgpy.channel_info_arrays import return_array
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path
 
 
-class symplus3(object):
+class data_file_read(object):
     """
     class for handling symplus3 txt exports
     """
-    def __init__(self, filename='')
-        self.data_type = 'symplus3'
+    def __init__(self, filename='', data_type='')
+        self.data_type = data_type
         self.filename = filename
         if self.filename != '':
             self.get_site_info()
@@ -26,17 +27,7 @@ class symplus3(object):
         """
         generates list and dataframe of channel information
         """
-        array = [
-            'Channel #\t',
-            'Type\t',
-            'Description\t',
-            'Details\t',
-            'Serial Number\t',
-            'Height	90\t',
-            'Scale Factor\t',
-            'Offset\t',
-            'Units\t'
-        ]
+        array = return_array(self.data_type)
 
         self.ch_info = pd.DataFrame() 
         ch_data = {}
