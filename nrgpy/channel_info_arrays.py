@@ -32,7 +32,12 @@ def return_sp3_ch_info():
         'Units\t'
     ]
 
-    return array
+    header_sections = {}
+    header_sections['site_info_start'] = "-----Site Information-----"
+    header_sections['sensor_info_start'] = "-----Sensor Information-----"
+    header_sections['data_header'] = "Date & Time Stamp"
+    
+    return array, header_sections
 
 
 def return_spro_ch_info():
@@ -56,4 +61,9 @@ def return_spro_ch_info():
         'P-SCM Type:'
     ]
 
-    return array
+    header_sections = []
+    header_sections['site_info_start'] = "Site Properties"
+    header_sections['sensor_info_start'] = "Sensor History"
+    header_sections['data_start'] = "Data\n"
+
+    return array, header_sections 

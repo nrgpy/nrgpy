@@ -16,6 +16,7 @@ class data_file_read(object):
     def __init__(self, filename='', data_type='')
         self.data_type = data_type
         self.filename = filename
+        self.ch_info_array, self.header_sections = return_array(self.data_type)
         if self.filename != '':
             self.get_site_info()
             self.arrange_ch_info()
@@ -27,8 +28,7 @@ class data_file_read(object):
         """
         generates list and dataframe of channel information
         """
-        array = return_array(self.data_type)
-
+        
         self.ch_info = pd.DataFrame() 
         ch_data = {}
         ch_list = []
@@ -102,7 +102,7 @@ class data_file_read(object):
         self.site_info = pd.DataFrame()
         with open(self.filename) as txt_file:
             for line in txt_file:
-                if "-----Site Information-----" in txt_file:
+                if self.header_sections['site_info_start'] in txt_file:
                     break
                 header_len = header_len + 1                
         self.site_info = pd.read_csv(self.filename, skip_blank_lines=True, nrows=header_len)
