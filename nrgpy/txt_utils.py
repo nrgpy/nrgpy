@@ -35,8 +35,10 @@ class data_file_read(object):
         ch_details = 0
 
 
-    def concat(self, txt_dir='', output_txt=False,
-                 output_file='', site_filter=''):
+    def concat(self, txt_dir='', output_txt=False, output_file='', site_filter=''):
+        """
+        combine exported rwd files (in txt format)
+        """
         self.txt_dir = txt_dir
         self.output_file = output_file
         self.site_filter = site_filter
@@ -109,4 +111,7 @@ class data_file_read(object):
 
 
     def get_data(self):
+        """
+        create dataframe of tabulated data
+        """
         pass
