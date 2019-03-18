@@ -6,7 +6,7 @@
 #
 #            - takes IPK file as input and converts to LGR file
 #
-#               usage: import ipk2lgr
+#               usage:  import ipk2lgr
 #                      ipk2lgr.ipk2lgr("path/to/ipkfile")
 #               output: ipkfile.lgr # includes network and email settings
 #             ...............................................
