@@ -169,7 +169,7 @@ class local(object):
                     pass
                 try:
                     cmd = [copy_cmd,"".join([self.dir_paths[0], f]),self.file_path_joiner.join([site_folder, f])] 
-                    subprocess.check_output(" ".join(cmd), shell=True)
+                    subprocess.run(" ".join(cmd), shell=True)
                 except:
                     print('unable to copy file to RawData folder:  {}'.format(f))
 
