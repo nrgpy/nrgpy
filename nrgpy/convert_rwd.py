@@ -32,7 +32,7 @@ class local(object):
     def __init__(self, rwd_dir='', out_dir='', filename='', encryption_pin='',
                  sdr_path=r'C:/NRG/SymDR/SDR.exe',
                  convert_type='meas', site_filter='', 
-                 wine_folder='~/.wine/drive_c/', **kwargs):
+                 wine_folder='.wine/drive_c/', **kwargs):
         if encryption_pin != '':
             self.command_switch = '/z'
         else:
@@ -45,10 +45,10 @@ class local(object):
         self.site_filter = site_filter
         self.rwd_dir = windows_folder_path(rwd_dir) # rwd_dir must be in Windows format, even if using Wine
         self.platform = check_platform()
+        self.wine_folder = wine_folder
         if self.platform == 'win32':
             self.out_dir = windows_folder_path(out_dir)
             self.file_path_joiner = '\\'            
-            pass
         else:
             self.out_dir = linux_folder_path(out_dir)
             self.check_sdr()
@@ -56,7 +56,7 @@ class local(object):
         if filename != '':
             self.filename = filename
             self.single_file()
-        self.wine_folder = wine_folder
+
 
     def check_sdr(self):
         """
@@ -80,9 +80,11 @@ class local(object):
                 subprocess.check_output(['wine',self.sdr_path,'/s','test.rwd'])
                 print('SDR test OK!')
                 self.sdr_ok = True
-            except:
+                os.remove(os.path.join(self.wine_folder, "NRG/ScaledData/test.log"))
+            except Exception as e:
                 self.sdr_ok = False
                 print('SDR unable to start')
+                print(e)
 
     
     def convert(self):
@@ -96,7 +98,7 @@ class local(object):
         self.list_files()
         self.copy_rwd_files()
         affirm_directory(self.out_dir)
-        for f in self.rwd_file_list:
+        for f in sorted(self.rwd_file_list):
             site_num = f[:4]
             try:
                 self._filename = "\\".join([self.RawData+site_num,f])
@@ -142,7 +144,7 @@ class local(object):
             print("[FAILED")
             print('unable to convert {}. check ScaledData folder for log file'.format(_f))
         try:
-            print("\tCopying {}\t\t".format(_f[:-3]+'txt'), end="", flush=True)
+            print("\tCopying text output to {}".format(self.out_dir), end="", flush=True)
             self.copy_txt_file()
             print("[DONE]")
         except:
@@ -180,7 +182,7 @@ class local(object):
         """
         try:
             txt_file_name = self._filename.split('\\')[-1][:-4] + '.txt'
-            txt_file_path = "\\".join([self.ScaledData,txt_file_name])
+            txt_file_path = self.file_path_joiner.join([self.ScaledData,txt_file_name])
             out_path = self.file_path_joiner.join([self.out_dir,txt_file_name])
         except:
             print("could not do the needful")
