@@ -13,7 +13,7 @@ class data_file_read(object):
     """
     class for handling symplus3 txt exports
     """
-    def __init__(self, filename='', data_type='')
+    def __init__(self, filename='', data_type=''):
         self.data_type = data_type
         self.filename = filename
         self.ch_info_array, self.header_sections = return_array(self.data_type)
@@ -93,7 +93,7 @@ class data_file_read(object):
         self.ch_list = s.ch_list
         self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
         self.head = s.head
-        self.site_info = s.site_info        pass
+        self.site_info = s.site_info
 
 
     def get_site_info(self):

@@ -133,10 +133,10 @@ class local(object):
             wine = 'wine'
         else:
             wine = ''
-        cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
+        self.cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
         try:
             print("Converting {}\t\t".format(_f), end="", flush=True)
-            subprocess.check_output(" ".join(cmd), shell=True)
+            subprocess.check_output(" ".join(self.cmd), shell=True)
             print("[DONE]")
         except:
             print("[FAILED")
