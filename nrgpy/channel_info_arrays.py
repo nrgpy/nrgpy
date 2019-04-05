@@ -13,7 +13,8 @@ def return_array(data_file_type):
         a, b, c = return_spro_ch_info()
         return a, b, c
     else:
-        return 0
+        print("unsupported data_type")
+        return False
 
 
 def return_sp3_ch_info():
