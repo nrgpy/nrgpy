@@ -9,33 +9,69 @@ from nrgpy.channel_info_arrays import return_array
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path
 
 
-class data_file_read(object):
+class read_text_data(object):
     """
-    class for handling symplus3 txt exports
+    class for handling known csv-style text data files with header information
+
+    parameters -
+           filename : ''; if populated, perform a single file read (takes precedence over txt_dir)
+          data_type : ''; REQUIRED; specify instrument that the data file came from
+                sep : '\t'; csv separator
+
+            txt_dir : ''; specify folder of like text files to read and concatenate
+        file_filter : ''; use when using txt_dir to filter on subset of files
+           file_ext : ''; a secondary file filter
+
     """
-    def __init__(self, filename='', data_type=''):
+    def __init__(self, filename='', data_type='', txt_dir='', file_filter='',
+                 file_ext='', sep='\t'):
+        if data_type == '':
+            print("data_type parameter required.")
+            print("\tSymphoniePRO   : use 'data_type='symphoniepro'")
+            print("\tSymphoniePLUS3 : use 'data_type='symphonieplus3'")
+            return False
         self.data_type = data_type
+        self.txt_dir = txt_dir
+        self.file_filter = file_filter
+        self.file_ext = file_ext
+        self.sep = sep
+        self.ch_info_array, self.header_sections, self.skip_rows = return_array(self.data_type)
         self.filename = filename
-        self.ch_info_array, self.header_sections = return_array(self.data_type)
-        if self.filename != '':
-            self.get_site_info()
-            self.arrange_ch_info()
-            self.get_data()
-        pass
+        #if self.filename != '':
+        #    self.get_site_info(self.filename)
+        #    self.arrange_ch_info()
+        #    self.get_data(self.filename)
+        #elif self.txt_dir != '':
+        #    # do concat things
+        #    pass
 
     
     def arrange_ch_info(self):
         """
         generates list and dataframe of channel information
         """
-        
         self.ch_info = pd.DataFrame() 
         ch_data = {}
         ch_list = []
         ch_details = 0
 
+        for row in self.site_info.iterrows():
+            if row[1][0] == self.ch_info_array[0] and ch_details == 0: # start channel data read
+                ch_details = 1
+                ch_data[row[1][0]] = row[1][1]
+            elif row[1][0] == self.ch_info_array[0] and ch_details == 1: # close channel, start new data read
+                ch_list.append(ch_data)
+                ch_data = {}
+                ch_data[row[1][0]] = row[1][1]
+            elif str(row[1][0]) in str(self.ch_info_array):
+                ch_data[row[1][0]] = row[1][1]
 
-    def concat(self, txt_dir='', output_txt=False, output_file='', site_filter=''):
+        ch_list.append(ch_data) # last channel's data
+        self.ch_list = ch_list
+        self.ch_info = self.ch_info.append(ch_list)
+        
+
+    def concat(self):
         """
         combine exported rwd files (in txt format)
         """
@@ -57,7 +93,7 @@ class data_file_read(object):
                 if first_file == True:
                     first_file = False
                     try:
-                        base = single_file(f)
+                        base = self._single_file(f)
                         print("[OK]")
                         pass
                     except IndexError:
@@ -96,22 +132,28 @@ class data_file_read(object):
         self.site_info = s.site_info
 
 
-    def get_site_info(self):
+    def get_site_info(self, _file):
         """
         create dataframe of site info
         """
-        header_len = 0
+        self.header_len = 0
         self.site_info = pd.DataFrame()
-        with open(self.filename) as txt_file:
+        with open(self.filename, encoding='ISO-8859-1') as txt_file:
             for line in txt_file:
-                if self.header_sections['site_info_start'] in txt_file:
+                if self.header_sections['data_header'] in line:
                     break
-                header_len = header_len + 1                
-        self.site_info = pd.read_csv(self.filename, skip_blank_lines=True, nrows=header_len)
+                self.header_len += 1                
+        self.site_info = pd.read_csv(_file, skiprows=self.skip_rows, skip_blank_lines=True, 
+                                     sep=self.sep, nrows=self.header_len,
+                                     header=[0,1], encoding='ISO-8859-1', 
+                                     error_bad_lines=False, warn_bad_lines=False) #usecols=[0,1],
+        #self.site_info = self.site_info.iloc[:self.site_info.ix[self.site_info[0]==self.header_sections['data_header']].index.tolist()[0]+1]
+        self.site_info.reset_index(inplace=True)
 
 
-    def get_data(self):
+    def get_data(self, _file):
         """
         create dataframe of tabulated data
         """
-        pass
+        self.data = pd.read_csv(_file, skiprows=self.header_len, 
+                                encoding='ISO-8859-1', sep=self.sep)

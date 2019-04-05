@@ -55,7 +55,7 @@ class local(object):
             self.file_path_joiner = '/'
         if filename != '':
             self.filename = filename
-            self.single_file()
+            self._single_file()
 
 
     def check_sdr(self):
@@ -95,19 +95,19 @@ class local(object):
             3 - create out_dir if necessary
             4 - iterate through files
         """
-        self.list_files()
-        self.copy_rwd_files()
+        self._list_files()
+        self._copy_rwd_files()
         affirm_directory(self.out_dir)
         for f in sorted(self.rwd_file_list):
             site_num = f[:4]
             try:
                 self._filename = "\\".join([self.RawData+site_num,f])
-                self.single_file()
+                self._single_file()
             except:
                 print('file conversion failed on {}'.format(self._filename))
 
 
-    def list_files(self):
+    def _list_files(self):
         """
         get list of files in rwd_dir
         """
@@ -124,7 +124,7 @@ class local(object):
                     self.rwd_file_list.append(x)
 
 
-    def single_file(self):
+    def _single_file(self):
         """
         process for converting a single file
         """
@@ -145,14 +145,14 @@ class local(object):
             print('unable to convert {}. check ScaledData folder for log file'.format(_f))
         try:
             print("\tCopying text output to {}".format(self.out_dir), end="", flush=True)
-            self.copy_txt_file()
+            self._copy_txt_file()
             print("[DONE]")
         except:
             print("[FAILED]")
             print('unable to copy {} to text folder'.format(_f))
             
             
-    def copy_rwd_files(self):
+    def _copy_rwd_files(self):
         """
         copy RWD files from self.RawData to self.rwd_dir
         """
@@ -176,7 +176,7 @@ class local(object):
                     print('unable to copy file to RawData folder:  {}'.format(f))
 
 
-    def copy_txt_file(self):
+    def _copy_txt_file(self):
         """
         copy TXT file from self.ScaledData to self.out_dir
         """

@@ -7,9 +7,11 @@ def return_array(data_file_type):
     based on data_file_type
     """
     if data_file_type.lower() in ["symplus3", "symphonieplus3", "sp3", "4941"]:
-        return_sp3_ch_info()
+        a, b, c = return_sp3_ch_info()
+        return a, b, c
     elif data_file_type.lower() in ["sympro", "symphoniepro", "8206"]:
-        return_spro_ch_info()
+        a, b, c = return_spro_ch_info()
+        return a, b, c
     else:
         return 0
 
@@ -36,8 +38,9 @@ def return_sp3_ch_info():
     header_sections['site_info_start'] = "-----Site Information-----"
     header_sections['sensor_info_start'] = "-----Sensor Information-----"
     header_sections['data_header'] = "Date & Time Stamp"
+    skip_rows = 6
     
-    return array, header_sections
+    return array, header_sections, skip_rows
 
 
 def return_spro_ch_info():
@@ -62,8 +65,9 @@ def return_spro_ch_info():
     ]
 
     header_sections = []
-    header_sections['site_info_start'] = "Site Properties"
+    header_sections['site_info_start'] = "Export Parameters"
     header_sections['sensor_info_start'] = "Sensor History"
     header_sections['data_start'] = "Data\n"
+    skip_rows = 2
 
-    return array, header_sections 
+    return array, header_sections, skip_rows
