@@ -55,7 +55,7 @@ class read_text_data(object):
         ch_list = []
         ch_details = 0
 
-        for row in self.site_info.iterrows():
+        for row in self.site_info.iterrows(): 
             if row[1][0] == self.ch_info_array[0] and ch_details == 0: # start channel data read
                 ch_details = 1
                 ch_data[row[1][0]] = row[1][1]
@@ -75,13 +75,10 @@ class read_text_data(object):
         """
         combine exported rwd files (in txt format)
         """
-        self.txt_dir = txt_dir
-        self.output_file = output_file
-        self.site_filter = site_filter
         if check_platform() == 'win32':
-            self.txt_dir = windows_folder_path(txt_dir)
+            self.txt_dir = windows_folder_path(self.txt_dir)
         else:
-            self.txt_dir = linux_folder_path(txt_dir)
+            self.txt_dir = linux_folder_path(self.txt_dir)
         first_file = True
         files = sorted(glob(self.txt_dir + '*.txt'))
         # setup site-info, ch-info with first file
@@ -147,8 +144,8 @@ class read_text_data(object):
                                      sep=self.sep, nrows=self.header_len,
                                      header=[0,1], encoding='ISO-8859-1', 
                                      error_bad_lines=False, warn_bad_lines=False) #usecols=[0,1],
-        #self.site_info = self.site_info.iloc[:self.site_info.ix[self.site_info[0]==self.header_sections['data_header']].index.tolist()[0]+1]
         self.site_info.reset_index(inplace=True)
+        #self.site_info = self.site_info.iloc[:self.site_info.iloc[self.site_info[0]==self.header_sections['data_header']].index.tolist()[0]+1]
 
 
     def get_data(self, _file):

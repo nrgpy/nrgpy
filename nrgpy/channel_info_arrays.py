@@ -23,15 +23,15 @@ def return_sp3_ch_info():
     """
     
     array = [
-        'Channel #\t',
-        'Type\t',
-        'Description\t',
-        'Details\t',
-        'Serial Number\t',
-        'Height	90\t',
-        'Scale Factor\t',
-        'Offset\t',
-        'Units\t'
+        'Channel #',
+        'Type',
+        'Description',
+        #'Details',
+        'Serial Number',
+        'Height 90',
+        'Scale Factor',
+        'Offset',
+        'Units'
     ]
 
     header_sections = {}
