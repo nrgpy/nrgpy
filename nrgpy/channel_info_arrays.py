@@ -64,10 +64,10 @@ def return_spro_ch_info():
         'P-SCM Type:'
     ]
 
-    header_sections = []
+    header_sections = {}
     header_sections['site_info_start'] = "Export Parameters"
     header_sections['sensor_info_start'] = "Sensor History"
-    header_sections['data_start'] = "Data\n"
+    header_sections['data_header'] = "Data\n"
     skip_rows = 2
 
     return array, header_sections, skip_rows

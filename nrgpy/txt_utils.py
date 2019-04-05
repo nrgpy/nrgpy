@@ -144,7 +144,7 @@ class read_text_data(object):
                                      sep=self.sep, nrows=self.header_len,
                                      header=[0,1], encoding='ISO-8859-1', 
                                      error_bad_lines=False, warn_bad_lines=False) #usecols=[0,1],
-        self.site_info.reset_index(inplace=True)
+        self.site_info.reset_index(inplace=True, drop=True)
         #self.site_info = self.site_info.iloc[:self.site_info.iloc[self.site_info[0]==self.header_sections['data_header']].index.tolist()[0]+1]
 
 
