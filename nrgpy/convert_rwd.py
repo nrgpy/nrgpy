@@ -32,11 +32,14 @@ class local(object):
     def __init__(self, rwd_dir='', out_dir='', filename='', encryption_pin='',
                  sdr_path=r'C:/NRG/SymDR/SDR.exe',
                  convert_type='meas', site_filter='', 
-                 wine_folder='.wine/drive_c/', **kwargs):
+                 wine_folder='~/.wine/drive_c/', 
+                 use_site_file=False, **kwargs):
         if encryption_pin != '':
-            self.command_switch = '/z'
+            self.command_switch = '/z' # noqueue with pin
         else:
-            self.command_switch = '/q'
+            self.command_switch = '/q' # noqueue (logger params)
+        if use_site_file == True:
+            self.command_switch = '/s' # silent (site file params)
         self.encryption_pin = encryption_pin
         self.sdr_path = windows_folder_path(sdr_path)[:-1]
         self.root_folder = "\\".join(self.sdr_path.split('\\')[:-2])
@@ -137,19 +140,21 @@ class local(object):
             wine = ''
         self.cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
         try:
+            print(str(" ".join(self.cmd)))
             print("Converting {}\t\t".format(_f), end="", flush=True)
             subprocess.check_output(" ".join(self.cmd), shell=True)
             print("[DONE]")
-        except:
-            print("[FAILED")
-            print('unable to convert {}. check ScaledData folder for log file'.format(_f))
-        try:
-            print("\tCopying text output to {}".format(self.out_dir), end="", flush=True)
-            self._copy_txt_file()
-            print("[DONE]")
+            try:
+                print("\tCopying text output to {}".format(self.out_dir), end="", flush=True)
+                self._copy_txt_file()
+                print("[DONE]")
+            except:
+                print("[FAILED]")
+                print('unable to copy {} to text folder'.format(_f))
         except:
             print("[FAILED]")
-            print('unable to copy {} to text folder'.format(_f))
+            print('unable to convert {}. check ScaledData folder for log file'.format(_f))
+
             
             
     def _copy_rwd_files(self):
