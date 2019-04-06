@@ -7,11 +7,11 @@ def return_array(data_file_type):
     based on data_file_type
     """
     if data_file_type.lower() in ["symplus3", "symphonieplus3", "sp3", "4941"]:
-        a, b, c = return_sp3_ch_info()
-        return a, b, c
-    elif data_file_type.lower() in ["sympro", "symphoniepro", "8206"]:
-        a, b, c = return_spro_ch_info()
-        return a, b, c
+        a, b, c, d = return_sp3_ch_info()
+        return a, b, c, d
+    elif data_file_type.lower() in ["sympro", "symphoniepro", "spro", "8206"]:
+        a, b, c, d= return_spro_ch_info()
+        return a, b, c, d
     else:
         print("unsupported data_type")
         return False
@@ -40,8 +40,9 @@ def return_sp3_ch_info():
     header_sections['sensor_info_start'] = "-----Sensor Information-----"
     header_sections['data_header'] = "Date & Time Stamp"
     skip_rows = 6
+    data_type = 'symplus3'
     
-    return array, header_sections, skip_rows
+    return array, header_sections, skip_rows, data_type
 
 
 def return_spro_ch_info():
@@ -70,5 +71,6 @@ def return_spro_ch_info():
     header_sections['sensor_info_start'] = "Sensor History"
     header_sections['data_header'] = "Data\n"
     skip_rows = 2
+    data_type = "sympro"
 
-    return array, header_sections, skip_rows
+    return array, header_sections, skip_rows, data_type

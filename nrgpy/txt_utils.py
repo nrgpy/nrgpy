@@ -35,7 +35,7 @@ class read_text_data(object):
         self.file_filter = file_filter
         self.file_ext = file_ext
         self.sep = sep
-        self.ch_info_array, self.header_sections, self.skip_rows = return_array(self.data_type)
+        self.ch_info_array, self.header_sections, self.skip_rows, self.data_type = return_array(self.data_type)
         self.filename = filename
         #if self.filename != '':
         #    self.get_site_info(self.filename)
@@ -44,6 +44,11 @@ class read_text_data(object):
         #elif self.txt_dir != '':
         #    # do concat things
         #    pass
+
+    def single_file(self, f):
+        self.get_site_info(f)
+        self.arrange_ch_info()
+        self.get_data(f)
 
     
     def arrange_ch_info(self):
@@ -71,10 +76,11 @@ class read_text_data(object):
         self.ch_info = self.ch_info.append(ch_list)
         
 
-    def concat(self):
+    def concat(self, output_txt=False, out_file='', site_filter=''):
         """
         combine exported rwd files (in txt format)
         """
+        self.site_filter = site_filter
         if check_platform() == 'win32':
             self.txt_dir = windows_folder_path(self.txt_dir)
         else:
@@ -90,7 +96,7 @@ class read_text_data(object):
                 if first_file == True:
                     first_file = False
                     try:
-                        base = self._single_file(f)
+                        base = self.single_file(f)
                         print("[OK]")
                         pass
                     except IndexError:
@@ -144,7 +150,8 @@ class read_text_data(object):
                                      sep=self.sep, nrows=self.header_len,
                                      header=[0,1], encoding='ISO-8859-1', 
                                      error_bad_lines=False, warn_bad_lines=False) #usecols=[0,1],
-        self.site_info.reset_index(inplace=True) # , drop=True) works, but only for spro
+        if self.data_type == "symplus3":
+            self.site_info.reset_index(inplace=True) # , drop=True) works, but only for spro
         #self.site_info = self.site_info.iloc[:self.site_info.iloc[self.site_info[0]==self.header_sections['data_header']].index.tolist()[0]+1]
 
 
@@ -152,5 +159,7 @@ class read_text_data(object):
         """
         create dataframe of tabulated data
         """
+        if self.data_type == "sympro":
+            self.header_len += 1 # this shouldn't be necessary; something with get_site_info?
         self.data = pd.read_csv(_file, skiprows=self.header_len, 
                                 encoding='ISO-8859-1', sep=self.sep)

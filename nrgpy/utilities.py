@@ -1,5 +1,6 @@
 #!/bin/usr/python
 import os
+import pathlib
 
 
 def check_platform():
@@ -19,7 +20,7 @@ def affirm_directory(directory):
     else:
         try:
             print("output directory does not exist, creating...\t\t", end="", flush=True)
-            os.makedirs(directory)
+            pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
             print("[OK]")
         except:
             print('[FAILED]')

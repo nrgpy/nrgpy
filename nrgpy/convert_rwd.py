@@ -140,7 +140,7 @@ class local(object):
             wine = ''
         self.cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
         try:
-            print(str(" ".join(self.cmd)))
+            # print(str(" ".join(self.cmd)))
             print("Converting {}\t\t".format(_f), end="", flush=True)
             subprocess.check_output(" ".join(self.cmd), shell=True)
             print("[DONE]")
@@ -161,7 +161,7 @@ class local(object):
         """
         copy RWD files from self.RawData to self.rwd_dir
         """
-        for f in self.rwd_file_list:
+        for f in sorted(self.rwd_file_list):
             if self.site_filter in f:
                 site_num = f[:4]
                 site_folder = "\\".join([self.RawData,site_num])
