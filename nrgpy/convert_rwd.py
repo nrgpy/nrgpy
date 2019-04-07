@@ -20,6 +20,7 @@ class local(object):
                rwd_dir : '', folder to check for RWD files
                out_dir : '', folder to save exported TXT files into
            wine_folder : '~/.wine/drive_c/', for linux installations
+         use_site_file : False, set to True to use local site file
 
 
     functions -
@@ -49,12 +50,12 @@ class local(object):
         self.rwd_dir = windows_folder_path(rwd_dir) # rwd_dir must be in Windows format, even if using Wine
         self.platform = check_platform()
         self.wine_folder = wine_folder
+        self.check_sdr()
         if self.platform == 'win32':
             self.out_dir = windows_folder_path(out_dir)
             self.file_path_joiner = '\\'            
         else:
             self.out_dir = linux_folder_path(out_dir)
-            self.check_sdr()
             self.file_path_joiner = '/'
         if filename != '':
             self.filename = filename
@@ -70,6 +71,7 @@ class local(object):
             try:
                 os.path.exists(self.sdr_path)
                 self.sdr_ok = True
+                print('SDR test OK!')
             except:
                 self.sdr_ok = False
                 print('SDR not installed. Please install SDR or check path.\nhttps://www.nrgsystems.com/support/product-support/software/symphonie-data-retriever-software')
@@ -81,8 +83,8 @@ class local(object):
                 print('System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable.')
             try:
                 subprocess.check_output(['wine',self.sdr_path,'/s','test.rwd'])
-                print('SDR test OK!')
                 self.sdr_ok = True
+                print('SDR test OK!')
                 os.remove(os.path.join(self.wine_folder, "NRG/ScaledData/test.log"))
             except Exception as e:
                 self.sdr_ok = False
