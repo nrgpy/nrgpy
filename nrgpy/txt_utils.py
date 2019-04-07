@@ -37,20 +37,21 @@ class read_text_data(object):
         self.sep = sep
         self.ch_info_array, self.header_sections, self.skip_rows, self.data_type = return_array(self.data_type)
         self.filename = filename
-        #if self.filename != '':
-        #    self.get_site_info(self.filename)
-        #    self.arrange_ch_info()
-        #    self.get_data(self.filename)
-        #elif self.txt_dir != '':
-        #    # do concat things
-        #    pass
+        if self.filename != '':
+            self.get_site_info(self.filename)
+            self.arrange_ch_info()
+            self.get_data(self.filename)
+        elif self.txt_dir != '':
+            print('instance created, no filename specified')
+            pass
+        else:
+            print('set filename or txt_dir parameters to proceed.')
 
-    def single_file(self, f):
-        self.get_site_info(f)
-        self.arrange_ch_info()
-        self.get_data(f)
 
-    
+    def __repr__(self):
+        return '<class {}: {} >'.format(self.__class__.__name__,self.filename)
+
+
     def arrange_ch_info(self):
         """
         generates list and dataframe of channel information
@@ -96,16 +97,20 @@ class read_text_data(object):
                 if first_file == True:
                     first_file = False
                     try:
-                        base = self.single_file(f)
+                        base = read_text_data(filename=f,data_type=self.data_type, 
+                                                   file_filter=self.file_filter, file_ext=self.file_ext,
+                                                   sep=self.sep)
                         print("[OK]")
                         pass
                     except IndexError:
-                        print('Only standard SymPRO headertypes accepted')
+                        print('Only standard headertypes accepted')
                         break
                 else:
                     file_path = f
                     try:
-                        s = sympro_txt_read(file_path)
+                        s = read_text_data(filename=f,data_type=self.data_type, 
+                                           file_filter=self.file_filter, file_ext=self.file_ext,
+                                           sep=self.sep)
                         base.data = base.data.append(s.data, sort=False)
                         print("[OK]")
                     except:
@@ -122,16 +127,16 @@ class read_text_data(object):
         try:
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
-            self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
-            self.head = s.head
+            self.data = base.data.drop_duplicates(subset=[self.header_sections['data_header']], keep='first')
+            #self.head = s.head
             self.site_info = s.site_info
         except UnboundLocalError:
             print("No files match to contatenate.")
             return None
         self.ch_info = s.ch_info
         self.ch_list = s.ch_list
-        self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
-        self.head = s.head
+        self.data = base.data.drop_duplicates(subset=[self.header_sections['data_header']], keep='first')
+        #self.head = s.head
         self.site_info = s.site_info
 
 
