@@ -67,7 +67,7 @@ def count_files(directory, filters, extension, show_files=False):
         for x in files:
             if os.path.isfile(os.path.join(directory, x)):
                 if filters in x:
-                    if extension in x:
+                    if extension.lower() in x.lower():
                         file_list.append(x)
                         count = count + 1
     if show_files == True:

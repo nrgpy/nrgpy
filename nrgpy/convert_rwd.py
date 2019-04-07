@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import subprocess
 import shutil
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files
 
 
 class local(object):
@@ -110,6 +110,17 @@ class local(object):
                 self._single_file()
             except:
                 print('file conversion failed on {}'.format(self._filename))
+        raw_count = len(self.rwd_file_list)
+        txt_count = count_files(self.out_dir, self.site_filter, 'txt')
+        log_count, log_files = count_files(self.out_dir, self.site_filter, 'log', show_files=True)
+        print('\nRWDs in    : {}'.format(raw_count))
+        print('TXTs out   : {}'.format(txt_count))
+        print('LOGs out   : {}'.format(log_count))
+        if len(log_files) > 0:
+            print('Log files created:')
+            for _filename in log_files:
+                print('\t{}'.format(_filename))
+        print('----------------\nDifference : {}'.format(raw_count - (txt_count + log_count)))
 
 
     def _list_files(self):
@@ -142,16 +153,12 @@ class local(object):
             wine = ''
         self.cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
         try:
-            # print(str(" ".join(self.cmd)))
-            print("Converting {}\t\t".format(_f), end="", flush=True)
+            print("Converting {}\t...\t".format(_f.split("\\")[-1]), end="", flush=True)
             subprocess.check_output(" ".join(self.cmd), shell=True)
             print("[DONE]")
             try:
-                print("\tCopying text output to {}".format(self.out_dir), end="", flush=True)
                 self._copy_txt_file()
-                print("[DONE]")
             except:
-                print("[FAILED]")
                 print('unable to copy {} to text folder'.format(_f))
         except:
             print("[FAILED]")
