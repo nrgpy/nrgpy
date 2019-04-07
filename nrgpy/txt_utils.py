@@ -42,7 +42,7 @@ class read_text_data(object):
             self.arrange_ch_info()
             self.get_data(self.filename)
         elif self.txt_dir != '':
-            print('instance created, no filename specified')
+            self.concat()
             pass
         else:
             print('set filename or txt_dir parameters to proceed.')
