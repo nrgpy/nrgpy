@@ -2,6 +2,7 @@
 
 import os
 import pandas as pd
+import pathlib
 import subprocess
 import shutil
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files
@@ -16,7 +17,7 @@ class local(object):
               filename : '', if populated, a single file is exported
         encryption_pin : '', four digit pin, only used for encrypted files
               sdr_path : r'"C:/NRG/SymDR/SDR.exe"', may be any path
-           site_filter : '', filters files on text in filename
+           file_filter : '', filters files on text in filename
                rwd_dir : '', folder to check for RWD files
                out_dir : '', folder to save exported TXT files into
            wine_folder : '~/.wine/drive_c/', for linux installations
@@ -32,7 +33,7 @@ class local(object):
 
     def __init__(self, rwd_dir='', out_dir='', filename='', encryption_pin='',
                  sdr_path=r'C:/NRG/SymDR/SDR.exe',
-                 convert_type='meas', site_filter='', 
+                 convert_type='meas', file_filter='', 
                  wine_folder='~/.wine/drive_c/', 
                  use_site_file=False, **kwargs):
         if encryption_pin != '':
@@ -46,7 +47,9 @@ class local(object):
         self.root_folder = "\\".join(self.sdr_path.split('\\')[:-2])
         self.RawData = self.root_folder + '\\RawData\\'
         self.ScaledData = self.root_folder + '\\ScaledData\\'
-        self.site_filter = site_filter
+        self.file_filter = file_filter
+        if 'site_filter' in kwargs and file_filter == '':
+            self.file_filter = kwargs.get('site_filter')
         self.rwd_dir = windows_folder_path(rwd_dir) # rwd_dir must be in Windows format, even if using Wine
         self.platform = check_platform()
         self.wine_folder = wine_folder
@@ -57,9 +60,11 @@ class local(object):
         else:
             self.out_dir = linux_folder_path(out_dir)
             self.file_path_joiner = '/'
-        if filename != '':
-            self.filename = filename
-            self._single_file()
+        self.filename = filename
+        if self.filename != '':
+            self.rwd_dir = os.path.dirname(self.filename)
+            self.file_filter = os.path.basename(self.filename)
+            self.convert()
 
 
     def check_sdr(self):
@@ -111,8 +116,8 @@ class local(object):
             except:
                 print('file conversion failed on {}'.format(self._filename))
         raw_count = len(self.rwd_file_list)
-        txt_count = count_files(self.out_dir, self.site_filter, 'txt')
-        log_count, log_files = count_files(self.out_dir, self.site_filter, 'log', show_files=True)
+        txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt')
+        log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True)
         print('\nRWDs in    : {}'.format(raw_count))
         print('TXTs out   : {}'.format(txt_count))
         print('LOGs out   : {}'.format(log_count))
@@ -136,7 +141,7 @@ class local(object):
         for dirpath, subdirs, files in os.walk(walk_path):
             self.dir_paths.append(dirpath)
             for x in files:
-                if x.startswith(self.site_filter) and x.lower().endswith('.rwd'):
+                if x.startswith(self.file_filter) and x.lower().endswith('.rwd'):
                     self.rwd_file_list.append(x)
 
 
@@ -171,7 +176,7 @@ class local(object):
         copy RWD files from self.RawData to self.rwd_dir
         """
         for f in sorted(self.rwd_file_list):
-            if self.site_filter in f:
+            if self.file_filter in f:
                 site_num = f[:4]
                 site_folder = "\\".join([self.RawData,site_num])
                 copy_cmd = 'copy'

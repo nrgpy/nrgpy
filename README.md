@@ -27,26 +27,26 @@ It provides:
 from nrgpy.convert_rld import local
 date_filter = '2018-10' # filter on any text in the filenames
 text_folder_name = 'text_outputs/'
-fut = local(rld_dir='', out_dir=text_folder_name, site_filter=date_filter)
-fut.directory()
+converter = local(rld_dir='', out_dir=text_folder_name, file_filter=date_filter)
+converter.convert()
 ```
 #### Convert a folder of RLD files to Text with NRG Convert API
 ```python
 from nrgpy.convert_rld import nrg_convert_api
-site_filter = "000175"
+file_filter = "000175"
 rld_directory = "rlds"
 token = "contact support@nrgsystems.com for token"
-fut = nrg_convert_api(site_filter=site_filter, rld_dir=rld_directory, token=token)
-fut.process()
+converter = nrg_convert_api(file_filter=file_filter, rld_dir=rld_directory, token=token)
+converter.convert()
 ```
 
 #### Read files
 ```python
-site_filter = "000175"
+file_filter = "000175"
 from nrgpy.sympro_txt import sympro_txt_read
 
 sympro_dfs = sympro_txt_read()
-sympro_dfs.concat_txt(txt_dir=text_folder_name, site_filter=site_filter, output_txt=False)
+sympro_dfs.concat_txt(txt_dir=text_folder_name, file_filter=file_filter, output_txt=False)
 ```
 
 ### RWD files
@@ -54,12 +54,12 @@ sympro_dfs.concat_txt(txt_dir=text_folder_name, site_filter=site_filter, output_
 #### Convert a folder of RWD files to Text with Symphonie Data Retriever
 ```python
 from nrgpy.convert_rwd import local
-site_filter = '0434201902' # for Feb 2019 files from site 0434
+file_filter = '0434201902' # for Feb 2019 files from site 0434
 rwd_directory = 'C:/Users/[user]/rwd/'
 out_directory = 'C:/Users/[user]/txt/'
 
 
-converter = local(site_filter=site_filter, rwd_dir=rwd_directory, out_dir=out_directory)
+converter = local(file_filter=file_filter, rwd_dir=rwd_directory, out_dir=out_directory)
 converter.convert()
 ```
 
@@ -68,13 +68,24 @@ converter.convert()
 from nrgpy.convert_rwd import local
 rwd_directory = '/home/user/datafiles/rwd'
 out_directory = '/home/user/datafiles/txt'
-wine_directory = '/home/user/prefix32/drive_c/'
+wine_directory = '/home/user/.wine/drive_c/' # path to wine's "C:\" drive
+use_site_file = False # set to True to use local site file for scaling and headers
 
 
-converter = local(site_filter=site_filter, 
+converter = local(file_filter=file_filter, 
                   rwd_dir=rwd_directory, 
                   out_dir=out_directory,
                   wine_folder=wine_directory,
+                  use_site_file=use_site_file
                   )
 converter.convert()
+```
+
+
+You can also convert a single file with SDR, and save it in the same directory:
+
+```python
+from nrgpy.convert_rwd import local
+filename = '/path/to/file'
+converter = local(filename=filename)
 ```

@@ -263,3 +263,6 @@ class nrg_convert_api(object):
                 pass
 
         print('\nQueue processed\n')
+
+    def convert(self):
+        self.process()

@@ -77,11 +77,11 @@ class read_text_data(object):
         self.ch_info = self.ch_info.append(ch_list)
         
 
-    def concat(self, output_txt=False, out_file='', site_filter=''):
+    def concat(self, output_txt=False, out_file='', file_filter=''):
         """
         combine exported rwd files (in txt format)
         """
-        self.site_filter = site_filter
+        self.file_filter = file_filter
         if check_platform() == 'win32':
             self.txt_dir = windows_folder_path(self.txt_dir)
         else:
@@ -92,7 +92,7 @@ class read_text_data(object):
         # probably create dataframe of any channel changes
         ## presence of log file indicates sensor change? maybe?
         for f in files:
-            if self.site_filter in f:
+            if self.file_filter in f:
                 print("Adding {0} ...\t\t".format(f), end="", flush=True)
                 if first_file == True:
                     first_file = False
