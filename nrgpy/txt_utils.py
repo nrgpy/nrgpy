@@ -42,7 +42,7 @@ class read_text_data(object):
             self.arrange_ch_info()
             self.get_data(self.filename)
         elif self.txt_dir != '':
-            self.concat()
+            #self.concat()
             pass
         else:
             print('set filename or txt_dir parameters to proceed.')

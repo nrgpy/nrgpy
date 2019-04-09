@@ -89,3 +89,22 @@ from nrgpy.convert_rwd import local
 filename = '/path/to/file'
 converter = local(filename=filename)
 ```
+
+#### Read TXT files exported from RWD files
+
+```python
+from nrgpy.txt_utils import read_text_data
+dt = 'sp3'
+txt_file = '/path/to/file.txt'
+reader = read_text_data(data_type=dt, filename=txt_file)
+```
+
+or concatenate a whole lot of files:
+
+```python
+dt = 'sp3'
+txt_dir = '/path/to/text/files'
+file_filter = 'text_in_filenames_you_want'
+reader = read_text_data(data_type=dt, txt_dir=txt_dir, file_filter=file_filter)
+reader.concat()
+```
