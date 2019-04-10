@@ -6,7 +6,14 @@ def return_array(data_file_type):
     return data file header parameter array
     based on data_file_type
     """
-    if data_file_type.lower() in ["symplus3", "symphonieplus3", "sp3", "4941"]:
+    if data_file_type.lower() in ["symplus3", 
+                                  "symphonieplus3",
+                                  "sp3",
+                                  "4941"
+                                  "symphonieplus",
+                                  "sp",
+                                  "4280",
+                                  "3090"]:
         a, b, c, d = return_sp3_ch_info()
         return a, b, c, d
     elif data_file_type.lower() in ["sympro", "symphoniepro", "spro", "8206"]:
@@ -20,7 +27,7 @@ def return_array(data_file_type):
 def return_sp3_ch_info():
     """
     returns array of sensor info parameters for
-    SymphoniePLUS3 txt export files
+    Symphonie, PLUS, and PLUS3 txt export files
     """
     
     array = [
