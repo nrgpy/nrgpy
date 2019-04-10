@@ -29,7 +29,7 @@ def return_sp3_ch_info():
         'Description',
         #'Details',
         'Serial Number',
-        'Height 90',
+        'Height',
         'Scale Factor',
         'Offset',
         'Units'
