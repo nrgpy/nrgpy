@@ -8,6 +8,7 @@ import pandas as pd
 from pathlib import Path
 import requests
 import subprocess
+import time
 import zipfile
 from nrgpy.api_connect import nrgApiUrl, token as tk
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files
@@ -58,9 +59,9 @@ class local(object):
         self.convert_type = convert_type
         self.nec = nec
         self.site_filter = site_filter
-        if 'file_filter' in kwargs:
-            file_filter = kwargs.get('file_filter')
-            self.site_filter = file_filter
+        if 'file_filter' in kwargs and site_filter == '':
+            self.file_filter = kwargs.get('file_filter')
+            self.site_filter = self.file_filter
         if check_platform() == 'win32':
             pass
         else:
@@ -91,6 +92,7 @@ class local(object):
             print('could not parse encryption_pass')            
         try:
             rld_count = count_files(self.rld_dir, self.site_filter, 'rld')
+            self.start_time = time.time()
             print('\nConverting {0} files from {1}\n'.format(rld_count, self.rld_dir))
             print('Saving outputs to {0}'.format(self.out_dir))
             cmd = [self.sympro_path, 
@@ -104,8 +106,8 @@ class local(object):
             print('\nUsing command line script:\n{}'.format(" ".join(cmd)))
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
             print('\nTXT files saved in {0}\n'.format(self.out_dir))
-            txt_count = count_files(self.out_dir, self.site_filter, 'txt')
-            log_count, log_files = count_files(self.out_dir, self.site_filter, 'log', show_files=True)
+            txt_count = count_files(self.out_dir, self.site_filter, 'txt', start_time=self.start_time)
+            log_count, log_files = count_files(self.out_dir, self.site_filter, 'log', show_files=True, start_time=self.start_time)
             print('RLDs in    : {}'.format(rld_count))
             print('TXTs out   : {}'.format(txt_count))
             print('LOGs out   : {}'.format(log_count))
@@ -198,6 +200,9 @@ class nrg_convert_api(object):
         self.export_format = export_format
         self.export_type = export_type
         self.site_filter = site_filter
+        if 'file_filter' in kwargs and site_filter == '':
+            self.file_filter = kwargs.get('file_filter')
+            self.site_filter = self.file_filter
         self.header_type = header_type
         self.token = token
         
@@ -210,22 +215,14 @@ class nrg_convert_api(object):
 #        self.process()
 
     def process(self):
-        if os.path.exists(self.out_dir):
-            pass
-        else:
-            try:
-                print("output directory does not exist, creating...", end="", flush=True)
-                os.makedirs(self.out_dir, exists_ok=True)
-                print("[OK]")
-            except:
-                print('[FAILED]')
-
+        affirm_directory(self.out_dir)
         filelist = sorted(glob.glob(self.rld_dir + self.site_filter + '*.rld'))
-        #print(filelist)
-        #print(self.rld_dir)
+        self.raw_count = len(filelist)
+        self.pad = len(str(self.raw_count)) + 1
+        self.counter = 1
         for rld in filelist:
             try:
-                print("Processing: {0} ... \t\t".format(rld), end="", flush=True)
+                print("Processing\t{0}/{1}\t{2}\t...\t".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),rld), end="", flush=True)
                 RldFileBytes = open(rld,'rb').read()
                 EncodedFileBytes = base64.encodebytes(RldFileBytes)
 
@@ -261,7 +258,7 @@ class nrg_convert_api(object):
                 print('unable to process file: {0}'.format(rld))
                 print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
                 pass
-
+            self.counter += 1
         print('\nQueue processed\n')
 
     def convert(self):

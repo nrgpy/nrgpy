@@ -110,6 +110,7 @@ class local(object):
         self._copy_rwd_files()
         affirm_directory(self.out_dir)
         self.raw_count = len(self.rwd_file_list)
+        self.pad = len(str(self.raw_count)) + 1
         self.raw_counter = 1
         self.start_time = time.time()
         for f in sorted(self.rwd_file_list):
@@ -162,7 +163,7 @@ class local(object):
             wine = ''
         self.cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
         try:
-            print("Converting\t{0}/{1}\t{2}\t...\t".format(self.raw_counter,self.raw_count,_f.split("\\")[-1]), end="", flush=True)
+            print("Converting  {0}/{1}  {2}  ...  ".format(str(self.raw_counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),_f.split("\\")[-1]), end="", flush=True)
             subprocess.check_output(" ".join(self.cmd), shell=True)
             print("[DONE]")
             try:

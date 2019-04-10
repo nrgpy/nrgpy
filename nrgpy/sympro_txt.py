@@ -112,9 +112,12 @@ class sympro_txt_read(object):
             self.txt_dir = linux_folder_path(txt_dir)
         first_file = True
         files = sorted(glob(self.txt_dir + '*.txt'))
+        self.file_count = len(files)
+        self.pad = len(str(self.file_count))
+        self.counter = 1
         for f in files:
             if self.file_filter in f and self.file_type in f:
-                print("Adding {0} ...\t\t".format(f), end="", flush=True)
+                print("Adding {0}/{1}  ...  {2}".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:
@@ -136,6 +139,7 @@ class sympro_txt_read(object):
                         pass
             else:
                 pass
+            self.counter += 1
         if output_txt == True:
             if out_file == "":
                 out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"

@@ -20,8 +20,12 @@ def affirm_directory(directory):
     else:
         try:
             print("output directory does not exist, creating...\t\t", end="", flush=True)
-            pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
-            print("[OK]")
+            try:
+                pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
+            except FileExistsError:
+                print("[OK]")
+            except:
+                print('[FAILED]')
         except:
             print('[FAILED]')
 
@@ -60,7 +64,8 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
         2 -    filters | text/string filter present in file to be checked
         3 -  extension | secondary text/string filter 
         4 - show_files | optional: if set to True, prints file name
-        5 - start_time | kwarg: if set, use as reference; only count if newer than
+        5 - start_time | kwarg: seconds; if set, use as reference; 
+                            only count if file is newer than start_time
     """
     if "start_time" in kwargs:
         start_time = kwargs.get("start_time")
@@ -72,11 +77,14 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
                 if filters in x:
                     if extension.lower() in x.lower():
                         try:
-                            if os.path.getatime(os.path.join(dirpath,x)) < start_time:
+                            if os.path.getmtime(os.path.join(dirpath,x)) > start_time:
                                 file_list.append(x)
+                                count = count + 1
+
                         except NameError:
                             file_list.append(x)
-                        count = count + 1
+                            count = count + 1
+
     if show_files == True:
         return count, file_list
     return count
