@@ -1,5 +1,6 @@
 #!/bin/usr/python
 
+import time
 import os
 import pandas as pd
 import pathlib
@@ -108,6 +109,9 @@ class local(object):
         self._list_files()
         self._copy_rwd_files()
         affirm_directory(self.out_dir)
+        self.raw_count = len(self.rwd_file_list)
+        self.raw_counter = 1
+        self.start_time = time.time()
         for f in sorted(self.rwd_file_list):
             site_num = f[:4]
             try:
@@ -115,17 +119,17 @@ class local(object):
                 self._single_file()
             except:
                 print('file conversion failed on {}'.format(self._filename))
-        raw_count = len(self.rwd_file_list)
-        txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt')
-        log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True)
-        print('\nRWDs in    : {}'.format(raw_count))
+            self.raw_counter += 1
+        txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt', start_time=self.start_time)
+        log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.start_time)
+        print('\nRWDs in    : {}'.format(self.raw_count))
         print('TXTs out   : {}'.format(txt_count))
         print('LOGs out   : {}'.format(log_count))
         if len(log_files) > 0:
             print('Log files created:')
             for _filename in log_files:
                 print('\t{}'.format(_filename))
-        print('----------------\nDifference : {}'.format(raw_count - (txt_count + log_count)))
+        print('----------------\nDifference : {}'.format(self.raw_count - (txt_count + log_count)))
 
 
     def _list_files(self):
@@ -158,7 +162,7 @@ class local(object):
             wine = ''
         self.cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
         try:
-            print("Converting {}\t...\t".format(_f.split("\\")[-1]), end="", flush=True)
+            print("Converting\t{0}/{1}\t{2}\t...\t".format(self.raw_counter,self.raw_count,_f.split("\\")[-1]), end="", flush=True)
             subprocess.check_output(" ".join(self.cmd), shell=True)
             print("[DONE]")
             try:
@@ -179,18 +183,15 @@ class local(object):
             if self.file_filter in f:
                 site_num = f[:4]
                 site_folder = "\\".join([self.RawData,site_num])
-                copy_cmd = 'copy'
                 if self.platform == 'linux':
                     site_folder = ''.join([self.wine_folder,'NRG/RawData/',site_num])
-                    copy_cmd = 'cp'
                 try:
                     affirm_directory(site_folder)
                 except:
                     print("couldn't create {}".format(site_folder))
                     pass
                 try:
-                    cmd = [copy_cmd,"".join([self.dir_paths[0], f]),self.file_path_joiner.join([site_folder, f])] 
-                    subprocess.run(" ".join(cmd), shell=True)
+                    shutil.copy("".join([self.dir_paths[0], f]), site_folder)                    
                 except:
                     print('unable to copy file to RawData folder:  {}'.format(f))
 

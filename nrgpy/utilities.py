@@ -51,7 +51,7 @@ def linux_folder_path(folder_path):
     return folder_path
 
 
-def count_files(directory, filters, extension, show_files=False):
+def count_files(directory, filters, extension, show_files=False, **kwargs):
     """
     counts the number of files in the first level of a directory
 
@@ -60,7 +60,10 @@ def count_files(directory, filters, extension, show_files=False):
         2 -    filters | text/string filter present in file to be checked
         3 -  extension | secondary text/string filter 
         4 - show_files | optional: if set to True, prints file name
+        5 - start_time | kwarg: if set, use as reference; only count if newer than
     """
+    if "start_time" in kwargs:
+        start_time = kwargs.get("start_time")
     count = 0
     file_list = []
     for dirpath, subdirs, files in os.walk(directory):
@@ -68,7 +71,11 @@ def count_files(directory, filters, extension, show_files=False):
             if os.path.isfile(os.path.join(directory, x)):
                 if filters in x:
                     if extension.lower() in x.lower():
-                        file_list.append(x)
+                        try:
+                            if os.path.getatime(os.path.join(dirpath,x)) < start_time:
+                                file_list.append(x)
+                        except NameError:
+                            file_list.append(x)
                         count = count + 1
     if show_files == True:
         return count, file_list
