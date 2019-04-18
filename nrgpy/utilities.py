@@ -19,7 +19,7 @@ def affirm_directory(directory):
         pass
     else:
         try:
-            print("output directory does not exist, creating...\t\t", end="", flush=True)
+            print("{0} does not exist, creating...\t\t".format(directory), end="", flush=True)
             try:
                 pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
             except FileExistsError:
