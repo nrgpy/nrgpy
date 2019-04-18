@@ -69,14 +69,13 @@ from nrgpy.convert_rwd import local
 rwd_directory = '/home/user/datafiles/rwd'
 out_directory = '/home/user/datafiles/txt'
 wine_directory = '/home/user/.wine/drive_c/' # path to wine's "C:\" drive
-use_site_file = False # set to True to use local site file for scaling and headers
 
 
 converter = local(file_filter=file_filter, 
                   rwd_dir=rwd_directory, 
                   out_dir=out_directory,
                   wine_folder=wine_directory,
-                  use_site_file=use_site_file
+                  use_site_file=False # set to True to use site files
                   )
 converter.convert()
 ```
