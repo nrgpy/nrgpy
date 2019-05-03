@@ -25,7 +25,10 @@ class sympro_txt_read(object):
         filter may be used on any part of the filename, to combine a subset of text files in
         a directory.
         """
-
+        if 'ch_details' in kwargs:
+            self.ch_details = kwargs.get('ch_details')
+        else:
+            self.ch_details = False
         self.filename = filename
         
         if self.filename:
@@ -67,10 +70,19 @@ class sympro_txt_read(object):
                  'Bearing:',
                  'Scale Factor:',
                  'Offset:',
-                 'Units:',
-                 'P-SCM Type:']
+                 'Units:']
+        if self.ch_details == True:
+            array += ['P-SCM Type:',
+                      'Total Direction Offset:',
+                      'Dead Band East:',
+                      'Dead Band West:',
+                      'Excitation Mode:',
+                      'Excitation Value:',
+                      'Data Logging Mode:']
+        else:
+            pass
 
-
+        self.array = array
         self.ch_info = pd.DataFrame() 
         ch_data = {}
         ch_list = []
@@ -101,6 +113,8 @@ class sympro_txt_read(object):
         Will concatenate all text files in the txt_dir that match
         the site_filter argument. Note these are both blank by default.
         """
+        if 'ch_details' in kwargs:
+            self.ch_details = kwargs.get('ch_details')
         if 'site_filter' in kwargs and file_filter == '':
             self.file_filter = kwargs.get('site_filter')
         else:
@@ -130,7 +144,7 @@ class sympro_txt_read(object):
                 else:
                     file_path = f
                     try:
-                        s = sympro_txt_read(file_path)
+                        s = sympro_txt_read(file_path, ch_details=self.ch_details)
                         base.data = base.data.append(s.data, sort=False)
                         print("[OK]")
                     except:
@@ -148,6 +162,7 @@ class sympro_txt_read(object):
         try:
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
+            self.array = s.array
             self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
             self.head = s.head
             self.site_info = s.site_info
