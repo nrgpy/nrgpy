@@ -24,6 +24,9 @@ class sympro_txt_read(object):
 
         filter may be used on any part of the filename, to combine a subset of text files in
         a directory.
+
+        kwargs:
+            - ch_details; default False, set to True to see more verbose ch_info information
         """
         if 'ch_details' in kwargs:
             self.ch_details = kwargs.get('ch_details')
