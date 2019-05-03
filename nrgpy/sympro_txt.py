@@ -167,16 +167,13 @@ class sympro_txt_read(object):
             self.ch_list = s.ch_list
             self.array = s.array
             self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
+            self.data.reset_index(drop=True,inplace=True)
             self.head = s.head
             self.site_info = s.site_info
         except UnboundLocalError:
             print("No files match to contatenate.")
             return None
-        self.ch_info = s.ch_info
-        self.ch_list = s.ch_list
-        self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
-        self.head = s.head
-        self.site_info = s.site_info
+
         
         
     def select_channels_for_reformat(self, epe=False, soiling=False): 
