@@ -9,7 +9,7 @@ from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_pa
 
 
 class sympro_txt_read(object): 
-    def __init__(self, filename='', out_file='', **kwargs):
+    def __init__(self, filename='', **kwargs):
         """
         Class of pandas dataframes created from SymPRO standard txt output.
         1. ch_info: pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
@@ -24,18 +24,10 @@ class sympro_txt_read(object):
 
         filter may be used on any part of the filename, to combine a subset of text files in
         a directory.
-
-        kwargs:
-            - ch_details; default False, set to True to see more verbose ch_info information
         """
-        if 'ch_details' in kwargs:
-            self.ch_details = kwargs.get('ch_details')
-        else:
-            self.ch_details = False
+
         self.filename = filename
-        if out_file == "":
-            out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
-        self.out_file = out_file       
+        
         if self.filename:
             i = 0
             with open(self.filename) as infile:
@@ -75,19 +67,10 @@ class sympro_txt_read(object):
                  'Bearing:',
                  'Scale Factor:',
                  'Offset:',
-                 'Units:']
-        if self.ch_details == True:
-            array += ['P-SCM Type:',
-                      'Total Direction Offset:',
-                      'Dead Band East:',
-                      'Dead Band West:',
-                      'Excitation Mode:',
-                      'Excitation Value:',
-                      'Data Logging Mode:']
-        else:
-            pass
+                 'Units:',
+                 'P-SCM Type:']
 
-        self.array = array
+
         self.ch_info = pd.DataFrame() 
         ch_data = {}
         ch_list = []
@@ -118,8 +101,6 @@ class sympro_txt_read(object):
         Will concatenate all text files in the txt_dir that match
         the site_filter argument. Note these are both blank by default.
         """
-        if 'ch_details' in kwargs:
-            self.ch_details = kwargs.get('ch_details')
         if 'site_filter' in kwargs and file_filter == '':
             self.file_filter = kwargs.get('site_filter')
         else:
@@ -130,13 +111,10 @@ class sympro_txt_read(object):
         else:
             self.txt_dir = linux_folder_path(txt_dir)
         first_file = True
-        files = [f for f in sorted(glob(self.txt_dir + '*.txt')) if self.file_filter in f]
-        self.file_count = len(files)
-        self.pad = len(str(self.file_count))
-        self.counter = 1
+        files = sorted(glob(self.txt_dir + '*.txt'))
         for f in files:
             if self.file_filter in f and self.file_type in f:
-                print("Adding {0}/{1}  ...  {2}".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
+                print("Adding {0} ...\t\t".format(f), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:
@@ -149,7 +127,7 @@ class sympro_txt_read(object):
                 else:
                     file_path = f
                     try:
-                        s = sympro_txt_read(file_path, ch_details=self.ch_details)
+                        s = sympro_txt_read(file_path)
                         base.data = base.data.append(s.data, sort=False)
                         print("[OK]")
                     except:
@@ -158,23 +136,25 @@ class sympro_txt_read(object):
                         pass
             else:
                 pass
-            self.counter += 1
-        if out_file != "":
-            self.out_file = out_file
         if output_txt == True:
+            if out_file == "":
+                out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
+            self.out_file = out_file
         try:
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
-            self.array = s.array
             self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
-            self.data.reset_index(drop=True,inplace=True)
             self.head = s.head
             self.site_info = s.site_info
         except UnboundLocalError:
             print("No files match to contatenate.")
             return None
-
+        self.ch_info = s.ch_info
+        self.ch_list = s.ch_list
+        self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
+        self.head = s.head
+        self.site_info = s.site_info
         
         
     def select_channels_for_reformat(self, epe=False, soiling=False): 
@@ -386,7 +366,7 @@ class sympro_txt_read(object):
                         shift_timestamps=False, **kwargs):
         out_dir = kwargs.get('out_dir', '')
         if epe == True:
-            output_name = self.out_file[:-4]+"_EPE.txt"
+            output_name = self.filename[:-4]+"_EPE.txt"
             output_file = open(output_name, 'w+', encoding='utf-16')
             output_file.truncate()
 
@@ -405,7 +385,7 @@ class sympro_txt_read(object):
                 cols.append(col_name)
             self.cols = cols
 
-            with open(output_name, 'a', encoding='utf-8') as f:
+            with open(output_name, 'a', encoding='utf-16') as f:
                 self.data.to_csv(f, header=False, sep="|", columns=cols, index=False,  
                                  index_label=False, decimal=",", line_terminator="|\n",
                                  float_format='%.2f')
@@ -414,18 +394,18 @@ class sympro_txt_read(object):
             
         else:
             if soiling == True:
-                output_name = self.out_file[:-4]+"_soiling.txt"
-                output_file = open(output_name, 'w+', encoding = 'utf-8')
+                output_name = self.filename[:-4]+"_soiling.txt"
+                output_file = open(output_name, 'w+', encoding = 'utf-16')
                 output_file.truncate()
                 output_file.write(self.head)       
                 output_file.close()
                 # write header
-                with open(output_name, 'a', encoding='utf-8') as f:
+                with open(output_name, 'a', encoding='utf-16') as f:
                     self.site_info.to_csv(f, header=False, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")            
                 output_file.close()
                 #write data
-                with open(output_name, 'a', encoding='utf-8') as f:
+                with open(output_name, 'a', encoding='utf-16') as f:
                     self.data.round(6).to_csv(f, header=True, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")
                 output_file.close()
@@ -467,20 +447,18 @@ class sympro_txt_read(object):
                 output_file.close()
                 
             if standard == True:
-                self.insert_blank_header_rows()
-                output_name = self.out_file[:-4]+"_standard.txt"
-                output_file = open(output_name, 'w+', encoding = 'utf-8')
+                output_name = self.filename[:-4]+"_standard.txt"
+                output_file = open(output_name, 'w+', encoding = 'utf-16')
                 output_file.truncate()
                 output_file.write(self.head)       
                 output_file.close()
-
                 # write header
-                with open(output_name, 'a', encoding='utf-8') as f:
-                    self.site_info_write.to_csv(f, header=False, sep="\t", index=False,
+                with open(output_name, 'a', encoding='utf-16') as f:
+                    self.site_info.to_csv(f, header=False, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")            
                 output_file.close()
                 #write data
-                with open(output_name, 'a', encoding='utf-8') as f:
+                with open(output_name, 'a', encoding='utf-16') as f:
                     self.data.round(6).to_csv(f, header=True, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")
                 output_file.close()
@@ -491,12 +469,12 @@ class sympro_txt_read(object):
     
     def insert_blank_header_rows(self):
         """
-        function used to insert blank rows when using shift_timestamps() 
-        function so that the resulting text file looks and feels like an
-        original Sympro Desktop exported
+            function used to insert blank rows when using shift_timestamps() 
+            function so that the resulting text file looks and feels like an
+            original Sympro Desktop exported
         """
         blank_list = []
-        for i in self.site_info[self.site_info[0].str.contains("Export Parameters")==True].index:
+        for i in self.site_info[self.site_info[0].str.contains("Export Parameter")==True].index:
           blank_list.append(i)
         
         for i in self.site_info[self.site_info[0].str.contains("Site Properties")==True].index:
@@ -527,7 +505,6 @@ class sympro_txt_read(object):
         self.site_info_write = self.site_info
 
         line = pd.DataFrame({0: "", 1: ""}, index=[2])
-        
         i = 0
         for ind in blank_list:
            self.site_info_write = pd.concat([self.site_info_write.iloc[:i+ind], line, self.site_info_write.iloc[i+ind:]]).reset_index(drop=True)
