@@ -2,4 +2,4 @@
 *.txt
 dist/
 build/
-.gitconfig
+.gitignore
