@@ -1,5 +1,7 @@
+
 *.ipynb
 *.txt
-dist/
+__pycache__/
 build/
+dist/
 .gitignore
