@@ -1,0 +1,5 @@
+*.ipynb
+*.txt
+dist/
+build/
+.gitconfig
