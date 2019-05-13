@@ -389,6 +389,7 @@ class sympro_txt_read(object):
             output_name = self.out_file[:-4]+"_EPE.txt"
             output_file = open(output_name, 'w+', encoding='utf-16')
             output_file.truncate()
+            self.make_header_for_epe()
 
             for line in self.header:
                 try:
@@ -467,12 +468,12 @@ class sympro_txt_read(object):
                 output_file.close()
                 
             if standard == True:
-                self.insert_blank_header_rows()
                 output_name = self.out_file[:-4]+"_standard.txt"
                 output_file = open(output_name, 'w+', encoding = 'utf-8')
                 output_file.truncate()
                 output_file.write(self.head)       
                 output_file.close()
+                self.insert_blank_header_rows(output_name)
 
                 # write header
                 with open(output_name, 'a', encoding='utf-8') as f:
@@ -489,7 +490,7 @@ class sympro_txt_read(object):
         return self
 
     
-    def insert_blank_header_rows(self):
+    def insert_blank_header_rows(self,filename):
         """
         function used to insert blank rows when using shift_timestamps() 
         function so that the resulting text file looks and feels like an
@@ -528,11 +529,22 @@ class sympro_txt_read(object):
 
         line = pd.DataFrame({0: "", 1: ""}, index=[2])
         
-        i = 0
-        for ind in blank_list:
-           self.site_info_write = pd.concat([self.site_info_write.iloc[:i+ind], line, self.site_info_write.iloc[i+ind:]]).reset_index(drop=True)
-           i = i + 1
-           
+        #i = 0
+        #for ind in blank_list:
+        #   self.site_info_write = pd.concat([self.site_info_write.iloc[:i+ind], line, self.site_info_write.iloc[i+ind:]]).reset_index(drop=True)
+        #   i = i + 1
+        f_read = open(filename, 'r')
+        contents = f_read.readlines()
+        f_read.close()
+
+        for i in list(reversed(blank_list)):
+            contents.insert(i,"\n")
+        
+        f_write = open(filename, 'w')
+        contents = "".join(contents)
+        f_write.write(contents)
+        f_write.close()
+
         return self
 
     
