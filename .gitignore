@@ -1,7 +1,11 @@
 
 *.ipynb
 *.txt
+.ipynb_checkpoints/
+.vscode/
 __pycache__/
 build/
 dist/
+venv/
+nrgpy.egg-info/
 .gitignore

@@ -190,7 +190,7 @@ class sympro_txt_read(object):
         # for EPE formatting
         ch_anem = ['Anem','Anemometer','anem','anemometer','Anemômetro','anemômetro']
         ch_vane = ['Vane','vane','Direction','direction','Veleta','veleta','Direção','direção','Vane w/Offset']
-        ch_baro = ['mb','hpa','hPa','millibar','kPa']
+        ch_baro = ['mb','hpa','hPa','millibar','kPa', 'baro', 'Baro']
         ch_relh = ['%RH','%rh','RH','rh']
         ch_temp = ['C','c','?C','Temp','deg c','deg f','temp']
 
@@ -232,7 +232,6 @@ class sympro_txt_read(object):
                 self.pv_temp_soiled = self.ch_info.loc[(self.ch_info['Description:'].str.lower().str.contains('|'.join(ch_soiled_desc)) & (self.ch_info['Units:'].str.lower().str.contains('|'.join(ch_temp))))]
             except:
                 print("SC and PV Temp fields unavailable for calculation")
-        return self
 
 
     def format_data_for_epe(self):
@@ -292,14 +291,12 @@ class sympro_txt_read(object):
         except:
             self.data['CH19'], self.data['CH20'], self.data['CH21'], self.data['CH22'] = "000"
 
-        return self 
-
 
     def make_header_for_epe(self):
         array     = ['Site Number:']
         sitenum   = self.site_info.loc[self.site_info[0].isin(array)][1].to_string().split(" ")[-1]
-        starttime = self.data.head(1).as_matrix()[0][0].replace("-","").replace(" ","").replace(":","")
-        endtime   = self.data.tail(1).as_matrix()[0][0].replace("-","").replace(" ","").replace(":","")
+        starttime = self.data.head(1).values[0][0].replace("-","").replace(" ","").replace(":","")
+        endtime   = self.data.tail(1).values[0][0].replace("-","").replace(" ","").replace(":","")
 
         a1_height = str(self.anem1['Height:'].iloc[0])
         a2_height = str(self.anem2['Height:'].iloc[0])
@@ -338,9 +335,7 @@ class sympro_txt_read(object):
         header.append('dados')
         self.header = header
 
-        return self
 
-    
     def calculate_soiling_ratio(self, method="IEC", T0=25, G0=1000, alpha=0.0004, 
                                 I_clean_SC_0=0.900000, I_soiled_SC_0=0.900000 ):
         isc_clean_ch = "Ch" + str(self.isc_clean['Channel:'].iloc[0]) + "_"
@@ -383,39 +378,52 @@ class sympro_txt_read(object):
 
 
     def output_txt_file(self, epe=False, soiling=False, standard=False, 
-                        shift_timestamps=False, **kwargs):
+                        shift_timestamps=False, out_file='', **kwargs):
         out_dir = kwargs.get('out_dir', '')
+
         if epe == True:
-            output_name = self.out_file[:-4]+"_EPE.txt"
-            output_file = open(output_name, 'w+', encoding='utf-16')
-            output_file.truncate()
-            self.make_header_for_epe()
+            if out_file != '':
+                output_name = out_file
+            else:
+                output_name = self.out_file[:-4]+"_EPE.txt"
+            print("\nOutputting file: {0}   ...   ".format(output_name), end="", flush=True)
+            try:
+                output_file = open(output_name, 'w+', encoding='utf-16')
+                output_file.truncate()
+                self.select_channels_for_reformat(epe=True)
+                self.format_data_for_epe()
 
-            for line in self.header:
-                try:
-                    output_file.write(line + "\n")
-                except:
-                    pass
-            output_file.close()
+                for line in self.header:
+                    try:
+                        output_file.write(line + "\n")
+                    except:
+                        pass
+                output_file.close()
 
-            col_prefix = "CH"
-            cols = []
-            for i in range(1,23,1):
-                col_num  = str(i).zfill(2)
-                col_name = col_prefix + str(col_num)
-                cols.append(col_name)
-            self.cols = cols
+                col_prefix = "CH"
+                cols = []
+                for i in range(1,23,1):
+                    col_num  = str(i).zfill(2)
+                    col_name = col_prefix + str(col_num)
+                    cols.append(col_name)
+                self.cols = cols
 
-            with open(output_name, 'a', encoding='utf-8') as f:
-                self.data.to_csv(f, header=False, sep="|", columns=cols, index=False,  
-                                 index_label=False, decimal=",", line_terminator="|\n",
-                                 float_format='%.2f')
+                with open(output_name, 'a', encoding='utf-16') as f:
+                    self.data.to_csv(f, header=False, sep="|", columns=cols, index=False,  
+                                    index_label=False, decimal=",", line_terminator="|\n",
+                                    float_format='%.2f')
 
-            f.close()
-            
+                f.close()
+                print("[OK]")
+            except Exception as e:
+                print("[FAILED]")
+                print(e)
         else:
             if soiling == True:
-                output_name = self.out_file[:-4]+"_soiling.txt"
+                if out_file != '':
+                    output_name = out_file
+                else:                
+                    output_name = self.out_file[:-4]+"_soiling.txt"
                 output_file = open(output_name, 'w+', encoding = 'utf-8')
                 output_file.truncate()
                 output_file.write(self.head)       
@@ -468,7 +476,10 @@ class sympro_txt_read(object):
                 output_file.close()
                 
             if standard == True:
-                output_name = self.out_file[:-4]+"_standard.txt"
+                if out_file != '':
+                    output_name = out_file
+                else:
+                    output_name = self.out_file[:-4]+"_standard.txt"
                 output_file = open(output_name, 'w+', encoding = 'utf-8')
                 output_file.truncate()
                 output_file.write(self.head)       
@@ -486,10 +497,7 @@ class sympro_txt_read(object):
                                         index_label=False, line_terminator="\n")
                 output_file.close()
 
-        
-        return self
 
-    
     def insert_blank_header_rows(self,filename):
         """
         function used to insert blank rows when using shift_timestamps() 
@@ -533,6 +541,7 @@ class sympro_txt_read(object):
         #for ind in blank_list:
         #   self.site_info_write = pd.concat([self.site_info_write.iloc[:i+ind], line, self.site_info_write.iloc[i+ind:]]).reset_index(drop=True)
         #   i = i + 1
+        print(blank_list)
         f_read = open(filename, 'r')
         contents = f_read.readlines()
         f_read.close()
