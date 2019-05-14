@@ -480,22 +480,28 @@ class sympro_txt_read(object):
                     output_name = out_file
                 else:
                     output_name = self.out_file[:-4]+"_standard.txt"
-                output_file = open(output_name, 'w+', encoding = 'utf-8')
-                output_file.truncate()
-                output_file.write(self.head)       
-                output_file.close()
-                self.insert_blank_header_rows(output_name)
+                print("\nOutputting file: {0}   ...   ".format(output_name), end="", flush=True)
+                try:
+                    output_file = open(output_name, 'w+', encoding = 'utf-8')
+                    output_file.truncate()
+                    output_file.write(self.head)       
+                    output_file.close()
 
-                # write header
-                with open(output_name, 'a', encoding='utf-8') as f:
-                    self.site_info_write.to_csv(f, header=False, sep="\t", index=False,
-                                        index_label=False, line_terminator="\n")            
-                output_file.close()
-                #write data
-                with open(output_name, 'a', encoding='utf-8') as f:
-                    self.data.round(6).to_csv(f, header=True, sep="\t", index=False,
-                                        index_label=False, line_terminator="\n")
-                output_file.close()
+                    # write header
+                    with open(output_name, 'a', encoding='utf-8') as f:
+                        self.site_info.to_csv(f, header=False, sep="\t", index=False,
+                                            index_label=False, line_terminator="\n")            
+                    output_file.close()
+                    #write data
+                    with open(output_name, 'a', encoding='utf-8') as f:
+                        self.data.round(6).to_csv(f, header=True, sep="\t", index=False,
+                                            index_label=False, line_terminator="\n")
+                    output_file.close()
+                    self.insert_blank_header_rows(output_name)
+                    print("[OK]")
+                except Exception as e:
+                    print("[FAILED]")
+                    print(e)
 
 
     def insert_blank_header_rows(self,filename):
@@ -504,21 +510,33 @@ class sympro_txt_read(object):
         function so that the resulting text file looks and feels like an
         original Sympro Desktop exported
         """
+        header_section_headings = ["Export Parameters",
+                                   "Site Properties",
+                                   "Logger History",
+                                   "iPack History",
+                                   "Sensor History", 
+                                   "Data"]
+        
         blank_list = []
         for i in self.site_info[self.site_info[0].str.contains("Export Parameters")==True].index:
           blank_list.append(i)
+          export_parameter_line = i + 2
         
         for i in self.site_info[self.site_info[0].str.contains("Site Properties")==True].index:
            blank_list.append(i)
+           site_properties_line = i + 2
     
         for i in self.site_info[self.site_info[0].str.contains("Logger History")==True].index:
             blank_list.append(i)
+            logger_history_line = i + 2
 
         for i in self.site_info[self.site_info[0].str.contains("iPack History")==True].index:
             blank_list.append(i)
+            ipack_history_line = i + 2
 
         for i in self.site_info[self.site_info[0].str.contains("Sensor History")==True].index:
             blank_list.append(i)
+            sensor_history_line = i + 2
 
         skip_first_channel = True
         for i in self.site_info[self.site_info[0].str.contains("Channel:")==True].index:
@@ -529,32 +547,30 @@ class sympro_txt_read(object):
 
         for i in self.site_info[self.site_info[0].str.match("Data")==True].index:
            blank_list.append(i)
+           data_line = i + 2
 
         for i in self.site_info[self.site_info[0].str.contains("Data Type:")==True].index:
             blank_list.remove(i)
+        for i in self.site_info[self.site_info[0].str.contains("Data Logging Mode:")==True].index:
+            blank_list.remove(i)
     
-        self.site_info_write = self.site_info
-
-        line = pd.DataFrame({0: "", 1: ""}, index=[2])
-        
-        #i = 0
-        #for ind in blank_list:
-        #   self.site_info_write = pd.concat([self.site_info_write.iloc[:i+ind], line, self.site_info_write.iloc[i+ind:]]).reset_index(drop=True)
-        #   i = i + 1
-        print(blank_list)
         f_read = open(filename, 'r')
         contents = f_read.readlines()
         f_read.close()
+        contents[export_parameter_line] = header_section_headings[0] + '\n'
+        contents[site_properties_line]  = header_section_headings[1] + '\n'
+        contents[logger_history_line]   = header_section_headings[2] + '\n'
+        contents[ipack_history_line]    = header_section_headings[3] + '\n'
+        contents[sensor_history_line]   = header_section_headings[4] + '\n'
+        contents[data_line]             = header_section_headings[5] + '\n'
 
-        for i in list(reversed(blank_list)):
-            contents.insert(i,"\n")
+        for i in list(reversed(sorted(blank_list))):
+            contents.insert(i+2,"\n")
         
         f_write = open(filename, 'w')
         contents = "".join(contents)
         f_write.write(contents)
         f_write.close()
-
-        return self
 
     
 def shift_timestamps(txt_folder="", seconds=3600):
