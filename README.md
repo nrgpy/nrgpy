@@ -40,6 +40,15 @@ converter = nrg_convert_api(file_filter=file_filter, rld_dir=rld_directory, toke
 converter.convert()
 ```
 
+#### Convert a single RLD file to Text with NRG Convert API
+```python
+from nrgpy.convert_rld import nrg_convert_api
+filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
+token = "contact support@nrgsystems.com for token"
+txt_dir = "/home/user/data/sympro/000123/txt/"
+converter = nrg_convert_api(token=token, filename=filename, out_dir=txt_dir)
+```
+
 #### Read files
 ```python
 file_filter = "000175"

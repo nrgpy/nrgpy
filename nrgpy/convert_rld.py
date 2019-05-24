@@ -183,9 +183,9 @@ class nrg_convert_api(object):
     2. a valid token is NOT passed as an argument
     
     """
-    def __init__(self, rld_dir='', out_dir='', site_filter='', encryption_pass='',
-                 token='', header_type='standard', export_type='meas', 
-                 export_format='csv_zipped', **kwargs):    
+    def __init__(self, rld_dir='', out_dir='', filename='', site_filter='', 
+                 encryption_pass='', token='', header_type='standard', 
+                 export_type='meas', export_format='csv_zipped', **kwargs):    
         if check_platform() == 'win32':
             self.platform = 'win32'
             self.folder_split = '\\'
@@ -205,6 +205,8 @@ class nrg_convert_api(object):
             self.site_filter = self.file_filter
         self.header_type = header_type
         self.token = token
+        affirm_directory(self.out_dir)
+
         
         #import nrgApiUrl, token as tk
         self.NrgUrl = nrgApiUrl
@@ -212,54 +214,64 @@ class nrg_convert_api(object):
             self.token = tk
         if self.token == '':
             print('\n\nA valid token is required to use the nrg_convert_api.\nPlease contact support@nrgsystems.com for an API token')
+            return 0
+        if filename != '':
+            self.pad = 1
+            self.counter = 1
+            self.raw_count = 1
+            self.single_file(filename)
 #        self.process()
 
     def process(self):
-        affirm_directory(self.out_dir)
         filelist = sorted(glob.glob(self.rld_dir + self.site_filter + '*.rld'))
         self.raw_count = len(filelist)
         self.pad = len(str(self.raw_count)) + 1
         self.counter = 1
         for rld in filelist:
-            try:
-                print("Processing\t{0}/{1}\t{2}\t...\t".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),rld), end="", flush=True)
-                RldFileBytes = open(rld,'rb').read()
-                EncodedFileBytes = base64.encodebytes(RldFileBytes)
-
-                Data = {'apitoken': self.token,
-                        'encryptionpassword': self.encryption_pass,
-                        'headertype': self.header_type, #standard | columnonly | none
-                        'exportformat': self.export_format, # csv_zipped (default) | parquet
-                        'filebytearray': EncodedFileBytes} 
-
-                self.resp=requests.post(data=Data, url=self.NrgUrl)
-                zippedDataFile = zipfile.ZipFile(io.BytesIO(self.resp.content))
-                regDataFile = self.resp.content
-                name = zippedDataFile.infolist().pop()
-                outFileName =  "".join(rld.split(self.folder_split)[-1:])[:-4] + '_' + self.export_type +  '.txt'
-
-                with open(os.path.join(self.out_dir, outFileName),'wb') as outputfile:
-                    outputfile.write(zippedDataFile.read(name))
-
-                #fix windows newline garbage
-                try:
-                    filename = os.path.join(self.out_dir, outFileName)
-                    fileContents = open(filename,"r").read()
-                    f = open(filename,"w", newline="\r\n")
-                    f.write(fileContents)
-                    f.close()
-                except:
-                    print("Could not convert Windows newline characters properly; file may be unstable")
-
-                print("[DONE]")
-
-            except:
-                print("[FAILED]")
-                print('unable to process file: {0}'.format(rld))
-                print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
-                pass
+            self.single_file(rld)
             self.counter += 1
         print('\nQueue processed\n')
+
+
+    def single_file(self, rld):
+        try:
+            print("Processing\t{0}/{1}\t{2}\t...\t".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),rld), end="", flush=True)
+            RldFileBytes = open(rld,'rb').read()
+            EncodedFileBytes = base64.encodebytes(RldFileBytes)
+
+            Data = {'apitoken': self.token,
+                    'encryptionpassword': self.encryption_pass,
+                    'headertype': self.header_type, #standard | columnonly | none
+                    'exportformat': self.export_format, # csv_zipped (default) | parquet
+                    'filebytearray': EncodedFileBytes} 
+
+            self.resp=requests.post(data=Data, url=self.NrgUrl)
+            zippedDataFile = zipfile.ZipFile(io.BytesIO(self.resp.content))
+            regDataFile = self.resp.content
+            name = zippedDataFile.infolist().pop()
+            outFileName =  "".join(rld.split(self.folder_split)[-1:])[:-4] + '_' + self.export_type +  '.txt'
+
+            with open(os.path.join(self.out_dir, outFileName),'wb') as outputfile:
+                outputfile.write(zippedDataFile.read(name))
+
+            #fix windows newline garbage
+            try:
+                filename = os.path.join(self.out_dir, outFileName)
+                fileContents = open(filename,"r").read()
+                f = open(filename,"w", newline="\r\n")
+                f.write(fileContents)
+                f.close()
+            except:
+                print("Could not convert Windows newline characters properly; file may be unstable")
+
+            print("[DONE]")
+
+        except:
+            print("[FAILED]")
+            print('unable to process file: {0}'.format(rld))
+            print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
+            pass
+
 
     def convert(self):
         self.process()
