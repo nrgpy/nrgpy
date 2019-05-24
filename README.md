@@ -77,7 +77,7 @@ converter.convert()
 from nrgpy.convert_rwd import local
 rwd_directory = '/home/user/datafiles/rwd'
 out_directory = '/home/user/datafiles/txt'
-wine_directory = '/home/user/.wine/drive_c/' # path to wine's "C:\" drive
+wine_directory = '/home/user/prefix32/drive_c/' # path to wine's "C:\" drive
 
 
 converter = local(file_filter=file_filter, 
