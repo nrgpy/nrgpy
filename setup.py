@@ -12,7 +12,6 @@ setup(
       url='https://github.com/nrgpy/nrgpy',
       author='NRG Systems, Inc.',
       author_email='support@nrgsystems.com',
-      license='MIT',
       keywords='nrg systems rld symphonie symphoniepro wind data',
       packages=[
             'nrgpy'
@@ -24,5 +23,8 @@ setup(
             'requests',
       ],
       python_requires='>=3.0',
-      zip_safe=False
+      zip_safe=False,
+      classifiers=[
+          'License :: OSI Approved :: MIT License'
+      ]
 )
