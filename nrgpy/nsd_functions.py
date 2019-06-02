@@ -1,5 +1,3 @@
-import pyodbc
-import pandas as pd
 from nrgpy.utilities import check_platform
 
 class nsd(object):
