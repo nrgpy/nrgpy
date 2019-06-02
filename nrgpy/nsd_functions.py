@@ -3,13 +3,25 @@ import pandas as pd
 from nrgpy.utilities import check_platform
 
 class nsd(object):
-    import pyodbc
+    """
+    class for handling NSD files from Symphonie Logger Data.
+
+    parameters
+        nsd_file : nsd file to open for reading and writing
+
+    functions
+           read_sensor_history : generates pandas dataframe of all chennel settings
+         read_channel_settings : generates pandas dataframe of single channel settings
+        write_channel_settings : apply changes to channel settings
+
+    """
     import pandas as pd
     from nrgpy.utilities import check_platform
     def __init__(self, nsd_file=''):
         if check_platform() != 'win32':
             print("nsd functions only compatible with Windows")
-            return False
+            return 0
+        import pyodbc
         self.nsd_file = nsd_file
         self.driver_check = self.check_for_jet_drivers()
         if self.driver_check == True:
@@ -34,7 +46,7 @@ class nsd(object):
         read SensorHistory table into dataframe
 
         returns
-            sensor_history dataframe
+            sensor_history : pandas dataframe
         """
         sql = "SELECT * FROM SensorHistory"
         try:
@@ -46,6 +58,12 @@ class nsd(object):
     def read_channel_settings(self, channel=0):
         """
         read individual channel settings from sensor history table
+
+        parameters
+            channel : 1 through 15 (12 if Sym Classic nsd file)
+
+        returns
+            pandas dataframe of channel details
         """
         sql = "SELECT * FROM SensorHistory WHERE Channel = {0}".format(channel)
         try:
@@ -58,9 +76,23 @@ class nsd(object):
     def write_channel_settings(self, channel=0, description='',
                            print_precision=-9999, units='',
                            serial_number='', height='',
+                           sensor_detail='', sensor_notes='',
                            scale_factor=-9999, offset=-9999):
         """
         write new sensor history to site file
+
+        parameters
+                    channel : required; 1 through 15 (or 1 through 12 for Sym Classic)
+                description : string
+            print_precision : 1, 2, 3, or 4 or 0 for off
+                      units : string
+              serial_number : string
+                     height : string
+              sensor_detail : string
+               sensor_notes : string
+               scale_factor : float
+               offset : float
+
         """
         if channel > 0:
             channel = " WHERE Channel = {}".format(channel)
@@ -84,9 +116,13 @@ class nsd(object):
                 offset = " Offset = {},".format(offset)
             else:
                 offset = ""
-        sql = "UPDATE SensorHistory SET{0}{1}{2}{3}{4}{5}{6}".format(
+            if sensor_detail != "":
+                sensor_detail = " SensorDetail = '{}',".format(sensor_detail)
+            if sensor_notes != "":
+                sensor_notes = " SensorNotes = '{}',".format(sensor_notes)
+        sql = "UPDATE SensorHistory SET{0}{1}{2}{3}{4}{5}{6}{7}{8}".format(
             description, str(print_precision), units, serial_number, height, 
-            str(scale_factor), str(offset))[:-1]
+            str(scale_factor), str(offset), sensor_detail, sensor_notes)[:-1]
         self.sql = ''.join([char for char in sql+channel])
         self.conn.execute(self.sql)
         self.conn.commit()
@@ -94,22 +130,11 @@ class nsd(object):
     def check_for_jet_drivers(self):
         """
         check for jet database drivers
+
+        returns
+            True if drivers present, otherwise False
         """
         self.drivers = [x for x in pyodbc.drivers()]
         if "Microsoft Access Driver (*.mdb, *.accdb)" in self.drivers:
             return True
         return False
-
-"""
-conn_str = r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};'+r'DBQ='+filename+';'
-
-conn = pyodbc.connect(conn_str)
-
-sql = "SELECT * FROM SensorHistory"
-
-sensor_history = pd.read_sql(sql, conn)
-
-sensor_history
-
-e_sql = "UPDATE SensorHistory SET SensorDesc = 'Some Description' WHERE Channel = 1;"
-"""
