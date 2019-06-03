@@ -1,12 +1,14 @@
 # <img alt="NRGPy" src="https://www.nrgsystems.com/mysite/images/logo.png?v=3" height="40">
 
-__nsd_functions.py__ - for handling NRG Site Database (NSD) files from Symphonie, SymphoniePLUS and SymphoniePLUS3 Data Loggers.
+# nsd_functions.py 
+- for handling NRG Site Database (NSD) files from Symphonie, SymphoniePLUS and SymphoniePLUS3 Data Loggers.
 
 _Note_: __this feature set is only compatible with Windows installations__. If you have any MS Office programs installed on the host computer, the Python installation must be the same architecture (either 32-bit or 64-bit). Download the driver to connect to the NSD database here:
+
 https://www.microsoft.com/en-US/download/details.aspx?id=13255
 
 
-## Quick example for using nsd_functions.py to read and change sensor history settings in NSD files.
+## Example for using nsd_functions.py to read and change sensor history settings in NSD files.
 ``` python
 In [1]: from nrgpy.nsd_functions import nsd
 
