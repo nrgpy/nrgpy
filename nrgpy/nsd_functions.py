@@ -120,12 +120,14 @@ class nsd(object):
                 sensor_detail = " SensorDetail = '{}',".format(sensor_detail)
             if sensor_notes != "":
                 sensor_notes = " SensorNotes = '{}',".format(sensor_notes)
-        sql = "UPDATE SensorHistory SET{0}{1}{2}{3}{4}{5}{6}{7}{8}".format(
-            description, print_precision, units, serial_number, height, 
-            str(scale_factor), str(offset), sensor_detail, sensor_notes)[:-1]
-        self.sql = sql + str(channel) # ''.join([char for char in sql+str(channel)])
-        self.conn.execute(self.sql)
-        self.conn.commit()
+            sql = "UPDATE SensorHistory SET{0}{1}{2}{3}{4}{5}{6}{7}{8}".format(
+                description, print_precision, units, serial_number, height, 
+                str(scale_factor), str(offset), sensor_detail, sensor_notes)[:-1]
+            self.sql = sql + str(channel) # ''.join([char for char in sql+str(channel)])
+            self.conn.execute(self.sql)
+            self.conn.commit()
+        else:
+            print('specify channel for write "eg: write_channel_settings(channel=10 .. )")
 
     def check_for_jet_drivers(self):
         """
