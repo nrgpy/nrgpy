@@ -1,4 +1,8 @@
 from nrgpy.utilities import check_platform
+if check_platform() == 'win32':
+    import pyodbc
+    import pandas as pd
+
 
 class nsd(object):
     """
@@ -13,13 +17,11 @@ class nsd(object):
         write_channel_settings : apply changes to channel settings
 
     """
-    import pandas as pd
     from nrgpy.utilities import check_platform
     def __init__(self, nsd_file=''):
         if check_platform() != 'win32':
             print("nsd functions only compatible with Windows")
             return 0
-        import pyodbc
         self.nsd_file = nsd_file
         self.driver_check = self.check_for_jet_drivers()
         if self.driver_check == True:
@@ -93,11 +95,11 @@ class nsd(object):
 
         """
         if channel > 0:
-            channel = " WHERE Channel = {}".format(channel)
+            channel = " WHERE Channel = {}".format(str(channel))
             if description != '':
                 description = " SensorDesc = '{}',".format(description)
             if print_precision != -9999:
-                print_precision = " PrintPrecision = {},".format(print_precision)
+                print_precision = " PrintPrecision = {},".format(str(print_precision))
             else:
                 print_precision = ""
             if units != '':
@@ -107,11 +109,11 @@ class nsd(object):
             if height != '':
                 height = " Height = '{}',".format(height)
             if scale_factor != -9999:
-                scale_factor = " ScaleFactor = {},".format(scale_factor)
+                scale_factor = " ScaleFactor = {},".format(str(scale_factor))
             else:
                 scale_factor = ""
             if offset != -9999:
-                offset = " Offset = {},".format(offset)
+                offset = " Offset = {},".format(str(offset))
             else:
                 offset = ""
             if sensor_detail != "":
@@ -119,9 +121,9 @@ class nsd(object):
             if sensor_notes != "":
                 sensor_notes = " SensorNotes = '{}',".format(sensor_notes)
         sql = "UPDATE SensorHistory SET{0}{1}{2}{3}{4}{5}{6}{7}{8}".format(
-            description, str(print_precision), units, serial_number, height, 
+            description, print_precision, units, serial_number, height, 
             str(scale_factor), str(offset), sensor_detail, sensor_notes)[:-1]
-        self.sql = ''.join([char for char in sql+channel])
+        self.sql = sql + str(channel) # ''.join([char for char in sql+str(channel)])
         self.conn.execute(self.sql)
         self.conn.commit()
 
