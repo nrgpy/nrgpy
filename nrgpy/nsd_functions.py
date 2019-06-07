@@ -55,7 +55,7 @@ class nsd(object):
             self.sensor_history_e = e_sh
 
 
-    def read_channel_settings(self, channel=0):
+    def read_channel_settings(self, channel=0, dash=False):
         """
         read individual channel settings from sensor history table
 
@@ -67,14 +67,17 @@ class nsd(object):
         """
         sql = "SELECT * FROM SensorHistory WHERE Channel = {0}".format(channel)
         try:
-            self.channel_settings = pd.read_sql(sql, self.conn)
+            if dash == True:
+                self._channel_settings = pd.read_sql(sql, self.conn)
+            else:
+                self.channel_settings = pd.read_sql(sql, self.conn)
         except Exception as rcs_e:
             self.channel_settings = False
             self.rcs_e = rcs_e
 
 
-    def write_channel_settings(self, channel=0, description='',
-                           print_precision=-9999, units='',
+    def write_channel_settings(self, channel=0, entry=1, 
+                           sensor_desc='', print_precision=-9999, units='',
                            serial_number='', height='',
                            sensor_detail='', sensor_notes='',
                            scale_factor=-9999, offset=-9999):
@@ -83,7 +86,8 @@ class nsd(object):
 
         parameters
                     channel : required; 1 through 15 (or 1 through 12 for Sym Classic)
-                description : string
+                      entry : int; default is 1 for channel baseline values, 2, 3, etc. for newer entries
+                sensor_desc : string
             print_precision : 1, 2, 3, or 4 or 0 for off
                       units : string
               serial_number : string
@@ -91,13 +95,18 @@ class nsd(object):
               sensor_detail : string
                sensor_notes : string
                scale_factor : float
-               offset : float
+                     offset : float
 
         """
+
         if channel > 0:
-            channel = " WHERE Channel = {}".format(str(channel))
-            if description != '':
-                description = " SensorDesc = '{}',".format(description)
+            self.read_channel_settings(channel=channel, dash=True)
+            entry_index = list(range(1,len(self._channel_settings)+1))
+            self._channel_settings.insert(loc=0, column='entry',value=entry_index)
+            entry_timestamp = pd.Timestamp(self._channel_settings[self._channel_settings.entry==entry].TimeStamp.item()).to_pydatetime()
+            channel = " WHERE Channel = {} AND TimeStamp = ?".format(str(channel))
+            if sensor_desc != '':
+                sensor_desc = " SensorDesc = '{}',".format(sensor_desc)
             if print_precision != -9999:
                 print_precision = " PrintPrecision = {},".format(str(print_precision))
             else:
@@ -121,13 +130,13 @@ class nsd(object):
             if sensor_notes != "":
                 sensor_notes = " SensorNotes = '{}',".format(sensor_notes)
             sql = "UPDATE SensorHistory SET{0}{1}{2}{3}{4}{5}{6}{7}{8}".format(
-                description, print_precision, units, serial_number, height, 
+                sensor_desc, print_precision, units, serial_number, height, 
                 str(scale_factor), str(offset), sensor_detail, sensor_notes)[:-1]
             self.sql = sql + str(channel) # ''.join([char for char in sql+str(channel)])
-            self.conn.execute(self.sql)
+            self.conn.execute(self.sql, entry_timestamp)
             self.conn.commit()
         else:
-            print('specify channel for write "eg: write_channel_settings(channel=10 .. )")
+            print('specify channel for write "eg: write_channel_settings(channel=10 .. )"')
 
     def check_for_jet_drivers(self):
         """
