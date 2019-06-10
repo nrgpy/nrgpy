@@ -31,6 +31,38 @@ Out[7]:
 0 1899-12-30        1           1  50m CLASS 1 m/s     SN002618  50   m          1.0     1.0               1   m/s
 ```
 
+## Make changes when more than one sensor history entry per channel
+
+Use the ```entry``` parameter when choosing between multiple sensor history values. This parameter is an index for the sensor history records, 1 being original [or baseline] value.
+
+```python
+In [1]: from nrgpy.nsd_functions import nsd
+
+In [2]: db = nsd(nsd_file="C:/NRG/SiteFiles/0322.nsd")
+
+In [3]: db.read_channel_settings(channel=1)
+
+In [4]: db.channel_settings
+Out[4]: 
+            TimeStamp  Channel  SensorType         SensorDesc SerialNumber  Height  ScaleFactor  Offset  PrintPrecision Units SensorDetail SensorNotes
+0 1899-12-30 00:00:00        1           1  Original settings     SN002618  50   m        0.765   0.350               1   m/s
+1 2019-06-10 17:12:24        1           1       New settings     SN002618  50   m        0.777   0.349               1   m/s
+2 2019-06-10 17:12:42        1           1    Future settings     SN002618  50   m        1.000   1.000               1   m/s
+
+In [5]: db.write_channel_settings(channel=1, entry=3, sensor_desc="UPDATED SETTINGS", scale_factor=100)
+
+In [6]: db.read_channel_settings(channel=1)
+
+In [7]: db.channel_settings
+Out[7]: 
+            TimeStamp  Channel  SensorType         SensorDesc SerialNumber  Height  ScaleFactor  Offset  PrintPrecision Units SensorDetail SensorNotes
+0 1899-12-30 00:00:00        1           1  Original settings     SN002618  50   m        0.765   0.350               1   m/s
+1 2019-06-10 17:12:24        1           1       New settings     SN002618  50   m        0.777   0.349               1   m/s
+2 2019-06-10 17:12:42        1           1   UPDATED SETTINGS     SN002618  50   m      100.000   1.000               1   m/s
+
+```
+
+
 ## Read all sensor history into a dataframe:
 
 ```python
