@@ -113,7 +113,7 @@ class sympro_txt_read(object):
 
     def concat_txt(self, output_txt=False, txt_dir='', out_file='',
                     file_type='meas', header='standard', file_filter='',
-                    **kwargs):
+                    filter2='', **kwargs):
         """
         Will concatenate all text files in the txt_dir that match
         the site_filter argument. Note these are both blank by default.
@@ -124,18 +124,19 @@ class sympro_txt_read(object):
             self.file_filter = kwargs.get('site_filter')
         else:
             self.file_filter = file_filter
+        self.filter2 = filter2
         self.file_type = file_type
         if check_platform() == 'win32':
             self.txt_dir = windows_folder_path(txt_dir)
         else:
             self.txt_dir = linux_folder_path(txt_dir)
         first_file = True
-        files = [f for f in sorted(glob(self.txt_dir + '*.txt')) if self.file_filter in f]
+        files = [f for f in sorted(glob(self.txt_dir + '*.txt')) if self.file_filter in f and self.filter2 in f]
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
         self.counter = 1
         for f in files:
-            if self.file_filter in f and self.file_type in f:
+            if self.file_filter in f and self.file_type in f and self.filter2 in f:
                 print("Adding {0}/{1}  ...  {2}".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
                 if first_file == True:
                     first_file = False

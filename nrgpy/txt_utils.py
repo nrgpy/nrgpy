@@ -24,7 +24,7 @@ class read_text_data(object):
 
     """
     def __init__(self, filename='', data_type='', txt_dir='', file_filter='',
-                 file_ext='', sep='\t'):
+                 filter2='', file_ext='', sep='\t'):
         if data_type == '':
             print("data_type parameter required.")
             print("\tSymphoniePRO   : use 'data_type='symphoniepro'")
@@ -33,6 +33,7 @@ class read_text_data(object):
         self.data_type = data_type
         self.txt_dir = txt_dir
         self.file_filter = file_filter
+        self.filter2 = filter2
         self.file_ext = file_ext
         self.sep = sep
         self.ch_info_array, self.header_sections, self.skip_rows, self.data_type = return_array(self.data_type)
@@ -77,11 +78,13 @@ class read_text_data(object):
         self.ch_info = self.ch_info.append(ch_list)
         
 
-    def concat(self, output_txt=False, out_file='', file_filter=''):
+    def concat(self, output_txt=False, out_file='', file_filter='', filter2=''):
         """
         combine exported rwd files (in txt format)
         """
         self.file_filter = file_filter
+        if self.filter2 == '':
+            self.filter2 = filter2
         if check_platform() == 'win32':
             self.txt_dir = windows_folder_path(self.txt_dir)
         else:
@@ -94,7 +97,7 @@ class read_text_data(object):
         ## presence of log file indicates sensor change? maybe?
         self.counter = 1
         for f in files:
-            if self.file_filter in f:
+            if self.file_filter in f and self.filter2 in f:
                 print("Adding  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
                 if first_file == True:
                     first_file = False
