@@ -70,8 +70,13 @@ class spidar_data_read(object):
             pass
 
     def read_file(self, f):
-        self.data = pd.read_csv(f, encoding='UTF_16_LE', parse_dates=[0], index_col=0)
-        self.data.reset_index(drop=False, inplace=True)
+        self.data = pd.read_csv(
+            f, 
+            encoding='UTF_16_LE', 
+            parse_dates=True, 
+            index_col=[0]
+        )
+        #self.data.reset_index(drop=False, inplace=True)
         self.columns = self.data.columns
         self.get_heights()
 
