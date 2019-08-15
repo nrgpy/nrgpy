@@ -142,7 +142,7 @@ class spidar_data_read(object):
 
     def get_heights(self):
         self.heights = [
-            col.split("_")[1]\
+            int(col.split("_")[1])\
             for col in self.columns\
             if "horz_mean" in col\
             and "m/s" in col]

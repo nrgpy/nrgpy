@@ -1,17 +1,19 @@
 # <img alt="NRGPy" src="https://www.nrgsystems.com/mysite/images/logo.png?v=3" height="40">
 
-NRGPy is the Python package for processing NRG Symphonie Data files
+NRGPy is the Python package for processing NRG Data files
 
 - Website and source: https://github.com/nrgpy/nrgpy
 - Support: support@nrgsystems.com
 
-It provides:
+It provides tools for:
 
-- Tools for converting binary ".rld" and ".rwd files to text format
+- Converting binary ".rld" and ".rwd files to text format
     - using locally installed SymphoniePRO Desktop Software and Symphonie Data Retriever
     - using web api (compatible with Linux!) *(SymphoniePRO only at this time)
-- Tools for reading text exports into Pandas dataframes
+- Reading Symphonie text exports into Pandas dataframes
+- Reading Spidar zip/csv files into Pandas dataframes
 - Timestamp adjustment (of text files)
+- Simple quality checks on data
 
 ***
 ## Installation:
@@ -115,4 +117,34 @@ txt_dir = '/path/to/text/files'
 file_filter = 'text_in_filenames_you_want'
 reader = read_text_data(data_type=dt, txt_dir=txt_dir, file_filter=file_filter)
 reader.concat()
+```
+
+
+### Spidar files
+Spidar Vertical Profiler remote sensors generate archived csv data files.
+
+ CSV archived in a Zip format.
+
+These can be read directly into the spidar_txt_read method. See the docstring in 
+spidar_txt.py for more information.
+
+Eg.
+``` python
+In [1]: from nrgpy.spidar_txt import spidar_data_read                                                                          
+
+In [2]: fname = "/spidar/1922AG7777_CAG70-SPPP-LPPP_NRG1_AVGWND_2019-07-07_1.zip"                            
+
+In [3]: reader = spidar_data_read(filename=fname)                                                                              
+
+In [4]: reader.heights                                                                                                         
+Out[4]: [40, 60, 80, 90, 100, 120, 130, 160, 180, 200]
+
+In [5]: reader.data                                                                                                            
+Out[5]: 
+                     pressure[mmHg]  temperature[C]  ...  dir_200_std[Deg]  wind_measure_200_quality[%]
+Timestamp                                            ...                                               
+2019-07-06 23:40:00          749.66           24.13  ...             28.77                           68
+2019-07-06 23:50:00          749.63           24.08  ...             14.31                            0
+2019-07-07 00:00:00          749.64           23.99  ...             20.59                            0
+...
 ```
