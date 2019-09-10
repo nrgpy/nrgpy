@@ -23,6 +23,7 @@ class local(object):
                out_dir : '', folder to save exported TXT files into
            wine_folder : '~/.wine/drive_c/', for linux installations
          use_site_file : False, set to True to use local site file
+              raw_mode : False, set to True to convert raw counts and voltages
 
 
     functions -
@@ -36,13 +37,15 @@ class local(object):
                  sdr_path=r'C:/NRG/SymDR/SDR.exe',
                  convert_type='meas', file_filter='', 
                  wine_folder='~/.wine/drive_c/', 
-                 use_site_file=False, **kwargs):
+                 use_site_file=False, raw_mode=False, **kwargs):
         if encryption_pin != '':
             self.command_switch = '/z' # noqueue with pin
         else:
             self.command_switch = '/q' # noqueue (logger params)
         if use_site_file == True:
             self.command_switch = '/s' # silent (site file params)
+        if raw_mode == True:
+            self.command_switch = '/r' # silent (site file params)
         self.encryption_pin = encryption_pin
         self.sdr_path = windows_folder_path(sdr_path)[:-1]
         self.root_folder = "\\".join(self.sdr_path.split('\\')[:-2])
