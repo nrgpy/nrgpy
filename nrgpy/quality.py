@@ -47,11 +47,16 @@ def check_intervals(df, interval=600, verbose=True, return_info=False):
         ```
 
     """
-    _df = df.copy()
+    if "horz" in "".join(df.columns):
+        df2 = df.reset_index()
+        df2[df2.columns[0]] = df2[df2.columns[0]].astype(str)
+        _df = df2.copy()
+    else:
+        _df = df.copy()
     from datetime import datetime
     time_fmt = "%Y-%m-%d %H:%M:%S"
-    first_interval = datetime.strptime(df['Timestamp'].min(), time_fmt) 
-    last_interval = datetime.strptime(df['Timestamp'].max(), time_fmt)
+    first_interval = datetime.strptime(_df['Timestamp'].min(), time_fmt) 
+    last_interval = datetime.strptime(_df['Timestamp'].max(), time_fmt)
     time_range = last_interval - first_interval
     expected_rows = int(time_range.total_seconds() / interval)
     actual_rows = len(df) - 1 
