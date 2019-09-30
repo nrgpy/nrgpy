@@ -12,18 +12,25 @@ class sympro_txt_read(object):
     def __init__(self, filename='', out_file='', **kwargs):
         """
         Class of pandas dataframes created from SymPRO standard txt output.
-        1. ch_info: pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
-        2. ch_list: list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
-        3. data: pandas dataframe of all data
-        4. head: lines at the top of the txt file..., used when rebuilding timeshifted files
-        5. site_info: unorganized list of file header
+        
+            ch_info : pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
+            ch_list : list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
+               data : pandas dataframe of all data
+               head : lines at the top of the txt file..., used when rebuilding timeshifted files
+          site_info : unorganized list of file header
 
+        parameters
+        ----------
         If a filename is passed when calling class, the file is read in alone. Otherwise,
         and instance of the class is created, and the concat_txt function may be called to
         combine all txt files in a directory.
 
         filter may be used on any part of the filename, to combine a subset of text files in
         a directory.
+
+        functions
+        ---------
+            concat_txt : concatenates txt files from RLD origins
 
         kwargs:
             - ch_details; default False, set to True to see more verbose ch_info information
@@ -137,7 +144,7 @@ class sympro_txt_read(object):
         self.counter = 1
         for f in files:
             if self.file_filter in f and self.file_type in f and self.filter2 in f:
-                print("Adding {0}/{1}  ...  {2} ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
+                print("Adding {0}/{1}  ...  {2} ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:
