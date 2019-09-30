@@ -58,7 +58,7 @@ class sympro_txt_read(object):
             self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", 
                                         index_col=False, nrows=read_len, 
                                         usecols=[0,1], header=None)
-            self.site_info = self.site_info.iloc[:self.site_info.ix[self.site_info[0]=='Data'].index.tolist()[0]+1]
+            self.site_info = self.site_info.iloc[:self.site_info.loc[self.site_info[0]=='Data'].index.tolist()[0]+1]
             self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t", encoding='iso-8859-1')
             self.first_timestamp = self.data.iloc[0]['Timestamp']
             self.arrange_ch_info()
@@ -179,6 +179,7 @@ class sympro_txt_read(object):
             self.data.reset_index(drop=True,inplace=True)
             self.head = s.head
             self.site_info = s.site_info
+            print("\n")
         except UnboundLocalError:
             print("No files match to contatenate.")
             return None
