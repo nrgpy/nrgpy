@@ -17,7 +17,13 @@ class sympro_txt_read(object):
             ch_list : list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
                data : pandas dataframe of all data
                head : lines at the top of the txt file..., used when rebuilding timeshifted files
-          site_info : unorganized list of file header
+          site_info : organized list of file header
+           latitude : float
+          longitude : float
+          elevation : int
+        site_number : string
+   site_description : string
+         start_date : string
 
         parameters
         ----------
