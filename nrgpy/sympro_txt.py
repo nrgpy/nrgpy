@@ -117,6 +117,27 @@ class sympro_txt_read(object):
         
         return self
 
+    def format_site_data(self):
+        """
+        take txt header to create oject data
+        """
+        try:
+            self.site_info.reset_index(drop=True, inplace=True)
+            self._site_info = self.site_info.T
+            self._site_info.columns = [str(col).replace(':','') for col in self._site_info.iloc[0]]
+            width = list(self._site_info.columns.values).index('Sensor History')
+            self._site_info = self._site_info[1:]
+            self._site_info.drop(self._site_info.iloc[:, width:len(self._site_info.columns)], axis=1, inplace=True)
+            self.latitude = float(self._site_info['Latitude'].values[0])
+            self.longitude = float(self._site_info['Longitude'].values[0])
+            self.elevation = int(self._site_info['Elevation'].values[0])
+            self.site_number = self._site_info['Site Number'].values[0]
+            self.site_description = self._site_info['Site Description'].values[0]
+            self.start_date = self._site_info['Start Date'].values[0]
+            self.site_info = self._site_info
+        except Exception as e:
+            self.e = e
+            print("Warning: error processing site_info: {}".format(e))
 
     def concat_txt(self, output_txt=False, txt_dir='', out_file='',
                     file_type='meas', header='standard', file_filter='',
@@ -179,7 +200,8 @@ class sympro_txt_read(object):
             self.data.reset_index(drop=True,inplace=True)
             self.head = s.head
             self.site_info = s.site_info
-            print("\n")
+            self.format_site_data()
+            print("\nQueue processed")
         except UnboundLocalError:
             print("No files match to contatenate.")
             return None
