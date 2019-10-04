@@ -144,7 +144,7 @@ class sympro_txt_read(object):
         self.counter = 1
         for f in files:
             if self.file_filter in f and self.file_type in f and self.filter2 in f:
-                print("Adding {0}/{1}  ...  {2} ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
+                print("Adding {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:

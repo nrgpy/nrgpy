@@ -235,7 +235,7 @@ class nrg_convert_api(object):
 
     def single_file(self, rld):
         try:
-            print("Processing\t{0}/{1}\t{2}\t...\t".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(rld)), end="", flush=True)
+            print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(rld)), end="", flush=True)
             RldFileBytes = open(rld,'rb').read()
             EncodedFileBytes = base64.encodebytes(RldFileBytes)
 
