@@ -17,7 +17,7 @@ class sympro_txt_read(object):
             ch_list : list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
                data : pandas dataframe of all data
                head : lines at the top of the txt file..., used when rebuilding timeshifted files
-          site_info : organized list of file header
+          site_info : pandas dataframe of site information
            latitude : float
           longitude : float
           elevation : int
@@ -128,9 +128,10 @@ class sympro_txt_read(object):
         take txt header to create oject data
         """
         try:
+            self.Site_info = self.site_info.copy()
             self.site_info.reset_index(drop=True, inplace=True)
             self._site_info = self.site_info.T
-            self._site_info.columns = [str(col).replace(':','') for col in self._site_info.iloc[0]]
+            self._site_info.columns = [str(col).replace(':','').strip() for col in self._site_info.iloc[0]]
             width = list(self._site_info.columns.values).index('Sensor History')
             self._site_info = self._site_info[1:]
             self._site_info.drop(self._site_info.iloc[:, width:len(self._site_info.columns)], axis=1, inplace=True)
@@ -141,6 +142,8 @@ class sympro_txt_read(object):
             self.site_description = self._site_info['Site Description'].values[0]
             self.start_date = self._site_info['Start Date'].values[0]
             self.site_info = self._site_info
+            self.logger_sn = self.Site_info.iloc[24].values[1]
+            self.ipack_sn = self.Site_info.iloc[29].values[1]
         except Exception as e:
             self.e = e
             print("Warning: error processing site_info: {}".format(e))
