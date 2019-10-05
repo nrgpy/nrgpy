@@ -18,6 +18,8 @@ class sympro_txt_read(object):
                data : pandas dataframe of all data
                head : lines at the top of the txt file..., used when rebuilding timeshifted files
           site_info : pandas dataframe of site information
+          logger_sn : string
+           ipack_sn : string
            latitude : float
           longitude : float
           elevation : int
