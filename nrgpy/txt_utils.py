@@ -6,7 +6,7 @@ import os
 import pandas as pd
 import re
 from nrgpy.channel_info_arrays import return_array
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar
 
 
 class read_text_data(object):
@@ -78,7 +78,7 @@ class read_text_data(object):
         self.ch_info = self.ch_info.append(ch_list)
         
 
-    def concat(self, output_txt=False, out_file='', file_filter='', filter2=''):
+    def concat(self, output_txt=False, out_file='', file_filter='', filter2='', progress_bar=True):
         """
         combine exported rwd files (in txt format)
         """
@@ -98,14 +98,17 @@ class read_text_data(object):
         self.counter = 1
         for f in files:
             if self.file_filter in f and self.filter2 in f:
-                print("Adding  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
+                if progress_bar:
+                    draw_progress_bar(self.counter, self.file_count)
+                else:
+                    print("Adding  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:
                         base = read_text_data(filename=f,data_type=self.data_type, 
                                                    file_filter=self.file_filter, file_ext=self.file_ext,
                                                    sep=self.sep)
-                        print("[OK]")
+                        if progress_bar != True: print("[OK]")
                         pass
                     except IndexError:
                         print('Only standard headertypes accepted')
@@ -117,9 +120,9 @@ class read_text_data(object):
                                            file_filter=self.file_filter, file_ext=self.file_ext,
                                            sep=self.sep)
                         base.data = base.data.append(s.data, sort=False)
-                        print("[OK]")
+                        if progress_bar != True: print("[OK]")
                     except:
-                        print("[FAILED]")
+                        if progress_bar != True: print("[FAILED]")
                         print("could not concat {0}".format(file_path))
                         pass
             else:
