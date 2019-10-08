@@ -5,7 +5,7 @@ from glob import glob
 import os
 import pandas as pd
 import re
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar
 
 
 class sympro_txt_read(object): 

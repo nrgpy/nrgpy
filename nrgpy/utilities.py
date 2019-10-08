@@ -1,6 +1,7 @@
 #!/bin/usr/python
 import os
 import pathlib
+import sys
 
 
 def check_platform():
@@ -91,3 +92,14 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
     if show_files == True:
         return count, file_list
     return count
+
+
+def draw_progress_bar(index, total, barLen = 50):
+    """
+    simple text progress bar
+    """
+    percent = index / total
+    pad = len(str(total))
+    sys.stdout.write("\r")
+    sys.stdout.write("{} / {} [{:<{}}] {:.0f}%".format(str(index).rjust(pad), total, "=" * int(barLen * percent), barLen, percent * 100))
+    sys.stdout.flush()
