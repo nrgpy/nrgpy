@@ -152,7 +152,7 @@ class sympro_txt_read(object):
 
     def concat_txt(self, output_txt=False, txt_dir='', out_file='',
                     file_type='meas', header='standard', file_filter='',
-                    filter2='', **kwargs):
+                    filter2='', progress_bar=True, **kwargs):
         """
         Will concatenate all text files in the txt_dir that match
         the site_filter argument. Note these are both blank by default.
@@ -176,12 +176,15 @@ class sympro_txt_read(object):
         self.counter = 1
         for f in files:
             if self.file_filter in f and self.file_type in f and self.filter2 in f:
-                print("Adding {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
+                if progress_bar:
+                    draw_progress_bar(self.counter, self.file_count)
+                else:
+                    print("Adding {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:
                         base = sympro_txt_read(f)
-                        print("[OK]")
+                        if progress_bar != True: print("[OK]")
                         pass
                     except IndexError:
                         print('Only standard SymPRO headertypes accepted')
@@ -191,10 +194,10 @@ class sympro_txt_read(object):
                     try:
                         s = sympro_txt_read(file_path, ch_details=self.ch_details)
                         base.data = base.data.append(s.data, sort=False)
-                        print("[OK]")
+                        if progress_bar != True: print("[OK]")
                     except:
-                        print("[FAILED]")
-                        print("could not concat {0}".format(file_path))
+                        if progress_bar != True: print("[FAILED]")
+                        print("could not concat {0}".format(os.path.basename(file_path)))
                         pass
             else:
                 pass
