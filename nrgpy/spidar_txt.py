@@ -1,7 +1,7 @@
 #!/bin/usr/python
 
 import pandas as pd
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar
 
 class spidar_data_read(object):
     """
@@ -52,9 +52,9 @@ class spidar_data_read(object):
         
         In [4]: reader = spidar_data_read()
 
-        In [5]: reader.concat_txt(txt_dir=spidar_directory,file_filter=spidar_file_filter)
-        Adding 1/8  ...  /home/user/spidardata/1922AG0069_CAG69-SPPP-LPPP_PENT_AVGWND_2019-07-01_1.csv [OK]
-        Adding 2/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_1.zip [OK]
+        In [5]: reader.concat_txt(txt_dir=spidar_directory,file_filter=spidar_file_filter, progress_bar=False)
+        Adding 1/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_1.zip [OK]
+        Adding 2/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_2.csv [OK]
         Adding 3/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-02_1.zip [OK]
         Adding 4/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-03_1.zip [OK]
         Adding 5/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip [OK]
@@ -76,13 +76,13 @@ class spidar_data_read(object):
             parse_dates=True, 
             index_col=[0]
         )
-        #self.data.reset_index(drop=False, inplace=True)
+        self.data.reset_index(drop=False, inplace=True)
         self.columns = self.data.columns
         self.get_heights()
 
 
     def concat_txt(self, txt_dir='', output_txt=False, out_file='',
-                   file_filter='', file_filter2=''):
+                   file_filter='', file_filter2='', progress_bar=True):
         """
         """
         from glob import glob
@@ -104,12 +104,15 @@ class spidar_data_read(object):
         self.counter = 1
         for f in files:
             if self.file_filter in f and self.file_filter2 in f:
-                print("Adding {0}/{1}  ...  {2} ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
+                if progress_bar:
+                    draw_progress_bar(self.counter, self.file_count)
+                else:
+                    print("Adding {0}/{1}  ...  {2} ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:
                         base = spidar_data_read(f)
-                        print("[OK]")
+                        if progress_bar == False: print("[OK]")
                         pass
                     except IndexError:
                         print('Only standard Spidar headertypes accepted')
@@ -119,10 +122,11 @@ class spidar_data_read(object):
                     try:
                         s = spidar_data_read(file_path)
                         base.data = base.data.append(s.data, sort=False)
-                        print("[OK]")
-                    except:
-                        print("[FAILED]")
+                        if progress_bar == False: print("[OK]")
+                    except Exception as e:
+                        if progress_bar == False: print("[FAILED]")
                         print("could not concat {0}".format(file_path))
+                        print(e)
                         pass
             else:
                 pass
@@ -132,6 +136,8 @@ class spidar_data_read(object):
         if output_txt == True:
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
         try:
+            self.base = base
+            self.heights = base.heights
             self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
             self.data.reset_index(drop=True,inplace=True)
         except Exception as e:
