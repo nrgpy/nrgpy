@@ -101,5 +101,9 @@ def draw_progress_bar(index, total, barLen = 50):
     percent = index / total
     pad = len(str(total))
     sys.stdout.write("\r")
-    sys.stdout.write("{} / {} [{:<{}}] {:.0f}%".format(str(index).rjust(pad), total, "=" * int(barLen * percent), barLen, percent * 100))
+    sys.stdout.write(
+        "{} / {} [{:<{}}] {:.0f}%\t".format(
+            str(index).rjust(pad), total, "=" * int(barLen * percent), barLen, percent * 100
+        )
+    )
     sys.stdout.flush()

@@ -1,6 +1,7 @@
 #!/bin/usr/python
 
 import base64
+from datetime import datetime
 import io
 import glob
 import os
@@ -104,7 +105,10 @@ class local(object):
                    "/outputdir", '"'+self.out_dir[:-1]+'"'
             ]
             print('\nUsing command line script:\n{}'.format(" ".join(cmd)))
+            self.start = datetime.now()
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
+            self.end = datetime.now()
+            self.convert_time = str(self.end - self.start)
             print('\nTXT files saved in {0}\n'.format(self.out_dir))
             txt_count = count_files(self.out_dir, self.site_filter, 'txt', start_time=self.start_time)
             log_count, log_files = count_files(self.out_dir, self.site_filter, 'log', show_files=True, start_time=self.start_time)
