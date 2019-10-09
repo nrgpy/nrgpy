@@ -205,7 +205,7 @@ class sympro_txt_read(object):
         if out_file != "":
             self.out_file = out_file
         if output_txt == True:
-            base.data.to_csv(txt_dir + out_file, sep=',', index=False)
+            base.data.to_csv(os.path.join(txt_dir, out_file), sep=',', index=False)
         try:
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
