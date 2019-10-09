@@ -131,8 +131,8 @@ class sympro_txt_read(object):
         """
         try:
             self.Site_info = self.site_info.copy()
-            self.site_info.reset_index(drop=True, inplace=True)
-            self._site_info = self.site_info.T
+            self.Site_info.reset_index(drop=True, inplace=True)
+            self._site_info = self.Site_info.T
             self._site_info.columns = [str(col).replace(':','').strip() for col in self._site_info.iloc[0]]
             width = list(self._site_info.columns.values).index('Sensor History')
             self._site_info = self._site_info[1:]
@@ -143,7 +143,7 @@ class sympro_txt_read(object):
             self.site_number = self._site_info['Site Number'].values[0]
             self.site_description = self._site_info['Site Description'].values[0]
             self.start_date = self._site_info['Start Date'].values[0]
-            self.site_info = self._site_info
+
             self.logger_sn = self.Site_info.iloc[24].values[1]
             self.ipack_sn = self.Site_info.iloc[29].values[1]
         except Exception as e:

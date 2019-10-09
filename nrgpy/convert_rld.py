@@ -12,7 +12,7 @@ import subprocess
 import time
 import zipfile
 from nrgpy.api_connect import nrgApiUrl, token as tk
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, draw_progress_bar
 
 
 class local(object):
@@ -38,10 +38,6 @@ class local(object):
                           and only the month of September in 2018.
     
     functions:
-         concat_txt(): combines all txt files in txt_dir (out_dir by default) that 
-                       include self.site_filter into one txt file with header from first file.
-                       out_file can be specified; defaults to %Y-%m-%d_SymPRO.txt in 
-                       current directory.
           directory(): processes all rld files in self.rld_dir, outputs to txt files 
                        to out_dir ( aliases = convert() and process() )
          rename_rld(): for calling the site-serial renaming tool to insert the serial number
@@ -226,7 +222,8 @@ class nrg_convert_api(object):
             self.single_file(filename)
 #        self.process()
 
-    def process(self):
+    def process(self, progress_bar=True):
+        self.progress_bar = progress_bar
         filelist = sorted(glob.glob(self.rld_dir + self.site_filter + '*.rld'))
         self.raw_count = len(filelist)
         self.pad = len(str(self.raw_count)) + 1
@@ -239,7 +236,10 @@ class nrg_convert_api(object):
 
     def single_file(self, rld):
         try:
-            print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(rld)), end="", flush=True)
+            if self.progress_bar:
+                draw_progress_bar(self.counter, self.raw_count)
+            else:
+                print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(rld)), end="", flush=True)
             RldFileBytes = open(rld,'rb').read()
             EncodedFileBytes = base64.encodebytes(RldFileBytes)
 
@@ -268,11 +268,12 @@ class nrg_convert_api(object):
             except:
                 print("Could not convert Windows newline characters properly; file may be unstable")
 
-            print("[DONE]")
+            if self.progress_bar == False: print("[DONE]")
 
-        except:
-            print("[FAILED]")
+        except Exception as e:
+            if self.progress_bar == False: print("[FAILED]")
             print('unable to process file: {0}'.format(rld))
+            print(e)
             print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
             pass
 
