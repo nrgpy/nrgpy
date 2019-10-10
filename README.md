@@ -60,6 +60,23 @@ sympro_dfs = sympro_txt_read()
 sympro_dfs.concat_txt(txt_dir=text_folder_name, file_filter=file_filter, output_txt=False)
 ```
 
+#### Read with more options...
+```python
+from nrgpy.sympro_txt import sympro_txt_read
+
+sympro_dfs = sympro_txt_read()
+sympro_dfs.concat_txt(
+    txt_dir=text_folder_name, 
+    file_filter="000175", 
+    start_date="2019-10-01",
+    end_date="2019-10-31",
+    ch_details=True,
+    output_txt=True,
+    output_file="000175_2019_October_Data.txt"
+)
+```
+
+
 ### RWD files
 
 #### Convert a folder of RWD files to Text with Symphonie Data Retriever

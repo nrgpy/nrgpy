@@ -5,7 +5,7 @@ from glob import glob
 import os
 import pandas as pd
 import re
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar, date_check
 
 
 class sympro_txt_read(object): 
@@ -150,19 +150,37 @@ class sympro_txt_read(object):
             self.e = e
             print("Warning: error processing site_info: {}".format(e))
 
-    def concat_txt(self, output_txt=False, txt_dir='', out_file='',
-                    file_type='meas', header='standard', file_filter='',
-                    filter2='', progress_bar=True, **kwargs):
+    def concat_txt(self, txt_dir='', file_type='meas', file_filter='', 
+                    filter2='', start_date='1970-01-01', end_date='2150-12-31', 
+                    ch_details=False, output_txt=False, out_file='', 
+                    progress_bar=True, **kwargs):
         """
         Will concatenate all text files in the txt_dir that match
         the site_filter argument. Note these are both blank by default.
+
+        parameters
+        ----------
+                txt_dir : directory holding txt files
+              file_type : type of export (meas, event, comm, etc...)
+            file_filter : text filter for txt files, like site number, etc.
+                filter2 : secondary text filter
+             start_date : for filtering files to concat based on date
+               end_date : for filtering files to concat based on date
+             ch_details : bool, show additional info in ch_info dataframe
+             output_txt : bool, create a txt output of data df
+               out_file : filename to write data dataframe too if output_txt = True
+           progress_bar : bool, show bar on concat [True] or list of files [False]
+
         """
-        if 'ch_details' in kwargs:
-            self.ch_details = kwargs.get('ch_details')
+        
         if 'site_filter' in kwargs and file_filter == '':
             self.file_filter = kwargs.get('site_filter')
         else:
             self.file_filter = file_filter
+
+        self.ch_details = ch_details
+        self.start_date = start_date
+        self.end_date = end_date
         self.filter2 = filter2
         self.file_type = file_type
         if check_platform() == 'win32':
@@ -170,7 +188,11 @@ class sympro_txt_read(object):
         else:
             self.txt_dir = linux_folder_path(txt_dir)
         first_file = True
-        files = [f for f in sorted(glob(self.txt_dir + '*.txt')) if self.file_filter in f and self.filter2 in f]
+        files = [
+            f for f in sorted(glob(self.txt_dir + '*.txt'))\
+            if self.file_filter in f and self.filter2 in f\
+            and date_check(self.start_date, self.end_date, f)
+        ]
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
         self.counter = 1

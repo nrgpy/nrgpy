@@ -12,7 +12,7 @@ import subprocess
 import time
 import zipfile
 from nrgpy.api_connect import nrgApiUrl, token as tk
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, draw_progress_bar
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, date_check, draw_progress_bar
 
 
 class local(object):
@@ -183,7 +183,8 @@ class nrg_convert_api(object):
     2. a valid token is NOT passed as an argument
     
     """
-    def __init__(self, rld_dir='', out_dir='', filename='', site_filter='', 
+    def __init__(self, rld_dir='', out_dir='', filename='', site_filter='',
+                 filter2 = '', start_date='1970-01-01', end_date='2150-12-31', 
                  encryption_pass='', token='', header_type='standard', 
                  export_type='meas', export_format='csv_zipped', **kwargs):    
         if check_platform() == 'win32':
@@ -203,6 +204,9 @@ class nrg_convert_api(object):
         if 'file_filter' in kwargs and site_filter == '':
             self.file_filter = kwargs.get('file_filter')
             self.site_filter = self.file_filter
+        self.filter2 = filter2
+        self.start_date = start_date
+        self.end_date = end_date
         self.header_type = header_type
         self.token = token
         affirm_directory(self.out_dir)
@@ -224,11 +228,15 @@ class nrg_convert_api(object):
 
     def process(self, progress_bar=True):
         self.progress_bar = progress_bar
-        filelist = sorted(glob.glob(self.rld_dir + self.site_filter + '*.rld'))
-        self.raw_count = len(filelist)
+        files = [
+            f for f in sorted(glob.glob(self.rld_dir + '*.rld'))\
+            if self.file_filter in f and self.filter2 in f\
+            and date_check(self.start_date, self.end_date, f)
+        ]
+        self.raw_count = len(files)
         self.pad = len(str(self.raw_count)) + 1
         self.counter = 1
-        for rld in filelist:
+        for rld in files:
             self.single_file(rld)
             self.counter += 1
         print('\nQueue processed\n')
