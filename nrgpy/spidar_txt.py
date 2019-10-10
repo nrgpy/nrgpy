@@ -1,7 +1,7 @@
 #!/bin/usr/python
 
 import pandas as pd
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, date_check, draw_progress_bar
 
 class spidar_data_read(object):
     """
@@ -82,7 +82,9 @@ class spidar_data_read(object):
 
 
     def concat_txt(self, txt_dir='', output_txt=False, out_file='',
-                   file_filter='', file_filter2='', progress_bar=True):
+                   file_filter='', file_filter2='', 
+                   start_date='1970-01-01', end_date='2150-12-31',
+                   progress_bar=True):
         """
         """
         from glob import glob
@@ -92,13 +94,19 @@ class spidar_data_read(object):
         self.out_file = out_file
         self.file_filter = file_filter
         self.file_filter2 = file_filter2
+        self.start_date = start_date
+        self.end_date = end_date
 
         if check_platform() == 'win32':
             self.txt_dir = windows_folder_path(txt_dir)
         else:
             self.txt_dir = linux_folder_path(txt_dir)
         first_file = True
-        files = [f for f in sorted(glob(self.txt_dir + "*")) if self.file_filter in f and self.file_filter2 in f]
+        files = [
+            f for f in sorted(glob(self.txt_dir + "*"))\
+            if self.file_filter in f and self.file_filter2 in f\
+            and date_check(self.start_date, self.end_date, f)
+        ]
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
         self.counter = 1

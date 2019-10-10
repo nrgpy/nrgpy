@@ -5,7 +5,7 @@ from glob import glob
 import os
 import pandas as pd
 import re
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar, date_check
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar, date_check, renamer
 
 
 class sympro_txt_read(object): 
@@ -20,6 +20,8 @@ class sympro_txt_read(object):
           site_info : pandas dataframe of site information
           logger_sn : string
            ipack_sn : string
+        logger_type : string
+         ipack_type : string
            latitude : float
           longitude : float
           elevation : int
@@ -131,21 +133,25 @@ class sympro_txt_read(object):
         """
         try:
             self.Site_info = self.site_info.copy()
-            self.Site_info.reset_index(drop=True, inplace=True)
             self._site_info = self.Site_info.T
-            self._site_info.columns = [str(col).replace(':','').strip() for col in self._site_info.iloc[0]]
-            width = list(self._site_info.columns.values).index('Sensor History')
+            self._site_info.columns = self._site_info.iloc[0]
+            self._site_info.columns = self._site_info.iloc[0]
             self._site_info = self._site_info[1:]
-            self._site_info.drop(self._site_info.iloc[:, width:len(self._site_info.columns)], axis=1, inplace=True)
+            width = list(self._site_info.columns.values).index('Sensor History')
+            self._site_info.rename(columns=renamer(), inplace=True)
+            self._site_info.drop(self._site_info.iloc[:, width:len(self._site_info.columns)], axis=1, inplace=True, errors='ignore')
+            self._site_info.columns = [str(col).replace(':','').strip() for col in self._site_info.columns]
+
             self.latitude = float(self._site_info['Latitude'].values[0])
             self.longitude = float(self._site_info['Longitude'].values[0])
             self.elevation = int(self._site_info['Elevation'].values[0])
             self.site_number = self._site_info['Site Number'].values[0]
             self.site_description = self._site_info['Site Description'].values[0]
             self.start_date = self._site_info['Start Date'].values[0]
-
-            self.logger_sn = self.Site_info.iloc[24].values[1]
-            self.ipack_sn = self.Site_info.iloc[29].values[1]
+            self.logger_sn = self._site_info['Serial Number'].values[0]
+            self.ipack_sn = self._site_info['Serial Number_1'].values[0]
+            self.logger_type = self._site_info['Model'].values[0]
+            self.ipack_type = self._site_info['Model_1'].values[0]
         except Exception as e:
             self.e = e
             print("Warning: error processing site_info: {}".format(e))

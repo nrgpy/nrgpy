@@ -1,15 +1,9 @@
 #!/bin/usr/python
+from datetime import datetime
 import os
 import pathlib
+import re
 import sys
-
-
-def check_platform():
-    """
-    determine which operating system python is running on
-    """
-    from sys import platform
-    return(platform)
 
 
 def affirm_directory(directory):
@@ -32,31 +26,14 @@ def affirm_directory(directory):
         except:
             #print('[FAILED]')
             pass
-
-
-
-def windows_folder_path(folder_path):
+        
+        
+def check_platform():
     """
-    convert '/' to '\\' in folder_path and assert ending in '\\'
+    determine which operating system python is running on
     """
-    folder_path = folder_path.replace('/', '\\')
-    if folder_path.endswith('\\'):
-        pass
-    else:
-        folder_path = folder_path + '\\'
-    return folder_path
-
-
-def linux_folder_path(folder_path):
-    """
-    assert folder_path ending with '/'
-    """
-    folder_path = folder_path.replace('\\', '/').replace(' ', '\ ')
-    if folder_path.endswith('/'):
-        pass
-    else:
-        folder_path = folder_path + '/'
-    return folder_path
+    from sys import platform
+    return(platform)
 
 
 def count_files(directory, filters, extension, show_files=False, **kwargs):
@@ -94,6 +71,29 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
     return count
 
 
+def date_check(start_date, end_date, string):
+    """
+    returns true if string date is between 
+    start_date and end_date
+
+    dates assumed to be in YYYY-MM-DD format
+    """
+    date_format = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
+
+    start = datetime.strptime(start_date, "%Y-%m-%d")
+    end   = datetime.strptime(end_date, "%Y-%m-%d")
+
+    try:
+        date_text = re.search(date_format, string)
+        file_date = datetime.strptime(date_text[0], "%Y-%m-%d")
+        if (file_date >= start) and (file_date <= end):
+            return True
+        else:
+            return False
+    except Exception as e:
+        return False
+
+
 def draw_progress_bar(index, total, barLen = 50):
     """
     simple text progress bar
@@ -107,3 +107,43 @@ def draw_progress_bar(index, total, barLen = 50):
         )
     )
     sys.stdout.flush()
+
+
+def linux_folder_path(folder_path):
+    """
+    assert folder_path ending with '/'
+    """
+    folder_path = folder_path.replace('\\', '/').replace(' ', '\ ')
+    if folder_path.endswith('/'):
+        pass
+    else:
+        folder_path = folder_path + '/'
+    return folder_path
+
+
+def windows_folder_path(folder_path):
+    """
+    convert '/' to '\\' in folder_path and assert ending in '\\'
+    """
+    folder_path = folder_path.replace('/', '\\')
+    if folder_path.endswith('\\'):
+        pass
+    else:
+        folder_path = folder_path + '\\'
+    return folder_path
+
+
+class renamer():
+    """
+    for replacing duplicate column names after transpose
+    """
+    def __init__(self):
+        self.d = dict()
+
+    def __call__(self, x):
+        if x not in self.d:
+            self.d[x] = 0
+            return x
+        else:
+            self.d[x] += 1
+            return "%s_%d" % (x, self.d[x])
