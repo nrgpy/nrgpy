@@ -230,7 +230,7 @@ class nrg_convert_api(object):
         self.progress_bar = progress_bar
         files = [
             f for f in sorted(glob.glob(self.rld_dir + '*.rld'))\
-            if self.file_filter in f and self.filter2 in f\
+            if self.site_filter in f and self.filter2 in f\
             and date_check(self.start_date, self.end_date, f)
         ]
         self.raw_count = len(files)
