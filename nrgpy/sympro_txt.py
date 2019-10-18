@@ -450,7 +450,7 @@ class sympro_txt_read(object):
         #        print("could not calculate SR column")        
 
 
-    def output_txt_file(self, epe=False, soiling=False, standard=False, 
+    def output_txt_file(self, epe=False, soiling=False, standard=True, 
                         shift_timestamps=False, out_file='', **kwargs):
         out_dir = kwargs.get('out_dir', '')
 
