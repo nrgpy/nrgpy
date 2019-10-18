@@ -223,6 +223,7 @@ class nrg_convert_api(object):
             self.pad = 1
             self.counter = 1
             self.raw_count = 1
+            self.progress_bar=False
             self.single_file(filename)
 #        self.process()
 
