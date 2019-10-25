@@ -36,6 +36,7 @@ class local(object):
             site_filter: '', or specify part or all of the file you'd like to
                           filter on. Eg. site_filter='123456_2018-09' would filter on site 123456
                           and only the month of September in 2018.
+              site_file: '', path to (*.ndb) site file  
     
     functions:
           directory(): processes all rld files in self.rld_dir, outputs to txt files 
@@ -48,7 +49,7 @@ class local(object):
     """
     def __init__(self, rld_dir='', out_dir='', encryption_pass='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
-                 convert_type='meas', nec='', site_filter='', **kwargs):
+                 convert_type='meas', nec='', site_filter='', site_file='', **kwargs):
         self.rld_dir = windows_folder_path(rld_dir)
         self.out_dir  = windows_folder_path(out_dir)
         self.encryption_pass = encryption_pass
@@ -56,6 +57,7 @@ class local(object):
         self.convert_type = convert_type
         self.nec = nec
         self.site_filter = site_filter
+        self.site_file = site_file
         if 'file_filter' in kwargs and site_filter == '':
             self.file_filter = kwargs.get('file_filter')
             self.site_filter = self.file_filter
@@ -86,7 +88,14 @@ class local(object):
             else:
                 nec = ''
         except:
-            print('could not parse encryption_pass')            
+            print('could not parse encryption_pass') 
+        try:
+            if self.site_file != '':
+                site_file = '/site "{0}"'.format(self.site_file)
+            else:
+                site_file = ''
+        except:
+            print('could not parse encryption_pass')           
         try:
             rld_count = count_files(self.rld_dir, self.site_filter, 'rld')
             self.start_time = time.time()
@@ -96,7 +105,8 @@ class local(object):
                    "/cmd", "convert", 
                    "/file", '"'+"\\".join([self.rld_dir, self.site_filter])+'*.rld"', 
                    encryption,
-                   nec,  
+                   nec,
+                   site_file,  
                    "/type", '"'+self.convert_type+'"',
                    "/outputdir", '"'+self.out_dir[:-1]+'"'
             ]
