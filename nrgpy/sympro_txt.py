@@ -6,6 +6,7 @@ import os
 import pandas as pd
 import re
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar, date_check, renamer
+import traceback
 
 
 class sympro_txt_read(object): 
@@ -515,10 +516,9 @@ class sympro_txt_read(object):
                 
             if shift_timestamps == True:
                 os.makedirs(out_dir, exist_ok=True)
-                site_num = self.site_info.loc[4][1]
                 file_date = str(self.data.iloc[0]['Timestamp']).replace(" ","_").replace(":",".")[:-3]
                 file_num = self.filename.split("_")[len(self.filename.split("_")) - 2]
-                file_name = site_num + '_' + file_date + '_' + file_num + "_meas.txt"
+                file_name = f"{self.site_number}_{file_date}_{file_num}_meas.txt"
                 output_name = os.path.join(out_dir, file_name)
                 self.output_name = output_name
                 output_file = open(output_name, 'w+', encoding = 'utf-8')
@@ -532,8 +532,8 @@ class sympro_txt_read(object):
                     except:
                         print("couldn't rename 'Effective Date:' info in {0}".format(output_name))
                         pass
-                    self.insert_blank_header_rows()
-                    self.site_info_write.to_csv(f, header=False, sep="\t", index=False,
+                    # self.insert_blank_header_rows(out_file)
+                    self.site_info.to_csv(f, header=False, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")            
                 output_file.close()
                 with open(output_name, 'U') as f:
@@ -542,11 +542,11 @@ class sympro_txt_read(object):
                         text = text.replace('\t\n','\n')
                 with open(output_name, 'w') as f:
                     f.write(text)
-                #write data
                 with open(output_name, 'a', encoding='utf-8') as f:
                     self.data.round(6).to_csv(f, header=True, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")
                 output_file.close()
+                self.insert_blank_header_rows(output_name)
                 
             if standard == True:
                 if out_file != '':
@@ -646,26 +646,53 @@ class sympro_txt_read(object):
         f_write.close()
 
     
-def shift_timestamps(txt_folder="", seconds=3600):
+def shift_timestamps(txt_folder="", out_folder="", file_filter="", 
+                     start_date="1970-01-01", end_date="2150-12-31",
+                     seconds=3600):
     """
-        Takes as input a folder of exported standard text files and
-        time to shift in seconds.
+    Takes as input a folder of exported standard text files and
+    time to shift in seconds.
+
+    parameters
+    ----------
+        txt_folder : path to folder with txt files to shift
+        out_folder : where to put the shifted files (in subfolder by default)
+       file_filter : string filter for restricting file set
+        start_date : date filter
+          end_date : date filter
+           seconds : time in seconds to shift timestamps (default 3600)
+
+    outputs
+    -------
+        text files with shifted timestamps; new file names include shifted 
+        timestamp.
         
-    """    
-    out_dir = os.path.join(txt_folder, "shifted_timestamps")
+    """
+    if out_folder:
+        out_dir = out_folder
+    else:
+        out_dir = os.path.join(txt_folder, "shifted_timestamps")
     os.makedirs(out_dir, exist_ok=True)
 
+    files = [
+        f for f in sorted(glob(txt_folder + '*.txt'))\
+        if file_filter in f and \
+        date_check(start_date, end_date, f)
+    ]
 
-    for f in sorted(os.listdir(txt_folder)):
+    file_count = len(files)
+    counter = 1
+    for f in files:
         try:
+            draw_progress_bar(counter, file_count)
             f = os.path.join(txt_folder, f)
-            print("shifting timestamps {0} ...\t\t".format(f), end="", flush=True)
-            fut = sympro_txt_read(f)
+            fut = sympro_txt_read(filename=f)
+            fut.format_site_data()
             fut.data['Timestamp'] = pd.to_datetime(fut.data['Timestamp']) + timedelta(seconds=seconds)
-            fut.output_txt_file(shift_timestamps=True, out_dir=out_dir)
-            print('[OK]')
-        except:
-            print('[FAILED]')
-            print("unable to process {0}".format(f))
+            fut.output_txt_file(shift_timestamps=True, standard=False, out_dir=out_dir, out_file=f)
+        except pd.errors.EmptyDataError:
             pass
-
+        except Exception as e:
+            print(traceback.format_exc())
+            pass
+        counter += 1
