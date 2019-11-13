@@ -525,14 +525,13 @@ class sympro_txt_read(object):
                 output_file.truncate()
                 output_file.write(self.head)       
                 output_file.close()
-                # write header
+
                 with open(output_name, 'a', encoding='utf-8') as f:
                     try:
                         self.site_info = self.site_info.replace(self.first_timestamp,str(self.data.iloc[0]['Timestamp']))
                     except:
                         print("couldn't rename 'Effective Date:' info in {0}".format(output_name))
                         pass
-                    # self.insert_blank_header_rows(out_file)
                     self.site_info.to_csv(f, header=False, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")            
                 output_file.close()
@@ -675,7 +674,7 @@ def shift_timestamps(txt_folder="", out_folder="", file_filter="",
     os.makedirs(out_dir, exist_ok=True)
 
     files = [
-        f for f in sorted(glob(txt_folder + '*.txt'))\
+        f for f in sorted(glob(txt_folder + "/" + '*.txt'))\
         if file_filter in f and \
         date_check(start_date, end_date, f)
     ]
