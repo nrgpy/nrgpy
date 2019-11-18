@@ -203,10 +203,11 @@ class sympro_txt_read(object):
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
         self.counter = 1
+        self.start_time = datetime.now()
         for f in files:
             if self.file_filter in f and self.file_type in f and self.filter2 in f:
                 if progress_bar:
-                    draw_progress_bar(self.counter, self.file_count)
+                    draw_progress_bar(self.counter, self.file_count, self.start_time)
                 else:
                     print("Adding {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
                 if first_file == True:
@@ -681,9 +682,10 @@ def shift_timestamps(txt_folder="", out_folder="", file_filter="",
 
     file_count = len(files)
     counter = 1
+    start_time = datetime.now()
     for f in files:
         try:
-            draw_progress_bar(counter, file_count)
+            draw_progress_bar(counter, file_count, start_time)
             f = os.path.join(txt_folder, f)
             fut = sympro_txt_read(filename=f)
             fut.format_site_data()

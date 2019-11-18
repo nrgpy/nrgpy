@@ -36,7 +36,7 @@ def check_intervals(df, interval=600, verbose=True, return_info=False):
 
         In [4]: from nrgpy.quality import check_intervals
 
-        In [5]: check_intervals(reader.data)
+        In [5]: check_intervals(reader.data, interval=600)
         Starting timestamp        : 2019-01-01 00:00:00
         Ending timestamp          : 2019-07-01 04:50:00
         Data set Duration         : 181 days, 4:50:00

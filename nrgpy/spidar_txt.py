@@ -1,5 +1,6 @@
 #!/bin/usr/python
 
+from datetime import datetime
 import pandas as pd
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, date_check, draw_progress_bar
 
@@ -110,10 +111,11 @@ class spidar_data_read(object):
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
         self.counter = 1
+        self.start_time = datetime.now()
         for f in files:
             if self.file_filter in f and self.file_filter2 in f:
                 if progress_bar:
-                    draw_progress_bar(self.counter, self.file_count)
+                    draw_progress_bar(self.counter, self.file_count, self.start_time)
                 else:
                     print("Adding {0}/{1}  ...  {2} ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
                 if first_file == True:

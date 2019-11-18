@@ -1,7 +1,7 @@
 #!/bin/usr/python
 
 import base64
-from datetime import datetime
+from datetime import datetime, date, timedelta
 import io
 import glob
 import os
@@ -11,7 +11,7 @@ import requests
 import subprocess
 import time
 import zipfile
-from nrgpy.api_connect import nrgApiUrl, token as tk
+from nrgpy.api_connect import nrgApiUrl, token as tk, ConvertServiceUrl, RequestTokenUrl, request_session_token, token_valid
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, date_check, draw_progress_bar
 
 
@@ -185,18 +185,30 @@ class local(object):
 
 class nrg_convert_api(object):
     """
-    Uses NRG hosted web-based API to convert RLD files to zipped CSV (text) format.
-    The URL is pulled from the nrg_api_url.py file. Note that there is a token 
-    placeholder in nrg_api_url.py that will be used if
+    Uses NRG hosted web-based API to convert RLD files text format
+
+    To sign up for the service, go to https://services.nrgsystems.com/
     
-    1. it is not blank
-    2. a valid token is NOT passed as an argument
+    parameters
+    ----------
+        rld_dir : path to rld file directory
+        out_dir : path to save text export files
+       filename : provide for single file conversion
+    site_filter : optional, text filter for limiting file set
+        filter2 : optional, another text filter...
+     start_date : optional, text start date to filter on "YYYY-mm-dd"
+       end_date : optional, text end date to filter on "YYYY-mm-dd"
+      client_id : required, provided by NRG Systems
+  client_secret : required, provided by NRG Systems
+          token : deprecated, for beta conversion service users
+encryption_pass : 
     
     """
     def __init__(self, rld_dir='', out_dir='', filename='', site_filter='',
-                 filter2 = '', start_date='1970-01-01', end_date='2150-12-31', 
-                 encryption_pass='', token='', header_type='standard', 
-                 export_type='meas', export_format='csv_zipped', **kwargs):    
+                 filter2 = '', start_date='1970-01-01', end_date='2150-12-31',
+                 client_id='', client_secret='', token='', 
+                 encryption_pass='', header_type='standard', nec_file='',
+                 export_type='measurements', export_format='csv_zipped', **kwargs):    
         if check_platform() == 'win32':
             self.platform = 'win32'
             self.folder_split = '\\'
@@ -218,27 +230,44 @@ class nrg_convert_api(object):
         self.start_date = start_date
         self.end_date = end_date
         self.header_type = header_type
+        self.nec_file = nec_file
         self.token = token
         affirm_directory(self.out_dir)
-
-        
+        if client_id and client_secret:
+            self.client_id = client_id
+            self.client_secret = client_secret
+            print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | Requesting session token ... ", end="", flush=True)
+            self.session_token, self.session_start_time = request_session_token(client_id, client_secret)
+            if self.session_token:
+                print("[OK]")
+                self.convert_url = ConvertServiceUrl
+            else:
+                print("[FAILED] | unable to get session token.")
+        else:
+            self.convert_url = nrgApiUrl
+            print("[Deprecation warning]---------------------------------------------------------------------")
+            print("NRGPy Convert API will require a client_id and client_secret starting February 15, 2020")
+            print("Please contact support@nrgsystems.com or visit https://services.nrgsystems.com to sign up.")
+            print("------------------------------------------------------------------------------------------\n")            
+    
         #import nrgApiUrl, token as tk
         self.NrgUrl = nrgApiUrl
         if len(tk) > 10 and len(self.token) < 10:
             self.token = tk
-        if self.token == '':
+        if not self.token and not self.client_id and not self.client_id:
             print('\n\nA valid token is required to use the nrg_convert_api.\nPlease contact support@nrgsystems.com for an API token')
-            return 0
         if filename != '':
             self.pad = 1
             self.counter = 1
             self.raw_count = 1
             self.progress_bar=False
+            self.start_time = datetime.now()
             self.single_file(filename)
 #        self.process()
 
     def process(self, progress_bar=True):
         self.progress_bar = progress_bar
+        self.start_time = datetime.now()
         files = [
             f for f in sorted(glob.glob(self.rld_dir + '*.rld'))\
             if self.site_filter in f and self.filter2 in f\
@@ -256,19 +285,41 @@ class nrg_convert_api(object):
     def single_file(self, rld):
         try:
             if self.progress_bar:
-                draw_progress_bar(self.counter, self.raw_count)
+                draw_progress_bar(self.counter, self.raw_count, self.start_time)
             else:
-                print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(rld)), end="", flush=True)
+                print(f"Processing {str(self.counter).rjust(self.pad)}/{str(self.raw_count).ljust(self.pad)} ... {os.path.basename(rld)} ... ", end="", flush=True)
             RldFileBytes = open(rld,'rb').read()
             EncodedFileBytes = base64.encodebytes(RldFileBytes)
 
-            Data = {'apitoken': self.token,
-                    'encryptionpassword': self.encryption_pass,
-                    'headertype': self.header_type, #standard | columnonly | none
-                    'exportformat': self.export_format, # csv_zipped (default) | parquet
-                    'filebytearray': EncodedFileBytes} 
+            if self.convert_url == ConvertServiceUrl:
+                # CONVERT 2.0
+                if self.nec_file:
+                    NecFile = open(rld,'rb').read()
+                    NECFileBytes = base64.encodebytes(NecFile)
+                else:
+                    NECFileBytes = ''
+                if not token_valid(self.session_start_time): self.session_token, self.session_start_time = request_session_token(self.client_id, self.client_secret)
+                headers = {"Authorization": f"Bearer {self.session_token}"}
+                Data = {
+                            'filebytes': EncodedFileBytes,
+                            'necfilebytes': NECFileBytes,
+                            'headertype': self.header_type,     # standard | columnonly  | none
+                            'exporttype': self.export_type,     # measurements (default) | samples
+                            'exportformat': self.export_format, # csv_zipped (default)   | parquet
+                            'encryptionkey': self.encryption_pass,
+                            'columnheaderformat': '',           # not implemented yet
+                        }             
+                self.resp=requests.post(data=Data, url=self.convert_url, headers=headers)
+            else:
+                # BETA CONVERT
+                Data = {'apitoken': self.token,
+                        'encryptionpassword': self.encryption_pass,
+                        'headertype': self.header_type, #standard | columnonly | none
+                        'exportformat': self.export_format, # csv_zipped (default) | parquet
+                        'filebytearray': EncodedFileBytes} 
 
-            self.resp=requests.post(data=Data, url=self.NrgUrl)
+                self.resp=requests.post(data=Data, url=self.convert_url)
+
             zippedDataFile = zipfile.ZipFile(io.BytesIO(self.resp.content))
             regDataFile = self.resp.content
             name = zippedDataFile.infolist().pop()

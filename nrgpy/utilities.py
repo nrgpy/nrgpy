@@ -94,7 +94,7 @@ def date_check(start_date, end_date, string):
         return False
 
 
-def draw_progress_bar(index, total, barLen = 50):
+def draw_progress_bar(index, total, start_time, barLen=45):
     """
     simple text progress bar
     """
@@ -102,8 +102,13 @@ def draw_progress_bar(index, total, barLen = 50):
     pad = len(str(total))
     sys.stdout.write("\r")
     sys.stdout.write(
-        "{} / {} [{:<{}}] {:.0f}%\t".format(
-            str(index).rjust(pad), total, "=" * int(barLen * percent), barLen, percent * 100
+        "Time elapsed: {} {} | {} / {} [{:<{}}] {:.0f}%\t".format(
+            (datetime.now() - start_time).seconds, "s",
+            str(index).rjust(pad), 
+            total, 
+            "=" * int(barLen * percent), 
+            barLen, 
+            percent * 100
         )
     )
     sys.stdout.flush()
