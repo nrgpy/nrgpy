@@ -1,4 +1,4 @@
-# <img alt="NRGPy" src="https://www.nrgsystems.com/mysite/images/logo.png?v=3" height="40">
+# ![NRGPy](https://www.gravatar.com/avatar/6282094b092c756acc9f7552b164edfe?s=24)
 
 NRGPy is the Python package for processing NRG Data files
 
@@ -16,15 +16,16 @@ It provides tools for:
 - Simple quality checks on data
 
 ***
-## Installation:
+## Installation
 
     pip install nrgpy
 
-## Examples:
+## Examples
 
 ### RLD files
 
-#### Convert a folder of RLD files to Text with SymphoniePRO Desktop Software:
+#### Convert a folder of RLD files to Text with SymphoniePRO Desktop Software
+
 ```python
 from nrgpy.convert_rld import local
 date_filter = '2018-10' # filter on any text in the filenames
@@ -32,23 +33,39 @@ text_folder_name = 'text_outputs/'
 converter = local(rld_dir='', out_dir=text_folder_name, file_filter=date_filter)
 converter.convert()
 ```
+
 #### Convert a folder of RLD files to Text with NRG Convert API
+
 ```python
 from nrgpy.convert_rld import nrg_convert_api
 file_filter = "000175"
 rld_directory = "rlds"
-token = "contact support@nrgsystems.com for token"
-converter = nrg_convert_api(file_filter=file_filter, rld_dir=rld_directory, token=token)
-converter.convert()
+client_id = "contact support@nrgsystems.com for access"
+client_secret = "contact support@nrgsystems.com for access"
+converter = nrg_convert_api(
+    file_filter=file_filter, 
+    rld_dir=rld_directory, 
+    client_id=client_id,
+    client_secret=client_secret,
+    start_date="2019-11-01",
+    end_date="2019-11-30",
+)
+converter.process()
 ```
 
 #### Convert a single RLD file to Text with NRG Convert API
 ```python
 from nrgpy.convert_rld import nrg_convert_api
 filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
-token = "contact support@nrgsystems.com for token"
 txt_dir = "/home/user/data/sympro/000123/txt/"
-converter = nrg_convert_api(token=token, filename=filename, out_dir=txt_dir)
+client_id = "contact support@nrgsystems.com for access"
+client_secret = "contact support@nrgsystems.com for access"
+converter = nrg_convert_api(
+    file_filter=file_filter, 
+    filename=filename, 
+    client_id=client_id,
+    client_secret=client_secret,
+)
 ```
 
 #### Read files
@@ -57,7 +74,12 @@ file_filter = "000175"
 from nrgpy.sympro_txt import sympro_txt_read
 
 sympro_dfs = sympro_txt_read()
-sympro_dfs.concat_txt(txt_dir=text_folder_name, file_filter=file_filter, output_txt=False)
+sympro_dfs.concat_txt(
+    txt_dir=text_folder_name, 
+    file_filter=file_filter, 
+    start_date="2019-11-01",
+    end_date="2019-11-30",
+)
 ```
 
 #### Read with more options...

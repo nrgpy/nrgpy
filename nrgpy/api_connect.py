@@ -6,7 +6,7 @@ import requests
 nrgApiUrl = 'https://nrgconvert.azurewebsites.net/api/Convert?code=yafm/4r/axuaMMGTP9SkBRNrpmEhrrM4B4sU6ehrXDG6bJaMpFhbIg=='
 token=''
 
-# # 2020 convert service
+# 2020 convert service
 RequestTokenUrl = 'https://dataservicesconvert.azurewebsites.net/api/ConvertToken?code=WUO2Dkq5He5Zp9XHddTGuQuNkoF09YWceIVphPhxIFn7hLGH6fvKSA=='
 ConvertServiceUrl = 'https://dataservicesconvert.azurewebsites.net/api/Convert?code=rWNCyVxJAtaaMD/cr5otcCiQs8pVUuVlikEG684eibKcBhK/hLju6g=='
 
@@ -16,7 +16,7 @@ def request_session_token(client_id="", client_secret=""):
     generates a new session token for convert service api
     requires an active account with NRG Systems. to sign
     up for an account, go to:
-    https://services/nrgsystems.com
+    https://services.nrgsystems.com
 
     parameters
     ----------

@@ -21,30 +21,30 @@ class local(object):
     This method uses locally installed SymphoniePRO Desktop software to convert
     *.rld files to txt format (tab-delimited-text).
     
-    
-    parameters:
-                rld_dir: '', or specify directory. Note for unc values, you 
+    parameters
+    ----------
+               rld_dir : '', or specify directory. Note for unc values, you 
                           will need to escape all forward slashes, e.g.
                           rld_dir = "\\\\sol\\techsupport\\data\\" 
                           or use the r'\\path\to\dir' approach
-                out_dir: '', see note for 1.
-        encryption_pass: '', specify data encryption password if logger is 
+               out_dir : '', see note for 1.
+       encryption_pass : '', specify data encryption password if logger is 
                           set up for that.
-            sympro_path: "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
-           convert_type: 'meas', alternately specify 'comm', 'diag', 'sample', or 'events'
-                    nec: '', path to nec file
-            site_filter: '', or specify part or all of the file you'd like to
+           sympro_path : "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
+          convert_type : 'meas', alternately specify 'comm', 'diag', 'sample', or 'events'
+                   nec : '', path to nec file
+           site_filter : '', or specify part or all of the file you'd like to
                           filter on. Eg. site_filter='123456_2018-09' would filter on site 123456
                           and only the month of September in 2018.
-              site_file: '', path to (*.ndb) site file  
+             site_file : '', path to (*.ndb) site file  
     
-    functions:
-          directory(): processes all rld files in self.rld_dir, outputs to txt files 
+    functions
+    ---------
+          directory : processes all rld files in self.rld_dir, outputs to txt files 
                        to out_dir ( aliases = convert() and process() )
-         rename_rld(): for calling the site-serial renaming tool to insert the serial number
+         rename_rld : for calling the site-serial renaming tool to insert the serial number
                        into the filename
-        single_file(): pass single file's complete path for export.
-    ------------------------------------------------------------------------------
+        single_file : pass single file's complete path for export.
     
     """
     def __init__(self, rld_dir='', out_dir='', encryption_pass='',
@@ -201,14 +201,17 @@ class nrg_convert_api(object):
       client_id : required, provided by NRG Systems
   client_secret : required, provided by NRG Systems
           token : deprecated, for beta conversion service users
-encryption_pass : 
+encryption_pass : optional, password for rld files (set in logger)
+    header_type : standard, columnonly, or none
+       nec_file : optional, path to NEC file for custom export formatting
+    export_type : meas, samples
     
     """
     def __init__(self, rld_dir='', out_dir='', filename='', site_filter='',
                  filter2 = '', start_date='1970-01-01', end_date='2150-12-31',
                  client_id='', client_secret='', token='', 
                  encryption_pass='', header_type='standard', nec_file='',
-                 export_type='measurements', export_format='csv_zipped', **kwargs):    
+                 export_type='meas', export_format='csv_zipped', **kwargs):    
         if check_platform() == 'win32':
             self.platform = 'win32'
             self.folder_split = '\\'
@@ -233,6 +236,7 @@ encryption_pass :
         self.nec_file = nec_file
         self.token = token
         affirm_directory(self.out_dir)
+
         if client_id and client_secret:
             self.client_id = client_id
             self.client_secret = client_secret
@@ -250,8 +254,6 @@ encryption_pass :
             print("Please contact support@nrgsystems.com or visit https://services.nrgsystems.com to sign up.")
             print("------------------------------------------------------------------------------------------\n")            
     
-        #import nrgApiUrl, token as tk
-        self.NrgUrl = nrgApiUrl
         if len(tk) > 10 and len(self.token) < 10:
             self.token = tk
         if not self.token and not self.client_id and not self.client_id:
@@ -263,7 +265,7 @@ encryption_pass :
             self.progress_bar=False
             self.start_time = datetime.now()
             self.single_file(filename)
-#        self.process()
+
 
     def process(self, progress_bar=True):
         self.progress_bar = progress_bar
@@ -280,6 +282,12 @@ encryption_pass :
             self.single_file(rld)
             self.counter += 1
         print('\nQueue processed\n')
+
+
+    def convert(self):
+        self.process()
+    def directory(self):
+        self.process()
 
 
     def single_file(self, rld):
@@ -300,7 +308,7 @@ encryption_pass :
                     NECFileBytes = ''
                 if not token_valid(self.session_start_time): self.session_token, self.session_start_time = request_session_token(self.client_id, self.client_secret)
                 headers = {"Authorization": f"Bearer {self.session_token}"}
-                Data = {
+                self.Data = {
                             'filebytes': EncodedFileBytes,
                             'necfilebytes': NECFileBytes,
                             'headertype': self.header_type,     # standard | columnonly  | none
@@ -309,7 +317,7 @@ encryption_pass :
                             'encryptionkey': self.encryption_pass,
                             'columnheaderformat': '',           # not implemented yet
                         }             
-                self.resp=requests.post(data=Data, url=self.convert_url, headers=headers)
+                self.resp=requests.post(data=self.Data, url=self.convert_url, headers=headers)
             else:
                 # BETA CONVERT
                 Data = {'apitoken': self.token,
@@ -337,7 +345,6 @@ encryption_pass :
                 f.close()
             except:
                 print("Could not convert Windows newline characters properly; file may be unstable")
-
             if self.progress_bar == False: print("[DONE]")
 
         except Exception as e:
@@ -346,7 +353,3 @@ encryption_pass :
             print(e)
             print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
             pass
-
-
-    def convert(self):
-        self.process()
