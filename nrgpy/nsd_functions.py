@@ -1,3 +1,4 @@
+from datetime import date
 from nrgpy.utilities import check_platform
 if check_platform() == 'win32':
     import pyodbc
@@ -85,6 +86,7 @@ class nsd(object):
         write new sensor history to site file
 
         parameters
+        ----------
                     channel : required; 1 through 15 (or 1 through 12 for Sym Classic)
                       entry : int; default is 1 for channel baseline values, 2, 3, etc. for newer entries
                 sensor_desc : string
@@ -137,6 +139,48 @@ class nsd(object):
             self.conn.commit()
         else:
             print('specify channel for write "eg: write_channel_settings(channel=10 .. )"')
+
+
+    def add_channel_history(self, timestamp='', channel=0, sensor_type='1', 
+                           sensor_desc='', print_precision=4, units='',
+                           serial_number='', height='',
+                           sensor_detail='', sensor_notes='',
+                           scale_factor=-9999, offset=-9999):
+        """
+        use for adding new sensor history registries
+
+        parameters
+        ----------
+            timestamp : string, "YYYY-MM-DD HH:MM:SS"
+              channel : int or string, channel number
+          sensor_type : int or string, number:
+                        1 : anemometer
+                        2 : totalizer (rain gauge)
+                        3 : vane
+                        4 : analog (temp, bp, rh, etc.)
+          sensor_desc : string, description
+      print_precision : 1 through 4, number of decimals
+                units : string
+        serial_number : string
+               height : number
+        sensor_detail : note
+         sensor_notes : note
+         scale_factor : float
+               offset : float
+            
+        """
+        try:
+            sql = f"""INSERT INTO SensorHistory
+                ([TimeStamp], Channel, SensorType, SensorDesc, SerialNumber, Height, 
+                ScaleFactor, Offset, PrintPrecision, Units, SensorDetail, SensorNotes)
+            VALUES 
+                ('{timestamp}', '{channel}', '{sensor_type}', '{sensor_desc}','{serial_number}','{height}',
+                '{scale_factor}','{offset}','{print_precision}','{units}','{sensor_detail}','{sensor_notes}');"""
+            self.conn.execute(sql)
+        except Exception as e:
+            print("[ERROR] Unable to add sensor history value")
+            print(e)
+
 
     def check_for_jet_drivers(self):
         """
