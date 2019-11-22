@@ -177,6 +177,7 @@ class nsd(object):
                 ('{timestamp}', '{channel}', '{sensor_type}', '{sensor_desc}','{serial_number}','{height}',
                 '{scale_factor}','{offset}','{print_precision}','{units}','{sensor_detail}','{sensor_notes}');"""
             self.conn.execute(sql)
+            self.conn.commit()
         except Exception as e:
             print("[ERROR] Unable to add sensor history value")
             print(e)
