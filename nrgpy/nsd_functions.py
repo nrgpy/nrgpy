@@ -183,6 +183,13 @@ class nsd(object):
             print(e)
 
 
+    def close(self):
+        """
+        close connection to database
+        """
+        self.conn.close()
+
+
     def check_for_jet_drivers(self):
         """
         check for jet database drivers
