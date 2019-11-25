@@ -62,6 +62,28 @@ Out[7]:
 
 ```
 
+## Add new entries to the sensor history for a channel
+``` python
+
+In [1]: import nrgpy
+        import pandas as pd
+        from datetime import date, datetime
+        db = nrgpy.nsd(nsd_file="C:/NRG/SiteFiles/1234.nsd")
+
+
+In [2]: db.add_channel_history(
+            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            channel=4,
+            scale_factor=7.555,
+            offset=11
+        )
+In [2]: db.read_channel_settings(channel=4)
+        db.channel_settings
+
+Out[2]: 
+   TimeStamp 	         Channel 	SensorType 	SensorDesc 	SerialNumber 	Height 	ScaleFactor 	Offset 	PrintPrecision 	Units 	SensorDetail 	SensorNotes
+0 	1899-12-30 00:00:00 	   4 	      0 	                                    			0.000 	     0.0 	      0 			
+1 	2019-11-22 08:54:53 	   4 	      1 				                                    7.555 	     11.0 	      4 			
 
 ## Read all sensor history into a dataframe:
 
