@@ -47,7 +47,7 @@ class local(object):
         single_file : pass single file's complete path for export.
     
     """
-    def __init__(self, rld_dir='', out_dir='', encryption_pass='',
+    def __init__(self, rld_dir='', out_dir='', encryption_pass='', filename='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
                  convert_type='meas', nec='', site_filter='', site_file='', **kwargs):
         self.rld_dir = windows_folder_path(rld_dir)
@@ -62,7 +62,9 @@ class local(object):
             self.file_filter = kwargs.get('file_filter')
             self.site_filter = self.file_filter
         if check_platform() == 'win32':
-            pass
+            if filename:
+                affirm_directory(self.out_dir)
+                self.single_file(filepath=filename)
         else:
             print("""
             convert_rld.local() method ONLY compatible with Windows OS. 
@@ -171,7 +173,37 @@ class local(object):
 
     def single_file(self, filepath=''):
         self.filepath = filepath.replace('/','\\')
-        cmd = [self.sympro_path, "/cmd", "convert", "/file", '"'+filepath+'"', "/type", '"'+self.convert_type+'"',"/outputdir", '"'+self.out_dir[:-1]+'"']
+        try:
+            if self.encryption_pass != '':
+                encryption = '/pass "{0}"'.format(self.encryption_pass)
+            else:
+                encryption = ''
+        except:
+            print('could not parse encryption_pass')
+        try:
+            if self.nec != '':
+                nec = '/config "{0}"'.format(self.nec)
+            else:
+                nec = ''
+        except:
+            print('could not parse encryption_pass') 
+        try:
+            if self.site_file != '':
+                site_file = '/site "{0}"'.format(self.site_file)
+            else:
+                site_file = ''
+        except:
+            print('could not parse encryption_pass')           
+        cmd = [self.sympro_path, 
+                   "/cmd", "convert", 
+                   "/file", '"'+self.filepath+'"', 
+                   encryption,
+                   nec,
+                   site_file,  
+                   "/type", '"'+self.convert_type+'"',
+                   "/outputdir", '"'+self.out_dir[:-1]+'"'
+            ]
+        self.cmd = cmd
         try:
             print("{0} ... \t\t".format(filepath), end="", flush=True)
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
