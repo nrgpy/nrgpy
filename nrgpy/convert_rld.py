@@ -30,6 +30,7 @@ class local(object):
                out_dir : '', see note for 1.
        encryption_pass : '', specify data encryption password if logger is 
                           set up for that.
+               hex_key : '', specify if using hex data encryption key
            sympro_path : "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
           convert_type : 'meas', alternately specify 'comm', 'diag', 'sample', or 'events'
                    nec : '', path to nec file
@@ -47,20 +48,23 @@ class local(object):
         single_file : pass single file's complete path for export.
     
     """
-    def __init__(self, rld_dir='', out_dir='', encryption_pass='', filename='',
+    def __init__(self, rld_dir='', out_dir='', encryption_pass='', hex_key='', filename='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
                  convert_type='meas', nec='', site_filter='', site_file='', **kwargs):
         self.rld_dir = windows_folder_path(rld_dir)
         self.out_dir  = windows_folder_path(out_dir)
         self.encryption_pass = encryption_pass
+        self.hex_key = hex_key
         self.sympro_path = sympro_path
         self.convert_type = convert_type
         self.nec = nec
         self.site_filter = site_filter
         self.site_file = site_file
+
         if 'file_filter' in kwargs and site_filter == '':
             self.file_filter = kwargs.get('file_filter')
             self.site_filter = self.file_filter
+
         if check_platform() == 'win32':
             if filename:
                 affirm_directory(self.out_dir)
@@ -78,45 +82,58 @@ class local(object):
         """
         affirm_directory(self.out_dir)
         try:
-            if self.encryption_pass != '':
+            if self.encryption_pass:
                 encryption = '/pass "{0}"'.format(self.encryption_pass)
             else:
                 encryption = ''
         except:
             print('could not parse encryption_pass')
         try:
-            if self.nec != '':
+            if self.hex_key:
+                encryption_key = '/key "{0}"'.format(self.hex_key)
+            else:
+                encryption_key = ''
+        except:
+            print('could not parse hex_key')
+        try:
+            if self.nec:
                 nec = '/config "{0}"'.format(self.nec)
             else:
                 nec = ''
         except:
             print('could not parse encryption_pass') 
         try:
-            if self.site_file != '':
+            if self.site_file:
                 site_file = '/site "{0}"'.format(self.site_file)
             else:
                 site_file = ''
         except:
-            print('could not parse encryption_pass')           
+            print('could not parse encryption_pass')
+
         try:
             rld_count = count_files(self.rld_dir, self.site_filter, 'rld')
             self.start_time = time.time()
             print('\nConverting {0} files from {1}\n'.format(rld_count, self.rld_dir))
             print('Saving outputs to {0}'.format(self.out_dir))
+
             cmd = [self.sympro_path, 
                    "/cmd", "convert", 
                    "/file", '"'+"\\".join([self.rld_dir, self.site_filter])+'*.rld"', 
                    encryption,
+                   encryption_key,
                    nec,
                    site_file,  
                    "/type", '"'+self.convert_type+'"',
                    "/outputdir", '"'+self.out_dir[:-1]+'"'
             ]
-            print('\nUsing command line script:\n{}'.format(" ".join(cmd)))
+
+            # print('\nUsing command line script:\n{}'.format(" ".join(cmd)))
+
             self.start = datetime.now()
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
             self.end = datetime.now()
             self.convert_time = str(self.end - self.start)
+
             print('\nTXT files saved in {0}\n'.format(self.out_dir))
             txt_count = count_files(self.out_dir, self.site_filter, 'txt', start_time=self.start_time)
             log_count, log_files = count_files(self.out_dir, self.site_filter, 'log', show_files=True, start_time=self.start_time)
@@ -128,6 +145,7 @@ class local(object):
                 for _filename in log_files:
                     print('\t{}'.format(_filename))
             print('----------------\nDifference : {}'.format(rld_count - (txt_count + log_count)))
+
         except FileNotFoundError:
             print("""
                   No instance of SymphoniePRO Desktop Application found.
@@ -173,37 +191,51 @@ class local(object):
 
     def single_file(self, filepath=''):
         self.filepath = filepath.replace('/','\\')
+
         try:
-            if self.encryption_pass != '':
+            if self.encryption_pass:
                 encryption = '/pass "{0}"'.format(self.encryption_pass)
             else:
                 encryption = ''
         except:
             print('could not parse encryption_pass')
+
         try:
-            if self.nec != '':
+            if self.hex_key:
+                encryption_key = '/key "{0}"'.format(self.hex_key)
+            else:
+                encryption_key = ''
+        except:
+            print('could not parse hex_key')            
+
+        try:
+            if self.nec:
                 nec = '/config "{0}"'.format(self.nec)
             else:
                 nec = ''
         except:
-            print('could not parse encryption_pass') 
+            print('could not get nec file')
+
         try:
-            if self.site_file != '':
+            if self.site_file:
                 site_file = '/site "{0}"'.format(self.site_file)
             else:
                 site_file = ''
         except:
-            print('could not parse encryption_pass')           
+            print('could not get site file')
+
         cmd = [self.sympro_path, 
                    "/cmd", "convert", 
                    "/file", '"'+self.filepath+'"', 
                    encryption,
+                   encryption_key,
                    nec,
                    site_file,  
                    "/type", '"'+self.convert_type+'"',
                    "/outputdir", '"'+self.out_dir[:-1]+'"'
             ]
         self.cmd = cmd
+
         try:
             print("{0} ... \t\t".format(filepath), end="", flush=True)
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
@@ -212,7 +244,6 @@ class local(object):
             print("\n\t processing {0} [FAILED]".format(filepath))
             pass
         
-
         print("\nQueue processed\n")
 
 class nrg_convert_api(object):
