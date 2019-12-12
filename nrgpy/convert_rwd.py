@@ -24,6 +24,7 @@ class local(object):
            wine_folder : '~/.wine/drive_c/', for linux installations
          use_site_file : False, set to True to use local site file
               raw_mode : False, set to True to convert raw counts and voltages
+          progress_bar : True, set to False to see individual file conversions
 
 
     functions -
@@ -37,7 +38,7 @@ class local(object):
                  sdr_path=r'C:/NRG/SymDR/SDR.exe',
                  convert_type='meas', file_filter='', 
                  wine_folder='~/.wine/drive_c/', 
-                 use_site_file=False, raw_mode=False, **kwargs):
+                 use_site_file=False, raw_mode=False, progress_bar=True, **kwargs):
         if encryption_pin != '':
             self.command_switch = '/z' # noqueue with pin
         else:
@@ -46,6 +47,7 @@ class local(object):
             self.command_switch = '/s' # silent (site file params)
         if raw_mode == True:
             self.command_switch = '/r' # silent (site file params)
+        self.progress_bar = progress_bar
         self.encryption_pin = encryption_pin
         self.sdr_path = windows_folder_path(sdr_path)[:-1]
         self.root_folder = "\\".join(self.sdr_path.split('\\')[:-2])
@@ -116,6 +118,7 @@ class local(object):
         self.pad = len(str(self.raw_count)) + 1
         self.raw_counter = 1
         self.start_time = time.time()
+
         for f in sorted(self.rwd_file_list):
             site_num = f[:4]
             try:
@@ -166,15 +169,18 @@ class local(object):
             wine = ''
         self.cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
         try:
-            print("Converting  {0}/{1}  {2}  ...  ".format(str(self.raw_counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),_f.split("\\")[-1]), end="", flush=True)
+            if self.progress_bar:
+                draw_progress_bar(self.counter, self.raw_count, self.start_time)
+            else:
+                print("Converting  {0}/{1}  {2}  ...  ".format(str(self.raw_counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),_f.split("\\")[-1]), end="", flush=True)
             subprocess.check_output(" ".join(self.cmd), shell=True)
-            print("[DONE]")
+            if not self.progress_bar: print("[DONE]")
             try:
                 self._copy_txt_file()
             except:
                 print('unable to copy {} to text folder'.format(_f))
         except:
-            print("[FAILED]")
+            if not self.progress_bar: print("[FAILED]")
             print('unable to convert {}. check ScaledData folder for log file'.format(_f))
 
             
