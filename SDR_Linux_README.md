@@ -1,6 +1,4 @@
-<img alt="NRGPy" src="https://www.nrgsystems.com/mysite/images/logo.png?v=3" height="">
-
-# Symphonie Data Retriever | Convert files on Linux
+# ![NRGPy](https://www.gravatar.com/avatar/6282094b092c756acc9f7552b164edfe?s=24) Symphonie Data Retriever | Convert files on Linux
 
 **Summary** <br>
 The following is an example of how to convert RWD raw wind data files from Symphonie loggers to TXT format by using WINE on Ubuntu 18.04 Linux. Steps for other distros should be quite similar. 

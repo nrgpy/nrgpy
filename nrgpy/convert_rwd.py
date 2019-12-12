@@ -1,12 +1,13 @@
 #!/bin/usr/python
 
+import datetime
 import time
 import os
 import pandas as pd
 import pathlib
 import subprocess
 import shutil
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, draw_progress_bar
 
 
 class local(object):
@@ -38,7 +39,7 @@ class local(object):
                  sdr_path=r'C:/NRG/SymDR/SDR.exe',
                  convert_type='meas', file_filter='', 
                  wine_folder='~/.wine/drive_c/', 
-                 use_site_file=False, raw_mode=False, progress_bar=True, **kwargs):
+                 use_site_file=False, raw_mode=False, progress_bar=False, **kwargs):
         if encryption_pin != '':
             self.command_switch = '/z' # noqueue with pin
         else:
@@ -67,7 +68,8 @@ class local(object):
             self.out_dir = linux_folder_path(out_dir)
             self.file_path_joiner = '/'
         self.filename = filename
-        if self.filename != '':
+        if self.filename:
+            self.raw_counter = 1
             self.rwd_dir = os.path.dirname(self.filename)
             self.file_filter = os.path.basename(self.filename)
             self.convert()
@@ -116,8 +118,9 @@ class local(object):
         affirm_directory(self.out_dir)
         self.raw_count = len(self.rwd_file_list)
         self.pad = len(str(self.raw_count)) + 1
-        self.raw_counter = 1
-        self.start_time = time.time()
+        self.counter = 1
+        self.convert_time = time.time()
+        self.start_time = datetime.datetime.now()
 
         for f in sorted(self.rwd_file_list):
             site_num = f[:4]
@@ -126,8 +129,8 @@ class local(object):
                 self._single_file()
             except:
                 print('file conversion failed on {}'.format(self._filename))
-            self.raw_counter += 1
-        txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt', start_time=self.start_time)
+            self.counter += 1
+        txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt', start_time=self.convert_time)
         log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.start_time)
         print('\nRWDs in    : {}'.format(self.raw_count))
         print('TXTs out   : {}'.format(txt_count))
@@ -179,9 +182,10 @@ class local(object):
                 self._copy_txt_file()
             except:
                 print('unable to copy {} to text folder'.format(_f))
-        except:
+        except Exception as e:
             if not self.progress_bar: print("[FAILED]")
             print('unable to convert {}. check ScaledData folder for log file'.format(_f))
+            print(e)
 
             
             
