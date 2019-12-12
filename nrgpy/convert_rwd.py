@@ -69,7 +69,7 @@ class local(object):
             self.file_path_joiner = '/'
         self.filename = filename
         if self.filename:
-            self.raw_counter = 1
+            self.counter = 1
             self.rwd_dir = os.path.dirname(self.filename)
             self.file_filter = os.path.basename(self.filename)
             self.convert()
@@ -175,7 +175,7 @@ class local(object):
             if self.progress_bar:
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
             else:
-                print("Converting  {0}/{1}  {2}  ...  ".format(str(self.raw_counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),_f.split("\\")[-1]), end="", flush=True)
+                print("Converting  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),_f.split("\\")[-1]), end="", flush=True)
             subprocess.check_output(" ".join(self.cmd), shell=True)
             if not self.progress_bar: print("[DONE]")
             try:
