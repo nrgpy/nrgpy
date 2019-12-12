@@ -128,7 +128,8 @@ class local(object):
             ]
 
             # print('\nUsing command line script:\n{}'.format(" ".join(cmd)))
-
+            self.cmd = cmd
+            
             self.start = datetime.now()
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
             self.end = datetime.now()
