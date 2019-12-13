@@ -146,6 +146,7 @@ class sympro_txt_read(object):
             self.latitude = float(self._site_info['Latitude'].values[0])
             self.longitude = float(self._site_info['Longitude'].values[0])
             self.elevation = int(self._site_info['Elevation'].values[0])
+            self.location = self._site_info['Location'].values[0]
             self.site_number = self._site_info['Site Number'].values[0]
             self.site_description = self._site_info['Site Description'].values[0]
             self.start_date = self._site_info['Start Date'].values[0]
@@ -170,7 +171,7 @@ class sympro_txt_read(object):
         parameters
         ----------
                 txt_dir : directory holding txt files
-              file_type : type of export (meas, event, comm, etc...)
+              file_type : type of export (meas, event, comm, sample, etc...)
             file_filter : text filter for txt files, like site number, etc.
                 filter2 : secondary text filter
              start_date : for filtering files to concat based on date

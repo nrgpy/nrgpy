@@ -6,7 +6,7 @@ import os
 import pandas as pd
 import re
 from nrgpy.channel_info_arrays import return_array
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar
+from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar, renamer
 
 
 class read_text_data(object):
@@ -23,7 +23,7 @@ class read_text_data(object):
            file_ext : ''; a secondary file filter
 
     """
-    def __init__(self, filename='', data_type='', txt_dir='', file_filter='',
+    def __init__(self, filename='', data_type='sp3', txt_dir='', file_filter='',
                  filter2='', file_ext='', sep='\t'):
         if not data_type:
             print("data_type parameter required.")
@@ -44,6 +44,7 @@ class read_text_data(object):
             self.get_site_info(self.filename)
             self.arrange_ch_info()
             self.get_data(self.filename)
+            self.site_number = self.filename[:4]
         elif self.txt_dir != '':
             #self.concat()
             pass
@@ -91,6 +92,7 @@ class read_text_data(object):
             self.txt_dir = windows_folder_path(self.txt_dir)
         else:
             self.txt_dir = linux_folder_path(self.txt_dir)
+
         first_file = True
         files = sorted(glob(self.txt_dir + '*.txt'))
         self.file_count = len(files)
@@ -101,7 +103,9 @@ class read_text_data(object):
         self.start_time = datetime.now()
 
         for f in files:
+
             if self.file_filter in f and self.filter2 in f:
+
                 if progress_bar:
                     draw_progress_bar(self.counter, self.file_count, self.start_time)
                 else:
@@ -132,25 +136,24 @@ class read_text_data(object):
             else:
                 pass
             self.counter += 1
+
         if output_txt == True:
             if out_file == "":
                 out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
             self.out_file = out_file
+
         try:
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
             self.data = base.data.drop_duplicates(subset=[self.header_sections['data_header']], keep='first')
             self.head = s.head
             self.site_info = s.site_info
+            self.site_number = s.site_number
+            self.format_rwd_site_data()
         except UnboundLocalError:
             print("No files match to contatenate.")
             return None
-        self.ch_info = s.ch_info
-        self.ch_list = s.ch_list
-        self.data = base.data.drop_duplicates(subset=[self.header_sections['data_header']], keep='first')
-        #self.head = s.head
-        self.site_info = s.site_info
 
 
     def get_site_info(self, _file):
@@ -171,6 +174,7 @@ class read_text_data(object):
                                      error_bad_lines=False, warn_bad_lines=False) #usecols=[0,1],
         if self.data_type == "symplus3":
             self.site_info.reset_index(inplace=True) # , drop=True) works, but only for spro
+            self.format_rwd_site_data()
         #self.site_info = self.site_info.iloc[:self.site_info.iloc[self.site_info[0]==self.header_sections['data_header']].index.tolist()[0]+1]
 
 
@@ -196,6 +200,36 @@ class read_text_data(object):
             self.header_len += 1 # this shouldn't be necessary; something with get_site_info?
         self.data = pd.read_csv(_file, skiprows=self.header_len, 
                                 encoding='ISO-8859-1', sep=self.sep)
+
+
+    def format_rwd_site_data(self):
+        """
+        adds formatted site dataframe to reader object
+        """
+        try:
+            self.Site_info = self.site_info.copy()
+            self._site_info = self.Site_info.T
+            self._site_info.columns = self._site_info.iloc[0]
+            self._site_info = self._site_info[1:]
+            width = list(self._site_info.columns.values).index('-----Sensor Information-----')
+            self._site_info.drop(self._site_info.iloc[:, width:len(self._site_info.columns)], axis=1, inplace=True, errors='ignore')
+
+            self.latitude = self._site_info['Latitude'].values[0]
+            self.longitude = self._site_info['Longitude'].values[0]
+            self.elevation = int(self._site_info['Site Elevation'].values[0])
+            self.location = self._site_info['Site Location'].values[0]
+            self.site_description = self._site_info['Site Desc'].values[0]
+            # self.start_date = self._site_info['Start Date'].values[0]
+            self.logger_type = self.head[1][1]
+            self.logger_sn = self.logger_type + self.head[2][1]
+            self.ipack_sn = ''
+            self.ipack_type = ''
+            self.time_zone = self._site_info['Time offset (hrs)'].values[0]
+            
+        except Exception as e:
+            self.e = e
+            print("Warning: error processing site_info: {}".format(e))
+        
 
 
 def format_sympro_site_data(reader):
@@ -228,3 +262,5 @@ def format_sympro_site_data(reader):
     except Exception as e:
         reader.e = e
         print("Warning: error processing site_info: {}".format(e))
+
+
