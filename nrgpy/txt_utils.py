@@ -25,11 +25,12 @@ class read_text_data(object):
     """
     def __init__(self, filename='', data_type='', txt_dir='', file_filter='',
                  filter2='', file_ext='', sep='\t'):
-        if data_type == '':
+        if not data_type:
             print("data_type parameter required.")
             print("\tSymphoniePRO   : use 'data_type='symphoniepro'")
             print("\tSymphoniePLUS3 : use 'data_type='symphonieplus3'")
             return False
+
         self.data_type = data_type
         self.txt_dir = txt_dir
         self.file_filter = file_filter
@@ -38,7 +39,8 @@ class read_text_data(object):
         self.sep = sep
         self.ch_info_array, self.header_sections, self.skip_rows, self.data_type = return_array(self.data_type)
         self.filename = filename
-        if self.filename != '':
+        if self.filename:
+            self.get_head(self.filename)
             self.get_site_info(self.filename)
             self.arrange_ch_info()
             self.get_data(self.filename)
@@ -139,7 +141,7 @@ class read_text_data(object):
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
             self.data = base.data.drop_duplicates(subset=[self.header_sections['data_header']], keep='first')
-            #self.head = s.head
+            self.head = s.head
             self.site_info = s.site_info
         except UnboundLocalError:
             print("No files match to contatenate.")
@@ -156,6 +158,7 @@ class read_text_data(object):
         create dataframe of site info
         """
         self.header_len = 0
+
         self.site_info = pd.DataFrame()
         with open(self.filename, encoding='ISO-8859-1') as txt_file:
             for line in txt_file:
@@ -171,6 +174,20 @@ class read_text_data(object):
         #self.site_info = self.site_info.iloc[:self.site_info.iloc[self.site_info[0]==self.header_sections['data_header']].index.tolist()[0]+1]
 
 
+    def get_head(self, _file):
+        """
+        get the first lines of the file, excluding those without tabs
+        up to the self.skip_rows line
+        """
+        self.head = []
+        i=0
+        with open(_file) as head_f:
+            for line in head_f:
+                if i >= self.skip_rows: break
+                if "\t" in line: self.head.append(line.replace("\n","").split("\t"))
+                i += 1
+
+
     def get_data(self, _file):
         """
         create dataframe of tabulated data
@@ -179,3 +196,35 @@ class read_text_data(object):
             self.header_len += 1 # this shouldn't be necessary; something with get_site_info?
         self.data = pd.read_csv(_file, skiprows=self.header_len, 
                                 encoding='ISO-8859-1', sep=self.sep)
+
+
+def format_sympro_site_data(reader):
+    """
+    adds formatted site dataframe to reader object
+    """
+    try:
+        reader.Site_info = reader.site_info.copy()
+        reader._site_info = reader.Site_info.T
+        reader._site_info.columns = reader._site_info.iloc[0]
+        reader._site_info.columns = reader._site_info.iloc[0]
+        reader._site_info = reader._site_info[1:]
+        width = list(reader._site_info.columns.values).index('Sensor History')
+        reader._site_info.rename(columns=renamer(), inplace=True)
+        reader._site_info.drop(reader._site_info.iloc[:, width:len(reader._site_info.columns)], axis=1, inplace=True, errors='ignore')
+        reader._site_info.columns = [str(col).replace(':','').strip() for col in reader._site_info.columns]
+
+        reader.latitude = float(reader._site_info['Latitude'].values[0])
+        reader.longitude = float(reader._site_info['Longitude'].values[0])
+        reader.elevation = int(reader._site_info['Elevation'].values[0])
+        reader.site_number = reader._site_info['Site Number'].values[0]
+        reader.site_description = reader._site_info['Site Description'].values[0]
+        reader.start_date = reader._site_info['Start Date'].values[0]
+        reader.logger_sn = reader._site_info['Serial Number'].values[0]
+        reader.ipack_sn = reader._site_info['Serial Number_1'].values[0]
+        reader.logger_type = reader._site_info['Model'].values[0]
+        reader.ipack_type = reader._site_info['Model_1'].values[0]
+        reader.time_zone = reader._site_info['Time Zone'].values[0]
+        
+    except Exception as e:
+        reader.e = e
+        print("Warning: error processing site_info: {}".format(e))

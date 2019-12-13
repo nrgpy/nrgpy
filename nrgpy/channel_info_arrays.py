@@ -6,6 +6,7 @@ def return_array(data_file_type):
     return data file header parameter array
     based on data_file_type
     """
+
     if data_file_type.lower() in ["rwd",
                                   "symplus3", 
                                   "symphonieplus3",
@@ -17,6 +18,7 @@ def return_array(data_file_type):
                                   "3090"]:
         a, b, c, d = return_sp3_ch_info()
         return a, b, c, d
+
     elif data_file_type.lower() in ["rld",
                                     "sympro", 
                                     "symphoniepro", 
@@ -24,6 +26,7 @@ def return_array(data_file_type):
                                     "8206"]:
         a, b, c, d= return_spro_ch_info()
         return a, b, c, d
+        
     else:
         print("unsupported data_type")
         return False
