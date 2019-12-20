@@ -299,11 +299,12 @@ encryption_pass : optional, password for rld files (set in logger)
         self.header_type = header_type
         self.nec_file = nec_file
         self.token = token
+        self.client_id = client_id
+        self.client_secret = client_secret
         affirm_directory(self.out_dir)
 
-        if client_id and client_secret:
-            self.client_id = client_id
-            self.client_secret = client_secret
+        if self.client_id and self.client_secret:
+
             print("{} | Requesting session token ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')), end="", flush=True)
             self.session_token, self.session_start_time = request_session_token(client_id, client_secret)
             if self.session_token:
@@ -311,17 +312,20 @@ encryption_pass : optional, password for rld files (set in logger)
                 self.convert_url = ConvertServiceUrl
             else:
                 print("[FAILED] | unable to get session token.")
+
         else:
             self.convert_url = nrgApiUrl
-            print("[Deprecation warning]---------------------------------------------------------------------")
-            print("NRGPy Convert API will require a client_id and client_secret starting February 15, 2020")
-            print("Please contact support@nrgsystems.com or visit https://services.nrgsystems.com to sign up.")
-            print("------------------------------------------------------------------------------------------\n")            
+            print("[Deprecation warning]\n------------------------------------------------------")
+            print(" NRGPy Convert API will require a client_id and \n client_secret starting March 15, 2020.")
+            print(" Please contact support@nrgsystems.com or visit \n https://services.nrgsystems.com to sign up.")
+            print("------------------------------------------------------\n")            
     
         if len(tk) > 10 and len(self.token) < 10:
             self.token = tk
-        if not self.token and not self.client_id and not self.client_id:
-            print('\n\nA valid token is required to use the nrg_convert_api.\nPlease contact support@nrgsystems.com for an API token')
+
+        if (not self.token) and (not self.client_id) and (not self.client_secret):
+            print('[Access error] Valid credentials are required.\nPlease contact support@nrgsystems.com or visit \nhttps://services.nrgsystems.com for API access')
+
         if filename != '':
             self.pad = 1
             self.counter = 1
@@ -334,17 +338,19 @@ encryption_pass : optional, password for rld files (set in logger)
     def process(self, progress_bar=True):
         self.progress_bar = progress_bar
         self.start_time = datetime.now()
-        files = [
+        self.files = [
             f for f in sorted(glob.glob(self.rld_dir + '*.rld'))\
             if self.site_filter in f and self.filter2 in f\
             and date_check(self.start_date, self.end_date, f)
         ]
-        self.raw_count = len(files)
+
+        self.raw_count = len(self.files)
         self.pad = len(str(self.raw_count)) + 1
         self.counter = 1
-        for rld in files:
+        for rld in self.files:
             self.single_file(rld)
             self.counter += 1
+
         print('\nQueue processed\n')
 
 
@@ -370,8 +376,10 @@ encryption_pass : optional, password for rld files (set in logger)
                     NECFileBytes = base64.encodebytes(NecFile)
                 else:
                     NECFileBytes = ''
+
                 if not token_valid(self.session_start_time): self.session_token, self.session_start_time = request_session_token(self.client_id, self.client_secret)
                 headers = {"Authorization": "Bearer {}".format(self.session_token)}
+
                 self.Data = {
                             'filebytes': EncodedFileBytes,
                             'necfilebytes': NECFileBytes,
@@ -382,6 +390,7 @@ encryption_pass : optional, password for rld files (set in logger)
                             'columnheaderformat': '',           # not implemented yet
                         }             
                 self.resp=requests.post(data=self.Data, url=self.convert_url, headers=headers)
+
             else:
                 # BETA CONVERT
                 Data = {'apitoken': self.token,
@@ -400,7 +409,6 @@ encryption_pass : optional, password for rld files (set in logger)
             with open(os.path.join(self.out_dir, outFileName),'wb') as outputfile:
                 outputfile.write(zippedDataFile.read(name))
 
-            #fix windows newline garbage
             try:
                 filename = os.path.join(self.out_dir, outFileName)
                 fileContents = open(filename,"r").read()
@@ -409,6 +417,7 @@ encryption_pass : optional, password for rld files (set in logger)
                 f.close()
             except:
                 print("Could not convert Windows newline characters properly; file may be unstable")
+
             if self.progress_bar == False: print("[DONE]")
 
         except Exception as e:
