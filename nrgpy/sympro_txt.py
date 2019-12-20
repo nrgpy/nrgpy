@@ -522,7 +522,7 @@ class sympro_txt_read(object):
                 os.makedirs(out_dir, exist_ok=True)
                 file_date = str(self.data.iloc[0]['Timestamp']).replace(" ","_").replace(":",".")[:-3]
                 file_num = self.filename.split("_")[len(self.filename.split("_")) - 2]
-                file_name = f"{self.site_number}_{file_date}_{file_num}_meas.txt"
+                file_name = "{0}_{1}_{2}_meas.txt".format(self.site_number, file_date, file_num)
                 output_name = os.path.join(out_dir, file_name)
                 self.output_name = output_name
                 output_file = open(output_name, 'w+', encoding = 'utf-8')

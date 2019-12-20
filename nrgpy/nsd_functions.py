@@ -170,12 +170,16 @@ class nsd(object):
             
         """
         try:
-            sql = f"""INSERT INTO SensorHistory
+            sql = """
+            INSERT INTO SensorHistory
                 ([TimeStamp], Channel, SensorType, SensorDesc, SerialNumber, Height, 
                 ScaleFactor, Offset, PrintPrecision, Units, SensorDetail, SensorNotes)
             VALUES 
-                ('{timestamp}', '{channel}', '{sensor_type}', '{sensor_desc}','{serial_number}','{height}',
-                '{scale_factor}','{offset}','{print_precision}','{units}','{sensor_detail}','{sensor_notes}');"""
+                ('{0}', '{1}', '{2}', '{3}','{4}','{5}',
+                '{6}','{7}','{8}','{9}','{10}','{11}');""".format(
+                timestamp, channel, sensor_type, sensor_desc, serial_number, height,
+                scale_factor, offset, print_precision, units, sensor_detail, sensor_notes
+                )
             self.conn.execute(sql)
             self.conn.commit()
         except Exception as e:
