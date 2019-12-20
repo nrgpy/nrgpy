@@ -29,7 +29,7 @@ def request_session_token(client_id="", client_secret=""):
         session_start_time : start time of 24 hour countdown
     """
     request_token_header = { 'content-type' : 'application/json' }
-    request_payload = { 'client_id' : f'{client_id}', 'client_secret' : f'{client_secret}'}
+    request_payload = { 'client_id' : '{}'.format(client_id), 'client_secret' : '{}'.format(client_secret)}
 
     resp = requests.post(data=json.dumps(request_payload), headers=request_token_header, url=RequestTokenUrl)
     session_start_time = datetime.now()

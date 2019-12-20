@@ -304,7 +304,7 @@ encryption_pass : optional, password for rld files (set in logger)
         if client_id and client_secret:
             self.client_id = client_id
             self.client_secret = client_secret
-            print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | Requesting session token ... ", end="", flush=True)
+            print("{} | Requesting session token ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')), end="", flush=True)
             self.session_token, self.session_start_time = request_session_token(client_id, client_secret)
             if self.session_token:
                 print("[OK]")
@@ -359,7 +359,7 @@ encryption_pass : optional, password for rld files (set in logger)
             if self.progress_bar:
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
             else:
-                print(f"Processing {str(self.counter).rjust(self.pad)}/{str(self.raw_count).ljust(self.pad)} ... {os.path.basename(rld)} ... ", end="", flush=True)
+                print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(rld)), end="", flush=True)
             RldFileBytes = open(rld,'rb').read()
             EncodedFileBytes = base64.encodebytes(RldFileBytes)
 
@@ -371,7 +371,7 @@ encryption_pass : optional, password for rld files (set in logger)
                 else:
                     NECFileBytes = ''
                 if not token_valid(self.session_start_time): self.session_token, self.session_start_time = request_session_token(self.client_id, self.client_secret)
-                headers = {"Authorization": f"Bearer {self.session_token}"}
+                headers = {"Authorization": "Bearer {}".format(self.session_token)}
                 self.Data = {
                             'filebytes': EncodedFileBytes,
                             'necfilebytes': NECFileBytes,
