@@ -8,6 +8,11 @@ _Note_: __this feature set is only compatible with Windows installations__. If y
 https://www.microsoft.com/en-US/download/details.aspx?id=13255
 
 
+This module requires the pyodbc library. Install with
+
+``` pip install pyodbc ```
+
+
 ## Example for using nsd_functions.py to read and change sensor history settings in NSD files.
 ``` python
 In [1]: from nrgpy.nsd_functions import nsd

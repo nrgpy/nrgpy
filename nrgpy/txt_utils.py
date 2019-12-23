@@ -39,15 +39,18 @@ class read_text_data(object):
         self.sep = sep
         self.ch_info_array, self.header_sections, self.skip_rows, self.data_type = return_array(self.data_type)
         self.filename = filename
+
         if self.filename:
             self.get_head(self.filename)
             self.get_site_info(self.filename)
             self.arrange_ch_info()
             self.get_data(self.filename)
-            self.site_number = self.filename[:4]
-        elif self.txt_dir != '':
+            self.site_number = self.filename.split("\\")[-1][:4]
+
+        elif self.txt_dir:
             #self.concat()
             pass
+
         else:
             print('set filename or txt_dir parameters to proceed.')
 
@@ -86,8 +89,10 @@ class read_text_data(object):
         combine exported rwd files (in txt format)
         """
         self.file_filter = file_filter
+
         if self.filter2 == '':
             self.filter2 = filter2
+            
         if check_platform() == 'win32':
             self.txt_dir = windows_folder_path(self.txt_dir)
         else:
@@ -110,17 +115,21 @@ class read_text_data(object):
                     draw_progress_bar(self.counter, self.file_count, self.start_time)
                 else:
                     print("Adding  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
+
                 if first_file == True:
                     first_file = False
+
                     try:
                         base = read_text_data(filename=f,data_type=self.data_type, 
                                                    file_filter=self.file_filter, file_ext=self.file_ext,
                                                    sep=self.sep)
                         if progress_bar != True: print("[OK]")
                         pass
+
                     except IndexError:
                         print('Only standard headertypes accepted')
                         break
+
                 else:
                     file_path = f
                     try:
@@ -138,6 +147,7 @@ class read_text_data(object):
             self.counter += 1
 
         if output_txt == True:
+
             if out_file == "":
                 out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
@@ -149,8 +159,10 @@ class read_text_data(object):
             self.data = base.data.drop_duplicates(subset=[self.header_sections['data_header']], keep='first')
             self.head = s.head
             self.site_info = s.site_info
-            self.site_number = s.site_number
+            self.filename = s.filename
+            self.site_number = self.filename.split("\\")[-1][:4]
             self.format_rwd_site_data()
+
         except UnboundLocalError:
             print("No files match to contatenate.")
             return None
@@ -163,15 +175,18 @@ class read_text_data(object):
         self.header_len = 0
 
         self.site_info = pd.DataFrame()
+
         with open(self.filename, encoding='ISO-8859-1') as txt_file:
             for line in txt_file:
                 if self.header_sections['data_header'] in line:
                     break
-                self.header_len += 1                
+                self.header_len += 1       
+
         self.site_info = pd.read_csv(_file, skiprows=self.skip_rows, skip_blank_lines=True, 
                                      sep=self.sep, nrows=self.header_len,
                                      header=[0,1], encoding='ISO-8859-1', 
                                      error_bad_lines=False, warn_bad_lines=False) #usecols=[0,1],
+
         if self.data_type == "symplus3":
             self.site_info.reset_index(inplace=True) # , drop=True) works, but only for spro
             self.format_rwd_site_data()
@@ -185,6 +200,7 @@ class read_text_data(object):
         """
         self.head = []
         i=0
+
         with open(_file) as head_f:
             for line in head_f:
                 if i >= self.skip_rows: break
@@ -198,6 +214,7 @@ class read_text_data(object):
         """
         if self.data_type == "sympro":
             self.header_len += 1 # this shouldn't be necessary; something with get_site_info?
+
         self.data = pd.read_csv(_file, skiprows=self.header_len, 
                                 encoding='ISO-8859-1', sep=self.sep)
 
