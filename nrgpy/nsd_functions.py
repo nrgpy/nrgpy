@@ -1,7 +1,10 @@
 from datetime import date
 from nrgpy.utilities import check_platform
 if check_platform() == 'win32':
-    import pyodbc
+    try:
+        import pyodbc
+    except:
+        print("pyodbc required for nrg functions")
     import pandas as pd
 
 
