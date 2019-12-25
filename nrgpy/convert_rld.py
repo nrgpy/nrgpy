@@ -51,6 +51,7 @@ class local(object):
     def __init__(self, rld_dir='', out_dir='', encryption_pass='', hex_key='', filename='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
                  convert_type='meas', nec='', site_filter='', site_file='', **kwargs):
+        
         self.rld_dir = windows_folder_path(rld_dir)
         self.out_dir  = windows_folder_path(out_dir)
         self.encryption_pass = encryption_pass
@@ -81,6 +82,7 @@ class local(object):
         processes all rld files in self.rld_dir, outputs to txt files to out_dir
         """
         affirm_directory(self.out_dir)
+        
         try:
             if self.encryption_pass:
                 encryption = '/pass "{0}"'.format(self.encryption_pass)
@@ -88,6 +90,7 @@ class local(object):
                 encryption = ''
         except:
             print('could not parse encryption_pass')
+        
         try:
             if self.hex_key:
                 encryption_key = '/key "{0}"'.format(self.hex_key)
@@ -95,6 +98,7 @@ class local(object):
                 encryption_key = ''
         except:
             print('could not parse hex_key')
+        
         try:
             if self.nec:
                 nec = '/config "{0}"'.format(self.nec)
@@ -102,6 +106,7 @@ class local(object):
                 nec = ''
         except:
             print('could not parse encryption_pass') 
+        
         try:
             if self.site_file:
                 site_file = '/site "{0}"'.format(self.site_file)
@@ -136,11 +141,14 @@ class local(object):
             self.convert_time = str(self.end - self.start)
 
             print('\nTXT files saved in {0}\n'.format(self.out_dir))
+        
             txt_count = count_files(self.out_dir, self.site_filter, 'txt', start_time=self.start_time)
             log_count, log_files = count_files(self.out_dir, self.site_filter, 'log', show_files=True, start_time=self.start_time)
+        
             print('RLDs in    : {}'.format(rld_count))
             print('TXTs out   : {}'.format(txt_count))
             print('LOGs out   : {}'.format(log_count))
+        
             if len(log_files) > 0:
                 print('Log files created:')
                 for _filename in log_files:
@@ -178,6 +186,7 @@ class local(object):
                 filepath = self.rld_dir + f
                 if f[-4:].lower()==".rld" and self.site_filter in f:
                     rename_cmd = [renamer_path, '"'+filepath+'"']
+        
                     try:
                         subprocess.run(" ".join(rename_cmd), stdout=subprocess.PIPE)
                     except:
@@ -241,6 +250,7 @@ class local(object):
             print("{0} ... \t\t".format(filepath), end="", flush=True)
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
             print("[DONE]")
+        
         except:
             print("\n\t processing {0} [FAILED]".format(filepath))
             pass
@@ -276,23 +286,28 @@ encryption_pass : optional, password for rld files (set in logger)
                  client_id='', client_secret='', token='', 
                  encryption_pass='', header_type='standard', nec_file='',
                  export_type='meas', export_format='csv_zipped', **kwargs):    
+        
         if check_platform() == 'win32':
             self.platform = 'win32'
             self.folder_split = '\\'
             self.rld_dir = windows_folder_path(rld_dir)
             self.out_dir = windows_folder_path(out_dir)
+        
         else:
             self.platform = 'linux'
             self.folder_split = '/'
             self.rld_dir = linux_folder_path(rld_dir)
             self.out_dir = linux_folder_path(out_dir)
+        
         self.encryption_pass = encryption_pass
         self.export_format = export_format
         self.export_type = export_type
         self.site_filter = site_filter
+        
         if 'file_filter' in kwargs and site_filter == '':
             self.file_filter = kwargs.get('file_filter')
             self.site_filter = self.file_filter
+        
         self.filter2 = filter2
         self.start_date = start_date
         self.end_date = end_date
@@ -301,12 +316,14 @@ encryption_pass : optional, password for rld files (set in logger)
         self.token = token
         self.client_id = client_id
         self.client_secret = client_secret
+        
         affirm_directory(self.out_dir)
 
         if self.client_id and self.client_secret:
 
             print("{} | Requesting session token ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')), end="", flush=True)
             self.session_token, self.session_start_time = request_session_token(client_id, client_secret)
+        
             if self.session_token:
                 print("[OK]")
                 self.convert_url = ConvertServiceUrl
@@ -338,6 +355,7 @@ encryption_pass : optional, password for rld files (set in logger)
     def process(self, progress_bar=True):
         self.progress_bar = progress_bar
         self.start_time = datetime.now()
+        
         self.files = [
             f for f in sorted(glob.glob(self.rld_dir + '*.rld'))\
             if self.site_filter in f and self.filter2 in f\
@@ -347,6 +365,7 @@ encryption_pass : optional, password for rld files (set in logger)
         self.raw_count = len(self.files)
         self.pad = len(str(self.raw_count)) + 1
         self.counter = 1
+        
         for rld in self.files:
             self.single_file(rld)
             self.counter += 1
@@ -366,6 +385,7 @@ encryption_pass : optional, password for rld files (set in logger)
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
             else:
                 print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(rld)), end="", flush=True)
+        
             RldFileBytes = open(rld,'rb').read()
             EncodedFileBytes = base64.encodebytes(RldFileBytes)
 

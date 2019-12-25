@@ -52,6 +52,7 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
         start_time = kwargs.get("start_time")
     count = 0
     file_list = []
+    
     for dirpath, subdirs, files in os.walk(directory):
         for x in files:
             if os.path.isfile(os.path.join(directory, x)):
@@ -100,6 +101,7 @@ def draw_progress_bar(index, total, start_time, barLen=45):
     """
     percent = index / total
     pad = len(str(total))
+    
     sys.stdout.write("\r")
     sys.stdout.write(
         "Time elapsed: {} {} | {} / {} [{:<{}}] {:.0f}%\t".format(
@@ -119,10 +121,12 @@ def linux_folder_path(folder_path):
     assert folder_path ending with '/'
     """
     folder_path = folder_path.replace('\\', '/').replace(' ', '\ ')
+    
     if folder_path.endswith('/'):
         pass
     else:
         folder_path = folder_path + '/'
+    
     return folder_path
 
 
@@ -131,10 +135,12 @@ def windows_folder_path(folder_path):
     convert '/' to '\\' in folder_path and assert ending in '\\'
     """
     folder_path = folder_path.replace('/', '\\')
+    
     if folder_path.endswith('\\'):
         pass
     else:
         folder_path = folder_path + '\\'
+    
     return folder_path
 
 

@@ -25,9 +25,11 @@ class nsd(object):
     def __init__(self, nsd_file=''):
         if check_platform() != 'win32':
             print("nsd functions only compatible with Windows")
-            return 0
+            # return
+            #  0
         self.nsd_file = nsd_file
         self.driver_check = self.check_for_jet_drivers()
+
         if self.driver_check == True:
             try:
                 self.conn_str = r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};'+r'DBQ='+self.nsd_file+';'
@@ -35,6 +37,7 @@ class nsd(object):
             except Exception as e:
                 self.e = e
                 print("whomp, whomp.")
+        
         else:
             print("Microsoft Access drivers required for these functions.")
             print("Download drivers from:")
@@ -52,9 +55,12 @@ class nsd(object):
         returns
             sensor_history : pandas dataframe
         """
+        
         sql = "SELECT * FROM SensorHistory"
+        
         try:
             self.sensor_history = pd.read_sql(sql, self.conn)
+        
         except Exception as e_sh:
             self.sensor_history_e = e_sh
 
@@ -69,12 +75,15 @@ class nsd(object):
         returns
             pandas dataframe of channel details
         """
+        
         sql = "SELECT * FROM SensorHistory WHERE Channel = {0}".format(channel)
+        
         try:
             if dash == True:
                 self._channel_settings = pd.read_sql(sql, self.conn)
             else:
                 self.channel_settings = pd.read_sql(sql, self.conn)
+        
         except Exception as rcs_e:
             self.channel_settings = False
             self.rcs_e = rcs_e
@@ -110,36 +119,50 @@ class nsd(object):
             self._channel_settings.insert(loc=0, column='entry',value=entry_index)
             entry_timestamp = pd.Timestamp(self._channel_settings[self._channel_settings.entry==entry].TimeStamp.item()).to_pydatetime()
             channel = " WHERE Channel = {} AND TimeStamp = ?".format(str(channel))
+        
             if sensor_desc != '':
                 sensor_desc = " SensorDesc = '{}',".format(sensor_desc)
+        
             if print_precision != -9999:
                 print_precision = " PrintPrecision = {},".format(str(print_precision))
             else:
                 print_precision = ""
+        
             if units != '':
                 units = " Units = '{}',".format(units)
+        
             if serial_number != '':
                 serial_number = " SerialNumber = '{}',"
+        
             if height != '':
                 height = " Height = '{}',".format(height)
+        
             if scale_factor != -9999:
                 scale_factor = " ScaleFactor = {},".format(str(scale_factor))
             else:
                 scale_factor = ""
+        
             if offset != -9999:
                 offset = " Offset = {},".format(str(offset))
             else:
                 offset = ""
+        
             if sensor_detail != "":
                 sensor_detail = " SensorDetail = '{}',".format(sensor_detail)
+        
             if sensor_notes != "":
                 sensor_notes = " SensorNotes = '{}',".format(sensor_notes)
+        
             sql = "UPDATE SensorHistory SET{0}{1}{2}{3}{4}{5}{6}{7}{8}".format(
                 sensor_desc, print_precision, units, serial_number, height, 
                 str(scale_factor), str(offset), sensor_detail, sensor_notes)[:-1]
+        
             self.sql = sql + str(channel) # ''.join([char for char in sql+str(channel)])
+        
             self.conn.execute(self.sql, entry_timestamp)
+        
             self.conn.commit()
+        
         else:
             print('specify channel for write "eg: write_channel_settings(channel=10 .. )"')
 
@@ -185,6 +208,7 @@ class nsd(object):
                 )
             self.conn.execute(sql)
             self.conn.commit()
+        
         except Exception as e:
             print("[ERROR] Unable to add sensor history value")
             print(e)
@@ -205,6 +229,8 @@ class nsd(object):
             True if drivers present, otherwise False
         """
         self.drivers = [x for x in pyodbc.drivers()]
+        
         if "Microsoft Access Driver (*.mdb, *.accdb)" in self.drivers:
             return True
+            
         return False

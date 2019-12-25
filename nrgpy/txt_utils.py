@@ -100,6 +100,7 @@ class read_text_data(object):
 
         first_file = True
         files = sorted(glob(self.txt_dir + '*.txt'))
+        
         self.file_count = len(files)
         self.pad = len(str(self.file_count)) + 1
         # probably create dataframe of any channel changes

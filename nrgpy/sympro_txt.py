@@ -50,10 +50,14 @@ class sympro_txt_read(object):
             self.ch_details = kwargs.get('ch_details')
         else:
             self.ch_details = False
+        
         self.filename = filename
+        
         if out_file == "":
             out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
+        
         self.out_file = out_file       
+        
         if self.filename:
             i = 0
             with open(self.filename) as infile:
@@ -64,14 +68,17 @@ class sympro_txt_read(object):
                         i = i + 1
             with open(self.filename) as myfile:
                 self.head = "".join([next(myfile) for x in range(2)])
+        
             header_len = i + 1
             read_len = header_len - 5
+        
             self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", 
                                         index_col=False, nrows=read_len, 
                                         usecols=[0,1], header=None)
             self.site_info = self.site_info.iloc[:self.site_info.loc[self.site_info[0]=='Data'].index.tolist()[0]+1]
             self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t", encoding='iso-8859-1')
             self.first_timestamp = self.data.iloc[0]['Timestamp']
+        
             self.arrange_ch_info()
         else:
             print('instance created, no filename specified')
@@ -83,25 +90,30 @@ class sympro_txt_read(object):
         """
         creates ch_info dataframe and ch_list array
         """
-        array = ['Channel:',
-                 'Export Channel:',
-                 'Effective Date:',
-                 'Type:',
-                 'Description:',
-                 'Serial Number:',
-                 'Height:',
-                 'Bearing:',
-                 'Scale Factor:',
-                 'Offset:',
-                 'Units:']
+        array = [
+            'Channel:',
+            'Export Channel:',
+            'Effective Date:',
+            'Type:',
+            'Description:',
+            'Serial Number:',
+            'Height:',
+            'Bearing:',
+            'Scale Factor:',
+            'Offset:',
+            'Units:'
+        ]
+        
         if self.ch_details == True:
-            array += ['P-SCM Type:',
-                      'Total Direction Offset:',
-                      'Dead Band East:',
-                      'Dead Band West:',
-                      'Excitation Mode:',
-                      'Excitation Value:',
-                      'Data Logging Mode:']
+            array += [
+                'P-SCM Type:',
+                'Total Direction Offset:',
+                'Dead Band East:',
+                'Dead Band West:',
+                'Excitation Mode:',
+                'Excitation Value:',
+                'Data Logging Mode:'
+            ]
         else:
             pass
 
@@ -123,6 +135,7 @@ class sympro_txt_read(object):
                 ch_data[row[1][0]] = row[1][1]
 
         ch_list.append(ch_data) # last channel's data
+        
         self.ch_list = ch_list
         self.ch_info = self.ch_info.append(ch_list)
         
@@ -138,7 +151,9 @@ class sympro_txt_read(object):
             self._site_info.columns = self._site_info.iloc[0]
             self._site_info.columns = self._site_info.iloc[0]
             self._site_info = self._site_info[1:]
+            
             width = list(self._site_info.columns.values).index('Sensor History')
+            
             self._site_info.rename(columns=renamer(), inplace=True)
             self._site_info.drop(self._site_info.iloc[:, width:len(self._site_info.columns)], axis=1, inplace=True, errors='ignore')
             self._site_info.columns = [str(col).replace(':','').strip() for col in self._site_info.columns]
@@ -193,20 +208,24 @@ class sympro_txt_read(object):
         self.end_date = end_date
         self.filter2 = filter2
         self.file_type = file_type
+        
         if check_platform() == 'win32':
             self.txt_dir = windows_folder_path(txt_dir)
         else:
             self.txt_dir = linux_folder_path(txt_dir)
         first_file = True
+        
         files = [
             f for f in sorted(glob(self.txt_dir + '*.txt'))\
             if self.file_filter in f and self.filter2 in f\
             and date_check(self.start_date, self.end_date, f)
         ]
+        
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
         self.counter = 1
         self.start_time = datetime.now()
+        
         for f in files:
             if self.file_filter in f and self.file_type in f and self.filter2 in f:
                 if progress_bar:
@@ -215,6 +234,7 @@ class sympro_txt_read(object):
                     print("Adding {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
                 if first_file == True:
                     first_file = False
+        
                     try:
                         base = sympro_txt_read(f)
                         if progress_bar != True: print("[OK]")
@@ -222,8 +242,10 @@ class sympro_txt_read(object):
                     except IndexError:
                         print('Only standard SymPRO headertypes accepted')
                         break
+        
                 else:
                     file_path = f
+        
                     try:
                         s = sympro_txt_read(file_path, ch_details=self.ch_details)
                         base.data = base.data.append(s.data, sort=False)
@@ -235,10 +257,13 @@ class sympro_txt_read(object):
             else:
                 pass
             self.counter += 1
+        
         if out_file != "":
             self.out_file = out_file
+        
         if output_txt == True:
             base.data.to_csv(os.path.join(txt_dir, out_file), sep=',', index=False)
+        
         try:
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
@@ -249,6 +274,7 @@ class sympro_txt_read(object):
             self.site_info = s.site_info
             self.format_site_data()
             print("\nQueue processed")
+        
         except UnboundLocalError:
             print("No files match to contatenate.")
             return None
@@ -686,6 +712,7 @@ def shift_timestamps(txt_folder="", out_folder="", file_filter="",
     file_count = len(files)
     counter = 1
     start_time = datetime.now()
+    
     for f in files:
         try:
             draw_progress_bar(counter, file_count, start_time)
