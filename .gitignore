@@ -6,6 +6,7 @@
 __pycache__/
 build/
 dist/
+evvv/
 venv/
 nrgpy.egg-info/
 .gitignore

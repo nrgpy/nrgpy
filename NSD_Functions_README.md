@@ -3,7 +3,14 @@
 # nsd_functions.py 
 - for handling NRG Site Database (NSD) files from Symphonie, SymphoniePLUS and SymphoniePLUS3 Data Loggers.
 
-_Note_: __this feature set is only compatible with Windows installations__. If you have any MS Office programs installed on the host computer, the Python installation must be the same architecture (either 32-bit or 64-bit). Download the driver to connect to the NSD database here:
+_Note_: __this feature set is only compatible with Windows installations__. If you have any MS Office programs installed on the host computer, the Python installation must be the same architecture (either 32-bit or 64-bit). To check your MS Office version, open Word, click File > Account > About Word and read the top line. For Python, run
+
+```python
+import platform
+platform.architecture()
+```
+
+Download the driver to connect to the NSD database here:
 
 https://www.microsoft.com/en-US/download/details.aspx?id=13255
 
@@ -70,10 +77,10 @@ Out[7]:
 ## Add new entries to the sensor history for a channel
 ``` python
 
-In [1]: import nrgpy
+In [1]: from nrgpy.nsd_functions import nsd
         import pandas as pd
         from datetime import date, datetime
-        db = nrgpy.nsd(nsd_file="C:/NRG/SiteFiles/1234.nsd")
+        db = nsd(nsd_file="C:/NRG/SiteFiles/1234.nsd")
 
 
 In [2]: db.add_channel_history(

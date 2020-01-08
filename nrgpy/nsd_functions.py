@@ -1,5 +1,6 @@
 from datetime import date
 from nrgpy.utilities import check_platform
+import traceback
 if check_platform() == 'win32':
     try:
         import pyodbc
@@ -35,6 +36,7 @@ class nsd(object):
                 self.conn_str = r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};'+r'DBQ='+self.nsd_file+';'
                 self.conn = pyodbc.connect(self.conn_str)
             except Exception as e:
+                print(traceback.format_exc())
                 self.e = e
                 print("whomp, whomp.")
         
