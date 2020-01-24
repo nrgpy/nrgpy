@@ -122,7 +122,7 @@ def draw_progress_bar(index, total, start_time, barLen=45):
 
 
 def linux_folder_path(folder_path):
-    """assert folder_path ending with '/'"""
+    """assert folder_path ending with '/' """
     folder_path = folder_path.replace('\\', '/').replace(' ', '\ ')
     
     if folder_path.endswith('/'):

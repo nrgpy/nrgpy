@@ -7,11 +7,6 @@ from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_pa
 class spidar_data_read(object):
     """reads in CSV file(s) using pandas and creates
 
-    data : obj
-        pandas dataframe of all available data
-    heights : list
-        list of measurement heights
-    
     Parameters
     ----------
     data_file : str
@@ -21,7 +16,13 @@ class spidar_data_read(object):
     file_filter : str
         text to filter data files on
 
-    Example
+    Returns
+    --------
+    data : obj
+        pandas dataframe of all available data
+    heights : list
+        list of measurement heights
+    Examples
     ----------
     read a spidar data file into an object:
 

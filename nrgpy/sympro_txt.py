@@ -13,14 +13,19 @@ class sympro_txt_read(object):
     def __init__(self, filename='', out_file='', **kwargs):
         """Class of pandas dataframes created from SymPRO standard txt output.
 
-        Parameters
-        ----------
         If a filename is passed when calling class, the file is read in alone. Otherwise,
         and instance of the class is created, and the concat_txt function may be called to
         combine all txt files in a directory.
 
         filter may be used on any part of the filename, to combine a subset of text files in
         a directory.
+
+        Parameters
+        ----------
+        filename : str, optional
+            path to filename
+        out_file : str, optional
+            path to outputted file
 
         Returns
         ---------
