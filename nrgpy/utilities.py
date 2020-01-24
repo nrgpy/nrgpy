@@ -7,8 +7,9 @@ import sys
 
 
 def affirm_directory(directory):
-    """
-    create directory if not exists, print status to terminal
+    """create directory if not exists
+    
+    print status to terminal
     """
     if os.path.exists(directory):
         pass
@@ -29,24 +30,26 @@ def affirm_directory(directory):
         
         
 def check_platform():
-    """
-    determine which operating system python is running on
-    """
+    """determine which operating system python is running on"""
     from sys import platform
     return(platform)
 
 
 def count_files(directory, filters, extension, show_files=False, **kwargs):
-    """
-    counts the number of files in the first level of a directory
+    """counts the number of files in the first level of a directory
 
-    parameters:
-        1 -  directory | the directory to be checked
-        2 -    filters | text/string filter present in file to be checked
-        3 -  extension | secondary text/string filter 
-        4 - show_files | optional: if set to True, prints file name
-        5 - start_time | kwarg: seconds; if set, use as reference; 
-                            only count if file is newer than start_time
+    Parameters
+    ----------
+    directory : str
+        path of directory to be checked
+    filters : str
+        filter present in file to be checked
+    extension : str
+        secondary filter 
+    show_files : bool, optional
+        if set to True, prints file name
+    start_time :  int
+        seconds; if set, use as reference; only count if file is newer than start_time
     """
     if "start_time" in kwargs:
         start_time = kwargs.get("start_time")
@@ -73,11 +76,15 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
 
 
 def date_check(start_date, end_date, string):
-    """
-    returns true if string date is between 
-    start_date and end_date
-
-    dates assumed to be in YYYY-MM-DD format
+    """returns true if string date is between dates
+    Parameters
+    ----------
+    start_date : str
+        "YYYY-mm-dd"
+    end_date : str
+        "YYYY-mm-dd"
+    string : str
+        string including date to check
     """
     date_format = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
 
@@ -96,9 +103,7 @@ def date_check(start_date, end_date, string):
 
 
 def draw_progress_bar(index, total, start_time, barLen=45):
-    """
-    simple text progress bar
-    """
+    """simple text progress bar"""
     percent = index / total
     pad = len(str(total))
     
@@ -117,9 +122,7 @@ def draw_progress_bar(index, total, start_time, barLen=45):
 
 
 def linux_folder_path(folder_path):
-    """
-    assert folder_path ending with '/'
-    """
+    """assert folder_path ending with '/'"""
     folder_path = folder_path.replace('\\', '/').replace(' ', '\ ')
     
     if folder_path.endswith('/'):
@@ -131,9 +134,7 @@ def linux_folder_path(folder_path):
 
 
 def windows_folder_path(folder_path):
-    """
-    convert '/' to '\\' in folder_path and assert ending in '\\'
-    """
+    """convert '/' to '\\' in folder_path and assert ending in '\\'"""
     folder_path = folder_path.replace('/', '\\')
     
     if folder_path.endswith('\\'):
@@ -145,9 +146,7 @@ def windows_folder_path(folder_path):
 
 
 class renamer():
-    """
-    for replacing duplicate column names after transpose
-    """
+    """for replacing duplicate column names after transpose"""
     def __init__(self):
         self.d = dict()
 

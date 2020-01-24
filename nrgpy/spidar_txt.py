@@ -5,63 +5,60 @@ import pandas as pd
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, date_check, draw_progress_bar
 
 class spidar_data_read(object):
-    """
-    reads in CSV file(s) using pandas and creates
+    """reads in CSV file(s) using pandas and creates
 
-           data : pandas dataframe of all available data
-        heights : list of measurement heights
+    data : obj
+        pandas dataframe of all available data
+    heights : list
+        list of measurement heights
     
-    parameters
+    Parameters
     ----------
-      data_file : single CSV or ZIP to be read
-      directory : directory of data_files to concatenate
-    file_filter : text to filter data files on
+    data_file : str
+        path to single CSV or ZIP to be read
+    directory : str
+        path of directory of data_files to concatenate
+    file_filter : str
+        text to filter data files on
 
-    functions
+    Example
     ----------
-        read_file : creates data, heights info
-      get_heights : creates list of measurement heights
-       concat_txt : combines multiple files together
+    read a spidar data file into an object:
 
-    usage
-    ----------
-        ex. read a spidar data file into an object:
-        ```python
-        In [1]: from nrgpy.spidar_txt import spidar_data_read
+    >>> from nrgpy.spidar_txt import spidar_data_read
 
-        In [2]: spidar_file = "1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip"
-        
-        In [3]: reader = spidar_data_read(filename=spidar_file)
+    >>> spidar_file = "1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip"
+    
+    >>> reader = spidar_data_read(filename=spidar_file)
 
-        In [4]: reader.heights                                                                                                              
-        Out[4]: ['40', '60', '80', '90', '100', '120', '130', '160', '180', '200']
+    >>> reader.heights                                                                                                              
+    ['40', '60', '80', '90', '100', '120', '130', '160', '180', '200']
 
-        In [5]: reader.data
-        Out[5]: 
-              Timestamp  pressure[mmHg]  temperature[C]  ...  dir_200_mean[Deg]  dir_200_std[Deg]  wind_measure_200_quality[%]
-        0   2019-07-03 23:40:00          753.55           23.68  ...             342.36             63.63                           48
-        1   2019-07-03 23:50:00          753.47           23.76  ...             345.70             57.59                           38
-        2   2019-07-04 00:00:00          753.46           23.96  ...             314.16             82.73                           20
-        ...
-        
-        ex. read a directory of spidar data files into an object:
-        In [1]: from nrgpy.spidar_txt import spidar_data_read
+    >>> reader.data
+            Timestamp  pressure[mmHg]  temperature[C]  ...  dir_200_mean[Deg]  dir_200_std[Deg]  wind_measure_200_quality[%]
+    0   2019-07-03 23:40:00          753.55           23.68  ...             342.36             63.63                           48
+    1   2019-07-03 23:50:00          753.47           23.76  ...             345.70             57.59                           38
+    2   2019-07-04 00:00:00          753.46           23.96  ...             314.16             82.73                           20
+    ...
+    
+    ex. read a directory of spidar data files into an object:
+    >>> from nrgpy.spidar_txt import spidar_data_read
 
-        In [2]: spidar_directory = "/home/user/spidardata/"
+    >>> spidar_directory = "/home/user/spidardata/"
 
-        In [3]: spidar_file_filter = "2019-07"
-        
-        In [4]: reader = spidar_data_read()
+    >>> spidar_file_filter = "2019-07"
+    
+    >>> reader = spidar_data_read()
 
-        In [5]: reader.concat_txt(txt_dir=spidar_directory,file_filter=spidar_file_filter, progress_bar=False)
-        Adding 1/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_1.zip [OK]
-        Adding 2/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_2.csv [OK]
-        Adding 3/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-02_1.zip [OK]
-        Adding 4/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-03_1.zip [OK]
-        Adding 5/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip [OK]
-        Adding 6/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-05_1.zip [OK]
-        Adding 7/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-06_1.zip [OK]
-        Adding 8/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-07_1.zip [OK]
+    >>> reader.concat_txt(txt_dir=spidar_directory,file_filter=spidar_file_filter, progress_bar=False)
+    Adding 1/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_1.zip [OK]
+    Adding 2/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_2.csv [OK]
+    Adding 3/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-02_1.zip [OK]
+    Adding 4/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-03_1.zip [OK]
+    Adding 5/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip [OK]
+    Adding 6/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-05_1.zip [OK]
+    Adding 7/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-06_1.zip [OK]
+    Adding 8/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-07_1.zip [OK]
     """
     def __init__(self, filename=''):
         self.filename = filename

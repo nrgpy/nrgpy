@@ -12,21 +12,24 @@ ConvertServiceUrl = 'https://dataservicesconvert.azurewebsites.net/api/Convert?c
 
 
 def request_session_token(client_id="", client_secret=""):
-    """
-    generates a new session token for convert service api
+    """generates a new session token for convert service api
+    
     requires an active account with NRG Systems. to sign
     up for an account, go to:
     https://services.nrgsystems.com
 
-    parameters
+    Parameters
     ----------
-            client_id : obtained from NRG Systems
-        client_secret : ""
+    client_id : str
+        obtained from NRG Systems
+    client_secret : str
 
-    returns
+    Returns
     -------
-             session_token : valid for 24 hour
-        session_start_time : start time of 24 hour countdown
+    session_token : str
+        valid for 24 hour
+    session_start_time : datetime
+        start time of 24 hour countdown
     """
     request_token_header = { 'content-type' : 'application/json' }
     request_payload = { 'client_id' : '{}'.format(client_id), 'client_secret' : '{}'.format(client_secret)}
@@ -43,16 +46,17 @@ def request_session_token(client_id="", client_secret=""):
 
 
 def token_valid(session_start_time):
-    """
-    check if token is still valid
+    """check if token is still valid
 
-    parameters
+    Parameters
     ----------
-        session_start_time : datetime, generated at time of token request
+    session_start_time : datetime
+        generated at time of token request
 
-    returns
+    Returns
     -------
-        status : boolean, true if still valid, false if expired
+    status : bool
+        true if still valid, false if expired
     """
     if datetime.now() < session_start_time + timedelta(hours=24):
         return True

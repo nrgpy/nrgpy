@@ -11,27 +11,31 @@ from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_pa
 
 
 class local(object):
-    """
-    nrgpy.convert_rwd.local - use local installation of Symphonie Data Retriever (SDR)
+    """nrgpy.convert_rwd.local - use local installation of Symphonie Data Retriever (SDR)
     to convert *.RWD files to *.TXT
 
-    parameters -
-              filename : '', if populated, a single file is exported
-        encryption_pin : '', four digit pin, only used for encrypted files
-              sdr_path : r'"C:/NRG/SymDR/SDR.exe"', may be any path
-           file_filter : '', filters files on text in filename
-               rwd_dir : '', folder to check for RWD files
-               out_dir : '', folder to save exported TXT files into
-           wine_folder : '~/.wine/drive_c/', for linux installations
-         use_site_file : False, set to True to use local site file
-              raw_mode : False, set to True to convert raw counts and voltages
-          progress_bar : True, set to False to see individual file conversions
-
-
-    functions -
-        check_sdr : checks operating system for SDR installation
-          convert : process files
-
+    Parameters
+    ----------
+    filename : str
+        if populated, a single file is exported
+    encryption_pin : str
+        four digit pin, only used for encrypted files
+    sdr_path : str
+        r'"C:/NRG/SymDR/SDR.exe"', may be any path
+    file_filter : str
+        filters files on text in filename
+    rwd_dir : str
+        folder to check for RWD files
+    out_dir : str
+        folder to save exported TXT files into
+    wine_folder : str
+        '~/.wine/drive_c/', for linux installations
+    use_site_file : bool
+        set to True to use local site file
+    raw_mode : bool
+        set to True to convert raw counts and voltages
+    progress_bar : bool
+        set to False to see individual file conversions
     """
 
 
@@ -76,9 +80,8 @@ class local(object):
 
 
     def check_sdr(self):
-        """
-        determine if SDR is installed
-        """
+        """determine if SDR is installed"""
+
         if self.platform == 'win32':
             # do the windows check
             try:
@@ -106,12 +109,12 @@ class local(object):
 
     
     def convert(self):
-        """
-        process rwd files
-            1 - create list of RWD files that match filtering
-            2 - copy RWD files to RawData directory
-            3 - create out_dir if necessary
-            4 - iterate through files
+        """process rwd files
+        
+        1 - create list of RWD files that match filtering
+        2 - copy RWD files to RawData directory
+        3 - create out_dir if necessary
+        4 - iterate through files
         """
         self._list_files()
         self._copy_rwd_files()
@@ -143,9 +146,8 @@ class local(object):
 
 
     def _list_files(self):
-        """
-        get list of files in rwd_dir
-        """
+        """get list of files in rwd_dir"""
+
         self.dir_paths = []
         self.rwd_file_list = []
         if self.platform == 'win32':
@@ -160,10 +162,10 @@ class local(object):
 
 
     def _single_file(self):
-        """
-        process for converting a single file
-        """
+        """process for converting a single file"""
+
         _f = self._filename
+
         if self.platform == 'linux':
             self.sdr_path = windows_folder_path(self.sdr_path)[:-1]
             _f = windows_folder_path(_f)[:-1]
@@ -171,6 +173,7 @@ class local(object):
         else:
             wine = ''
         self.cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
+
         try:
             if self.progress_bar:
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
@@ -182,6 +185,7 @@ class local(object):
                 self._copy_txt_file()
             except:
                 print('unable to copy {} to text folder'.format(_f))
+
         except Exception as e:
             if not self.progress_bar: print("[FAILED]")
             print('unable to convert {}. check ScaledData folder for log file'.format(_f))
@@ -190,10 +194,10 @@ class local(object):
             
             
     def _copy_rwd_files(self):
-        """
-        copy RWD files from self.RawData to self.rwd_dir
-        """
+        """copy RWD files from self.RawData to self.rwd_dir"""
+
         for f in sorted(self.rwd_file_list):
+
             if self.file_filter in f:
                 site_num = f[:4]
                 site_folder = "\\".join([self.RawData,site_num])
@@ -211,15 +215,15 @@ class local(object):
 
 
     def _copy_txt_file(self):
-        """
-        copy TXT file from self.ScaledData to self.out_dir
-        """
+        """copy TXT file from self.ScaledData to self.out_dir"""
+
         try:
             txt_file_name = self._filename.split('\\')[-1][:-4] + '.txt'
             txt_file_path = self.file_path_joiner.join([self.ScaledData,txt_file_name])
             out_path = self.file_path_joiner.join([self.out_dir,txt_file_name])
         except:
             print("could not do the needful")
+
         if self.platform == 'linux':
             out_path = linux_folder_path(self.out_dir) + txt_file_name
             txt_file_path = ''.join([self.wine_folder, 'NRG/ScaledData/',txt_file_name])
@@ -231,11 +235,3 @@ class local(object):
                 print("{0} remains in {1}".format(txt_file_name, self.ScaledData))
         except:
             print("Unable to copy {0} to {1}".format(txt_file_name,self.out_dir))
-
-
-
-
-
-
-
-

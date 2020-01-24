@@ -1,51 +1,57 @@
 def check_intervals(df, interval=600, verbose=True, return_info=False):
-    """
-    checks for missing intervals in a pandas dataframe with a "Timestamp" column
+    """checks for missing intervals in a pandas dataframe with a "Timestamp" column
     
-    parameters
+    Parameters
     ----------
-                  df | (required) the dataframe to be checked
-            interval | (600) the averaging interval in seconds
-             verbose | (True) print results to terminal; False to skip
-         return_info | (False) return dict with below values
-        
-    returns (if return_info == True)
+    df : object
+        the dataframe to be checked
+    interval : int
+         default, 600; the averaging interval in seconds
+    verbose : bool
+        print results to terminal; False to skip
+    return_info : bool
+        set to True to return dict with below values
+
+    Returns
     ----------
-        dict of the following info:
-                  actual_rows | actual number of rows in data section of 
-                                export file (1 subtracted for column headers)
-                expected_rows | expected number of rows (assumes 10 min. AVG), 
-                                converts result to whole integer
-                   time_range | range of time represented in export file
-               first_interval | file starting timestamp
-                last_interval | file ending timestamp
-           missing_timestamps | a list of missing timestamps
+    dict
+        actual_rows : int
+             actual number of rows in data section of 
+            export file (1 subtracted for column headers)
+        expected_rows : int
+            expected number of rows (assumes 10 min. AVG), 
+            converts result to whole integer
+        time_range : str
+            range of time represented in export file
+        first_interval : str
+            file starting timestamp
+        last_interval : str
+            file ending timestamp
+        missing_timestamps : list
+            a list of missing timestamps
                
-    usage
+    Examples
     ----------
-        ex. pass a reader.data dataframe for an interval check:
-        ``` python
-        In [1]: from nrgpy.sympro_txt import sympro_txt_read
+    ex. pass a reader.data dataframe for an interval check:
 
-        In [2]: reader = sympro_txt_read()
-        instance created, no filename specified
+    >>>  from nrgpy.sympro_txt import sympro_txt_read
 
-        In [3]: reader.concat_txt(txt_dir="C:/data/sympro_data/000110/")
+    >>>  reader = sympro_txt_read()
+    instance created, no filename specified
 
-        ...
+    >>> reader.concat_txt(txt_dir="C:/data/sympro_data/000110/")
+    ...
 
-        In [4]: from nrgpy.quality import check_intervals
+    >>> from nrgpy.quality import check_intervals
 
-        In [5]: check_intervals(reader.data, interval=600)
-        Starting timestamp        : 2019-01-01 00:00:00
-        Ending timestamp          : 2019-07-01 04:50:00
-        Data set Duration         : 181 days, 4:50:00
-        Expected rows in data set : 26093
-        Actual rows in data set   : 26093
+    >>> check_intervals(reader.data, interval=600)
+    Starting timestamp        : 2019-01-01 00:00:00
+    Ending timestamp          : 2019-07-01 04:50:00
+    Data set Duration         : 181 days, 4:50:00
+    Expected rows in data set : 26093
+    Actual rows in data set   : 26093
 
-        Data set complete.
-        ```
-
+    Data set complete.
     """
     if "horz" in "".join(df.columns):
         df2 = df.reset_index()
@@ -95,9 +101,10 @@ def check_intervals(df, interval=600, verbose=True, return_info=False):
     
 
 def find_missing_intervals(__df, interval):
-    """
+    """find gaps in data dataframe
     Returns
     ----------
+    list
         a list of all missing intervals
     """
     _df = __df.copy()

@@ -10,18 +10,39 @@ if check_platform() == 'win32':
 
 
 class nsd(object):
+    """class for handling NSD files from Symphonie Logger Data.
+
+    Parameters
+    ----------
+    nsd_file : str
+        path to nsd file to open for reading and writing
+
+    Returns
+    -------
+    obj
+
+    Example
+    -------
+    >>> from nrgpy.nsd_functions import nsd
+
+    >>> db = nsd(nsd_file="C:/NRG/SiteFiles/0322.nsd")
+
+    >>> db.read_channel_settings(channel=1)
+
+    >>> db.channel_settings
+    TimeStamp  Channel  SensorType          SensorDesc SerialNumber  Height  ScaleFactor  Offset  PrintPrecision Units SensorDetail SensorNotes
+    0 1899-12-30        1           1    NRG #40 Anem. m/s    SN002618  50   m        0.766   0.332               1   m/s
+
+    >>> db.write_channel_settings(channel=1, description="50m CLASS 1 m/s", scale_factor=1, offset=1)
+
+    >>> db.read_channel_settings(channel=1)
+
+    >>> db.channel_settings
+    TimeStamp  Channel  SensorType       SensorDesc SerialNumber  Height  ScaleFactor  Offset  PrintPrecision Units SensorDetail SensorNotes
+    0 1899-12-30        1           1  50m CLASS 1 m/s     SN002618  50   m          1.0     1.0   
+
     """
-    class for handling NSD files from Symphonie Logger Data.
 
-    parameters
-        nsd_file : nsd file to open for reading and writing
-
-    functions
-           read_sensor_history : generates pandas dataframe of all chennel settings
-         read_channel_settings : generates pandas dataframe of single channel settings
-        write_channel_settings : apply changes to channel settings
-
-    """
     from nrgpy.utilities import check_platform
     def __init__(self, nsd_file=''):
         if check_platform() != 'win32':
@@ -51,10 +72,11 @@ class nsd(object):
 
     
     def read_sensor_history(self):
-        """
-        read SensorHistory table into dataframe
+        """read SensorHistory table into dataframe
 
-        returns
+        Returns
+        -------
+        obj
             sensor_history : pandas dataframe
         """
         
@@ -68,13 +90,16 @@ class nsd(object):
 
 
     def read_channel_settings(self, channel=0, dash=False):
-        """
-        read individual channel settings from sensor history table
+        """read individual channel settings from sensor history table
 
-        parameters
-            channel : 1 through 15 (12 if Sym Classic nsd file)
+        Parameters
+        ----------
+        channel : int
+            1 through 15 (12 if Sym Classic nsd file)
 
-        returns
+        Returns
+        -------
+        obj
             pandas dataframe of channel details
         """
         
@@ -96,23 +121,24 @@ class nsd(object):
                            serial_number='', height='',
                            sensor_detail='', sensor_notes='',
                            scale_factor=-9999, offset=-9999):
-        """
-        write new sensor history to site file
+        """write new sensor history to site file
 
-        parameters
+        Parameters
         ----------
-                    channel : required; 1 through 15 (or 1 through 12 for Sym Classic)
-                      entry : int; default is 1 for channel baseline values, 2, 3, etc. for newer entries
-                sensor_desc : string
-            print_precision : 1, 2, 3, or 4 or 0 for off
-                      units : string
-              serial_number : string
-                     height : string
-              sensor_detail : string
-               sensor_notes : string
-               scale_factor : float
-                     offset : float
-
+        channel : int
+            required; 1 through 15 (or 1 through 12 for Sym Classic)
+        entry : int
+            default is 1 for channel baseline values, 2, 3, etc. for newer entries
+        sensor_desc : string
+        print_precision : int
+            1, 2, 3, or 4 or 0 for off
+        units : string
+        serial_number : string
+        height : string
+        sensor_detail : string
+        sensor_notes : string
+        scale_factor : float
+        offset : float
         """
 
         if channel > 0:
@@ -174,28 +200,31 @@ class nsd(object):
                            serial_number='', height='',
                            sensor_detail='', sensor_notes='',
                            scale_factor=-9999, offset=-9999):
-        """
-        use for adding new sensor history registries
+        """use for adding new sensor history registries
 
-        parameters
+        Parameters
         ----------
-            timestamp : string, "YYYY-MM-DD HH:MM:SS"
-              channel : int or string, channel number
-          sensor_type : int or string, number:
-                        1 : anemometer
-                        2 : totalizer (rain gauge)
-                        3 : vane
-                        4 : analog (temp, bp, rh, etc.)
-          sensor_desc : string, description
-      print_precision : 1 through 4, number of decimals
-                units : string
+        timestamp : string
+            "YYYY-MM-DD HH:MM:SS"
+        channel : int
+            or string, channel number
+        sensor_type : int
+            or string, number:
+                1 : anemometer
+                2 : totalizer (rain gauge)
+                3 : vane
+                4 : analog (temp, bp, rh, etc.)
+        sensor_desc : string
+            description
+        print_precision : int
+            1 through 4, number of decimals
+        units : string
         serial_number : string
-               height : number
+        height : float
         sensor_detail : note
-         sensor_notes : note
-         scale_factor : float
-               offset : float
-            
+        sensor_notes : note
+        scale_factor : float
+        offset : float
         """
         try:
             sql = """
@@ -217,17 +246,16 @@ class nsd(object):
 
 
     def close(self):
-        """
-        close connection to database
-        """
+        """close connection to database"""
         self.conn.close()
 
 
     def check_for_jet_drivers(self):
-        """
-        check for jet database drivers
+        """check for jet database drivers
 
-        returns
+        Returns
+        -------
+        bool
             True if drivers present, otherwise False
         """
         self.drivers = [x for x in pyodbc.drivers()]

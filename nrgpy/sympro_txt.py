@@ -11,26 +11,9 @@ import traceback
 
 class sympro_txt_read(object): 
     def __init__(self, filename='', out_file='', **kwargs):
-        """
-        Class of pandas dataframes created from SymPRO standard txt output.
-        
-            ch_info : pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
-            ch_list : list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
-               data : pandas dataframe of all data
-               head : lines at the top of the txt file..., used when rebuilding timeshifted files
-          site_info : pandas dataframe of site information
-          logger_sn : string
-           ipack_sn : string
-        logger_type : string
-         ipack_type : string
-           latitude : float
-          longitude : float
-          elevation : int
-        site_number : string
-   site_description : string
-         start_date : string
+        """Class of pandas dataframes created from SymPRO standard txt output.
 
-        parameters
+        Parameters
         ----------
         If a filename is passed when calling class, the file is read in alone. Otherwise,
         and instance of the class is created, and the concat_txt function may be called to
@@ -39,12 +22,28 @@ class sympro_txt_read(object):
         filter may be used on any part of the filename, to combine a subset of text files in
         a directory.
 
-        functions
+        Returns
         ---------
-            concat_txt : concatenates txt files from RLD origins
-
-        kwargs:
-            - ch_details; default False, set to True to see more verbose ch_info information
+        ch_info : obj
+            pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
+        ch_list : list 
+            list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
+        data : obj
+            pandas dataframe of all data
+        head : obj
+            lines at the top of the txt file..., used when rebuilding timeshifted files
+        site_info : obj
+            pandas dataframe of site information
+        logger_sn : str
+        ipack_sn : str
+        logger_type : str
+        ipack_type : str
+        latitude : float
+        longitude : float
+        elevation : int
+        site_number : str
+        site_description : str
+        start_date : str
         """
         if 'ch_details' in kwargs:
             self.ch_details = kwargs.get('ch_details')
@@ -87,9 +86,7 @@ class sympro_txt_read(object):
         return '<class {}: {} >'.format(self.__class__.__name__,self.filename)
     
     def arrange_ch_info(self): 
-        """
-        creates ch_info dataframe and ch_list array
-        """
+        """creates ch_info dataframe and ch_list array"""
         array = [
             'Channel:',
             'Export Channel:',
@@ -142,9 +139,7 @@ class sympro_txt_read(object):
         return self
 
     def format_site_data(self):
-        """
-        take txt header to create oject data
-        """
+        """take txt header to create oject data"""
         try:
             self.Site_info = self.site_info.copy()
             self._site_info = self.Site_info.T
@@ -179,23 +174,32 @@ class sympro_txt_read(object):
                     filter2='', start_date='1970-01-01', end_date='2150-12-31', 
                     ch_details=False, output_txt=False, out_file='', 
                     progress_bar=True, **kwargs):
-        """
-        Will concatenate all text files in the txt_dir that match
-        the site_filter argument. Note these are both blank by default.
+        """Will concatenate all text files in the txt_dir
+        
+        files must match the site_filter argument. Note these are both blank by default.
 
-        parameters
+        Parameters
         ----------
-                txt_dir : directory holding txt files
-              file_type : type of export (meas, event, comm, sample, etc...)
-            file_filter : text filter for txt files, like site number, etc.
-                filter2 : secondary text filter
-             start_date : for filtering files to concat based on date
-               end_date : for filtering files to concat based on date
-             ch_details : bool, show additional info in ch_info dataframe
-             output_txt : bool, create a txt output of data df
-               out_file : filename to write data dataframe too if output_txt = True
-           progress_bar : bool, show bar on concat [True] or list of files [False]
-
+        txt_dir : str
+            directory holding txt files
+        file_type : str
+            type of export (meas, event, comm, sample, etc...)
+        file_filter : str
+            text filter for txt files, like site number, etc.
+        filter2 : str
+            secondary text filter
+        start_date : str
+            for filtering files to concat based on date "YYYY-mm-dd"
+        end_date : str
+            for filtering files to concat based on date "YYYY-mm-dd"
+        ch_details : bool
+            show additional info in ch_info dataframe
+        output_txt : bool
+            create a txt output of data df
+        out_file : str
+            filename to write data dataframe too if output_txt = True
+        progress_bar : bool
+            show bar on concat [True] or list of files [False]
         """
         
         if 'site_filter' in kwargs and file_filter == '':
@@ -282,8 +286,7 @@ class sympro_txt_read(object):
         
         
     def select_channels_for_reformat(self, epe=False, soiling=False): 
-        """
-        determines which of the channel headers fit those required for post-processing for either
+        """determines which of the channel headers fit those required for post-processing for either
 
             a. EPE formatting 
             b. soiling ratio calculation
@@ -607,9 +610,9 @@ class sympro_txt_read(object):
 
 
     def insert_blank_header_rows(self,filename):
-        """
-        function used to insert blank rows when using shift_timestamps() 
-        function so that the resulting text file looks and feels like an
+        """insert blank rows when using shift_timestamps() 
+
+        ensures the resulting text file looks and feels like an
         original Sympro Desktop exported
         """
         header_section_headings = ["Export Parameters",
@@ -678,21 +681,27 @@ class sympro_txt_read(object):
 def shift_timestamps(txt_folder="", out_folder="", file_filter="", 
                      start_date="1970-01-01", end_date="2150-12-31",
                      seconds=3600):
-    """
-    Takes as input a folder of exported standard text files and
+    """Takes as input a folder of exported standard text files and
     time to shift in seconds.
 
-    parameters
+    Parameters
     ----------
-        txt_folder : path to folder with txt files to shift
-        out_folder : where to put the shifted files (in subfolder by default)
-       file_filter : string filter for restricting file set
-        start_date : date filter
-          end_date : date filter
-           seconds : time in seconds to shift timestamps (default 3600)
+    txt_folder : str
+        path to folder with txt files to shift
+    out_folder : str
+        where to put the shifted files (in subfolder by default)
+    file_filter : str
+        filter for restricting file set
+    start_date : str
+        date filter "YYYY-mm-dd"
+    end_date : str
+        date filter "YYYY-mm-dd"
+    seconds : int
+        time in seconds to shift timestamps (default 3600)
 
-    outputs
+    Returns
     -------
+    obj
         text files with shifted timestamps; new file names include shifted 
         timestamp.
         

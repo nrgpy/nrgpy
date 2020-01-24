@@ -16,37 +16,35 @@ from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_pa
 
 
 class local(object):
-    """    
-    For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.
+    """For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.
+
     This method uses locally installed SymphoniePRO Desktop software to convert
     *.rld files to txt format (tab-delimited-text).
     
-    parameters
+    Parameters
     ----------
-               rld_dir : '', or specify directory. Note for unc values, you 
-                          will need to escape all forward slashes, e.g.
-                          rld_dir = "\\\\sol\\techsupport\\data\\" 
-                          or use the r'\\path\to\dir' approach
-               out_dir : '', see note for 1.
-       encryption_pass : '', specify data encryption password if logger is 
-                          set up for that.
-               hex_key : '', specify if using hex data encryption key
-           sympro_path : "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
-          convert_type : 'meas', alternately specify 'comm', 'diag', 'sample', or 'events'
-                   nec : '', path to nec file
-           site_filter : '', or specify part or all of the file you'd like to
-                          filter on. Eg. site_filter='123456_2018-09' would filter on site 123456
-                          and only the month of September in 2018.
-             site_file : '', path to (*.ndb) site file  
-    
-    functions
-    ---------
-          directory : processes all rld files in self.rld_dir, outputs to txt files 
-                       to out_dir ( aliases = convert() and process() )
-         rename_rld : for calling the site-serial renaming tool to insert the serial number
-                       into the filename
-        single_file : pass single file's complete path for export.
-    
+    rld_dir : str, optional
+        specify directory. Note for unc values, you 
+        will need to escape all forward slashes, e.g.
+        rld_dir = "\\\\sol\\techsupport\\data\\" 
+        or use the r'\\path\to\dir' approach
+    out_dir : str, optional
+        see note for rld_dir.
+    encryption_pass : str
+        specify data encryption password if logger is set up for that.
+    hex_key : str
+        specify if using hex data encryption key
+    sympro_path : str
+        default is "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
+    convert_type : str
+        'meas', alternately specify 'comm', 'diag', 'sample', or 'events'
+    nec : str
+        path to nec file
+    site_filter : str
+        specify part or all of the file you'd like to filter on, like site_filter='123456_2018-09' 
+        would filter on site 123456 and only the month of September in 2018.
+    site_file : str
+        path to (*.ndb) site file    
     """
     def __init__(self, rld_dir='', out_dir='', encryption_pass='', hex_key='', filename='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
@@ -78,9 +76,7 @@ class local(object):
     
 
     def directory(self):
-        """
-        processes all rld files in self.rld_dir, outputs to txt files to out_dir
-        """
+        """processes all rld files in self.rld_dir, outputs to txt files to out_dir"""
         affirm_directory(self.out_dir)
         
         try:
@@ -174,9 +170,9 @@ class local(object):
 
 
     def rename_rlds(self, **kwargs):
-        """
-        uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number
-        and logger serial number. This function is only compatible with Windows>=7 AND
+        """uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number and logger serial number.
+        
+        This function is only compatible with Windows>=7 AND 
         a local installation of SymphoniePRO Desktop software
         """
         try:
@@ -258,28 +254,40 @@ class local(object):
         print("\nQueue processed\n")
 
 class nrg_convert_api(object):
-    """
-    Uses NRG hosted web-based API to convert RLD files text format
+    """Uses NRG hosted web-based API to convert RLD files text format
 
     To sign up for the service, go to https://services.nrgsystems.com/
     
-    parameters
+    Parameters
     ----------
-        rld_dir : path to rld file directory
-        out_dir : path to save text export files
-       filename : provide for single file conversion
-    site_filter : optional, text filter for limiting file set
-        filter2 : optional, another text filter...
-     start_date : optional, text start date to filter on "YYYY-mm-dd"
-       end_date : optional, text end date to filter on "YYYY-mm-dd"
-      client_id : required, provided by NRG Systems
-  client_secret : required, provided by NRG Systems
-          token : deprecated, for beta conversion service users
-encryption_pass : optional, password for rld files (set in logger)
-    header_type : standard, columnonly, or none
-       nec_file : optional, path to NEC file for custom export formatting
-    export_type : meas, samples
-    
+    rld_dir : str
+        path to rld file directory
+    out_dir : str
+        path to save text export files
+    filename : str
+        provide for single file conversion
+    site_filter : str, optional
+        text filter for limiting file set
+    filter2 : str, optional
+        another text filter...
+    start_date : str, optional
+        text start date to filter on "YYYY-mm-dd"
+    end_date : str, optional
+        text end date to filter on "YYYY-mm-dd"
+    client_id : str
+        provided by NRG Systems
+    client_secret : str
+        provided by NRG Systems
+    token : str
+        deprecated, for beta conversion service users
+    encryption_pass : str, optional
+        password for rld files (set in logger)
+    header_type : str
+        [standard], columnonly, or none
+    nec_file : str, optional
+        path to NEC file for custom export formatting
+    export_type : str
+        [meas], samples, diag, comm
     """
     def __init__(self, rld_dir='', out_dir='', filename='', site_filter='',
                  filter2 = '', start_date='1970-01-01', end_date='2150-12-31',

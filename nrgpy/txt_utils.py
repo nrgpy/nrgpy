@@ -10,18 +10,23 @@ from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_pa
 
 
 class read_text_data(object):
-    """
-    class for handling known csv-style text data files with header information
+    """class for handling known csv-style text data files with header information
 
-    parameters -
-           filename : ''; if populated, perform a single file read (takes precedence over txt_dir)
-          data_type : ''; REQUIRED; specify instrument that the data file came from
-                sep : '\t'; csv separator
+    Parameters
+    ----------
+    filename : str, optional
+        perform a single file read (takes precedence over txt_dir)
+    data_type : str
+        specify instrument that the data file came from
+    sep : str
+        '\t'; csv separator
 
-            txt_dir : ''; specify folder of like text files to read and concatenate
-        file_filter : ''; use when using txt_dir to filter on subset of files
-           file_ext : ''; a secondary file filter
-
+    txt_dir : str
+        folder path of text files to read and concatenate
+    file_filter : str, optional
+        use when using txt_dir to filter on subset of files
+    file_ext : str, optional
+        secondary file filter
     """
     def __init__(self, filename='', data_type='sp3', txt_dir='', file_filter='',
                  filter2='', file_ext='', sep='\t'):
@@ -60,9 +65,7 @@ class read_text_data(object):
 
 
     def arrange_ch_info(self):
-        """
-        generates list and dataframe of channel information
-        """
+        """generates list and dataframe of channel information"""
         self.ch_info = pd.DataFrame() 
         ch_data = {}
         ch_list = []
@@ -85,9 +88,7 @@ class read_text_data(object):
         
 
     def concat(self, output_txt=False, out_file='', file_filter='', filter2='', progress_bar=True):
-        """
-        combine exported rwd files (in txt format)
-        """
+        """combine exported rwd files (in txt format)"""
         self.file_filter = file_filter
 
         if self.filter2 == '':
@@ -170,9 +171,7 @@ class read_text_data(object):
 
 
     def get_site_info(self, _file):
-        """
-        create dataframe of site info
-        """
+        """create dataframe of site info"""
         self.header_len = 0
 
         self.site_info = pd.DataFrame()
@@ -195,9 +194,9 @@ class read_text_data(object):
 
 
     def get_head(self, _file):
-        """
-        get the first lines of the file, excluding those without tabs
-        up to the self.skip_rows line
+        """get the first lines of the file
+        
+        excluding those without tabs up to the self.skip_rows line
         """
         self.head = []
         i=0
@@ -210,9 +209,7 @@ class read_text_data(object):
 
 
     def get_data(self, _file):
-        """
-        create dataframe of tabulated data
-        """
+        """create dataframe of tabulated data"""
         if self.data_type == "sympro":
             self.header_len += 1 # this shouldn't be necessary; something with get_site_info?
 
@@ -221,9 +218,7 @@ class read_text_data(object):
 
 
     def format_rwd_site_data(self):
-        """
-        adds formatted site dataframe to reader object
-        """
+        """adds formatted site dataframe to reader object"""
         try:
             self.Site_info = self.site_info.copy()
             self._site_info = self.Site_info.T
@@ -251,9 +246,7 @@ class read_text_data(object):
 
 
 def format_sympro_site_data(reader):
-    """
-    adds formatted site dataframe to reader object
-    """
+    """adds formatted site dataframe to reader object"""
     try:
         reader.Site_info = reader.site_info.copy()
         reader._site_info = reader.Site_info.T
@@ -280,5 +273,3 @@ def format_sympro_site_data(reader):
     except Exception as e:
         reader.e = e
         print("Warning: error processing site_info: {}".format(e))
-
-

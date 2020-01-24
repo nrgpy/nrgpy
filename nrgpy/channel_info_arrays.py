@@ -2,10 +2,7 @@
 
 
 def return_array(data_file_type):
-    """
-    return data file header parameter array
-    based on data_file_type
-    """
+    """return data file header parameter array based on data_file_type"""
 
     if data_file_type.lower() in ["rwd",
                                   "symplus3", 
@@ -33,10 +30,7 @@ def return_array(data_file_type):
 
 
 def return_sp3_ch_info():
-    """
-    returns array of sensor info parameters for
-    Symphonie, PLUS, and PLUS3 txt export files
-    """
+    """returns array of sensor info parameters for Symphonie, PLUS, and PLUS3 txt export files"""
     
     array = [
         'Channel #',
@@ -61,10 +55,7 @@ def return_sp3_ch_info():
 
 
 def return_spro_ch_info():
-    """
-    returns array of possible channel parameters
-    for SymphoniePRO txt export files
-    """
+    """returns array of possible channel parameters for SymphoniePRO txt export files"""
 
     array = [
         'Channel:',
