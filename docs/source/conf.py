@@ -12,7 +12,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('/home/lucy/gits/nrgpy/docs/'))
+sys.path.insert(0, os.path.abspath('../../nrgpy/'))
 
 
 # -- Project information -----------------------------------------------------
