@@ -1,7 +1,4 @@
-.. nrgpy documentation master file, created by
-   sphinx-quickstart on Thu Jan 23 23:14:04 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. nrgpy documentation master file
 
 Welcome to nrgpy's documentation!
 =================================

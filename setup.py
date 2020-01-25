@@ -17,7 +17,6 @@ setup(
             'nrgpy'
       ],
       install_requires=[
-            # 'nrgmodbus',
             'pandas>=0.23',
             # 'pyodbc;platform_system=="Windows"',
             'requests',

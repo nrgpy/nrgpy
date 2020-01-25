@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nrgpy package &mdash; nrgpy 0.10.17 documentation</title>
+  <title>nrgpy package &mdash; nrgpy 0.10.19 documentation</title>
   
 
   
@@ -583,22 +583,26 @@ to convert <a href="#id7"><span class="problematic" id="id8">*</span></a>.RWD fi
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl>
-<dt>actual_rows<span class="classifier">int</span></dt><dd><blockquote>
-<div><p>actual number of rows in data section of</p>
-</div></blockquote>
-<p>export file (1 subtracted for column headers)</p>
+<dd class="field-even"><p><dl class="simple">
+<dt>actual_rows</dt><dd><p>(int)
+actual number of rows in data section of
+export file (1 subtracted for column headers)</p>
 </dd>
-<dt>expected_rows<span class="classifier">int</span></dt><dd><p>expected number of rows (assumes 10 min. AVG),
+<dt>expected_rows</dt><dd><p>(int)
+expected number of rows (assumes 10 min. AVG),
 converts result to whole integer</p>
 </dd>
-<dt>time_range<span class="classifier">str</span></dt><dd><p>range of time represented in export file</p>
+<dt>time_range</dt><dd><p>(str)
+range of time represented in export file</p>
 </dd>
-<dt>first_interval<span class="classifier">str</span></dt><dd><p>file starting timestamp</p>
+<dt>first_interval</dt><dd><p>(str)
+file starting timestamp</p>
 </dd>
-<dt>last_interval<span class="classifier">str</span></dt><dd><p>file ending timestamp</p>
+<dt>last_interval</dt><dd><p>(str)
+file ending timestamp</p>
 </dd>
-<dt>missing_timestamps<span class="classifier">list</span></dt><dd><p>a list of missing timestamps</p>
+<dt>missing_timestamps</dt><dd><p>(list)
+a list of missing timestamps</p>
 </dd>
 </dl>
 </p>
@@ -610,28 +614,20 @@ converts result to whole integer</p>
 <p class="rubric">Examples</p>
 <p>ex. pass a reader.data dataframe for an interval check:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="kn">from</span> <span class="nn">nrgpy.sympro_txt</span> <span class="k">import</span> <span class="n">sympro_txt_read</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">reader</span> <span class="o">=</span> <span class="n">sympro_txt_read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">reader</span> <span class="o">=</span> <span class="n">sympro_txt_read</span><span class="p">()</span>
 <span class="go">instance created, no filename specified</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">concat_txt</span><span class="p">(</span><span class="n">txt_dir</span><span class="o">=</span><span class="s2">&quot;C:/data/sympro_data/000110/&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">concat_txt</span><span class="p">(</span><span class="n">txt_dir</span><span class="o">=</span><span class="s2">&quot;C:/data/sympro_data/000110/&quot;</span><span class="p">)</span>
 <span class="gp">...</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.quality</span> <span class="k">import</span> <span class="n">check_intervals</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">check_intervals</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.quality</span> <span class="k">import</span> <span class="n">check_intervals</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">check_intervals</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 <span class="go">Starting timestamp        : 2019-01-01 00:00:00</span>
 <span class="go">Ending timestamp          : 2019-07-01 04:50:00</span>
 <span class="go">Data set Duration         : 181 days, 4:50:00</span>
 <span class="go">Expected rows in data set : 26093</span>
 <span class="go">Actual rows in data set   : 26093</span>
+<span class="go">Data set complete.</span>
 </pre></div>
 </div>
-<p>Data set complete.</p>
 </dd></dl>
 
 <dl class="function">
