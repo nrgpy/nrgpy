@@ -3,6 +3,7 @@
 **nrgpy** is the Python package for processing NRG Data Files
 
 - Website and source: https://github.com/nrgpy/nrgpy
+- Documentation: https://nrgpy.github.io/nrgpy/
 - Support: support@nrgsystems.com
 
 It provides tools for:
