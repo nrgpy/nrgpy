@@ -428,7 +428,7 @@ to convert <a href="#id7"><span class="problematic" id="id8">*</span></a>.RWD fi
 </dd>
 </dl>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.nsd_functions</span> <span class="k">import</span> <span class="n">nsd</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.nsd_functions</span> <span class="kn">import</span> <span class="n">nsd</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">db</span> <span class="o">=</span> <span class="n">nsd</span><span class="p">(</span><span class="n">nsd_file</span><span class="o">=</span><span class="s2">&quot;C:/NRG/SiteFiles/0322.nsd&quot;</span><span class="p">)</span>
@@ -613,12 +613,12 @@ a list of missing timestamps</p>
 </dl>
 <p class="rubric">Examples</p>
 <p>ex. pass a reader.data dataframe for an interval check:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="kn">from</span> <span class="nn">nrgpy.sympro_txt</span> <span class="k">import</span> <span class="n">sympro_txt_read</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="kn">from</span> <span class="nn">nrgpy.sympro_txt</span> <span class="kn">import</span> <span class="n">sympro_txt_read</span>
 <span class="gp">&gt;&gt;&gt; </span> <span class="n">reader</span> <span class="o">=</span> <span class="n">sympro_txt_read</span><span class="p">()</span>
 <span class="go">instance created, no filename specified</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">concat_txt</span><span class="p">(</span><span class="n">txt_dir</span><span class="o">=</span><span class="s2">&quot;C:/data/sympro_data/000110/&quot;</span><span class="p">)</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.quality</span> <span class="k">import</span> <span class="n">check_intervals</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.quality</span> <span class="kn">import</span> <span class="n">check_intervals</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">check_intervals</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 <span class="go">Starting timestamp        : 2019-01-01 00:00:00</span>
 <span class="go">Ending timestamp          : 2019-07-01 04:50:00</span>
@@ -664,7 +664,7 @@ a list of missing timestamps</p>
 </dl>
 <p class="rubric">Examples</p>
 <p>read a spidar data file into an object:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.spidar_txt</span> <span class="k">import</span> <span class="n">spidar_data_read</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.spidar_txt</span> <span class="kn">import</span> <span class="n">spidar_data_read</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">spidar_file</span> <span class="o">=</span> <span class="s2">&quot;1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip&quot;</span>
@@ -937,13 +937,16 @@ Local export of text files, as of 0.1.8.</p>
 <dl class="function">
 <dt id="nrgpy.utilities.date_check">
 <code class="sig-prename descclassname">nrgpy.utilities.</code><code class="sig-name descname">date_check</code><span class="sig-paren">(</span><em class="sig-param">start_date</em>, <em class="sig-param">end_date</em>, <em class="sig-param">string</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.utilities.date_check" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns true if string date is between dates
-:param start_date: “YYYY-mm-dd”
-:type start_date: str
-:param end_date: “YYYY-mm-dd”
-:type end_date: str
-:param string: string including date to check
-:type string: str</p>
+<dd><p>returns true if string date is between dates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_date</strong> (<em>str</em>) – “YYYY-mm-dd”</p></li>
+<li><p><strong>end_date</strong> (<em>str</em>) – “YYYY-mm-dd”</p></li>
+<li><p><strong>string</strong> (<em>str</em>) – string including date to check</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
