@@ -77,6 +77,7 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
 
 def date_check(start_date, end_date, string):
     """returns true if string date is between dates
+    
     Parameters
     ----------
     start_date : str
