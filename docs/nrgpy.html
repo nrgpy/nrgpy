@@ -810,6 +810,26 @@ timestamp.</p>
 <li><p><strong>progress_bar</strong> (<em>bool</em>) – show bar on concat [True] or list of files [False]</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>ch_info</strong> (<em>obj</em>) – pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()</p></li>
+<li><p><strong>ch_list</strong> (<em>list</em>) – list of channel info; can be converted to json w/ import json … json.dumps(fut.ch_info)</p></li>
+<li><p><strong>data</strong> (<em>obj</em>) – pandas dataframe of all data</p></li>
+<li><p><strong>head</strong> (<em>obj</em>) – lines at the top of the txt file…, used when rebuilding timeshifted files</p></li>
+<li><p><strong>site_info</strong> (<em>obj</em>) – pandas dataframe of site information</p></li>
+<li><p><strong>logger_sn</strong> (<em>str</em>)</p></li>
+<li><p><strong>ipack_sn</strong> (<em>str</em>)</p></li>
+<li><p><strong>logger_type</strong> (<em>str</em>)</p></li>
+<li><p><strong>ipack_type</strong> (<em>str</em>)</p></li>
+<li><p><strong>latitude</strong> (<em>float</em>)</p></li>
+<li><p><strong>longitude</strong> (<em>float</em>)</p></li>
+<li><p><strong>elevation</strong> (<em>int</em>)</p></li>
+<li><p><strong>site_number</strong> (<em>str</em>)</p></li>
+<li><p><strong>site_description</strong> (<em>str</em>)</p></li>
+<li><p><strong>start_date</strong> (<em>str</em>)</p></li>
+</ul>
+</p>
+</dd>
 </dl>
 <p class="rubric">Examples</p>
 <p>Read files into nrgpy reader object</p>
