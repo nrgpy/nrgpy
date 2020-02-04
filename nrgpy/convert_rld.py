@@ -400,7 +400,7 @@ class nrg_convert_api(object):
             if self.convert_url == ConvertServiceUrl:
                 # CONVERT 2.0
                 if self.nec_file:
-                    NecFile = open(rld,'rb').read()
+                    NecFile = open(self.nec_file,'rb').read()
                     NECFileBytes = base64.encodebytes(NecFile)
                 else:
                     NECFileBytes = ''
