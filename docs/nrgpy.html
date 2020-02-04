@@ -237,8 +237,7 @@ up for an account, go to:
 <em class="property">class </em><code class="sig-prename descclassname">nrgpy.convert_rld.</code><code class="sig-name descname">local</code><span class="sig-paren">(</span><em class="sig-param">rld_dir=''</em>, <em class="sig-param">out_dir=''</em>, <em class="sig-param">encryption_pass=''</em>, <em class="sig-param">hex_key=''</em>, <em class="sig-param">filename=''</em>, <em class="sig-param">sympro_path='&quot;C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe&quot;'</em>, <em class="sig-param">convert_type='meas'</em>, <em class="sig-param">nec=''</em>, <em class="sig-param">site_filter=''</em>, <em class="sig-param">site_file=''</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rld.local" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>For handling NRG SymphoniePRO Data Logger raw data files in the <a href="#id1"><span class="problematic" id="id2">*</span></a>.rld format.</p>
-<p>This method uses locally installed SymphoniePRO Desktop software to convert
-<a href="#id3"><span class="problematic" id="id4">*</span></a>.rld files to txt format (tab-delimited-text).</p>
+<p>This method uses locally installed SymphoniePRO Desktop software to convert <a href="#id3"><span class="problematic" id="id4">*</span></a>.rld files to txt format (tab-delimited-text).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -258,6 +257,17 @@ would filter on site 123456 and only the month of September in 2018.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>Convert a folder of RLD files to Text with SymphoniePRO Desktop Software</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.convert_rld</span> <span class="kn">import</span> <span class="n">local</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">local</span><span class="p">(</span>
+<span class="go">        rld_dir=&#39;/path/to/rld/files&#39;,</span>
+<span class="go">        out_dir=/path/to/txt/outputs,</span>
+<span class="go">        file_filter=&#39;123456_2020-01&#39;, # for files from January 2020</span>
+<span class="go">    )</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="nrgpy.convert_rld.local.convert">
 <code class="sig-name descname">convert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rld.local.convert" title="Permalink to this definition">¶</a></dt>
@@ -315,16 +325,38 @@ a local installation of SymphoniePRO Desktop software</p>
 </ul>
 </dd>
 </dl>
-<dl class="method">
-<dt id="nrgpy.convert_rld.nrg_convert_api.convert">
-<code class="sig-name descname">convert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rld.nrg_convert_api.convert" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="nrgpy.convert_rld.nrg_convert_api.directory">
-<code class="sig-name descname">directory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rld.nrg_convert_api.directory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p class="rubric">Examples</p>
+<p>Convert a single RLD file to Text with NRG Convert API</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.convert_rld</span> <span class="kn">import</span> <span class="n">nrg_convert_api</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">txt_dir</span> <span class="o">=</span> <span class="s2">&quot;/home/user/data/sympro/000123/txt/&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">nrg_convert_api</span><span class="p">(</span>
+<span class="go">        file_filter=file_filter,</span>
+<span class="go">        filename=filename,</span>
+<span class="go">        client_id=client_id,</span>
+<span class="go">        client_secret=client_secret,</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<p>Convert a folder of RLD files to Text with NRG Convert API</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.convert_rld</span> <span class="kn">import</span> <span class="n">nrg_convert_api</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_filter</span> <span class="o">=</span> <span class="s2">&quot;000175&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rld_directory</span> <span class="o">=</span> <span class="s2">&quot;rlds&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">nrg_convert_api</span><span class="p">(</span>
+<span class="go">        file_filter=file_filter,</span>
+<span class="go">        rld_dir=rld_directory,</span>
+<span class="go">        client_id=client_id,</span>
+<span class="go">        client_secret=client_secret,</span>
+<span class="go">        start_date=&quot;2020-01-01&quot;,</span>
+<span class="go">        end_date=&quot;2020-01-31&quot;,</span>
+<span class="go">    )</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="nrgpy.convert_rld.nrg_convert_api.process">
 <code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">progress_bar=True</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rld.nrg_convert_api.process" title="Permalink to this definition">¶</a></dt>
@@ -663,17 +695,10 @@ a list of missing timestamps</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>read a spidar data file into an object:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.spidar_txt</span> <span class="kn">import</span> <span class="n">spidar_data_read</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">spidar_file</span> <span class="o">=</span> <span class="s2">&quot;1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip&quot;</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">spidar_data_read</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">spidar_file</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">heights</span>
+<p>Read a spidar data file into an object:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">spidar_data_read</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">heights</span>
 <span class="go">[&#39;40&#39;, &#39;60&#39;, &#39;80&#39;, &#39;90&#39;, &#39;100&#39;, &#39;120&#39;, &#39;130&#39;, &#39;160&#39;, &#39;180&#39;, &#39;200&#39;]</span>
 </pre></div>
 </div>
@@ -685,18 +710,13 @@ a list of missing timestamps</p>
 <span class="gp">...</span>
 </pre></div>
 </div>
-<p>ex. read a directory of spidar data files into an object:
-&gt;&gt;&gt; from nrgpy.spidar_txt import spidar_data_read</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">spidar_directory</span> <span class="o">=</span> <span class="s2">&quot;/home/user/spidardata/&quot;</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">spidar_file_filter</span> <span class="o">=</span> <span class="s2">&quot;2019-07&quot;</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">spidar_data_read</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">concat_txt</span><span class="p">(</span><span class="n">txt_dir</span><span class="o">=</span><span class="n">spidar_directory</span><span class="p">,</span><span class="n">file_filter</span><span class="o">=</span><span class="n">spidar_file_filter</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<p>Ex. read a directory of spidar data files into an object:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">spidar_data_read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">concat_txt</span><span class="p">(</span>
+<span class="go">        txt_dir=&quot;/path/to/spidardata/&quot;,</span>
+<span class="go">        file_filter=&quot;2020-01&quot;,</span>
+<span class="go">        progress_bar=False</span>
+<span class="go">    )</span>
 <span class="go">Adding 1/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_1.zip [OK]</span>
 <span class="go">Adding 2/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_2.csv [OK]</span>
 <span class="go">Adding 3/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-02_1.zip [OK]</span>
@@ -705,6 +725,8 @@ a list of missing timestamps</p>
 <span class="go">Adding 6/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-05_1.zip [OK]</span>
 <span class="go">Adding 7/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-06_1.zip [OK]</span>
 <span class="go">Adding 8/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-07_1.zip [OK]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">serial_number</span>
+<span class="go">&#39;1922AG0070&#39;</span>
 </pre></div>
 </div>
 <dl class="method">
@@ -789,6 +811,37 @@ timestamp.</p>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>Read files into nrgpy reader object</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">sympro_txt_read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">concat_txt</span><span class="p">(</span>
+<span class="go">        txt_dir=&#39;/path/to/txt/files/&#39;,</span>
+<span class="go">        file_filter=&#39;123456&#39;, # site 123456</span>
+<span class="go">        start_date=&#39;2020-01-01&#39;,</span>
+<span class="go">        end_date=&#39;2020-01-31&#39;,</span>
+<span class="go">    )</span>
+<span class="go">Time elapsed: 2 s | 33 / 33 [=============================================] 100%</span>
+<span class="go">Queue processed</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">logger_sn</span>
+<span class="go">&#39;820600019&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">ch_info</span>
+<span class="go">        Bearing:        Channel:        Description:    Effective Date:         Height:         Offset:         Scale Factor:   Serial Number:  Type:   Units:</span>
+<span class="go">0       50.00       1           NRG S1          2020-01-31 00:00:00     33.00   0.13900         0.09350             94120000059         Anemometer      m/s</span>
+<span class="go">1       230.00      2           NRG S1          2020-01-31 00:00:00     0.00    0.13900         0.09350             94120000058         Anemometer      m/s</span>
+<span class="go">2       50.00       3           NRG S1          2020-01-31 00:00:00     22.00   0.13900         0.09350             94120000057         Anemometer      m/s</span>
+<span class="go">3       230.00      4           NRG 40C Anem    2020-01-31 00:00:00     22.00   0.35000         0.76500             179500324860        Anemometer      m/s</span>
+<span class="go">4       50.00       5           NRG 40C Anem    2020-01-31 00:00:00     12.00   0.35000         0.76500             179500324859        Anemometer      m/s</span>
+<span class="go">5       230.00      6           NRG S1          2020-01-31 00:00:00     12.00   0.13900         0.09350             94120000056         Anemometer      m/s</span>
+<span class="go">6       320.00      13          NRG 200M Vane   2020-01-31 00:00:00     32.00   -1.46020        147.91100           10700000125         Vane            Deg</span>
+<span class="go">7       320.00      14          NRG 200M Vane   2020-01-31 00:00:00     21.00   -1.46020        147.91100           10700000124         Vane            Deg</span>
+<span class="go">8       0.00        15          NRG T60 Temp    2020-01-31 00:00:00     34.00   -40.85550       44.74360            9400000705          Analog          C</span>
+<span class="go">9       0.00        16          NRG T60 Temp    2020-01-31 00:00:00     2.00    -40.85550       44.74360            9400000xxx          Analog          C</span>
+<span class="go">10      0.00        17          NRG RH5X Humi   2020-01-31 00:00:00     0.00    0.00000         20.00000            NaN                 Analog          %RH</span>
+<span class="go">11      0.00        20          NRG BP60 Baro   2020-01-31 00:00:00     0.00    495.27700       243.91400           NaN                 Analog          hPa</span>
+<span class="go">12      0.00        21          NRG BP60 Baro   2020-01-31 00:00:00     2.00    495.04400       244.23900           9396FT1937          Analog          hPa</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
