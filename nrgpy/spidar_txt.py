@@ -1,6 +1,7 @@
 #!/bin/usr/python
 
 from datetime import datetime
+import os
 import pandas as pd
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, date_check, draw_progress_bar
 
@@ -22,16 +23,13 @@ class spidar_data_read(object):
         pandas dataframe of all available data
     heights : list
         list of measurement heights
+
     Examples
     ----------
-    read a spidar data file into an object:
+    Read a spidar data file into an object:
 
-    >>> from nrgpy.spidar_txt import spidar_data_read
-
-    >>> spidar_file = "1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip"
-    
-    >>> reader = spidar_data_read(filename=spidar_file)
-
+    >>> import nrgpy
+    >>> reader = nrgpy.spidar_data_read(filename="1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip")
     >>> reader.heights                                                                                                              
     ['40', '60', '80', '90', '100', '120', '130', '160', '180', '200']
 
@@ -42,16 +40,14 @@ class spidar_data_read(object):
     2   2019-07-04 00:00:00          753.46           23.96  ...             314.16             82.73                           20
     ...
     
-    ex. read a directory of spidar data files into an object:
-    >>> from nrgpy.spidar_txt import spidar_data_read
+    Ex. read a directory of spidar data files into an object:
 
-    >>> spidar_directory = "/home/user/spidardata/"
-
-    >>> spidar_file_filter = "2019-07"
-    
-    >>> reader = spidar_data_read()
-
-    >>> reader.concat_txt(txt_dir=spidar_directory,file_filter=spidar_file_filter, progress_bar=False)
+    >>> reader = nrgpy.spidar_data_read()
+    >>> reader.concat_txt(
+            txt_dir="/path/to/spidardata/",
+            file_filter="2020-01", 
+            progress_bar=False
+        )
     Adding 1/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_1.zip [OK]
     Adding 2/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_2.csv [OK]
     Adding 3/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-02_1.zip [OK]
@@ -60,6 +56,8 @@ class spidar_data_read(object):
     Adding 6/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-05_1.zip [OK]
     Adding 7/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-06_1.zip [OK]
     Adding 8/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-07_1.zip [OK]
+    >>> reader.serial_number
+    '1922AG0070'
     """
     def __init__(self, filename=''):
         self.filename = filename
@@ -78,6 +76,7 @@ class spidar_data_read(object):
         self.data.reset_index(drop=False, inplace=True)
         self.columns = self.data.columns
         self.get_heights()
+        self.serial_number = os.path.basename(f).split("_")[0]
 
 
     def concat_txt(self, txt_dir='', output_txt=False, out_file='',
@@ -143,6 +142,7 @@ class spidar_data_read(object):
             self.out_file = out_file
         if output_txt == True:
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
+
         try:
             self.base = base
             self.heights = base.heights

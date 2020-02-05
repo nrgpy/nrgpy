@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
       name='nrgpy',
-      version='0.10.20',
+      version='0.10.21',
       description='library for handling NRG Systems data files',
       long_description=long_description,
       long_description_content_type='text/markdown',

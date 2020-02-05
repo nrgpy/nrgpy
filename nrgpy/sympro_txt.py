@@ -79,13 +79,13 @@ class sympro_txt_read(object):
             self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", 
                                         index_col=False, nrows=read_len, 
                                         usecols=[0,1], header=None)
+                                        
             self.site_info = self.site_info.iloc[:self.site_info.loc[self.site_info[0]=='Data'].index.tolist()[0]+1]
             self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t", encoding='iso-8859-1')
             self.first_timestamp = self.data.iloc[0]['Timestamp']
         
             self.arrange_ch_info()
-        else:
-            print('instance created, no filename specified')
+
         
     def __repr__(self):
         return '<class {}: {} >'.format(self.__class__.__name__,self.filename)
@@ -205,6 +205,61 @@ class sympro_txt_read(object):
             filename to write data dataframe too if output_txt = True
         progress_bar : bool
             show bar on concat [True] or list of files [False]
+
+        Returns
+        ---------
+        ch_info : obj
+            pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
+        ch_list : list 
+            list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
+        data : obj
+            pandas dataframe of all data
+        head : obj
+            lines at the top of the txt file..., used when rebuilding timeshifted files
+        site_info : obj
+            pandas dataframe of site information
+        logger_sn : str
+        ipack_sn : str
+        logger_type : str
+        ipack_type : str
+        latitude : float
+        longitude : float
+        elevation : int
+        site_number : str
+        site_description : str
+        start_date : str
+
+        Examples
+        --------
+        Read files into nrgpy reader object
+
+        >>> import nrgpy
+        >>> reader = nrgpy.sympro_txt_read()
+        >>> reader.concat_txt(
+                txt_dir='/path/to/txt/files/',
+                file_filter='123456', # site 123456
+                start_date='2020-01-01',
+                end_date='2020-01-31',
+            )
+        Time elapsed: 2 s | 33 / 33 [=============================================] 100%	
+        Queue processed
+        >>> reader.logger_sn
+        '820600019'
+        >>> reader.ch_info
+         	Bearing: 	Channel: 	Description: 	Effective Date: 	Height: 	Offset: 	Scale Factor: 	Serial Number: 	Type: 	Units:
+        0 	50.00 	    1 	        NRG S1 	        2020-01-31 00:00:00 	33.00 	0.13900 	0.09350 	    94120000059 	Anemometer 	m/s
+        1 	230.00 	    2 	        NRG S1 	        2020-01-31 00:00:00 	0.00 	0.13900 	0.09350 	    94120000058 	Anemometer 	m/s
+        2 	50.00 	    3 	        NRG S1 	        2020-01-31 00:00:00 	22.00 	0.13900 	0.09350 	    94120000057 	Anemometer 	m/s
+        3 	230.00 	    4 	        NRG 40C Anem 	2020-01-31 00:00:00 	22.00 	0.35000 	0.76500 	    179500324860 	Anemometer 	m/s
+        4 	50.00 	    5 	        NRG 40C Anem 	2020-01-31 00:00:00 	12.00 	0.35000 	0.76500 	    179500324859 	Anemometer 	m/s
+        5 	230.00 	    6 	        NRG S1 	        2020-01-31 00:00:00 	12.00 	0.13900 	0.09350 	    94120000056 	Anemometer 	m/s
+        6 	320.00 	    13 	        NRG 200M Vane 	2020-01-31 00:00:00 	32.00 	-1.46020 	147.91100 	    10700000125 	Vane 	        Deg
+        7 	320.00 	    14 	        NRG 200M Vane 	2020-01-31 00:00:00 	21.00 	-1.46020 	147.91100 	    10700000124 	Vane 	        Deg
+        8 	0.00 	    15 	        NRG T60 Temp 	2020-01-31 00:00:00 	34.00 	-40.85550 	44.74360 	    9400000705          Analog          C
+        9 	0.00 	    16 	        NRG T60 Temp 	2020-01-31 00:00:00 	2.00 	-40.85550 	44.74360 	    9400000xxx          Analog          C
+        10 	0.00 	    17 	        NRG RH5X Humi 	2020-01-31 00:00:00 	0.00 	0.00000 	20.00000 	    NaN 	        Analog          %RH
+        11 	0.00 	    20 	        NRG BP60 Baro 	2020-01-31 00:00:00 	0.00 	495.27700 	243.91400 	    NaN 	        Analog          hPa
+        12 	0.00 	    21 	        NRG BP60 Baro 	2020-01-31 00:00:00 	2.00 	495.04400 	244.23900 	    9396FT1937          Analog  	hPa
         """
         
         if 'site_filter' in kwargs and file_filter == '':
@@ -282,7 +337,7 @@ class sympro_txt_read(object):
             self.head = s.head
             self.site_info = s.site_info
             self.format_site_data()
-            print("\nQueue processed")
+            # print("\nQueue processed")
         
         except UnboundLocalError:
             print("No files match to contatenate.")

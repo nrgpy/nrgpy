@@ -11,15 +11,14 @@ import requests
 import subprocess
 import time
 import zipfile
-from nrgpy.api_connect import nrgApiUrl, token as tk, ConvertServiceUrl, RequestTokenUrl, request_session_token, token_valid
+from nrgpy.api_connect import nrgApiUrl, token as tk, ConvertServiceUrl, RequestTokenUrl, request_session_token, token_valid, maintain_session_token
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, date_check, draw_progress_bar
 
 
 class local(object):
     """For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.
 
-    This method uses locally installed SymphoniePRO Desktop software to convert
-    *.rld files to txt format (tab-delimited-text).
+    This method uses locally installed SymphoniePRO Desktop software to convert *.rld files to txt format (tab-delimited-text).
     
     Parameters
     ----------
@@ -44,7 +43,19 @@ class local(object):
         specify part or all of the file you'd like to filter on, like site_filter='123456_2018-09' 
         would filter on site 123456 and only the month of September in 2018.
     site_file : str
-        path to (*.ndb) site file    
+        path to (*.ndb) site file
+
+    Examples
+    --------
+    Convert a folder of RLD files to Text with SymphoniePRO Desktop Software
+
+    >>> from nrgpy.convert_rld import local
+    >>> converter = local(
+            rld_dir='/path/to/rld/files', 
+            out_dir=/path/to/txt/outputs, 
+            file_filter='123456_2020-01', # for files from January 2020
+        )
+    >>> converter.convert()
     """
     def __init__(self, rld_dir='', out_dir='', encryption_pass='', hex_key='', filename='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
@@ -288,6 +299,40 @@ class nrg_convert_api(object):
         path to NEC file for custom export formatting
     export_type : str
         [meas], samples, diag, comm
+
+    Examples
+    --------
+    Convert a single RLD file to Text with NRG Convert API
+
+    >>> from nrgpy.convert_rld import nrg_convert_api
+    >>> filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
+    >>> txt_dir = "/home/user/data/sympro/000123/txt/"
+    >>> client_id = "contact support@nrgsystems.com for access"
+    >>> client_secret = "contact support@nrgsystems.com for access"
+    >>> converter = nrg_convert_api(
+            file_filter=file_filter, 
+            filename=filename, 
+            client_id=client_id,
+            client_secret=client_secret,
+        ) 
+
+    Convert a folder of RLD files to Text with NRG Convert API
+
+    >>> from nrgpy.convert_rld import nrg_convert_api
+    >>> file_filter = "000175"
+    >>> rld_directory = "rlds"
+    >>> client_id = "contact support@nrgsystems.com for access"
+    >>> client_secret = "contact support@nrgsystems.com for access"
+    >>> converter = nrg_convert_api(
+            file_filter=file_filter, 
+            rld_dir=rld_directory, 
+            client_id=client_id,
+            client_secret=client_secret,
+            start_date="2020-01-01",
+            end_date="2020-01-31",
+        )
+    >>> converter.process()    
+    
     """
     def __init__(self, rld_dir='', out_dir='', filename='', site_filter='',
                  filter2 = '', start_date='1970-01-01', end_date='2150-12-31',
@@ -329,14 +374,12 @@ class nrg_convert_api(object):
 
         if self.client_id and self.client_secret:
 
-            print("{} | Requesting session token ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')), end="", flush=True)
-            self.session_token, self.session_start_time = request_session_token(client_id, client_secret)
+            self.session_token, self.session_start_time = maintain_session_token(client_id=self.client_id, client_secret=self.client_secret)
         
             if self.session_token:
-                print("[OK]")
                 self.convert_url = ConvertServiceUrl
             else:
-                print("[FAILED] | unable to get session token.")
+                print("Unable to get session token for conversion")                
 
         else:
             self.convert_url = nrgApiUrl
@@ -361,6 +404,9 @@ class nrg_convert_api(object):
 
 
     def process(self, progress_bar=True):
+        if self.client_id and self.client_secret:
+            self.session_token, self.session_start_time = maintain_session_token(client_id=self.client_id, client_secret=self.client_secret)
+
         self.progress_bar = progress_bar
         self.start_time = datetime.now()
         
@@ -378,7 +424,7 @@ class nrg_convert_api(object):
             self.single_file(rld)
             self.counter += 1
 
-        print('\nQueue processed\n')
+        # print('\nQueue processed\n')
 
 
     def convert(self):
