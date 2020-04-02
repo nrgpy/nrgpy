@@ -164,7 +164,7 @@ class sympro_txt_read(object):
             self.location = self._site_info['Location'].values[0]
             self.site_number = self._site_info['Site Number'].values[0]
             self.site_description = self._site_info['Site Description'].values[0]
-            self.start_date = self._site_info['Start Date'].values[0]
+            # self.start_date = self._site_info['Start Date'].values[0]
             self.logger_sn = self._site_info['Serial Number'].values[0]
             self.ipack_sn = self._site_info['Serial Number_1'].values[0]
             self.logger_type = self._site_info['Model'].values[0]
