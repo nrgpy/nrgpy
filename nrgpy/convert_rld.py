@@ -35,6 +35,8 @@ class local(object):
         specify if using hex data encryption key
     sympro_path : str
         default is "C:\Program Files (x86)\Renewable NRG Systems\SymPRO Desktop\SymPRODesktop.exe"
+    process_type : str
+        [convert], or import
     convert_type : str
         'meas', alternately specify 'comm', 'diag', 'sample', or 'events'
     nec : str
@@ -59,13 +61,14 @@ class local(object):
     """
     def __init__(self, rld_dir='', out_dir='', encryption_pass='', hex_key='', filename='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
-                 convert_type='meas', nec='', site_filter='', site_file='', **kwargs):
+                 process_type='convert', convert_type='meas', nec='', site_filter='', site_file='', **kwargs):
         
         self.rld_dir = windows_folder_path(rld_dir)
         self.out_dir  = windows_folder_path(out_dir)
         self.encryption_pass = encryption_pass
         self.hex_key = hex_key
         self.sympro_path = sympro_path
+        self.process_type = process_type
         self.convert_type = convert_type
         self.nec = nec
         self.site_filter = site_filter
@@ -129,7 +132,7 @@ class local(object):
             print('Saving outputs to {0}'.format(self.out_dir))
 
             cmd = [self.sympro_path, 
-                   "/cmd", "convert", 
+                   "/cmd", self.process_type, 
                    "/file", '"'+"\\".join([self.rld_dir, self.site_filter])+'*.rld"', 
                    encryption,
                    encryption_key,
@@ -424,7 +427,7 @@ class nrg_convert_api(object):
             self.single_file(rld)
             self.counter += 1
 
-        # print('\nQueue processed\n')
+        print('\n')
 
 
     def convert(self):
