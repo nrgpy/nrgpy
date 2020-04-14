@@ -44,8 +44,8 @@ class local(object):
     site_filter : str
         specify part or all of the file you'd like to filter on, like site_filter='123456_2018-09' 
         would filter on site 123456 and only the month of September in 2018.
-    site_file : str
-        path to (*.ndb) site file
+    site_file : bool or str
+        set to True to use local ndb site file, or set to path to an alternate ndb site file
 
     Examples
     --------
@@ -118,7 +118,9 @@ class local(object):
             print('could not parse encryption_pass') 
         
         try:
-            if self.site_file:
+            if self.site_file == True:
+                site_file = '/site '
+            elif self.site_file:
                 site_file = '/site "{0}"'.format(self.site_file)
             else:
                 site_file = ''
