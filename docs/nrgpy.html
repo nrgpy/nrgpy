@@ -168,6 +168,18 @@
 <div class="section" id="module-nrgpy.api_connect">
 <span id="nrgpy-api-connect-module"></span><h2>nrgpy.api_connect module<a class="headerlink" href="#module-nrgpy.api_connect" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="nrgpy.api_connect.load_token">
+<code class="sig-prename descclassname">nrgpy.api_connect.</code><code class="sig-name descname">load_token</code><span class="sig-paren">(</span><em class="sig-param">filename='.nrgpy_token'</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api_connect.load_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>read session token from pickle file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nrgpy.api_connect.maintain_session_token">
+<code class="sig-prename descclassname">nrgpy.api_connect.</code><code class="sig-name descname">maintain_session_token</code><span class="sig-paren">(</span><em class="sig-param">client_id=''</em>, <em class="sig-param">client_secret=''</em>, <em class="sig-param">filename='.nrgpy_token'</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api_connect.maintain_session_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>maintain a current/valid session token for data service api</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="nrgpy.api_connect.request_session_token">
 <code class="sig-prename descclassname">nrgpy.api_connect.</code><code class="sig-name descname">request_session_token</code><span class="sig-paren">(</span><em class="sig-param">client_id=''</em>, <em class="sig-param">client_secret=''</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api_connect.request_session_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>generates a new session token for convert service api</p>
@@ -189,6 +201,12 @@ up for an account, go to:
 </p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="nrgpy.api_connect.save_token">
+<code class="sig-prename descclassname">nrgpy.api_connect.</code><code class="sig-name descname">save_token</code><span class="sig-paren">(</span><em class="sig-param">session_token</em>, <em class="sig-param">session_start_time</em>, <em class="sig-param">filename='.nrgpy_token'</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api_connect.save_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>save session token in token pickle file</p>
 </dd></dl>
 
 <dl class="function">
@@ -234,7 +252,7 @@ up for an account, go to:
 <span id="nrgpy-convert-rld-module"></span><h2>nrgpy.convert_rld module<a class="headerlink" href="#module-nrgpy.convert_rld" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="nrgpy.convert_rld.local">
-<em class="property">class </em><code class="sig-prename descclassname">nrgpy.convert_rld.</code><code class="sig-name descname">local</code><span class="sig-paren">(</span><em class="sig-param">rld_dir=''</em>, <em class="sig-param">out_dir=''</em>, <em class="sig-param">encryption_pass=''</em>, <em class="sig-param">hex_key=''</em>, <em class="sig-param">filename=''</em>, <em class="sig-param">sympro_path='&quot;C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe&quot;'</em>, <em class="sig-param">convert_type='meas'</em>, <em class="sig-param">nec=''</em>, <em class="sig-param">site_filter=''</em>, <em class="sig-param">site_file=''</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rld.local" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">nrgpy.convert_rld.</code><code class="sig-name descname">local</code><span class="sig-paren">(</span><em class="sig-param">rld_dir=''</em>, <em class="sig-param">out_dir=''</em>, <em class="sig-param">encryption_pass=''</em>, <em class="sig-param">hex_key=''</em>, <em class="sig-param">filename=''</em>, <em class="sig-param">sympro_path='&quot;C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe&quot;'</em>, <em class="sig-param">process_type='convert'</em>, <em class="sig-param">convert_type='meas'</em>, <em class="sig-param">nec=''</em>, <em class="sig-param">site_filter=''</em>, <em class="sig-param">site_file=''</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rld.local" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>For handling NRG SymphoniePRO Data Logger raw data files in the <a href="#id1"><span class="problematic" id="id2">*</span></a>.rld format.</p>
 <p>This method uses locally installed SymphoniePRO Desktop software to convert <a href="#id3"><span class="problematic" id="id4">*</span></a>.rld files to txt format (tab-delimited-text).</p>
@@ -249,11 +267,12 @@ or use the r’path      odir’ approach</p></li>
 <li><p><strong>encryption_pass</strong> (<em>str</em>) – specify data encryption password if logger is set up for that.</p></li>
 <li><p><strong>hex_key</strong> (<em>str</em>) – specify if using hex data encryption key</p></li>
 <li><p><strong>sympro_path</strong> (<em>str</em>) – default is “C:Program Files (x86)Renewable NRG SystemsSymPRO DesktopSymPRODesktop.exe”</p></li>
+<li><p><strong>process_type</strong> (<em>str</em>) – [convert], or import</p></li>
 <li><p><strong>convert_type</strong> (<em>str</em>) – ‘meas’, alternately specify ‘comm’, ‘diag’, ‘sample’, or ‘events’</p></li>
 <li><p><strong>nec</strong> (<em>str</em>) – path to nec file</p></li>
 <li><p><strong>site_filter</strong> (<em>str</em>) – specify part or all of the file you’d like to filter on, like site_filter=’123456_2018-09’
 would filter on site 123456 and only the month of September in 2018.</p></li>
-<li><p><strong>site_file</strong> (<em>str</em>) – path to (<a href="#id5"><span class="problematic" id="id6">*</span></a>.ndb) site file</p></li>
+<li><p><strong>site_file</strong> (<em>bool</em><em> or </em><em>str</em>) – set to True to use local ndb site file, or set to path to an alternate ndb site file</p></li>
 </ul>
 </dd>
 </dl>
@@ -358,6 +377,16 @@ a local installation of SymphoniePRO Desktop software</p>
 </pre></div>
 </div>
 <dl class="method">
+<dt id="nrgpy.convert_rld.nrg_convert_api.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rld.nrg_convert_api.convert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nrgpy.convert_rld.nrg_convert_api.directory">
+<code class="sig-name descname">directory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rld.nrg_convert_api.directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="nrgpy.convert_rld.nrg_convert_api.process">
 <code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">progress_bar=True</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rld.nrg_convert_api.process" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -377,7 +406,7 @@ a local installation of SymphoniePRO Desktop software</p>
 <em class="property">class </em><code class="sig-prename descclassname">nrgpy.convert_rwd.</code><code class="sig-name descname">local</code><span class="sig-paren">(</span><em class="sig-param">rwd_dir=''</em>, <em class="sig-param">out_dir=''</em>, <em class="sig-param">filename=''</em>, <em class="sig-param">encryption_pin=''</em>, <em class="sig-param">sdr_path='C:/NRG/SymDR/SDR.exe'</em>, <em class="sig-param">convert_type='meas'</em>, <em class="sig-param">file_filter=''</em>, <em class="sig-param">wine_folder='~/.wine/drive_c/'</em>, <em class="sig-param">use_site_file=False</em>, <em class="sig-param">raw_mode=False</em>, <em class="sig-param">progress_bar=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rwd.local" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>nrgpy.convert_rwd.local - use local installation of Symphonie Data Retriever (SDR)
-to convert <a href="#id7"><span class="problematic" id="id8">*</span></a>.RWD files to <a href="#id9"><span class="problematic" id="id10">*</span></a>.TXT</p>
+to convert <a href="#id5"><span class="problematic" id="id6">*</span></a>.RWD files to <a href="#id7"><span class="problematic" id="id8">*</span></a>.TXT</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
