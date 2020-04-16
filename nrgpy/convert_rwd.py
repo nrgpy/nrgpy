@@ -54,6 +54,27 @@ class local(object):
 
     >>> converter.convert()
 
+
+    Convert a folder ... on Linux; this assumes you followed the instructions
+    in the '''SDR_Linux_README.md''' file.
+
+    >>> import getpass
+    >>> import nrgpy
+
+    >>> username = getpass.getuser()
+
+    >>> rwd_dir = f"/home/{username}/data/symplus3/raw"
+    >>> txt_dir = f"/home/{username}/data/symplus3/export"
+    >>> wine_folder = f"/home/{username}/prefix32/drive_c"
+
+    >>> converter = nrgpy.convert_rwd.local(
+            rwd_dir=rwd_dir,
+            out_dir=txt_dir,
+            wine_folder=wine_folder
+        )
+
+    >>> converter.convert()
+
     """
 
 
@@ -219,16 +240,18 @@ class local(object):
 
             if self.file_filter in f:
                 site_num = f[:4]
-                site_folder = "\\".join([self.RawData,site_num])
+                site_folder = os.path.join(self.RawData,site_num)
+
                 if self.platform == 'linux':
-                    site_folder = ''.join([self.wine_folder,'NRG/RawData/',site_num])
+                    site_folder = os.path.join(self.wine_folder, 'NRG', 'RawData', site_num)
                 try:
                     affirm_directory(site_folder)
                 except:
                     print("couldn't create {}".format(site_folder))
                     pass
+
                 try:
-                    shutil.copy("".join([self.dir_paths[0], f]), site_folder)                    
+                    shutil.copy(os.path.join(self.dir_paths[0], f), site_folder)                    
                 except:
                     print('unable to copy file to RawData folder:  {}'.format(f))
 
@@ -244,8 +267,8 @@ class local(object):
             print("could not do the needful")
 
         if self.platform == 'linux':
-            out_path = linux_folder_path(self.out_dir) + txt_file_name
-            txt_file_path = ''.join([self.wine_folder, 'NRG/ScaledData/',txt_file_name])
+            txt_file_path = os.path.join(self.wine_folder, 'NRG', 'ScaledData',txt_file_name)
+            out_path = linux_folder_path(self.out_dir)
         try:
             shutil.copy(txt_file_path, out_path)
             try:
@@ -253,4 +276,6 @@ class local(object):
             except:
                 print("{0} remains in {1}".format(txt_file_name, self.ScaledData))
         except:
+            import traceback
+            print(traceback.format_exc())            
             print("Unable to copy {0} to {1}".format(txt_file_name,self.out_dir))
