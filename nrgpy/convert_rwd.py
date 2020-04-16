@@ -134,7 +134,7 @@ class local(object):
                 print('file conversion failed on {}'.format(self._filename))
             self.counter += 1
         txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt', start_time=self.convert_time)
-        log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.start_time)
+        log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.convert_time)
         print('\nRWDs in    : {}'.format(self.raw_count))
         print('TXTs out   : {}'.format(txt_count))
         print('LOGs out   : {}'.format(log_count))
