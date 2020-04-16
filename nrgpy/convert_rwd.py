@@ -36,6 +36,24 @@ class local(object):
         set to True to convert raw counts and voltages
     progress_bar : bool
         set to False to see individual file conversions
+
+    Returns
+    -------
+    None
+
+    Examples
+    --------
+    Convert a folder of RWD files to Text with SymphoniePRO Desktop Software
+
+    >>> from nrgpy.convert_rwd import local
+    >>> converter = local(
+            rwd_dir='/path/to/rwd/files', 
+            out_dir=/path/to/txt/outputs, 
+            file_filter='1234202001', # for files from January 2020
+        )
+
+    >>> converter.convert()
+
     """
 
 
@@ -43,7 +61,8 @@ class local(object):
                  sdr_path=r'C:/NRG/SymDR/SDR.exe',
                  convert_type='meas', file_filter='', 
                  wine_folder='~/.wine/drive_c/', 
-                 use_site_file=False, raw_mode=False, progress_bar=False, **kwargs):
+                 use_site_file=False, raw_mode=False, progress_bar=True, **kwargs):
+
         if encryption_pin != '':
             self.command_switch = '/z' # noqueue with pin
         else:
@@ -134,7 +153,7 @@ class local(object):
                 print('file conversion failed on {}'.format(self._filename))
             self.counter += 1
         txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt', start_time=self.convert_time)
-        log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.start_time)
+        log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.convert_time)
         print('\nRWDs in    : {}'.format(self.raw_count))
         print('TXTs out   : {}'.format(txt_count))
         print('LOGs out   : {}'.format(log_count))
