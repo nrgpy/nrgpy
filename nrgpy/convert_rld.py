@@ -148,6 +148,7 @@ class local(object):
             self.cmd = cmd
             
             self.start = datetime.now()
+            
             subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
             self.end = datetime.now()
             self.convert_time = str(self.end - self.start)
