@@ -1,4 +1,4 @@
-def check_intervals(df, interval=600, verbose=True, return_info=False):
+def check_intervals(df, verbose=True, return_info=False, show_all_missing_timestamps=False):
     """checks for missing intervals in a pandas dataframe with a "Timestamp" column
     
     Parameters
@@ -11,6 +11,8 @@ def check_intervals(df, interval=600, verbose=True, return_info=False):
         print results to terminal; False to skip
     return_info : bool
         set to True to return dict with below values
+    show_all_missing_timestamps : bool
+        set to True to show all missing timestamps in verbose option. otherwise, shows first and last 3.
 
     Returns
     ----------
@@ -40,13 +42,11 @@ def check_intervals(df, interval=600, verbose=True, return_info=False):
     ----------
     ex. pass a reader.data dataframe for an interval check:
 
-    >>>  from nrgpy.sympro_txt import sympro_txt_read
-    >>>  reader = sympro_txt_read()
+    >>>  reader = nrgpy.sympro_txt_read()
     instance created, no filename specified
     >>> reader.concat_txt(txt_dir="C:/data/sympro_data/000110/")
     ...
-    >>> from nrgpy.quality import check_intervals
-    >>> check_intervals(reader.data, interval=600)
+    >>> nrgpy.check_intervals(reader.data, interval=600)
     Starting timestamp        : 2019-01-01 00:00:00
     Ending timestamp          : 2019-07-01 04:50:00
     Data set Duration         : 181 days, 4:50:00
@@ -54,38 +54,55 @@ def check_intervals(df, interval=600, verbose=True, return_info=False):
     Actual rows in data set   : 26093
     Data set complete.
     """
-    if "horz" in "".join(df.columns):
-        df2 = df.reset_index()
-        df2[df2.columns[0]] = df2[df2.columns[0]].astype(str)
-        _df = df2.copy()
+    from datetime import datetime
+
+
+    if "horz" in "".join(df.columns).lower():
+        df2 = df.copy() 
+        df2.Timestamp = df2.Timestamp.apply(lambda x: x.strftime("%Y-%m-%d %H:%M:%S"))
+        _df = df2 
     else:
         _df = df.copy()
-    from datetime import datetime
+    
+
     time_fmt = "%Y-%m-%d %H:%M:%S"
+    interval = select_interval_length(_df)
+
     first_interval = datetime.strptime(_df['Timestamp'].min(), time_fmt) 
     last_interval = datetime.strptime(_df['Timestamp'].max(), time_fmt)
+
     time_range = last_interval - first_interval
+
     expected_rows = int(time_range.total_seconds() / interval)
     actual_rows = len(df) - 1 
+
     if expected_rows != actual_rows:
         missing_timestamps, _df = find_missing_intervals(_df, interval)
 
     
     if verbose == True:
+        print('Statistical interval      : {0} seconds'.format(interval))
         print('Starting timestamp        : {0}'.format(first_interval))
         print('Ending timestamp          : {0}'.format(last_interval))
         print('Data set Duration         : {0}'.format(time_range))
         print('Expected rows in data set : {0}'.format(expected_rows))
         print('Actual rows in data set   : {0}'.format(actual_rows))
         print()
+
         if expected_rows == actual_rows:
             print('Data set complete.')
+
         else:
             print('Missing {0} timestamps:'.format(len(missing_timestamps)))
-            i=1
-            for timestamp in missing_timestamps:
-                print("\t{0}\t{1}".format(i,timestamp))
-                i+=1
+
+            if len(missing_timestamps) <= 8 or show_all_missing_timestamps == True:
+                for i, timestamp in enumerate(missing_timestamps):
+                    print("\t{0}\t{1}".format(i+1,timestamp))
+
+            else:
+                for timestamp in missing_timestamps[0:3] + ["..."] + missing_timestamps[-3:]:
+                    print("\t{0}\t{1}".format(" ",timestamp))
+
     
     if return_info == True:
         interval_info = {}
@@ -110,10 +127,12 @@ def find_missing_intervals(__df, interval):
     """
     _df = __df.copy()
     import pandas as pd
+
     _df['data'] = True
     _df['Timestamp'] = pd.to_datetime(_df['Timestamp'])
     _df.set_index('Timestamp', inplace=True)
     _df = _df.reindex(pd.date_range(start=_df.index[0], end=_df.index[-1], freq='{0}s'.format(interval)))
+
     missing_timestamps = []
     
     for index, row in _df.iterrows():
@@ -121,3 +140,80 @@ def find_missing_intervals(__df, interval):
             missing_timestamps.append(index)
     
     return missing_timestamps, _df
+
+
+def select_interval_length(df, seconds=True):
+    """ get interval length of data set
+
+    returns the mode of the first 10 intervals of the data set
+    
+    parameters
+    ----------
+        reader : nrgpy reader object
+        seconds : bool
+            (True) set to False to get interval length in minutes
+
+    returns
+    -------
+        int
+    
+    """ 
+    from datetime import datetime
+
+    formatter = "%Y-%m-%d %H:%M:%S"
+    interval = []
+
+    for i in range(10):
+        try:
+            interval.append(
+                int(
+                    (datetime.strptime(df['Timestamp'].loc[i+1], formatter) - datetime.strptime(df['Timestamp'].loc[i], formatter)
+                    ).seconds)
+                )
+        except:
+            pass
+    
+    interval_s = select_mode_from_list(interval)
+    interval_m = interval_s/60
+    
+    try:
+        if seconds:
+            return select_mode_from_list(interval)
+        return select_mode_from_list(interval)/60
+    except:
+        return False
+
+
+def select_mode_from_list(lst):
+    """ """
+    return max(set(lst), key=lst.count)
+
+
+def check_for_missing_txt_files(txt_file_names):
+    """ check list of files for missing file numbers 
+    
+    Parameters
+    ----------
+    txt_file_names : list
+        list of SymphoniePRO text file exports
+
+    Returns
+    -------
+    list
+        list of "missing" text file numbers
+
+    """
+    
+    missing_file_numbers = []
+
+    for i, f in enumerate(sorted(txt_file_names)):
+    
+        file_number = int(f.split("_")[-2])
+    
+        if i > 0:
+            if file_number - _file_number > 1:
+                missing_file_numbers.append(f)
+
+        _file_number = file_number
+
+    return missing_file_numbers

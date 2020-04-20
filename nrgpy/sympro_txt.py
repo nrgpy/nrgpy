@@ -228,6 +228,8 @@ class sympro_txt_read(object):
         site_number : str
         site_description : str
         start_date : str
+        txt_file_names : list
+            list of files included in concatenation
 
         Examples
         --------
@@ -272,6 +274,7 @@ class sympro_txt_read(object):
         self.end_date = end_date
         self.filter2 = filter2
         self.file_type = file_type
+        self.txt_file_names = []
         
         if check_platform() == 'win32':
             self.txt_dir = windows_folder_path(txt_dir)
@@ -302,7 +305,7 @@ class sympro_txt_read(object):
                     try:
                         base = sympro_txt_read(f)
                         if progress_bar != True: print("[OK]")
-                        pass
+                        self.txt_file_names.append(os.path.basename(f))
                     except IndexError:
                         print('Only standard SymPRO headertypes accepted')
                         break
@@ -314,6 +317,7 @@ class sympro_txt_read(object):
                         s = sympro_txt_read(file_path, ch_details=self.ch_details)
                         base.data = base.data.append(s.data, sort=False)
                         if progress_bar != True: print("[OK]")
+                        self.txt_file_names.append(os.path.basename(f))
                     except:
                         if progress_bar != True: print("[FAILED]")
                         print("could not concat {0}".format(os.path.basename(file_path)))
