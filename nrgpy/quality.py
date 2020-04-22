@@ -105,16 +105,19 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
 
     
     if return_info == True:
+
         interval_info = {}
         interval_info['actual_rows'] = actual_rows
         interval_info['expected_rows'] = expected_rows
         interval_info['first_interval'] = first_interval
         interval_info['last_interval'] = last_interval
         interval_info['time_range'] = time_range
+
         try:
             interval_info['missing_timestamps'] = missing_timestamps
         except:
             interval_info['missing_timestamps'] = None
+
         return interval_info
     
 
@@ -136,6 +139,7 @@ def find_missing_intervals(__df, interval):
     missing_timestamps = []
     
     for index, row in _df.iterrows():
+        
         if row['data'] != True:
             missing_timestamps.append(index)
     

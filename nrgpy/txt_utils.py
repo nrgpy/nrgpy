@@ -72,17 +72,21 @@ class read_text_data(object):
         ch_details = 0
 
         for row in self.site_info.iterrows(): 
+
             if row[1][0] == self.ch_info_array[0] and ch_details == 0: # start channel data read
                 ch_details = 1
                 ch_data[row[1][0]] = row[1][1]
+
             elif row[1][0] == self.ch_info_array[0] and ch_details == 1: # close channel, start new data read
                 ch_list.append(ch_data)
                 ch_data = {}
                 ch_data[row[1][0]] = row[1][1]
+
             elif str(row[1][0]) in str(self.ch_info_array):
                 ch_data[row[1][0]] = row[1][1]
 
         ch_list.append(ch_data) # last channel's data
+
         self.ch_list = ch_list
         self.ch_info = self.ch_info.append(ch_list)
         
@@ -104,8 +108,7 @@ class read_text_data(object):
         
         self.file_count = len(files)
         self.pad = len(str(self.file_count)) + 1
-        # probably create dataframe of any channel changes
-        ## presence of log file indicates sensor change? maybe?
+
         self.counter = 1
         self.start_time = datetime.now()
 
@@ -232,7 +235,7 @@ class read_text_data(object):
             self.elevation = int(self._site_info['Site Elevation'].values[0])
             self.location = self._site_info['Site Location'].values[0]
             self.site_description = self._site_info['Site Desc'].values[0]
-            # self.start_date = self._site_info['Start Date'].values[0]
+
             self.logger_type = self.head[1][1]
             self.logger_sn = self.logger_type + self.head[2][1]
             self.ipack_sn = ''

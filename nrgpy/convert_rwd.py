@@ -92,6 +92,8 @@ class local(object):
             self.command_switch = '/s' # silent (site file params)
         if raw_mode == True:
             self.command_switch = '/r' # silent (site file params)
+
+        self.filename = filename
         self.progress_bar = progress_bar
         self.encryption_pin = encryption_pin
         self.sdr_path = windows_folder_path(sdr_path)[:-1]
@@ -99,19 +101,21 @@ class local(object):
         self.RawData = self.root_folder + '\\RawData\\'
         self.ScaledData = self.root_folder + '\\ScaledData\\'
         self.file_filter = file_filter
+
         if 'site_filter' in kwargs and file_filter == '':
             self.file_filter = kwargs.get('site_filter')
         self.rwd_dir = windows_folder_path(rwd_dir) # rwd_dir must be in Windows format, even if using Wine
         self.platform = check_platform()
         self.wine_folder = wine_folder
         self.check_sdr()
+
         if self.platform == 'win32':
             self.out_dir = windows_folder_path(out_dir)
             self.file_path_joiner = '\\'            
         else:
             self.out_dir = linux_folder_path(out_dir)
             self.file_path_joiner = '/'
-        self.filename = filename
+        
         if self.filename:
             self.counter = 1
             self.rwd_dir = os.path.dirname(self.filename)
@@ -131,12 +135,14 @@ class local(object):
             except:
                 self.sdr_ok = False
                 print('SDR not installed. Please install SDR or check path.\nhttps://www.nrgsystems.com/support/product-support/software/symphonie-data-retriever-software')
+
         else:
             # do the linux check
             try:
                 subprocess.check_output(['wine','--version'])
             except NotADirectoryError:
                 print('System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable.')
+
             try:
                 subprocess.check_output(['wine',self.sdr_path,'/s','test.rwd'])
                 self.sdr_ok = True
@@ -156,9 +162,11 @@ class local(object):
         3 - create out_dir if necessary
         4 - iterate through files
         """
+        affirm_directory(self.out_dir)
+
         self._list_files()
         self._copy_rwd_files()
-        affirm_directory(self.out_dir)
+
         self.raw_count = len(self.rwd_file_list)
         self.pad = len(str(self.raw_count)) + 1
         self.counter = 1
@@ -173,11 +181,14 @@ class local(object):
             except:
                 print('file conversion failed on {}'.format(self._filename))
             self.counter += 1
+
         txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt', start_time=self.convert_time)
         log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.convert_time)
+
         print('\nRWDs in    : {}'.format(self.raw_count))
         print('TXTs out   : {}'.format(txt_count))
         print('LOGs out   : {}'.format(log_count))
+
         if len(log_files) > 0:
             print('Log files created:')
             for _filename in log_files:
@@ -190,10 +201,12 @@ class local(object):
 
         self.dir_paths = []
         self.rwd_file_list = []
+
         if self.platform == 'win32':
             walk_path = self.rwd_dir
         else:
             walk_path = linux_folder_path(self.rwd_dir)
+
         for dirpath, subdirs, files in os.walk(walk_path):
             self.dir_paths.append(dirpath)
             for x in files:
@@ -207,20 +220,27 @@ class local(object):
         _f = self._filename
 
         if self.platform == 'linux':
+
             self.sdr_path = windows_folder_path(self.sdr_path)[:-1]
             _f = windows_folder_path(_f)[:-1]
             wine = 'wine'
+
         else:
             wine = ''
+
         self.cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
 
         try:
             if self.progress_bar:
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
+
             else:
                 print("Converting  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),_f.split("\\")[-1]), end="", flush=True)
+
             subprocess.check_output(" ".join(self.cmd), shell=True)
+
             if not self.progress_bar: print("[DONE]")
+
             try:
                 self._copy_txt_file()
             except:
@@ -269,12 +289,15 @@ class local(object):
         if self.platform == 'linux':
             txt_file_path = os.path.join(self.wine_folder, 'NRG', 'ScaledData',txt_file_name)
             out_path = linux_folder_path(self.out_dir)
+
         try:
             shutil.copy(txt_file_path, out_path)
+            
             try:
                 os.remove(txt_file_path)
             except:
                 print("{0} remains in {1}".format(txt_file_name, self.ScaledData))
+
         except:
             import traceback
             print(traceback.format_exc())            

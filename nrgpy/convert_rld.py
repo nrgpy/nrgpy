@@ -59,6 +59,7 @@ class local(object):
         )
     >>> converter.convert()
     """
+
     def __init__(self, rld_dir='', out_dir='', encryption_pass='', hex_key='', filename='',
                  sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
                  process_type='convert', convert_type='meas', nec='', site_filter='', site_file='', **kwargs):
@@ -182,6 +183,8 @@ class local(object):
 
     def convert(self):
         self.directory()
+
+
     def process(self):
         self.directory()
 
@@ -192,11 +195,14 @@ class local(object):
         This function is only compatible with Windows>=7 AND 
         a local installation of SymphoniePRO Desktop software
         """
+
         try:
             renamer_path = kwargs.get('renamer_path', r"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/Default Application Files/Utilities/NrgRldSiteSerialRename.exe")
         
             for f in os.listdir(self.rld_dir):
+
                 filepath = self.rld_dir + f
+
                 if f[-4:].lower()==".rld" and self.site_filter in f:
                     rename_cmd = [renamer_path, '"'+filepath+'"']
         
@@ -435,6 +441,8 @@ class nrg_convert_api(object):
 
     def convert(self):
         self.process()
+
+        
     def directory(self):
         self.process()
 

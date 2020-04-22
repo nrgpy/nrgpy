@@ -13,19 +13,13 @@ def affirm_directory(directory):
     """
     if os.path.exists(directory):
         pass
+
     else:
         try:
-            #print("{0} does not exist, creating...\t\t".format(directory), end="", flush=True)
-            try:
-                pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
-            except FileExistsError:
-            #    print("[OK]")
-                pass
-            except:
-                #print('[FAILED]')
-                pass
+            pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
+        except FileExistsError:
+            pass
         except:
-            #print('[FAILED]')
             pass
         
         
@@ -152,9 +146,11 @@ class renamer():
         self.d = dict()
 
     def __call__(self, x):
+
         if x not in self.d:
             self.d[x] = 0
             return x
+
         else:
             self.d[x] += 1
             return "%s_%d" % (x, self.d[x])

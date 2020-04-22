@@ -10,6 +10,7 @@ import traceback
 
 
 class sympro_txt_read(object): 
+
     def __init__(self, filename='', out_file='', **kwargs):
         """Class of pandas dataframes created from SymPRO standard txt output.
 
@@ -50,6 +51,7 @@ class sympro_txt_read(object):
         site_description : str
         start_date : str
         """
+
         if 'ch_details' in kwargs:
             self.ch_details = kwargs.get('ch_details')
         else:
@@ -126,13 +128,16 @@ class sympro_txt_read(object):
         ch_details = 0
 
         for row in self.site_info.loc[self.site_info[0].isin(array)].iterrows():
+
             if row[1][0] == array[0] and ch_details == 0: # start channel data read
                 ch_details = 1
                 ch_data[row[1][0]] = row[1][1]
+
             elif row[1][0] == array[0] and ch_details == 1: # close channel, start new data read
                 ch_list.append(ch_data)
                 ch_data = {}
                 ch_data[row[1][0]] = row[1][1]
+
             elif row[1][0] in str(array):
                 ch_data[row[1][0]] = row[1][1]
 
@@ -164,7 +169,7 @@ class sympro_txt_read(object):
             self.location = self._site_info['Location'].values[0]
             self.site_number = self._site_info['Site Number'].values[0]
             self.site_description = self._site_info['Site Description'].values[0]
-            # self.start_date = self._site_info['Start Date'].values[0]
+
             self.logger_sn = self._site_info['Serial Number'].values[0]
             self.ipack_sn = self._site_info['Serial Number_1'].values[0]
             self.logger_type = self._site_info['Model'].values[0]
@@ -280,6 +285,7 @@ class sympro_txt_read(object):
             self.txt_dir = windows_folder_path(txt_dir)
         else:
             self.txt_dir = linux_folder_path(txt_dir)
+
         first_file = True
         
         files = [
@@ -294,11 +300,14 @@ class sympro_txt_read(object):
         self.start_time = datetime.now()
         
         for f in files:
+
             if self.file_filter in f and self.file_type in f and self.filter2 in f:
+
                 if progress_bar:
                     draw_progress_bar(self.counter, self.file_count, self.start_time)
                 else:
                     print("Adding {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
+
                 if first_file == True:
                     first_file = False
         
@@ -318,6 +327,7 @@ class sympro_txt_read(object):
                         base.data = base.data.append(s.data, sort=False)
                         if progress_bar != True: print("[OK]")
                         self.txt_file_names.append(os.path.basename(f))
+
                     except:
                         if progress_bar != True: print("[FAILED]")
                         print("could not concat {0}".format(os.path.basename(file_path)))
@@ -519,6 +529,7 @@ class sympro_txt_read(object):
             self.data['I_soiled_SC'] = self.data[[col for col in self.data.columns if (isc_soiled_ch in col and 'Avg' in col)]]
             self.data['T_clean'] = self.data[[col for col in self.data.columns if (pv_clean_ch in col and 'Avg' in col)]]
             self.data['T_soiled'] = self.data[[col for col in self.data.columns if (pv_soiled_ch in col and 'Avg' in col)]]
+
         except:
             print("error replicating ISC or PV data")
             
@@ -534,22 +545,10 @@ class sympro_txt_read(object):
             except:
                 print("could not calculate SR column")
 
-        # Following method not approved for use.        
-        #if method == "IEEE":
-        #    try:
-        #        # calculate G
-        #        self.data['G'] = G0 * (self.data['I_clean_SC'] * (1 - alpha * (self.data['T_clean'] - T0))) / I_clean_SC_0
-        #    except:
-        #        print("could not calculate G column")
-        #    try:
-        #        # calculate SR
-        #        self.data['SR'] = self.data['I_soiled_SC'] / (I_soiled_SC_0 * (1 + (alpha * (self.data['T_soiled'] - T0))) * (self.data['G'] / G0))
-        #    except:
-        #        print("could not calculate SR column")        
-
 
     def output_txt_file(self, epe=False, soiling=False, standard=True, 
                         shift_timestamps=False, out_file='', **kwargs):
+
         out_dir = kwargs.get('out_dir', '')
 
         if epe == True:
@@ -558,6 +557,7 @@ class sympro_txt_read(object):
             else:
                 output_name = self.out_file[:-4]+"_EPE.txt"
             print("\nOutputting file: {0}   ...   ".format(output_name), end="", flush=True)
+
             try:
                 output_file = open(output_name, 'w+', encoding='utf-16')
                 output_file.truncate()
@@ -586,24 +586,30 @@ class sympro_txt_read(object):
 
                 f.close()
                 print("[OK]")
+
             except Exception as e:
                 print("[FAILED]")
                 print(e)
+
         else:
             if soiling == True:
                 if out_file != '':
                     output_name = out_file
                 else:                
                     output_name = self.out_file[:-4]+"_soiling.txt"
+
                 output_file = open(output_name, 'w+', encoding = 'utf-8')
                 output_file.truncate()
                 output_file.write(self.head)       
                 output_file.close()
+
                 # write header
                 with open(output_name, 'a', encoding='utf-8') as f:
                     self.site_info.to_csv(f, header=False, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")            
+
                 output_file.close()
+
                 #write data
                 with open(output_name, 'a', encoding='utf-8') as f:
                     self.data.round(6).to_csv(f, header=True, sep="\t", index=False,
@@ -612,11 +618,13 @@ class sympro_txt_read(object):
 
                 
             if shift_timestamps == True:
+
                 os.makedirs(out_dir, exist_ok=True)
                 file_date = str(self.data.iloc[0]['Timestamp']).replace(" ","_").replace(":",".")[:-3]
                 file_num = self.filename.split("_")[len(self.filename.split("_")) - 2]
                 file_name = "{0}_{1}_{2}_meas.txt".format(self.site_number, file_date, file_num)
                 output_name = os.path.join(out_dir, file_name)
+
                 self.output_name = output_name
                 output_file = open(output_name, 'w+', encoding = 'utf-8')
                 output_file.truncate()
@@ -631,16 +639,21 @@ class sympro_txt_read(object):
                         pass
                     self.site_info.to_csv(f, header=False, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")            
+
                 output_file.close()
+
                 with open(output_name, 'U') as f:
                     text = f.read()
                     while '\t\n' in text:
                         text = text.replace('\t\n','\n')
+
                 with open(output_name, 'w') as f:
                     f.write(text)
+
                 with open(output_name, 'a', encoding='utf-8') as f:
                     self.data.round(6).to_csv(f, header=True, sep="\t", index=False,
                                         index_label=False, line_terminator="\n")
+
                 output_file.close()
                 self.insert_blank_header_rows(output_name)
                 
@@ -649,7 +662,9 @@ class sympro_txt_read(object):
                     output_name = out_file
                 else:
                     output_name = self.out_file[:-4]+"_standard.txt"
+
                 print("\nOutputting file: {0}   ...   ".format(output_name), end="", flush=True)
+
                 try:
                     output_file = open(output_name, 'w+', encoding = 'utf-8')
                     output_file.truncate()
@@ -661,6 +676,7 @@ class sympro_txt_read(object):
                         self.site_info.to_csv(f, header=False, sep="\t", index=False,
                                             index_label=False, line_terminator="\n")            
                     output_file.close()
+
                     #write data
                     with open(output_name, 'a', encoding='utf-8') as f:
                         self.data.round(6).to_csv(f, header=True, sep="\t", index=False,
@@ -668,6 +684,7 @@ class sympro_txt_read(object):
                     output_file.close()
                     self.insert_blank_header_rows(output_name)
                     print("[OK]")
+
                 except Exception as e:
                     print("[FAILED]")
                     print(e)
@@ -726,6 +743,7 @@ class sympro_txt_read(object):
         f_read = open(filename, 'r')
         contents = f_read.readlines()
         f_read.close()
+
         contents[export_parameter_line] = header_section_headings[0] + '\n'
         contents[site_properties_line]  = header_section_headings[1] + '\n'
         contents[logger_history_line]   = header_section_headings[2] + '\n'
@@ -774,6 +792,7 @@ def shift_timestamps(txt_folder="", out_folder="", file_filter="",
         out_dir = out_folder
     else:
         out_dir = os.path.join(txt_folder, "shifted_timestamps")
+
     os.makedirs(out_dir, exist_ok=True)
 
     files = [
@@ -787,6 +806,7 @@ def shift_timestamps(txt_folder="", out_folder="", file_filter="",
     start_time = datetime.now()
     
     for f in files:
+
         try:
             draw_progress_bar(counter, file_count, start_time)
             f = os.path.join(txt_folder, f)
@@ -796,7 +816,9 @@ def shift_timestamps(txt_folder="", out_folder="", file_filter="",
             fut.output_txt_file(shift_timestamps=True, standard=False, out_dir=out_dir, out_file=f)
         except pd.errors.EmptyDataError:
             pass
+
         except Exception as e:
             print(traceback.format_exc())
             pass
+
         counter += 1
