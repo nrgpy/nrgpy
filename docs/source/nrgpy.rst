@@ -44,6 +44,14 @@ nrgpy.ipk2lgr module
    :undoc-members:
    :show-inheritance:
 
+nrgpy.nrg\_api module
+---------------------
+
+.. automodule:: nrgpy.nrg_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 nrgpy.nsd\_functions module
 ---------------------------
 

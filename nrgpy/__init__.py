@@ -4,6 +4,7 @@ from .channel_info_arrays import return_array
 from .convert_rld import local as local_rld, nrg_convert_api
 from .convert_rwd import local as local_rwd
 from .ipk2lgr import ipk2lgr
+from .nrg_api import nrg_api, nrg_api_convert, nrg_api_upload
 #from .nsd_functions import nsd
 from .quality import check_intervals
 from .spidar_txt import spidar_data_read
