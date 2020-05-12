@@ -145,8 +145,10 @@ class nrg_api_upload(nrg_api):
     def upload_file(self):
         if self.progress_bar:
             draw_progress_bar(self.counter, self.raw_count, self.start_time)
+        elif self.raw_count == 1:
+            print("{0} | API | uploading {1} ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'),os.path.basename(self.filename)), end="", flush=True)
         else:
-            print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(self.filename)), end="", flush=True)
+            print("{0} | API | uploading {1}/{2} ... {3} ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(self.filename)), end="", flush=True)
                 
         self.encoded_rld_bytes = self.prepare_file_bytes(self.filename)
         
@@ -155,6 +157,12 @@ class nrg_api_upload(nrg_api):
         }
 
         self.response = requests.request("POST", upload_url, headers=self.headers, data=data)
+
+        if self.progress_bar == False: 
+            if int(self.response.status_code) < 300:
+                print("[OK]")
+            else:
+                print(f"[FAILED] {self.response.status_code}")
 
     
     def upload_directory(self, progress_bar=True):
