@@ -10,9 +10,11 @@ import requests
 import traceback
 import zipfile
 
-# 2020 convert service
-request_token_url = 'https://dataservicesconvert.azurewebsites.net/api/ConvertToken?code=WUO2Dkq5He5Zp9XHddTGuQuNkoF09YWceIVphPhxIFn7hLGH6fvKSA=='
-convert_service_url = 'https://dataservicesconvert.azurewebsites.net/api/Convert?code=rWNCyVxJAtaaMD/cr5otcCiQs8pVUuVlikEG684eibKcBhK/hLju6g=='
+
+retrieve_token_url = 'https://dataservicesapi.azurewebsites.net/api/RetrieveToken?code=y2/bWG4hRNf1E00lWICOp7nqLvpNPOtaiFf9Wq2bi1iUpdyQdjwicQ=='
+convert_url = 'https://dataservicesapi.azurewebsites.net/api/Convert?code=Z6czLero6fQthaM9TZ2DavSN9i7sIeESG/xxGr88JYYoIwypjL/7Uw=='
+upload_url = "https://dataservicesapi.azurewebsites.net/api/Upload?code=YSy3yEeC6aYMNG9setSKvWe9tZAJJYQtXam1tGT7ADg9FTTCaNqFCw=="
+
 token_file = '.nrgpy_token'
 
 
@@ -56,7 +58,7 @@ class nrg_api(object):
         request_token_header = { 'content-type' : 'application/json' }
         request_payload = { 'client_id' : '{}'.format(self.client_id), 'client_secret' : '{}'.format(self.client_secret)}
 
-        resp = requests.post(data=json.dumps(request_payload), headers=request_token_header, url=request_token_url)
+        resp = requests.post(data=json.dumps(request_payload), headers=request_token_header, url=retrieve_token_url)
         self.session_start_time = datetime.now()
 
         if resp.status_code == 200:
@@ -113,6 +115,7 @@ class nrg_api(object):
         file_bytes = base64.encodebytes(open(filename, 'rb').read())
         return file_bytes
 
+
 class nrg_api_upload(nrg_api):
 
     def __init__(self, client_id='', client_secret='', filename='', rld_dir='', site_filter='', site_filter2='', 
@@ -127,7 +130,6 @@ class nrg_api_upload(nrg_api):
         self.start_date = start_date
         self.end_date = end_date
         self.headers = {"Authorization": "Bearer {}".format(self.session_token)}
-        self.upload_url = "https://dataservicesconvert.azurewebsites.net/api/Upload?code=CFl2iIboQvHv7O4kftiUTIaqAaPyjl8k1XR4i6PfPraofqOgBWac9Q=="
  
         if filename:
             self.pad = 1
@@ -135,7 +137,7 @@ class nrg_api_upload(nrg_api):
             self.raw_count = 1
             self.progress_bar=False
             self.start_time = datetime.now()
-            self.upload_file(filename)
+            self.upload_file()
         
         if rld_dir:
             self.upload_directory()
@@ -152,7 +154,7 @@ class nrg_api_upload(nrg_api):
             'filebytes': self.encoded_rld_bytes
         }
 
-        self.response = requests.request("POST", self.upload_url, headers=self.headers, data=data)
+        self.response = requests.request("POST", upload_url, headers=self.headers, data=data)
 
     
     def upload_directory(self, progress_bar=True):
@@ -329,7 +331,7 @@ class nrg_api_convert(nrg_api):
                         'encryptionkey': self.encryption_pass,
                         'columnheaderformat': '',           # not implemented yet
                     }             
-            self.resp=requests.post(data=self.data, url=convert_service_url, headers=headers)
+            self.resp=requests.post(data=self.data, url=convert_url, headers=headers)
 
 
             zipped_data_file = zipfile.ZipFile(io.BytesIO(self.resp.content))
