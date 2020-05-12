@@ -146,7 +146,7 @@ class nrg_api_upload(nrg_api):
         if self.progress_bar:
             draw_progress_bar(self.counter, self.raw_count, self.start_time)
         else:
-            print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(rld)), end="", flush=True)
+            print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(self.filename)), end="", flush=True)
                 
         self.encoded_rld_bytes = self.prepare_file_bytes(self.filename)
         
