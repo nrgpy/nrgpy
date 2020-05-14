@@ -396,6 +396,9 @@ class nrg_api_export(nrg_api):
         path to NEC file for custom export formatting
 
     """
+    from nrgpy.sympro_txt import sympro_txt_read
+
+
     def __init__(self, out_dir='',  
                  serial_number='', site_number='',
                  start_date='2014-01-01', end_date='2150-12-31',
@@ -448,7 +451,7 @@ class nrg_api_export(nrg_api):
                 data_file = z.namelist()[0]
                 z.extractall(self.out_dir)
 
-            reader = nrgpy.sympro_txt_read(filename=os.path.join(self.out_dir, data_file))
+            reader = sympro_txt_read(filename=os.path.join(self.out_dir, data_file))
             reader.format_site_data()
 
             os.remove(self.filepath)
