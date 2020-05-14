@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
       name='nrgpy',
-      version='0.12.3',
+      version='0.12.5',
       description='library for handling NRG Systems data files',
       long_description=long_description,
       long_description_content_type='text/markdown',
@@ -18,7 +18,6 @@ setup(
       ],
       install_requires=[
             'pandas>=0.23',
-            # 'pyodbc;platform_system=="Windows"',
             'requests',
       ],
       python_requires='>=3.0',

@@ -12,7 +12,9 @@ import zipfile
 
 
 retrieve_token_url = 'https://dataservicesapi.azurewebsites.net/api/RetrieveToken?code=y2/bWG4hRNf1E00lWICOp7nqLvpNPOtaiFf9Wq2bi1iUpdyQdjwicQ=='
+
 convert_url = 'https://dataservicesapi.azurewebsites.net/api/Convert?code=Z6czLero6fQthaM9TZ2DavSN9i7sIeESG/xxGr88JYYoIwypjL/7Uw=='
+export_url = 'https://dataservicesapi.azurewebsites.net/api/Export?code=2ZGPXDO8dmHF5IZdm3Qaqrlkf9Gs8930oFeN/MCwX8vcnazvCDkRdg=='
 upload_url = "https://dataservicesapi.azurewebsites.net/api/Upload?code=YSy3yEeC6aYMNG9setSKvWe9tZAJJYQtXam1tGT7ADg9FTTCaNqFCw=="
 
 token_file = '.nrgpy_token'
@@ -338,7 +340,8 @@ class nrg_api_convert(nrg_api):
                         'exportformat': self.export_format, # csv_zipped (default)   | parquet
                         'encryptionkey': self.encryption_pass,
                         'columnheaderformat': '',           # not implemented yet
-                    }             
+                    }        
+
             self.resp=requests.post(data=self.data, url=convert_url, headers=headers)
 
 
@@ -367,3 +370,96 @@ class nrg_api_convert(nrg_api):
             print(e)
             print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
             pass
+
+
+class nrg_api_export(nrg_api):
+    """Uses NRG hosted web-based API to convert RLD files text format
+    To sign up for the service, go to https://services.nrgsystems.com/
+    
+    Parameters
+    ----------
+    out_dir : str
+        path to save exported data
+    out_file : str
+        (optional) filename to save
+    serial_number : str or int
+        serial number of data logger (like, 820612345)
+    site_number : str or int
+        up to 6-digit site number
+    client_id : str
+        provided by NRG Systems
+    client_secret : str
+        provided by NRG Systems
+    save_file : bool
+        (True) whether to save the result to file
+    nec_file : str, optional
+        path to NEC file for custom export formatting
+
+    """
+    def __init__(self, out_dir='',  
+                 serial_number='', site_number='',
+                 start_date='2014-01-01', end_date='2150-12-31',
+                 client_id='', client_secret='', nec_file='',
+                 save_file=True,  **kwargs): 
+
+        super().__init__(client_id, client_secret)
+
+        self.site_number = str(site_number).zfill(6)
+        self.out_file = f'{self.site_number}_{start_date}_{end_date}.zip'.replace(':','.')
+        self.txt_file = self.out_file.replace("zip","txt")
+
+        self.filepath = os.path.join(out_dir,self.out_file)
+        self.out_dir = out_dir
+        affirm_directory(self.out_dir)
+
+        self.serial_number = str(serial_number)[-5:]
+        self.site_number = str(site_number)
+        self.start_date = start_date
+        self.end_date = end_date
+        self.nec_file = nec_file
+        
+        if self.nec_file:
+            self.encoded_nec_bytes = self.prepare_file_bytes(self.nec_file)
+        else:
+            self.encoded_nec_bytes = ''
+        
+        self.save_file = save_file
+        self.reader = self.export()
+       
+
+    def export(self):
+        self.headers = {"Authorization": "Bearer " + self.session_token}
+        
+        self.data = {
+            'serialnumber': self.serial_number,
+            'sitenumber': self.site_number,
+            'startdate': self.start_date, 
+            'enddate': self.end_date,
+            'necfilebytes': self.encoded_nec_bytes
+        } 
+        
+        resp=requests.post(data=self.data, url=export_url, headers=self.headers)
+        
+        if resp.status_code == 200:    
+            with open(self.filepath, 'wb') as f:
+                f.write(resp.content)
+            
+            with zipfile.ZipFile(self.filepath, 'r') as z:
+                data_file = z.namelist()[0]
+                z.extractall(self.out_dir)
+
+            reader = nrgpy.sympro_txt_read(filename=os.path.join(self.out_dir, data_file))
+            reader.format_site_data()
+
+            os.remove(self.filepath)
+            os.remove(os.path.join(self.out_dir, data_file))
+            
+            if self.save_file:
+                self.reader.output_txt_file(standard=True, out_file=os.path.join(self.out_dir, self.txt_file))
+            
+            return reader
+            
+        else:
+            print(resp.status_code)
+            print(resp.reason)
+            return False

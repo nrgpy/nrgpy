@@ -145,13 +145,18 @@ class local(object):
 
             try:
                 subprocess.check_output(['wine',self.sdr_path,'/s','test.rwd'])
+                affirm_directory(os.path.join(self.wine_folder, "NRG/ScaledData"))
+
                 self.sdr_ok = True
-                print('SDR test OK!')
+
                 os.remove(os.path.join(self.wine_folder, "NRG/ScaledData/test.log"))
-            except Exception as e:
+                print('SDR test OK!')
+
+            except:
                 self.sdr_ok = False
                 print('SDR unable to start')
-                print(e)
+                import traceback
+                print(traceback.format_exc())
 
     
     def convert(self):
@@ -237,7 +242,9 @@ class local(object):
             else:
                 print("Converting  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),_f.split("\\")[-1]), end="", flush=True)
 
+
             subprocess.check_output(" ".join(self.cmd), shell=True)
+            # subprocess.run(" ".join(self.cmd), stdout=subprocess.PIPE)
 
             if not self.progress_bar: print("[DONE]")
 
@@ -246,10 +253,10 @@ class local(object):
             except:
                 print('unable to copy {} to text folder'.format(_f))
 
-        except Exception as e:
+        except:
             if not self.progress_bar: print("[FAILED]")
-            print('unable to convert {}. check ScaledData folder for log file'.format(_f))
-            print(e)
+            import traceback
+            print(traceback.format_exc())
 
             
             
@@ -260,10 +267,10 @@ class local(object):
 
             if self.file_filter in f:
                 site_num = f[:4]
-                site_folder = os.path.join(self.RawData,site_num)
+                site_folder = "\\".join([self.RawData,site_num])
 
                 if self.platform == 'linux':
-                    site_folder = os.path.join(self.wine_folder, 'NRG', 'RawData', site_num)
+                    site_folder = ''.join([self.wine_folder,'NRG/RawData/',site_num])
                 try:
                     affirm_directory(site_folder)
                 except:
@@ -271,7 +278,7 @@ class local(object):
                     pass
 
                 try:
-                    shutil.copy(os.path.join(self.dir_paths[0], f), site_folder)                    
+                    shutil.copy("".join([self.dir_paths[0], f]), site_folder)                    
                 except:
                     print('unable to copy file to RawData folder:  {}'.format(f))
 
@@ -283,12 +290,13 @@ class local(object):
             txt_file_name = self._filename.split('\\')[-1][:-4] + '.txt'
             txt_file_path = self.file_path_joiner.join([self.ScaledData,txt_file_name])
             out_path = self.file_path_joiner.join([self.out_dir,txt_file_name])
+
         except:
             print("could not do the needful")
 
         if self.platform == 'linux':
             txt_file_path = os.path.join(self.wine_folder, 'NRG', 'ScaledData',txt_file_name)
-            out_path = linux_folder_path(self.out_dir)
+            out_path = linux_folder_path(self.out_dir) + txt_file_name
 
         try:
             shutil.copy(txt_file_path, out_path)
