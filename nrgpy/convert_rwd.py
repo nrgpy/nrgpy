@@ -104,6 +104,7 @@ class local(object):
 
         if 'site_filter' in kwargs and file_filter == '':
             self.file_filter = kwargs.get('site_filter')
+
         self.rwd_dir = windows_folder_path(rwd_dir) # rwd_dir must be in Windows format, even if using Wine
         self.platform = check_platform()
         self.wine_folder = wine_folder
@@ -131,7 +132,7 @@ class local(object):
             try:
                 os.path.exists(self.sdr_path)
                 self.sdr_ok = True
-                print('SDR test OK!')
+                # print('SDR test OK!')
             except:
                 self.sdr_ok = False
                 print('SDR not installed. Please install SDR or check path.\nhttps://www.nrgsystems.com/support/product-support/software/symphonie-data-retriever-software')
@@ -150,7 +151,7 @@ class local(object):
                 self.sdr_ok = True
 
                 os.remove(os.path.join(self.wine_folder, "NRG/ScaledData/test.log"))
-                print('SDR test OK!')
+                # print('SDR test OK!')
 
             except:
                 self.sdr_ok = False
@@ -190,7 +191,7 @@ class local(object):
         txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt', start_time=self.convert_time)
         log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.convert_time)
 
-        print('\nRWDs in    : {}'.format(self.raw_count))
+        print('\n\nRWDs in    : {}'.format(self.raw_count))
         print('TXTs out   : {}'.format(txt_count))
         print('LOGs out   : {}'.format(log_count))
 
@@ -270,7 +271,8 @@ class local(object):
                 site_folder = "\\".join([self.RawData,site_num])
 
                 if self.platform == 'linux':
-                    site_folder = ''.join([self.wine_folder,'NRG/RawData/',site_num])
+                    site_folder = ''.join([self.wine_folder,'/NRG/RawData/',site_num])
+
                 try:
                     affirm_directory(site_folder)
                 except:
@@ -295,8 +297,8 @@ class local(object):
             print("could not do the needful")
 
         if self.platform == 'linux':
-            txt_file_path = os.path.join(self.wine_folder, 'NRG', 'ScaledData',txt_file_name)
             out_path = linux_folder_path(self.out_dir) + txt_file_name
+            txt_file_path = ''.join([self.wine_folder, '/NRG/ScaledData/',txt_file_name])
 
         try:
             shutil.copy(txt_file_path, out_path)
