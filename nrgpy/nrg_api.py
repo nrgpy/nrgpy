@@ -396,8 +396,6 @@ class nrg_api_export(nrg_api):
         path to NEC file for custom export formatting
 
     """
-    from nrgpy.sympro_txt import sympro_txt_read
-
 
     def __init__(self, out_dir='',  
                  serial_number='', site_number='',
@@ -431,6 +429,8 @@ class nrg_api_export(nrg_api):
        
 
     def export(self):
+        from .sympro_txt import sympro_txt_read
+
         self.headers = {"Authorization": "Bearer " + self.session_token}
         
         self.data = {
