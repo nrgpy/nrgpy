@@ -625,8 +625,10 @@ To sign up for the service, go to <a class="reference external" href="https://se
 <span class="go">        client_id=client_id,</span>
 <span class="go">        client_secret=client_secret,</span>
 <span class="go">    )</span>
-<span class="go">Convert a folder of RLD files to Text with NRG Convert API</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+</pre></div>
+</div>
+<p>Convert a folder of RLD files to Text with NRG Convert API</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">file_filter</span> <span class="o">=</span> <span class="s2">&quot;000175&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rld_directory</span> <span class="o">=</span> <span class="s2">&quot;rlds&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">txt_dir</span> <span class="o">=</span> <span class="s2">&quot;/home/user/data/sympro/000123/txt/&quot;</span>
@@ -680,14 +682,14 @@ times are in logger local time</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p>export object that includes an nrgpy reader object</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>object</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>download 3 days of data with an NEC file applied</p>
+<p>Download 3 days of data with an NEC file applied</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
