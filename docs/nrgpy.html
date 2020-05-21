@@ -614,42 +614,34 @@ To sign up for the service, go to <a class="reference external" href="https://se
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>Convert a single RLD file to Text with NRG Convert API
-&gt;&gt;&gt; import nrgpy
-&gt;&gt;&gt; filename = “/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
-&gt;&gt;&gt; client_id = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
-&gt;&gt;&gt; client_secret = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
-&gt;&gt;&gt; converter = nrgpy.nrg_api_convert(</p>
-<blockquote>
-<div><blockquote>
-<div><p>file_filter=file_filter,
-filename=filename,
-client_id=client_id,
-client_secret=client_secret,</p>
-</div></blockquote>
-<p>)</p>
-</div></blockquote>
-<p>Convert a folder of RLD files to Text with NRG Convert API
-&gt;&gt;&gt; import nrgpy
-&gt;&gt;&gt; file_filter = “000175”
-&gt;&gt;&gt; rld_directory = “rlds”
-&gt;&gt;&gt; txt_dir = “/home/user/data/sympro/000123/txt/”
-&gt;&gt;&gt; client_id = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
-&gt;&gt;&gt; client_secret = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
-&gt;&gt;&gt; converter = nrgpy.nrg_api_convert(</p>
-<blockquote>
-<div><blockquote>
-<div><p>file_filter=file_filter,
-rld_dir=rld_directory,
-out_dir=txt_dir,
-client_id=client_id,
-client_secret=client_secret,
-start_date=”2020-01-01”,
-end_date=”2020-01-31”,</p>
-</div></blockquote>
-<p>)</p>
-</div></blockquote>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+<p>Convert a single RLD file to Text with NRG Convert API</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">nrg_api_convert</span><span class="p">(</span>
+<span class="go">        file_filter=file_filter,</span>
+<span class="go">        filename=filename,</span>
+<span class="go">        client_id=client_id,</span>
+<span class="go">        client_secret=client_secret,</span>
+<span class="go">    )</span>
+<span class="go">Convert a folder of RLD files to Text with NRG Convert API</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_filter</span> <span class="o">=</span> <span class="s2">&quot;000175&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rld_directory</span> <span class="o">=</span> <span class="s2">&quot;rlds&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">txt_dir</span> <span class="o">=</span> <span class="s2">&quot;/home/user/data/sympro/000123/txt/&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">nrg_api_convert</span><span class="p">(</span>
+<span class="go">        file_filter=file_filter,</span>
+<span class="go">        rld_dir=rld_directory,</span>
+<span class="go">        out_dir=txt_dir,</span>
+<span class="go">        client_id=client_id,</span>
+<span class="go">        client_secret=client_secret,</span>
+<span class="go">        start_date=&quot;2020-01-01&quot;,</span>
+<span class="go">        end_date=&quot;2020-01-31&quot;,</span>
+<span class="go">    )</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
 </pre></div>
 </div>
 <dl class="py method">
@@ -695,26 +687,22 @@ times are in logger local time</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>download 3 days of data with an NEC file applied
-&gt;&gt;&gt; import nrgpy
-&gt;&gt;&gt; client_id = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
-&gt;&gt;&gt; client_secret = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
-&gt;&gt;&gt; exporter = nrgpy.nrg_api_export(</p>
-<blockquote>
-<div><blockquote>
-<div><p>client_id=client_id,
-client_secret=client_secret,
-out_dir=txt_dir,
-nec_file=’12vbat.nec’,
-site_number=6,
-serial_number=820600019,
-start_date=”2020-05-01”,
-end_date=”2020-05-03”,
-save_file=False</p>
-</div></blockquote>
-<p>)</p>
-</div></blockquote>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">exporter</span><span class="o">.</span><span class="n">reader</span>
+<p>download 3 days of data with an NEC file applied</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exporter</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">nrg_api_export</span><span class="p">(</span>
+<span class="go">        client_id=client_id,</span>
+<span class="go">        client_secret=client_secret,</span>
+<span class="go">        out_dir=txt_dir,</span>
+<span class="go">        nec_file=&#39;12vbat.nec&#39;,</span>
+<span class="go">        site_number=6,</span>
+<span class="go">        serial_number=820600019,</span>
+<span class="go">        start_date=&quot;2020-05-01&quot;,</span>
+<span class="go">        end_date=&quot;2020-05-03&quot;,</span>
+<span class="go">        save_file=False</span>
+<span class="go">    )</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">exporter</span><span class="o">.</span><span class="n">reader</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">format_site_data</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">reader</span><span class="p">:</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Site number               : </span><span class="si">{</span><span class="n">reader</span><span class="o">.</span><span class="n">site_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>

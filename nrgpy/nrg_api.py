@@ -225,6 +225,7 @@ class nrg_api_convert(nrg_api):
     Examples
     --------
     Convert a single RLD file to Text with NRG Convert API
+    
     >>> import nrgpy
     >>> filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
     >>> client_id = "contact support@nrgsystems.com for access"
@@ -410,6 +411,7 @@ class nrg_api_export(nrg_api):
     Examples
     --------
     download 3 days of data with an NEC file applied
+
     >>> import nrgpy
     >>> client_id = "contact support@nrgsystems.com for access"
     >>> client_secret = "contact support@nrgsystems.com for access"
