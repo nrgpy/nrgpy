@@ -221,29 +221,31 @@ class nrg_api_convert(nrg_api):
         path to NEC file for custom export formatting
     export_type : str
         [meas], samples, diag, comm
+
     Examples
     --------
     Convert a single RLD file to Text with NRG Convert API
-    >>> from nrgpy.convert_rld import nrg_convert_api
+    >>> import nrgpy
     >>> filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
-    >>> txt_dir = "/home/user/data/sympro/000123/txt/"
     >>> client_id = "contact support@nrgsystems.com for access"
     >>> client_secret = "contact support@nrgsystems.com for access"
-    >>> converter = nrg_convert_api(
+    >>> converter = nrgpy.nrg_api_convert(
             file_filter=file_filter, 
             filename=filename, 
             client_id=client_id,
             client_secret=client_secret,
         ) 
     Convert a folder of RLD files to Text with NRG Convert API
-    >>> from nrgpy.convert_rld import nrg_convert_api
+    >>> import nrgpy
     >>> file_filter = "000175"
     >>> rld_directory = "rlds"
+    >>> txt_dir = "/home/user/data/sympro/000123/txt/"
     >>> client_id = "contact support@nrgsystems.com for access"
     >>> client_secret = "contact support@nrgsystems.com for access"
-    >>> converter = nrg_convert_api(
+    >>> converter = nrgpy.nrg_api_convert(
             file_filter=file_filter, 
             rld_dir=rld_directory, 
+            out_dir=txt_dir,
             client_id=client_id,
             client_secret=client_secret,
             start_date="2020-01-01",
@@ -373,7 +375,7 @@ class nrg_api_convert(nrg_api):
 
 
 class nrg_api_export(nrg_api):
-    """Uses NRG hosted web-based API to convert RLD files text format
+    """Uses NRG hosted web-based API to download data in text format
     To sign up for the service, go to https://services.nrgsystems.com/
     
     Parameters
@@ -386,6 +388,12 @@ class nrg_api_export(nrg_api):
         serial number of data logger (like, 820612345)
     site_number : str or int
         up to 6-digit site number
+    start_date : str
+        "YYYY-MM-DD HH:MM:SS" format, if just date it will return the whole day
+        times are in logger local time
+    end_date : str
+        "YYYY-MM-DD HH:MM:SS" format, if just date it will return the whole day
+        times are in logger local time
     client_id : str
         provided by NRG Systems
     client_secret : str
@@ -395,11 +403,40 @@ class nrg_api_export(nrg_api):
     nec_file : str, optional
         path to NEC file for custom export formatting
 
+    Returns
+    -------
+    object
+
+    Examples
+    --------
+    download 3 days of data with an NEC file applied
+    >>> import nrgpy
+    >>> client_id = "contact support@nrgsystems.com for access"
+    >>> client_secret = "contact support@nrgsystems.com for access"
+    >>> exporter = nrgpy.nrg_api_export(
+            client_id=client_id, 
+            client_secret=client_secret, 
+            out_dir=txt_dir, 
+            nec_file='12vbat.nec',
+            site_number=6, 
+            serial_number=820600019, 
+            start_date="2020-05-01", 
+            end_date="2020-05-03",
+            save_file=False       
+        )
+    >>> reader = exporter.reader
+    >>> reader.format_site_data()
+    >>> if reader:
+    >>>     print(f"Site number               : {reader.site_number}")
+    >>>     print(f"Site description          : {reader.site_description}")
+    >>>     reader.interval_check = nrgpy.check_intervals(reader.data)
+    >>> else:
+    >>>     print("unable to get reader")
     """
 
     def __init__(self, out_dir='',  
                  serial_number='', site_number='',
-                 start_date='2014-01-01', end_date='2150-12-31',
+                 start_date='2014-01-01', end_date='2023-12-31',
                  client_id='', client_secret='', nec_file='',
                  save_file=True,  **kwargs): 
 

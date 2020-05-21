@@ -615,12 +615,11 @@ To sign up for the service, go to <a class="reference external" href="https://se
 </dl>
 <p class="rubric">Examples</p>
 <p>Convert a single RLD file to Text with NRG Convert API
-&gt;&gt;&gt; from nrgpy.convert_rld import nrg_convert_api
+&gt;&gt;&gt; import nrgpy
 &gt;&gt;&gt; filename = “/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
-&gt;&gt;&gt; txt_dir = “/home/user/data/sympro/000123/txt/”
 &gt;&gt;&gt; client_id = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
 &gt;&gt;&gt; client_secret = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
-&gt;&gt;&gt; converter = nrg_convert_api(</p>
+&gt;&gt;&gt; converter = nrgpy.nrg_api_convert(</p>
 <blockquote>
 <div><blockquote>
 <div><p>file_filter=file_filter,
@@ -631,16 +630,18 @@ client_secret=client_secret,</p>
 <p>)</p>
 </div></blockquote>
 <p>Convert a folder of RLD files to Text with NRG Convert API
-&gt;&gt;&gt; from nrgpy.convert_rld import nrg_convert_api
+&gt;&gt;&gt; import nrgpy
 &gt;&gt;&gt; file_filter = “000175”
 &gt;&gt;&gt; rld_directory = “rlds”
+&gt;&gt;&gt; txt_dir = “/home/user/data/sympro/000123/txt/”
 &gt;&gt;&gt; client_id = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
 &gt;&gt;&gt; client_secret = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
-&gt;&gt;&gt; converter = nrg_convert_api(</p>
+&gt;&gt;&gt; converter = nrgpy.nrg_api_convert(</p>
 <blockquote>
 <div><blockquote>
 <div><p>file_filter=file_filter,
 rld_dir=rld_directory,
+out_dir=txt_dir,
 client_id=client_id,
 client_secret=client_secret,
 start_date=”2020-01-01”,
@@ -665,9 +666,9 @@ end_date=”2020-01-31”,</p>
 
 <dl class="py class">
 <dt id="nrgpy.nrg_api.nrg_api_export">
-<em class="property">class </em><code class="sig-prename descclassname">nrgpy.nrg_api.</code><code class="sig-name descname">nrg_api_export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">out_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">serial_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">site_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">'2014-01-01'</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">'2150-12-31'</span></em>, <em class="sig-param"><span class="n">client_id</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">client_secret</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">nec_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">save_file</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.nrg_api.nrg_api_export" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">nrgpy.nrg_api.</code><code class="sig-name descname">nrg_api_export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">out_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">serial_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">site_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">'2014-01-01'</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">'2023-12-31'</span></em>, <em class="sig-param"><span class="n">client_id</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">client_secret</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">nec_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">save_file</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.nrg_api.nrg_api_export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#nrgpy.nrg_api.nrg_api" title="nrgpy.nrg_api.nrg_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.nrg_api.nrg_api</span></code></a></p>
-<p>Uses NRG hosted web-based API to convert RLD files text format
+<p>Uses NRG hosted web-based API to download data in text format
 To sign up for the service, go to <a class="reference external" href="https://services.nrgsystems.com/">https://services.nrgsystems.com/</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -676,13 +677,53 @@ To sign up for the service, go to <a class="reference external" href="https://se
 <li><p><strong>out_file</strong> (<em>str</em>) – (optional) filename to save</p></li>
 <li><p><strong>serial_number</strong> (<em>str</em><em> or </em><em>int</em>) – serial number of data logger (like, 820612345)</p></li>
 <li><p><strong>site_number</strong> (<em>str</em><em> or </em><em>int</em>) – up to 6-digit site number</p></li>
+<li><p><strong>start_date</strong> (<em>str</em>) – “YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
+times are in logger local time</p></li>
+<li><p><strong>end_date</strong> (<em>str</em>) – “YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
+times are in logger local time</p></li>
 <li><p><strong>client_id</strong> (<em>str</em>) – provided by NRG Systems</p></li>
 <li><p><strong>client_secret</strong> (<em>str</em>) – provided by NRG Systems</p></li>
 <li><p><strong>save_file</strong> (<em>bool</em>) – (True) whether to save the result to file</p></li>
 <li><p><strong>nec_file</strong> (<em>str</em><em>, </em><em>optional</em>) – path to NEC file for custom export formatting</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>download 3 days of data with an NEC file applied
+&gt;&gt;&gt; import nrgpy
+&gt;&gt;&gt; client_id = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
+&gt;&gt;&gt; client_secret = “contact <a class="reference external" href="mailto:support&#37;&#52;&#48;nrgsystems&#46;com">support<span>&#64;</span>nrgsystems<span>&#46;</span>com</a> for access”
+&gt;&gt;&gt; exporter = nrgpy.nrg_api_export(</p>
+<blockquote>
+<div><blockquote>
+<div><p>client_id=client_id,
+client_secret=client_secret,
+out_dir=txt_dir,
+nec_file=’12vbat.nec’,
+site_number=6,
+serial_number=820600019,
+start_date=”2020-05-01”,
+end_date=”2020-05-03”,
+save_file=False</p>
+</div></blockquote>
+<p>)</p>
+</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">exporter</span><span class="o">.</span><span class="n">reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">format_site_data</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">reader</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Site number               : </span><span class="si">{</span><span class="n">reader</span><span class="o">.</span><span class="n">site_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Site description          : </span><span class="si">{</span><span class="n">reader</span><span class="o">.</span><span class="n">site_description</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">reader</span><span class="o">.</span><span class="n">interval_check</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">check_intervals</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">else</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unable to get reader&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt id="nrgpy.nrg_api.nrg_api_export.export">
 <code class="sig-name descname">export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.nrg_api.nrg_api_export.export" title="Permalink to this definition">¶</a></dt>
