@@ -1,4 +1,4 @@
-def check_intervals(df, verbose=True, return_info=False, show_all_missing_timestamps=False):
+def check_intervals(df, verbose=True, return_info=False, show_all_missing_timestamps=False, interval=''):
     """checks for missing intervals in a pandas dataframe with a "Timestamp" column
     
     Parameters
@@ -6,7 +6,7 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
     df : object
         the dataframe to be checked
     interval : int
-         default, 600; the averaging interval in seconds
+         [deprecated] the averaging interval in seconds
     verbose : bool
         print results to terminal; False to skip
     return_info : bool
