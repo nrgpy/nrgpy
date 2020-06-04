@@ -132,7 +132,7 @@ class local(object):
             try:
                 os.path.exists(self.sdr_path)
                 self.sdr_ok = True
-                # print('SDR test OK!')
+
             except:
                 self.sdr_ok = False
                 print('SDR not installed. Please install SDR or check path.\nhttps://www.nrgsystems.com/support/product-support/software/symphonie-data-retriever-software')
@@ -151,7 +151,7 @@ class local(object):
                 self.sdr_ok = True
 
                 os.remove(os.path.join(self.wine_folder, "NRG/ScaledData/test.log"))
-                # print('SDR test OK!')
+
 
             except:
                 self.sdr_ok = False
@@ -163,10 +163,9 @@ class local(object):
     def convert(self):
         """process rwd files
         
-        1 - create list of RWD files that match filtering
-        2 - copy RWD files to RawData directory
-        3 - create out_dir if necessary
-        4 - iterate through files
+        create list of RWD files that match filtering
+        copy RWD files to RawData directory
+        iterate through files
         """
         affirm_directory(self.out_dir)
 
@@ -188,18 +187,19 @@ class local(object):
                 print('file conversion failed on {}'.format(self._filename))
             self.counter += 1
 
-        txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt', start_time=self.convert_time)
-        log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.convert_time)
+        if self.raw_countounter > 1:
+            txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt', start_time=self.convert_time)
+            log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.convert_time)
 
-        print('\n\nRWDs in    : {}'.format(self.raw_count))
-        print('TXTs out   : {}'.format(txt_count))
-        print('LOGs out   : {}'.format(log_count))
+            print('\n\nRWDs in    : {}'.format(self.raw_count))
+            print('TXTs out   : {}'.format(txt_count))
+            print('LOGs out   : {}'.format(log_count))
 
-        if len(log_files) > 0:
-            print('Log files created:')
-            for _filename in log_files:
-                print('\t{}'.format(_filename))
-        print('----------------\nDifference : {}'.format(self.raw_count - (txt_count + log_count)))
+            if len(log_files) > 0:
+                print('Log files created:')
+                for _filename in log_files:
+                    print('\t{}'.format(_filename))
+            print('----------------\nDifference : {}'.format(self.raw_count - (txt_count + log_count)))
 
 
     def _list_files(self):
@@ -216,7 +216,7 @@ class local(object):
         for dirpath, subdirs, files in os.walk(walk_path):
             self.dir_paths.append(dirpath)
             for x in files:
-                if x.startswith(self.file_filter) and x.lower().endswith('.rwd'):
+                if x.startswith(self.file_filter) and x.lower().endswith('rwd'):
                     self.rwd_file_list.append(x)
 
 
@@ -268,7 +268,7 @@ class local(object):
 
             if self.file_filter in f:
                 site_num = f[:4]
-                site_folder = "\\".join([self.RawData,site_num])
+                site_folder = os.path.join(self.RawData,site_num)
 
                 if self.platform == 'linux':
                     site_folder = ''.join([self.wine_folder,'/NRG/RawData/',site_num])
@@ -280,7 +280,7 @@ class local(object):
                     pass
 
                 try:
-                    shutil.copy("".join([self.dir_paths[0], f]), site_folder)                    
+                    shutil.copy(os.path.join(self.rwd_dir, f), os.path.join(site_folder))                    
                 except:
                     print('unable to copy file to RawData folder:  {}'.format(f))
 
@@ -289,8 +289,8 @@ class local(object):
         """copy TXT file from self.ScaledData to self.out_dir"""
 
         try:
-            txt_file_name = self._filename.split('\\')[-1][:-4] + '.txt'
-            txt_file_path = self.file_path_joiner.join([self.ScaledData,txt_file_name])
+            txt_file_name = os.path.basename(self._filename)[:-4] + '.txt'
+            txt_file_path = os.path.join(self.ScaledData,txt_file_name)
             out_path = self.file_path_joiner.join([self.out_dir,txt_file_name])
 
         except:
