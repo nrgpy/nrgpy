@@ -404,7 +404,7 @@ a local installation of SymphoniePRO Desktop software</p>
 <span id="nrgpy-convert-rwd-module"></span><h2>nrgpy.convert_rwd module<a class="headerlink" href="#module-nrgpy.convert_rwd" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="nrgpy.convert_rwd.local">
-<em class="property">class </em><code class="sig-prename descclassname">nrgpy.convert_rwd.</code><code class="sig-name descname">local</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rwd_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">out_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">encryption_pin</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">sdr_path</span><span class="o">=</span><span class="default_value">'C:/NRG/SymDR/SDR.exe'</span></em>, <em class="sig-param"><span class="n">convert_type</span><span class="o">=</span><span class="default_value">'meas'</span></em>, <em class="sig-param"><span class="n">file_filter</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">wine_folder</span><span class="o">=</span><span class="default_value">'~/.wine/drive_c/'</span></em>, <em class="sig-param"><span class="n">use_site_file</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">raw_mode</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">progress_bar</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rwd.local" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">nrgpy.convert_rwd.</code><code class="sig-name descname">local</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rwd_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">out_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">encryption_pin</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">sdr_path</span><span class="o">=</span><span class="default_value">'C:/NRG/SymDR/SDR.exe'</span></em>, <em class="sig-param"><span class="n">convert_type</span><span class="o">=</span><span class="default_value">'meas'</span></em>, <em class="sig-param"><span class="n">file_filter</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">wine_folder</span><span class="o">=</span><span class="default_value">'~/.wine/drive_c/'</span></em>, <em class="sig-param"><span class="n">use_site_file</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">raw_mode</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">progress_bar</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">show_result</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rwd.local" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>nrgpy.convert_rwd.local - use local installation of Symphonie Data Retriever (SDR)
 to convert <a href="#id5"><span class="problematic" id="id6">*</span></a>.RWD files to <a href="#id7"><span class="problematic" id="id8">*</span></a>.TXT</p>
@@ -421,6 +421,7 @@ to convert <a href="#id5"><span class="problematic" id="id6">*</span></a>.RWD fi
 <li><p><strong>use_site_file</strong> (<em>bool</em>) – set to True to use local site file</p></li>
 <li><p><strong>raw_mode</strong> (<em>bool</em>) – set to True to convert raw counts and voltages</p></li>
 <li><p><strong>progress_bar</strong> (<em>bool</em>) – set to False to see individual file conversions</p></li>
+<li><p><strong>show_result</strong> (<em>bool</em>) – set to False to hide prints to console</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -477,10 +478,9 @@ in the ‘’’SDR_Linux_README.md’’’ file.</p>
 <dt id="nrgpy.convert_rwd.local.convert">
 <code class="sig-name descname">convert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert_rwd.local.convert" title="Permalink to this definition">¶</a></dt>
 <dd><p>process rwd files</p>
-<p>1 - create list of RWD files that match filtering
-2 - copy RWD files to RawData directory
-3 - create out_dir if necessary
-4 - iterate through files</p>
+<p>create list of RWD files that match filtering
+copy RWD files to RawData directory
+iterate through files</p>
 </dd></dl>
 
 </dd></dl>

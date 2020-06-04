@@ -36,6 +36,8 @@ class local(object):
         set to True to convert raw counts and voltages
     progress_bar : bool
         set to False to see individual file conversions
+    show_result : bool
+        set to False to hide prints to console
 
     Returns
     -------
@@ -82,7 +84,7 @@ class local(object):
                  sdr_path=r'C:/NRG/SymDR/SDR.exe',
                  convert_type='meas', file_filter='', 
                  wine_folder='~/.wine/drive_c/', 
-                 use_site_file=False, raw_mode=False, progress_bar=True, **kwargs):
+                 use_site_file=False, raw_mode=False, progress_bar=True, show_result=True, **kwargs):
 
         if encryption_pin != '':
             self.command_switch = '/z' # noqueue with pin
@@ -106,6 +108,7 @@ class local(object):
             self.file_filter = kwargs.get('site_filter')
 
         self.rwd_dir = windows_folder_path(rwd_dir) # rwd_dir must be in Windows format, even if using Wine
+        self.show_result = show_result
         self.platform = check_platform()
         self.wine_folder = wine_folder
         self.check_sdr()
@@ -187,7 +190,7 @@ class local(object):
                 print('file conversion failed on {}'.format(self._filename))
             self.counter += 1
 
-        if self.raw_countounter > 1:
+        if self.raw_count > 1:
             txt_count = count_files(self.out_dir, self.file_filter.split(".")[0], 'txt', start_time=self.convert_time)
             log_count, log_files = count_files(self.out_dir, self.file_filter, 'log', show_files=True, start_time=self.convert_time)
 
@@ -237,17 +240,18 @@ class local(object):
         self.cmd = [wine, '"'+self.sdr_path+'"', self.command_switch, self.encryption_pin, '"'+_f+'"']
 
         try:
-            if self.progress_bar:
-                draw_progress_bar(self.counter, self.raw_count, self.start_time)
+            if self.show_result:
+                if self.progress_bar:
+                    draw_progress_bar(self.counter, self.raw_count, self.start_time)
 
-            else:
-                print("Converting  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),_f.split("\\")[-1]), end="", flush=True)
+                else:
+                    print("Converting  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),_f.split("\\")[-1]), end="", flush=True)
 
 
             subprocess.check_output(" ".join(self.cmd), shell=True)
             # subprocess.run(" ".join(self.cmd), stdout=subprocess.PIPE)
 
-            if not self.progress_bar: print("[DONE]")
+            if not self.progress_bar and not self.show_result: print("[DONE]")
 
             try:
                 self._copy_txt_file()
@@ -255,7 +259,7 @@ class local(object):
                 print('unable to copy {} to text folder'.format(_f))
 
         except:
-            if not self.progress_bar: print("[FAILED]")
+            if not self.progress_bar and not self.show_result: print("[FAILED]")
             import traceback
             print(traceback.format_exc())
 
