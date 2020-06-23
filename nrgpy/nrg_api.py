@@ -13,6 +13,7 @@ import zipfile
 
 retrieve_token_url = 'https://dataservicesapi.azurewebsites.net/api/RetrieveToken?code=y2/bWG4hRNf1E00lWICOp7nqLvpNPOtaiFf9Wq2bi1iUpdyQdjwicQ=='
 
+data_catalog_url = 'https://dataservicesapi.azurewebsites.net/api/DataCatalog'
 convert_url = 'https://dataservicesapi.azurewebsites.net/api/Convert?code=Z6czLero6fQthaM9TZ2DavSN9i7sIeESG/xxGr88JYYoIwypjL/7Uw=='
 export_url = 'https://dataservicesapi.azurewebsites.net/api/Export?code=2ZGPXDO8dmHF5IZdm3Qaqrlkf9Gs8930oFeN/MCwX8vcnazvCDkRdg=='
 upload_url = "https://dataservicesapi.azurewebsites.net/api/Upload?code=YSy3yEeC6aYMNG9setSKvWe9tZAJJYQtXam1tGT7ADg9FTTCaNqFCw=="
@@ -116,6 +117,93 @@ class nrg_api(object):
     def prepare_file_bytes(self, filename=''):
         file_bytes = base64.encodebytes(open(filename, 'rb').read())
         return file_bytes
+
+
+class nrg_api_catalog(nrg_api):
+    """Uses NRG hosted web-based API to catalog of available data in text format
+    To sign up for the service, go to https://services.nrgsystems.com/
+    
+    Parameters
+    ----------
+    out_dir : str
+        path to save exported data
+    out_file : str
+        (optional) filename to save
+    serial_number : str or int
+        serial number of data logger (like, 820612345)
+    site_number : str or int
+        up to 6-digit site number
+    start_date : str
+        "YYYY-MM-DD HH:MM:SS" format, if just date it will return the whole day
+        times are in logger local time
+    end_date : str
+        "YYYY-MM-DD HH:MM:SS" format, if just date it will return the whole day
+        times are in logger local time
+    client_id : str
+        provided by NRG Systems
+    client_secret : str
+        provided by NRG Systems
+    save_file : bool
+        (True) whether to save the result to file
+    
+    Returns
+    -------
+    object
+        export object 
+    Examples
+    --------
+    Check for available data files for site number 6
+    >>> import nrgpy
+    >>> client_id = "contact support@nrgsystems.com for access"
+    >>> client_secret = "contact support@nrgsystems.com for access"
+    >>> catalog = nrgpy.nrg_api_catalog(
+            client_id=client_id, 
+            client_secret=client_secret, 
+            site_number=6, 
+            serial_number=820600019, 
+            start_date="2020-05-01", 
+            end_date="2020-05-03",
+            save_file=False       
+        )
+    """
+
+
+    def __init__(self, 
+                 serial_number='', site_number='',
+                 start_date='2014-01-01', end_date='2023-12-31',
+                 client_id='', client_secret='', 
+                 **kwargs): 
+        super().__init__(client_id, client_secret)
+        self.site_number = str(site_number).zfill(6)
+        self.serial_number = str(serial_number)[-5:]
+        self.site_number = str(site_number)
+        self.start_date = start_date
+        self.end_date = end_date
+        self.data_catalog()
+
+
+    def data_catalog(self):
+        import pandas as pd
+
+        self.headers = {"Authorization": "Bearer " + self.session_token}
+        
+        self.data = {
+            'loggerserialnumber': self.serial_number,
+            'sitenumber': self.site_number,
+            'startdate': self.start_date, 
+            'enddate': self.end_date,
+         } 
+        
+        resp=requests.post(data=self.data, url=data_catalog_url, headers=self.headers)
+        if resp.status_code == 200:    
+            self.f = json.loads(resp.content)
+            self.json = json.dumps(self.f, indent=2, sort_keys=True)
+            self.df = pd.read_json(self.json)
+                        
+        else:
+            print(resp.status_code)
+            print(resp.reason)
+            return False
 
 
 class nrg_api_upload(nrg_api):
