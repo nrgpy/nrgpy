@@ -92,7 +92,18 @@ class read_text_data(object):
         
 
     def concat(self, output_txt=False, out_file='', file_filter='', filter2='', progress_bar=True):
-        """combine exported rwd files (in txt format)"""
+        """combine exported rwd files (in txt format)
+        
+        parameters
+        ----------
+        output_txt : bool
+            set to True to save a concatenated text file
+        out_file : str
+            filename (will be saved to self.txt_dir)
+        file_filter : str
+        filter2 : str
+        progress_bar : bool
+        """
         self.file_filter = file_filter
 
         if self.filter2 == '':
@@ -151,11 +162,11 @@ class read_text_data(object):
                 pass
             self.counter += 1
 
-        if output_txt == True:
+        if self.output_txt == True:
 
             if out_file == "":
                 out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
-            base.data.to_csv(txt_dir + out_file, sep=',', index=False)
+            base.data.to_csv(os.path.join(self.txt_dir, out_file), sep=',', index=False)
             self.out_file = out_file
 
         try:
@@ -190,7 +201,7 @@ class read_text_data(object):
                                      header=[0,1], encoding='ISO-8859-1', 
                                      error_bad_lines=False, warn_bad_lines=False) #usecols=[0,1],
 
-        if self.data_type == "symplus3":
+        if self.data_type.lower() in ["symplus3", "sp3", "rwd", "4941"]:
             self.site_info.reset_index(inplace=True) # , drop=True) works, but only for spro
             self.format_rwd_site_data()
         #self.site_info = self.site_info.iloc[:self.site_info.iloc[self.site_info[0]==self.header_sections['data_header']].index.tolist()[0]+1]
