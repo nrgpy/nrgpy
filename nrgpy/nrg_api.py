@@ -29,13 +29,13 @@ class nrg_api(object):
     def __init__(self, client_id='', client_secret=''):
         self.client_id = client_id
         self.client_secret = client_secret
-        
+
         if self.client_id and self.client_secret:
             self.maintain_session_token()
         else:
             print('[Access error] Valid credentials are required.\nPlease contact support@nrgsystems.com or visit \nhttps://services.nrgsystems.com for API access')
-        
-    
+
+
     def request_session_token(self):
         """generates a new session token for convert service api
 
@@ -112,8 +112,8 @@ class nrg_api(object):
         except:
             self.request_session_token()
             self.save_token()
-    
-    
+
+
     def prepare_file_bytes(self, filename=''):
         file_bytes = base64.encodebytes(open(filename, 'rb').read())
         return file_bytes
@@ -122,13 +122,9 @@ class nrg_api(object):
 class nrg_api_catalog(nrg_api):
     """Uses NRG hosted web-based API to catalog of available data in text format
     To sign up for the service, go to https://services.nrgsystems.com/
-    
+
     Parameters
     ----------
-    out_dir : str
-        path to save exported data
-    out_file : str
-        (optional) filename to save
     serial_number : str or int
         serial number of data logger (like, 820612345)
     site_number : str or int
@@ -143,36 +139,37 @@ class nrg_api_catalog(nrg_api):
         provided by NRG Systems
     client_secret : str
         provided by NRG Systems
-    save_file : bool
-        (True) whether to save the result to file
-    
+
     Returns
     -------
     object
-        export object 
+        export object
+
     Examples
     --------
     Check for available data files for site number 6
+
     >>> import nrgpy
     >>> client_id = "contact support@nrgsystems.com for access"
     >>> client_secret = "contact support@nrgsystems.com for access"
     >>> catalog = nrgpy.nrg_api_catalog(
-            client_id=client_id, 
-            client_secret=client_secret, 
-            site_number=6, 
-            serial_number=820600019, 
-            start_date="2020-05-01", 
+            client_id=client_id,
+            client_secret=client_secret,
+            site_number=6,
+            serial_number=820600019,
+            start_date="2020-05-01",
             end_date="2020-05-03",
-            save_file=False       
+            save_file=False
         )
+
     """
 
 
-    def __init__(self, 
+    def __init__(self,
                  serial_number='', site_number='',
                  start_date='2014-01-01', end_date='2023-12-31',
-                 client_id='', client_secret='', 
-                 **kwargs): 
+                 client_id='', client_secret='',
+                 **kwargs):
         super().__init__(client_id, client_secret)
         self.site_number = str(site_number).zfill(6)
         self.serial_number = str(serial_number)[-5:]
@@ -186,20 +183,20 @@ class nrg_api_catalog(nrg_api):
         import pandas as pd
 
         self.headers = {"Authorization": "Bearer " + self.session_token}
-        
+
         self.data = {
             'loggerserialnumber': self.serial_number,
             'sitenumber': self.site_number,
-            'startdate': self.start_date, 
+            'startdate': self.start_date,
             'enddate': self.end_date,
-         } 
-        
+         }
+
         resp=requests.post(data=self.data, url=data_catalog_url, headers=self.headers)
-        if resp.status_code == 200:    
+        if resp.status_code == 200:
             self.f = json.loads(resp.content)
             self.json = json.dumps(self.f, indent=2, sort_keys=True)
             self.df = pd.read_json(self.json)
-                        
+
         else:
             print(resp.status_code)
             print(resp.reason)
@@ -208,11 +205,11 @@ class nrg_api_catalog(nrg_api):
 
 class nrg_api_upload(nrg_api):
 
-    def __init__(self, client_id='', client_secret='', filename='', rld_dir='', site_filter='', site_filter2='', 
+    def __init__(self, client_id='', client_secret='', filename='', rld_dir='', site_filter='', site_filter2='',
                 start_date='1970-01-01', end_date='2150-12-31'):
-        
+
         super().__init__(client_id, client_secret)
-        
+
         self.filename = filename
         self.rld_dir = rld_dir
         self.site_filter = site_filter
@@ -220,7 +217,7 @@ class nrg_api_upload(nrg_api):
         self.start_date = start_date
         self.end_date = end_date
         self.headers = {"Authorization": "Bearer {}".format(self.session_token)}
- 
+
         if filename:
             self.pad = 1
             self.counter = 1
@@ -228,10 +225,10 @@ class nrg_api_upload(nrg_api):
             self.progress_bar=False
             self.start_time = datetime.now()
             self.upload_file()
-        
+
         if rld_dir:
             self.upload_directory()
-    
+
     def upload_file(self):
         if self.progress_bar:
             draw_progress_bar(self.counter, self.raw_count, self.start_time)
@@ -239,26 +236,26 @@ class nrg_api_upload(nrg_api):
             print("{0} | API | uploading {1} ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'),os.path.basename(self.filename)), end="", flush=True)
         else:
             print("{0} | API | uploading {1}/{2} ... {3} ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(self.filename)), end="", flush=True)
-                
+
         self.encoded_rld_bytes = self.prepare_file_bytes(self.filename)
-        
+
         data = {
             'filebytes': self.encoded_rld_bytes
         }
 
         self.response = requests.request("POST", upload_url, headers=self.headers, data=data)
 
-        if self.progress_bar == False: 
+        if self.progress_bar == False:
             if int(self.response.status_code) < 300:
                 print("[OK]")
             else:
                 print(f"[FAILED] {self.response.status_code}")
 
-    
+
     def upload_directory(self, progress_bar=True):
         self.progress_bar = progress_bar
         self.start_time = datetime.now()
-        
+
         self.files = [
             f for f in sorted(glob.glob(self.rld_dir + '*.rld'))\
             if self.site_filter in f and self.site_filter2 in f\
@@ -268,7 +265,7 @@ class nrg_api_upload(nrg_api):
         self.raw_count = len(self.files)
         self.pad = len(str(self.raw_count)) + 1
         self.counter = 1
-        
+
         for rld in self.files:
             self.filename = rld
             self.upload_file()
@@ -278,7 +275,7 @@ class nrg_api_upload(nrg_api):
 class nrg_api_convert(nrg_api):
     """Uses NRG hosted web-based API to convert RLD files text format
     To sign up for the service, go to https://services.nrgsystems.com/
-    
+
     Parameters
     ----------
     rld_dir : str
@@ -319,11 +316,11 @@ class nrg_api_convert(nrg_api):
     >>> client_id = "contact support@nrgsystems.com for access"
     >>> client_secret = "contact support@nrgsystems.com for access"
     >>> converter = nrgpy.nrg_api_convert(
-            file_filter=file_filter, 
-            filename=filename, 
+            file_filter=file_filter,
+            filename=filename,
             client_id=client_id,
             client_secret=client_secret,
-        ) 
+        )
 
     Convert a folder of RLD files to Text with NRG Convert API
 
@@ -334,36 +331,36 @@ class nrg_api_convert(nrg_api):
     >>> client_id = "contact support@nrgsystems.com for access"
     >>> client_secret = "contact support@nrgsystems.com for access"
     >>> converter = nrgpy.nrg_api_convert(
-            file_filter=file_filter, 
-            rld_dir=rld_directory, 
+            file_filter=file_filter,
+            rld_dir=rld_directory,
             out_dir=txt_dir,
             client_id=client_id,
             client_secret=client_secret,
             start_date="2020-01-01",
             end_date="2020-01-31",
         )
-    >>> converter.process()    
-    
+    >>> converter.process()
+
     """
-    def __init__(self, rld_dir='', out_dir='', filename='', 
-                 site_filter='', filter2 = '', 
+    def __init__(self, rld_dir='', out_dir='', filename='',
+                 site_filter='', filter2 = '',
                  start_date='1970-01-01', end_date='2150-12-31',
-                 client_id='', client_secret='', 
+                 client_id='', client_secret='',
                  encryption_pass='', header_type='standard', nec_file='',
                  export_type='meas', export_format='csv_zipped',
-                 progress_bar=True, **kwargs): 
-        
+                 progress_bar=True, **kwargs):
+
         super().__init__(client_id, client_secret)
-        
+
         self.encryption_pass = encryption_pass
         self.export_format = export_format
         self.export_type = export_type
         self.site_filter = site_filter
-        
+
         if 'file_filter' in kwargs and site_filter == '':
             self.file_filter = kwargs.get('file_filter')
             self.site_filter = self.file_filter
-        
+
         self.filter2 = filter2
         self.start_date = start_date
         self.end_date = end_date
@@ -372,7 +369,7 @@ class nrg_api_convert(nrg_api):
         self.out_dir = out_dir
         self.rld_dir = rld_dir
         self.progress_bar = progress_bar
-        
+
         affirm_directory(self.out_dir)
 
         if filename:
@@ -382,14 +379,14 @@ class nrg_api_convert(nrg_api):
             self.progress_bar=False
             self.start_time = datetime.now()
             self.single_file(filename)
-        
+
         if rld_dir:
             self.process()
 
 
     def process(self):
         self.start_time = datetime.now()
-        
+
         self.files = [
             f for f in sorted(glob.glob(self.rld_dir + '*.rld'))\
             if self.site_filter in f and self.filter2 in f\
@@ -399,7 +396,7 @@ class nrg_api_convert(nrg_api):
         self.raw_count = len(self.files)
         self.pad = len(str(self.raw_count)) + 1
         self.counter = 1
-        
+
         for rld in self.files:
             self.single_file(rld)
             self.counter += 1
@@ -413,7 +410,7 @@ class nrg_api_convert(nrg_api):
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
             else:
                 print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(rld)), end="", flush=True)
-        
+
             self.encoded_rld_bytes = self.prepare_file_bytes(rld)
 
             if self.nec_file:
@@ -422,7 +419,7 @@ class nrg_api_convert(nrg_api):
                 self.encoded_nec_bytes = ''
 
             if not self.token_valid(): self.session_token, self.session_start_time = self.request_session_token()
-            
+
             headers = {"Authorization": "Bearer {}".format(self.session_token)}
 
             self.data = {
@@ -433,7 +430,7 @@ class nrg_api_convert(nrg_api):
                         'exportformat': self.export_format, # csv_zipped (default)   | parquet
                         'encryptionkey': self.encryption_pass,
                         'columnheaderformat': '',           # not implemented yet
-                    }        
+                    }
 
             self.resp=requests.post(data=self.data, url=convert_url, headers=headers)
 
@@ -468,7 +465,7 @@ class nrg_api_convert(nrg_api):
 class nrg_api_export(nrg_api):
     """Uses NRG hosted web-based API to download data in text format
     To sign up for the service, go to https://services.nrgsystems.com/
-    
+
     Parameters
     ----------
     out_dir : str
@@ -507,15 +504,15 @@ class nrg_api_export(nrg_api):
     >>> client_id = "contact support@nrgsystems.com for access"
     >>> client_secret = "contact support@nrgsystems.com for access"
     >>> exporter = nrgpy.nrg_api_export(
-            client_id=client_id, 
-            client_secret=client_secret, 
-            out_dir=txt_dir, 
+            client_id=client_id,
+            client_secret=client_secret,
+            out_dir=txt_dir,
             nec_file='12vbat.nec',
-            site_number=6, 
-            serial_number=820600019, 
-            start_date="2020-05-01", 
+            site_number=6,
+            serial_number=820600019,
+            start_date="2020-05-01",
             end_date="2020-05-03",
-            save_file=False       
+            save_file=False
         )
     >>> reader = exporter.reader
     >>> reader.format_site_data()
@@ -527,11 +524,11 @@ class nrg_api_export(nrg_api):
     >>>     print("unable to get reader")
     """
 
-    def __init__(self, out_dir='',  
+    def __init__(self, out_dir='',
                  serial_number='', site_number='',
                  start_date='2014-01-01', end_date='2023-12-31',
                  client_id='', client_secret='', nec_file='',
-                 save_file=True,  **kwargs): 
+                 save_file=True,  **kwargs):
 
         super().__init__(client_id, client_secret)
 
@@ -548,35 +545,35 @@ class nrg_api_export(nrg_api):
         self.start_date = start_date
         self.end_date = end_date
         self.nec_file = nec_file
-        
+
         if self.nec_file:
             self.encoded_nec_bytes = self.prepare_file_bytes(self.nec_file)
         else:
             self.encoded_nec_bytes = ''
-        
+
         self.save_file = save_file
         self.reader = self.export()
-       
+
 
     def export(self):
         from .sympro_txt import sympro_txt_read
 
         self.headers = {"Authorization": "Bearer " + self.session_token}
-        
+
         self.data = {
             'serialnumber': self.serial_number,
             'sitenumber': self.site_number,
-            'startdate': self.start_date, 
+            'startdate': self.start_date,
             'enddate': self.end_date,
             'necfilebytes': self.encoded_nec_bytes
-        } 
-        
+        }
+
         resp=requests.post(data=self.data, url=export_url, headers=self.headers)
-        
-        if resp.status_code == 200:    
+
+        if resp.status_code == 200:
             with open(self.filepath, 'wb') as f:
                 f.write(resp.content)
-            
+
             with zipfile.ZipFile(self.filepath, 'r') as z:
                 data_file = z.namelist()[0]
                 z.extractall(self.out_dir)
@@ -586,12 +583,12 @@ class nrg_api_export(nrg_api):
 
             os.remove(self.filepath)
             os.remove(os.path.join(self.out_dir, data_file))
-            
+
             if self.save_file:
                 self.reader.output_txt_file(standard=True, out_file=os.path.join(self.out_dir, self.txt_file))
-            
+
             return reader
-            
+
         else:
             print(resp.status_code)
             print(resp.reason)
