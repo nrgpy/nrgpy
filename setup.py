@@ -1,11 +1,11 @@
 from setuptools import setup
 
 with open("README.md", "r") as fh:
-      long_description = fh.read()
+    long_description = fh.read()
 
 setup(
       name='nrgpy',
-      version='0.13.0.1',
+      version='0.13.1',
       description='library for handling NRG Systems data files',
       long_description=long_description,
       long_description_content_type='text/markdown',

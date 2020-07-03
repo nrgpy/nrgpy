@@ -7,7 +7,6 @@ from nrgpy.utilities import affirm_directory, date_check, draw_progress_bar
 import os
 import pickle
 import requests
-import traceback
 import zipfile
 
 
@@ -35,7 +34,6 @@ class nrg_api(object):
         else:
             print('[Access error] Valid credentials are required.\nPlease contact support@nrgsystems.com or visit \nhttps://services.nrgsystems.com for API access')
 
-
     def request_session_token(self):
         """generates a new session token for convert service api
 
@@ -58,8 +56,8 @@ class nrg_api(object):
         """
         print("{} | Requesting session token ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')), end="", flush=True)
 
-        request_token_header = { 'content-type' : 'application/json' }
-        request_payload = { 'client_id' : '{}'.format(self.client_id), 'client_secret' : '{}'.format(self.client_secret)}
+        request_token_header = {'content-type': 'application/json'}
+        request_payload = {'client_id': '{}'.format(self.client_id), 'client_secret': '{}'.format(self.client_secret)}
 
         resp = requests.post(data=json.dumps(request_payload), headers=request_token_header, url=retrieve_token_url)
         self.session_start_time = datetime.now()
@@ -70,7 +68,6 @@ class nrg_api(object):
         else:
             print("[FAILED] | unable to get session token.")
             self.session_token = False
-
 
     def token_valid(self):
         """check if token is still valid
@@ -86,21 +83,20 @@ class nrg_api(object):
             true if still valid, false if expired
         """
         if datetime.now() < self.session_start_time + timedelta(hours=18):
-            return True
-        return False
+            if self.session_token is not False:
+                return True
 
+        return False
 
     def save_token(self, filename=token_file):
         """save session token in token pickle file"""
         with open(filename, 'wb') as f:
             pickle.dump([self.session_token, self.session_start_time], f)
 
-
     def load_token(self, filename=token_file):
         """read session token from pickle file"""
         with open(filename, 'rb') as f:
             self.session_token, self.session_start_time = pickle.load(f)
-
 
     def maintain_session_token(self, filename=token_file):
         """maintain a current/valid session token for data service api"""
@@ -112,7 +108,6 @@ class nrg_api(object):
         except:
             self.request_session_token()
             self.save_token()
-
 
     def prepare_file_bytes(self, filename=''):
         file_bytes = base64.encodebytes(open(filename, 'rb').read())
@@ -164,7 +159,6 @@ class nrg_api_catalog(nrg_api):
 
     """
 
-
     def __init__(self,
                  serial_number='', site_number='',
                  start_date='2014-01-01', end_date='2023-12-31',
@@ -178,7 +172,6 @@ class nrg_api_catalog(nrg_api):
         self.end_date = end_date
         self.data_catalog()
 
-
     def data_catalog(self):
         import pandas as pd
 
@@ -191,7 +184,8 @@ class nrg_api_catalog(nrg_api):
             'enddate': self.end_date,
          }
 
-        resp=requests.post(data=self.data, url=data_catalog_url, headers=self.headers)
+        resp = requests.post(data=self.data, url=data_catalog_url, headers=self.headers)
+
         if resp.status_code == 200:
             self.f = json.loads(resp.content)
             self.json = json.dumps(self.f, indent=2, sort_keys=True)
@@ -206,7 +200,7 @@ class nrg_api_catalog(nrg_api):
 class nrg_api_upload(nrg_api):
 
     def __init__(self, client_id='', client_secret='', filename='', rld_dir='', site_filter='', site_filter2='',
-                start_date='1970-01-01', end_date='2150-12-31'):
+                 start_date='1970-01-01', end_date='2150-12-31'):
 
         super().__init__(client_id, client_secret)
 
@@ -222,7 +216,7 @@ class nrg_api_upload(nrg_api):
             self.pad = 1
             self.counter = 1
             self.raw_count = 1
-            self.progress_bar=False
+            self.progress_bar = False
             self.start_time = datetime.now()
             self.upload_file()
 
@@ -233,9 +227,9 @@ class nrg_api_upload(nrg_api):
         if self.progress_bar:
             draw_progress_bar(self.counter, self.raw_count, self.start_time)
         elif self.raw_count == 1:
-            print("{0} | API | uploading {1} ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'),os.path.basename(self.filename)), end="", flush=True)
+            print("{0} | API | uploading {1} ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), os.path.basename(self.filename)), end="", flush=True)
         else:
-            print("{0} | API | uploading {1}/{2} ... {3} ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(self.filename)), end="", flush=True)
+            print("{0} | API | uploading {1}/{2} ... {3} ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), str(self.counter).rjust(self.pad), str(self.raw_count).ljust(self.pad), os.path.basename(self.filename)), end="", flush=True)
 
         self.encoded_rld_bytes = self.prepare_file_bytes(self.filename)
 
@@ -245,20 +239,19 @@ class nrg_api_upload(nrg_api):
 
         self.response = requests.request("POST", upload_url, headers=self.headers, data=data)
 
-        if self.progress_bar == False:
+        if self.progress_bar is False:
             if int(self.response.status_code) < 300:
                 print("[OK]")
             else:
                 print(f"[FAILED] {self.response.status_code}")
-
 
     def upload_directory(self, progress_bar=True):
         self.progress_bar = progress_bar
         self.start_time = datetime.now()
 
         self.files = [
-            f for f in sorted(glob.glob(self.rld_dir + '*.rld'))\
-            if self.site_filter in f and self.site_filter2 in f\
+            f for f in sorted(glob.glob(self.rld_dir + '*.rld'))
+            if self.site_filter in f and self.site_filter2 in f
             and date_check(self.start_date, self.end_date, f)
         ]
 
@@ -343,7 +336,7 @@ class nrg_api_convert(nrg_api):
 
     """
     def __init__(self, rld_dir='', out_dir='', filename='',
-                 site_filter='', filter2 = '',
+                 site_filter='', filter2='',
                  start_date='1970-01-01', end_date='2150-12-31',
                  client_id='', client_secret='',
                  encryption_pass='', header_type='standard', nec_file='',
@@ -376,20 +369,19 @@ class nrg_api_convert(nrg_api):
             self.pad = 1
             self.counter = 1
             self.raw_count = 1
-            self.progress_bar=False
+            self.progress_bar = False
             self.start_time = datetime.now()
             self.single_file(filename)
 
         if rld_dir:
             self.process()
 
-
     def process(self):
         self.start_time = datetime.now()
 
         self.files = [
-            f for f in sorted(glob.glob(self.rld_dir + '*.rld'))\
-            if self.site_filter in f and self.filter2 in f\
+            f for f in sorted(glob.glob(self.rld_dir + '*.rld'))
+            if self.site_filter in f and self.filter2 in f
             and date_check(self.start_date, self.end_date, f)
         ]
 
@@ -403,13 +395,12 @@ class nrg_api_convert(nrg_api):
 
         print('\n')
 
-
     def single_file(self, rld):
         try:
             if self.progress_bar:
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
             else:
-                print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),os.path.basename(rld)), end="", flush=True)
+                print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad), str(self.raw_count).ljust(self.pad), os.path.basename(rld)), end="", flush=True)
 
             self.encoded_rld_bytes = self.prepare_file_bytes(rld)
 
@@ -418,44 +409,48 @@ class nrg_api_convert(nrg_api):
             else:
                 self.encoded_nec_bytes = ''
 
-            if not self.token_valid(): self.session_token, self.session_start_time = self.request_session_token()
+            if not self.token_valid():
+                self.session_token, self.session_start_time = self.request_session_token()
 
             headers = {"Authorization": "Bearer {}".format(self.session_token)}
 
             self.data = {
                         'filebytes': self.encoded_rld_bytes,
                         'necfilebytes': self.encoded_nec_bytes,
-                        'headertype': self.header_type,     # standard | columnonly  | none
-                        'exporttype': self.export_type,     # measurements (default) | samples
-                        'exportformat': self.export_format, # csv_zipped (default)   | parquet
+                        'headertype': self.header_type,      # standard | columnonly  | none
+                        'exporttype': self.export_type,      # measurements (default) | samples
+                        'exportformat': self.export_format,  # csv_zipped (default)   | parquet
                         'encryptionkey': self.encryption_pass,
-                        'columnheaderformat': '',           # not implemented yet
+                        'columnheaderformat': '',            # not implemented yet
                     }
 
-            self.resp=requests.post(data=self.data, url=convert_url, headers=headers)
-
+            self.resp = requests.post(data=self.data, url=convert_url, headers=headers)
 
             zipped_data_file = zipfile.ZipFile(io.BytesIO(self.resp.content))
             reg_data_file = self.resp.content
             name = zipped_data_file.infolist().pop()
-            out_filename =  os.path.basename(rld).split('.rld')[0] + '.txt'
+            out_filename = os.path.basename(rld).split('.rld')[0] + '.txt'
 
-            with open(os.path.join(self.out_dir, out_filename),'wb') as outputfile:
+            with open(os.path.join(self.out_dir, out_filename), 'wb') as outputfile:
                 outputfile.write(zipped_data_file.read(name))
 
             try:
                 filename = os.path.join(self.out_dir, out_filename)
-                file_contents = open(filename,"r").read()
-                f = open(filename,"w", newline="\r\n")
+                file_contents = open(filename, "r").read()
+                f = open(filename, "w", newline="\r\n")
                 f.write(file_contents)
                 f.close()
+
             except:
                 print("Could not convert Windows newline characters properly; file may be unstable")
 
-            if self.progress_bar == False: print("[DONE]")
+            if self.progress_bar is False:
+                print("[DONE]")
 
         except Exception as e:
-            if self.progress_bar == False: print("[FAILED]")
+            if self.progress_bar is False:
+                print("[FAILED]")
+
             print('unable to process file: {0}'.format(rld))
             print(e)
             print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
@@ -533,10 +528,10 @@ class nrg_api_export(nrg_api):
         super().__init__(client_id, client_secret)
 
         self.site_number = str(site_number).zfill(6)
-        self.out_file = f'{self.site_number}_{start_date}_{end_date}.zip'.replace(':','.')
-        self.txt_file = self.out_file.replace("zip","txt")
+        self.out_file = f'{self.site_number}_{start_date}_{end_date}.zip'.replace(':', '.')
+        self.txt_file = self.out_file.replace("zip", "txt")
 
-        self.filepath = os.path.join(out_dir,self.out_file)
+        self.filepath = os.path.join(out_dir, self.out_file)
         self.out_dir = out_dir
         affirm_directory(self.out_dir)
 
@@ -554,7 +549,6 @@ class nrg_api_export(nrg_api):
         self.save_file = save_file
         self.reader = self.export()
 
-
     def export(self):
         from .sympro_txt import sympro_txt_read
 
@@ -568,7 +562,7 @@ class nrg_api_export(nrg_api):
             'necfilebytes': self.encoded_nec_bytes
         }
 
-        resp=requests.post(data=self.data, url=export_url, headers=self.headers)
+        resp = requests.post(data=self.data, url=export_url, headers=self.headers)
 
         if resp.status_code == 200:
             with open(self.filepath, 'wb') as f:
