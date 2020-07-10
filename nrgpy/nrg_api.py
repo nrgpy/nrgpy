@@ -10,12 +10,12 @@ import requests
 import zipfile
 
 
-retrieve_token_url = 'https://dataservicesapi.azurewebsites.net/api/RetrieveToken?code=y2/bWG4hRNf1E00lWICOp7nqLvpNPOtaiFf9Wq2bi1iUpdyQdjwicQ=='
+retrieve_token_url = 'https://api.nrgsystems.com/api/RetrieveToken?code=y2/bWG4hRNf1E00lWICOp7nqLvpNPOtaiFf9Wq2bi1iUpdyQdjwicQ=='
 
-data_catalog_url = 'https://dataservicesapi.azurewebsites.net/api/DataCatalog'
-convert_url = 'https://dataservicesapi.azurewebsites.net/api/Convert?code=Z6czLero6fQthaM9TZ2DavSN9i7sIeESG/xxGr88JYYoIwypjL/7Uw=='
-export_url = 'https://dataservicesapi.azurewebsites.net/api/Export?code=2ZGPXDO8dmHF5IZdm3Qaqrlkf9Gs8930oFeN/MCwX8vcnazvCDkRdg=='
-upload_url = "https://dataservicesapi.azurewebsites.net/api/Upload?code=YSy3yEeC6aYMNG9setSKvWe9tZAJJYQtXam1tGT7ADg9FTTCaNqFCw=="
+data_catalog_url = 'https://api.nrgsystems.com/api/DataCatalog'
+convert_url = 'https://api.nrgsystems.com/api/Convert?code=Z6czLero6fQthaM9TZ2DavSN9i7sIeESG/xxGr88JYYoIwypjL/7Uw=='
+export_url = 'https://api.nrgsystems.com/api/Export?code=2ZGPXDO8dmHF5IZdm3Qaqrlkf9Gs8930oFeN/MCwX8vcnazvCDkRdg=='
+upload_url = "https://api.nrgsystems.com/api/Upload?code=YSy3yEeC6aYMNG9setSKvWe9tZAJJYQtXam1tGT7ADg9FTTCaNqFCw=="
 
 token_file = '.nrgpy_token'
 
