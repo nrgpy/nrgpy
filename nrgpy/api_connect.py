@@ -10,8 +10,8 @@ nrgApiUrl = 'https://nrgconvert.azurewebsites.net/api/Convert?code=yafm/4r/axuaM
 token=''
 
 # 2020 convert service
-RequestTokenUrl = 'https://dataservicesconvert.azurewebsites.net/api/ConvertToken?code=WUO2Dkq5He5Zp9XHddTGuQuNkoF09YWceIVphPhxIFn7hLGH6fvKSA=='
-ConvertServiceUrl = 'https://dataservicesconvert.azurewebsites.net/api/Convert?code=rWNCyVxJAtaaMD/cr5otcCiQs8pVUuVlikEG684eibKcBhK/hLju6g=='
+RequestTokenUrl = 'https://api.nrgsystems.com/api/RetrieveToken?code=y2/bWG4hRNf1E00lWICOp7nqLvpNPOtaiFf9Wq2bi1iUpdyQdjwicQ=='
+ConvertServiceUrl = 'https://api.nrgsystems.com/api/Convert?code=Z6czLero6fQthaM9TZ2DavSN9i7sIeESG/xxGr88JYYoIwypjL/7Uw=='
 token_file = '.nrgpy_token'
 
 
