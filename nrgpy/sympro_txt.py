@@ -318,7 +318,10 @@ class sympro_txt_read(object):
                     except IndexError:
                         print('Only standard SymPRO headertypes accepted')
                         break
-        
+                    except:
+                        if progress_bar != True: print("[FAILED]")
+                        print("could not concat {0}".format(os.path.basename(file_path)))
+                        pass
                 else:
                     file_path = f
         
