@@ -1,7 +1,9 @@
 .nrgpy_token
+*.exe
 *.ipynb
 *.txt
 .ipynb_checkpoints/
+*.wine/
 
 .vscode/
 *__pycache__/
@@ -13,3 +15,4 @@ raw/
 venv/
 
 !.gitignore
+# !SDR_on_Linux_example.ipynb

@@ -38,12 +38,12 @@ converter.convert()
 #### Convert a folder of RLD files to Text with NRG Convert API
 
 ```python
-from nrgpy.convert_rld import nrg_convert_api
+import nrgpy
 file_filter = "000175"
 rld_directory = "rlds"
 client_id = "contact support@nrgsystems.com for access"
 client_secret = "contact support@nrgsystems.com for access"
-converter = nrg_convert_api(
+converter = nrgpy.nrg_api_convert(
     file_filter=file_filter, 
     rld_dir=rld_directory, 
     client_id=client_id,
@@ -56,12 +56,12 @@ converter.process()
 
 #### Convert a single RLD file to Text with NRG Convert API
 ```python
-from nrgpy.convert_rld import nrg_convert_api
+import nrgpy
 filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
 txt_dir = "/home/user/data/sympro/000123/txt/"
 client_id = "contact support@nrgsystems.com for access"
 client_secret = "contact support@nrgsystems.com for access"
-converter = nrg_convert_api(
+converter = nrgpy.nrg_api_convert(
     file_filter=file_filter, 
     filename=filename, 
     client_id=client_id,
