@@ -260,7 +260,7 @@ class nrg_api_upload(nrg_api):
         self.counter = 1
 
         for rld in self.files:
-            self.filename = rld
+            self.filename = os.path.join(self.rld_dir, rld)
             self.upload_file()
             self.counter += 1
 
@@ -391,11 +391,10 @@ class nrg_api_convert(nrg_api):
         self.counter = 1
 
         for rld in self.files:
-            self.single_file(rld)
+            self.single_file(os.path.join(self.rld_dir, rld))
             self.counter += 1
 
         print('\n')
-
 
     def single_file(self, rld):
         try:
