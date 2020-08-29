@@ -1,6 +1,5 @@
 import base64
 from datetime import datetime, timedelta
-import glob
 import io
 import json
 from nrgpy.utilities import affirm_directory, date_check, draw_progress_bar
@@ -250,8 +249,9 @@ class nrg_api_upload(nrg_api):
         self.start_time = datetime.now()
 
         self.files = [
-            f for f in sorted(glob.glob(self.rld_dir + '*.rld'))
+            f for f in sorted(os.listdir(self.rld_dir))
             if self.site_filter in f and self.site_filter2 in f
+            and f.lower().endswith("rld")
             and date_check(self.start_date, self.end_date, f)
         ]
 
@@ -380,8 +380,9 @@ class nrg_api_convert(nrg_api):
         self.start_time = datetime.now()
 
         self.files = [
-            f for f in sorted(glob.glob(self.rld_dir + '*.rld'))
+            f for f in sorted(os.listdir(self.rld_dir))
             if self.site_filter in f and self.filter2 in f
+            and f.lower().endswith('rld')
             and date_check(self.start_date, self.end_date, f)
         ]
 
@@ -394,6 +395,7 @@ class nrg_api_convert(nrg_api):
             self.counter += 1
 
         print('\n')
+
 
     def single_file(self, rld):
         try:
