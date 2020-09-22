@@ -580,7 +580,7 @@ class nrg_api_export(nrg_api):
             os.remove(os.path.join(self.out_dir, data_file))
 
             if self.save_file:
-                self.reader.output_txt_file(standard=True, out_file=os.path.join(self.out_dir, self.txt_file))
+                reader.output_txt_file(standard=True, out_file=os.path.join(self.out_dir, self.txt_file))
 
             return reader
 
