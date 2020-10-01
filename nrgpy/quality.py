@@ -66,11 +66,11 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
         last_interval = _df['Timestamp'].max()
     else:
         _df = df.copy()
+        time_fmt = "%Y-%m-%d %H:%M:%S"
         first_interval = datetime.strptime(_df['Timestamp'].min(), time_fmt) 
         last_interval = datetime.strptime(_df['Timestamp'].max(), time_fmt)
     
 
-    time_fmt = "%Y-%m-%d %H:%M:%S"
     interval = select_interval_length(_df)
 
 
