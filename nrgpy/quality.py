@@ -59,17 +59,20 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
 
     if "horz" in "".join(df.columns).lower():
         df2 = df.copy() 
-        df2.Timestamp = df2.Timestamp.apply(lambda x: x.strftime("%Y-%m-%d %H:%M:%S"))
+        #  df2.Timestamp = df2.Timestamp.apply(lambda x: x.strftime("%Y-%m-%d %H:%M:%S"))
+        df2.reset_index(level=0, inplace=True)
         _df = df2 
+        first_interval = _df['Timestamp'].min()
+        last_interval = _df['Timestamp'].max()
     else:
         _df = df.copy()
+        first_interval = datetime.strptime(_df['Timestamp'].min(), time_fmt) 
+        last_interval = datetime.strptime(_df['Timestamp'].max(), time_fmt)
     
 
     time_fmt = "%Y-%m-%d %H:%M:%S"
     interval = select_interval_length(_df)
 
-    first_interval = datetime.strptime(_df['Timestamp'].min(), time_fmt) 
-    last_interval = datetime.strptime(_df['Timestamp'].max(), time_fmt)
 
     time_range = last_interval - first_interval
 
@@ -174,8 +177,16 @@ def select_interval_length(df, seconds=True):
                     (datetime.strptime(df['Timestamp'].loc[i+1], formatter) - datetime.strptime(df['Timestamp'].loc[i], formatter)
                     ).seconds)
                 )
+
         except:
-            pass
+            formatter = "%Y-%m-%d %H:%M:%S.%f"
+            interval.append(
+                int(
+                    (df['Timestamp'][i+1] - df['Timestamp'][i]).seconds)
+                )
+
+        # except:
+        #    pass
     
     interval_s = select_mode_from_list(interval)
     interval_m = interval_s/60
