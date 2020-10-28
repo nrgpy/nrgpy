@@ -30,7 +30,7 @@ class spidar_data_read(object):
 
     >>> import nrgpy
     >>> reader = nrgpy.spidar_data_read(filename="1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip")
-    >>> reader.heights                                                                                                              
+    >>> reader.heights
     ['40', '60', '80', '90', '100', '120', '130', '160', '180', '200']
 
     >>> reader.data
@@ -39,13 +39,13 @@ class spidar_data_read(object):
     1   2019-07-03 23:50:00          753.47           23.76  ...             345.70             57.59                           38
     2   2019-07-04 00:00:00          753.46           23.96  ...             314.16             82.73                           20
     ...
-    
+
     Ex. read a directory of spidar data files into an object:
 
     >>> reader = nrgpy.spidar_data_read()
     >>> reader.concat_txt(
             txt_dir="/path/to/spidardata/",
-            file_filter="2020-01", 
+            file_filter="2020-01",
             progress_bar=False
         )
     Adding 1/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_1.zip [OK]
@@ -68,9 +68,9 @@ class spidar_data_read(object):
 
     def read_file(self, f):
         self.data = pd.read_csv(
-            f, 
-            encoding='UTF_16_LE', 
-            parse_dates=True, 
+            f,
+            encoding='UTF_16_LE',
+            parse_dates=True,
             index_col=[0]
         )
         self.data.reset_index(drop=False, inplace=True)
@@ -80,7 +80,7 @@ class spidar_data_read(object):
 
 
     def concat_txt(self, txt_dir='', output_txt=False, out_file='',
-                   file_filter='', file_filter2='', 
+                   file_filter='', file_filter2='',
                    start_date='1970-01-01', end_date='2150-12-31',
                    progress_bar=True):
         """
