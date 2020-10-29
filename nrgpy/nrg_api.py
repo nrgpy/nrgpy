@@ -524,7 +524,7 @@ class nrg_api_export(nrg_api):
                  serial_number='', site_number='',
                  start_date='2014-01-01', end_date='2023-12-31',
                  client_id='', client_secret='', nec_file='',
-                 save_file=True,  **kwargs):
+                 text_timestamps=False, save_file=True,  **kwargs):
 
         super().__init__(client_id, client_secret)
 
@@ -541,6 +541,7 @@ class nrg_api_export(nrg_api):
         self.start_date = start_date
         self.end_date = end_date
         self.nec_file = nec_file
+        self.text_timestamps = text_timestamps
 
         if self.nec_file:
             self.encoded_nec_bytes = self.prepare_file_bytes(self.nec_file)
@@ -573,7 +574,7 @@ class nrg_api_export(nrg_api):
                 data_file = z.namelist()[0]
                 z.extractall(self.out_dir)
 
-            reader = sympro_txt_read(filename=os.path.join(self.out_dir, data_file))
+            reader = sympro_txt_read(filename=os.path.join(self.out_dir, data_file), text_timestamps=self.text_timestamps)
             reader.format_site_data()
 
             os.remove(self.filepath)

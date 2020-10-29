@@ -1,6 +1,6 @@
 def check_intervals(df, verbose=True, return_info=False, show_all_missing_timestamps=False, interval=''):
     """checks for missing intervals in a pandas dataframe with a "Timestamp" column
-    
+
     Parameters
     ----------
     df : object
@@ -19,11 +19,11 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
     dict
         actual_rows
             (int)
-            actual number of rows in data section of 
+            actual number of rows in data section of
             export file (1 subtracted for column headers)
         expected_rows
             (int)
-            expected number of rows (assumes 10 min. AVG), 
+            expected number of rows (assumes 10 min. AVG),
             converts result to whole integer
         time_range
             (str)
@@ -37,7 +37,7 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
         missing_timestamps
             (list)
             a list of missing timestamps
-               
+
     Examples
     ----------
     ex. pass a reader.data dataframe for an interval check:
@@ -57,19 +57,19 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
     from datetime import datetime
 
 
-    if "horz" in "".join(df.columns).lower():
-        df2 = df.copy() 
+    if "horz" in "".join(df.columns).lower() or isinstance(df['Timestamp'][0], datetime):
+        df2 = df.copy()
         #  df2.Timestamp = df2.Timestamp.apply(lambda x: x.strftime("%Y-%m-%d %H:%M:%S"))
         df2.reset_index(level=0, inplace=True)
-        _df = df2 
+        _df = df2
         first_interval = _df['Timestamp'].min()
         last_interval = _df['Timestamp'].max()
     else:
         _df = df.copy()
         time_fmt = "%Y-%m-%d %H:%M:%S"
-        first_interval = datetime.strptime(_df['Timestamp'].min(), time_fmt) 
+        first_interval = datetime.strptime(_df['Timestamp'].min(), time_fmt)
         last_interval = datetime.strptime(_df['Timestamp'].max(), time_fmt)
-    
+
 
     interval = select_interval_length(_df)
 
@@ -77,12 +77,12 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
     time_range = last_interval - first_interval
 
     expected_rows = int(time_range.total_seconds() / interval)
-    actual_rows = len(df) - 1 
+    actual_rows = len(df) - 1
 
     if expected_rows != actual_rows:
         missing_timestamps, _df = find_missing_intervals(_df, interval)
 
-    
+
     if verbose == True:
         print('Statistical interval      : {0} seconds'.format(interval))
         print('Starting timestamp        : {0}'.format(first_interval))
@@ -106,7 +106,7 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
                 for timestamp in missing_timestamps[0:3] + ["..."] + missing_timestamps[-3:]:
                     print("\t{0}\t{1}".format(" ",timestamp))
 
-    
+
     if return_info == True:
 
         interval_info = {}
@@ -122,7 +122,7 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
             interval_info['missing_timestamps'] = None
 
         return interval_info
-    
+
 
 def find_missing_intervals(__df, interval):
     """find gaps in data dataframe
@@ -140,12 +140,12 @@ def find_missing_intervals(__df, interval):
     _df = _df.reindex(pd.date_range(start=_df.index[0], end=_df.index[-1], freq='{0}s'.format(interval)))
 
     missing_timestamps = []
-    
+
     for index, row in _df.iterrows():
-        
+
         if row['data'] != True:
             missing_timestamps.append(index)
-    
+
     return missing_timestamps, _df
 
 
@@ -153,7 +153,7 @@ def select_interval_length(df, seconds=True):
     """ get interval length of data set
 
     returns the mode of the first 10 intervals of the data set
-    
+
     parameters
     ----------
         reader : nrgpy reader object
@@ -163,8 +163,8 @@ def select_interval_length(df, seconds=True):
     returns
     -------
         int
-    
-    """ 
+
+    """
     from datetime import datetime
 
     formatter = "%Y-%m-%d %H:%M:%S"
@@ -187,10 +187,10 @@ def select_interval_length(df, seconds=True):
 
         # except:
         #    pass
-    
+
     interval_s = select_mode_from_list(interval)
     interval_m = interval_s/60
-    
+
     try:
         if seconds:
             return select_mode_from_list(interval)
@@ -205,8 +205,8 @@ def select_mode_from_list(lst):
 
 
 def check_for_missing_txt_files(txt_file_names):
-    """ check list of files for missing file numbers 
-    
+    """ check list of files for missing file numbers
+
     Parameters
     ----------
     txt_file_names : list
@@ -218,13 +218,13 @@ def check_for_missing_txt_files(txt_file_names):
         list of "missing" text file numbers
 
     """
-    
+
     missing_file_numbers = []
 
     for i, f in enumerate(sorted(txt_file_names)):
-    
+
         file_number = int(f.split("_")[-2])
-    
+
         if i > 0:
             if file_number - _file_number > 1:
                 missing_file_numbers.append(f)
