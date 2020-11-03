@@ -629,7 +629,7 @@ To sign up for the service, go to <a class="reference external" href="https://se
 
 <dl class="py class">
 <dt id="nrgpy.nrg_api.nrg_api_export">
-<em class="property">class </em><code class="sig-prename descclassname">nrgpy.nrg_api.</code><code class="sig-name descname">nrg_api_export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">out_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">serial_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">site_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">'2014-01-01'</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">'2023-12-31'</span></em>, <em class="sig-param"><span class="n">client_id</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">client_secret</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">nec_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">save_file</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.nrg_api.nrg_api_export" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">nrgpy.nrg_api.</code><code class="sig-name descname">nrg_api_export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">out_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">serial_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">site_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">'2014-01-01'</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">'2023-12-31'</span></em>, <em class="sig-param"><span class="n">client_id</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">client_secret</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">nec_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">text_timestamps</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_file</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.nrg_api.nrg_api_export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#nrgpy.nrg_api.nrg_api" title="nrgpy.nrg_api.nrg_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.nrg_api.nrg_api</span></code></a></p>
 <p>Uses NRG hosted web-based API to download data in text format
 To sign up for the service, go to <a class="reference external" href="https://services.nrgsystems.com/">https://services.nrgsystems.com/</a></p>
@@ -648,6 +648,7 @@ times are in logger local time</p></li>
 <li><p><strong>client_secret</strong> (<em>str</em>) – provided by NRG Systems</p></li>
 <li><p><strong>save_file</strong> (<em>bool</em>) – (True) whether to save the result to file</p></li>
 <li><p><strong>nec_file</strong> (<em>str</em><em>, </em><em>optional</em>) – path to NEC file for custom export formatting</p></li>
+<li><p><strong>text_timestamps</strong> (<em>bool</em>) – get export data with text timestamps instead of datetime</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -988,11 +989,7 @@ a list of missing timestamps</p>
 <p>reads in CSV file(s) using pandas and creates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data_file</strong> (<em>str</em>) – path to single CSV or ZIP to be read</p></li>
-<li><p><strong>directory</strong> (<em>str</em>) – path of directory of data_files to concatenate</p></li>
-<li><p><strong>file_filter</strong> (<em>str</em>) – text to filter data files on</p></li>
-</ul>
+<dd class="field-odd"><p><strong>data_file</strong> (<em>str</em>) – path to single CSV or ZIP to be read</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
@@ -1040,7 +1037,26 @@ a list of missing timestamps</p>
 <dl class="py method">
 <dt id="nrgpy.spidar_txt.spidar_data_read.concat_txt">
 <code class="sig-name descname">concat_txt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">txt_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">output_txt</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">file_filter</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">file_filter2</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">'1970-01-01'</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">'2150-12-31'</span></em>, <em class="sig-param"><span class="n">progress_bar</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.spidar_txt.spidar_data_read.concat_txt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>concatenate files in a folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>txt_dir</strong> (<em>str</em>) – path to csv or csv.zip files</p></li>
+<li><p><strong>output_txt</strong> (<em>boolean</em>) – export concatenated data</p></li>
+<li><p><strong>out_file</strong> (<em>str</em>) – optional, filename of text export</p></li>
+<li><p><strong>start_date</strong> (<em>str</em>) – yyy-mm-dd formatted string</p></li>
+<li><p><strong>end_date</strong> (<em>str</em>) – yyy-mm-dd formatted string</p></li>
+<li><p><strong>progress_bar</strong> (<em>boolean</em>) – show progress bar instead of each file being concatenated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>adds data dataframe to reader object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="nrgpy.spidar_txt.spidar_data_read.get_heights">
@@ -1085,7 +1101,7 @@ timestamp.</p>
 
 <dl class="py class">
 <dt id="nrgpy.sympro_txt.sympro_txt_read">
-<em class="property">class </em><code class="sig-prename descclassname">nrgpy.sympro_txt.</code><code class="sig-name descname">sympro_txt_read</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.sympro_txt.sympro_txt_read" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">nrgpy.sympro_txt.</code><code class="sig-name descname">sympro_txt_read</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">text_timestamps</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.sympro_txt.sympro_txt_read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt id="nrgpy.sympro_txt.sympro_txt_read.arrange_ch_info">
@@ -1354,11 +1370,37 @@ Local export of text files, as of 0.1.8.</p>
 <dd><p>assert folder_path ending with ‘/’</p>
 </dd></dl>
 
+<dl class="py function">
+<dt id="nrgpy.utilities.load">
+<code class="sig-prename descclassname">nrgpy.utilities.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">site_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.utilities.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>recall a reader from a pickle file by site number or filename</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>site_number</strong> (<em>str</em>) – 6-digit site number of stored reader OR spidar serial number</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – full or relative path of pickle file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>contents of pickle file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py class">
 <dt id="nrgpy.utilities.renamer">
 <em class="property">class </em><code class="sig-prename descclassname">nrgpy.utilities.</code><code class="sig-name descname">renamer</code><a class="headerlink" href="#nrgpy.utilities.renamer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>for replacing duplicate column names after transpose</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nrgpy.utilities.save">
+<code class="sig-prename descclassname">nrgpy.utilities.</code><code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reader</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.utilities.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>save reader as a Python pickle file, to be recalled later</p>
 </dd></dl>
 
 <dl class="py function">

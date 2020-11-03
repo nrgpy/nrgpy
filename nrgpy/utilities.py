@@ -1,14 +1,14 @@
-#!/bin/usr/python
 from datetime import datetime
 import os
 import pathlib
+import pickle
 import re
 import sys
 
 
 def affirm_directory(directory):
     """create directory if not exists
-    
+
     print status to terminal
     """
     if os.path.exists(directory):
@@ -21,8 +21,8 @@ def affirm_directory(directory):
             pass
         except:
             pass
-        
-        
+
+
 def check_platform():
     """determine which operating system python is running on"""
     from sys import platform
@@ -39,7 +39,7 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
     filters : str
         filter present in file to be checked
     extension : str
-        secondary filter 
+        secondary filter
     show_files : bool, optional
         if set to True, prints file name
     start_time :  int
@@ -49,7 +49,7 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
         start_time = kwargs.get("start_time")
     count = 0
     file_list = []
-    
+
     for dirpath, subdirs, files in os.walk(directory):
         for x in files:
             if os.path.isfile(os.path.join(directory, x)):
@@ -71,7 +71,7 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
 
 def date_check(start_date, end_date, string):
     """returns true if string date is between dates
-    
+
     Parameters
     ----------
     start_date : str
@@ -101,15 +101,15 @@ def draw_progress_bar(index, total, start_time, barLen=45):
     """simple text progress bar"""
     percent = index / total
     pad = len(str(total))
-    
+
     sys.stdout.write("\r")
     sys.stdout.write(
         "Time elapsed: {} {} | {} / {} [{:<{}}] {:.0f}%\t".format(
             (datetime.now() - start_time).seconds, "s",
-            str(index).rjust(pad), 
-            total, 
-            "=" * int(barLen * percent), 
-            barLen, 
+            str(index).rjust(pad),
+            total,
+            "=" * int(barLen * percent),
+            barLen,
             percent * 100
         )
     )
@@ -119,24 +119,24 @@ def draw_progress_bar(index, total, start_time, barLen=45):
 def linux_folder_path(folder_path):
     """assert folder_path ending with '/' """
     folder_path = folder_path.replace('\\', '/').replace(' ', '\ ')
-    
+
     if folder_path.endswith('/'):
         pass
     else:
         folder_path = folder_path + '/'
-    
+
     return folder_path
 
 
 def windows_folder_path(folder_path):
     """convert '/' to '\\' in folder_path and assert ending in '\\'"""
     folder_path = folder_path.replace('/', '\\')
-    
+
     if folder_path.endswith('\\'):
         pass
     else:
         folder_path = folder_path + '\\'
-    
+
     return folder_path
 
 
@@ -154,3 +154,40 @@ class renamer():
         else:
             self.d[x] += 1
             return "%s_%d" % (x, self.d[x])
+
+
+def save(reader, filename=""):
+    """save reader as a Python pickle file, to be recalled later"""
+    if not filename:
+        try:
+            filename = f"{reader.site_number}_reader.pkl"
+        except:
+            filename = f"{reader.serial_number}_reader.pkl"
+
+    with open(filename, 'wb') as pkl:
+        pickle.dump(reader, pkl, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+def load(site_number="", filename=""):
+    """recall a reader from a pickle file by site number or filename
+
+    parameters
+    ----------
+    site_number : str
+        6-digit site number of stored reader OR spidar serial number
+    filename : str
+        full or relative path of pickle file
+
+    returns
+    -------
+    object
+        contents of pickle file
+
+    """
+    if not filename:
+        filename = f"{site_number}_reader.pkl"
+
+    with open(filename, 'rb') as pkl:
+        reader = pickle.load(pkl)
+
+    return reader

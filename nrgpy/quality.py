@@ -51,7 +51,7 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
     from datetime import datetime
 
 
-    if "horz" in "".join(df.columns).lower():
+    if "horz" in "".join(df.columns).lower() or isinstance(df['Timestamp'][0], datetime):
         df2 = df.copy()
         #  df2.Timestamp = df2.Timestamp.apply(lambda x: x.strftime("%Y-%m-%d %H:%M:%S"))
         df2.reset_index(level=0, inplace=True)
@@ -63,7 +63,6 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
         time_fmt = "%Y-%m-%d %H:%M:%S"
         first_interval = datetime.strptime(_df['Timestamp'].min(), time_fmt)
         last_interval = datetime.strptime(_df['Timestamp'].max(), time_fmt)
-
 
     interval = select_interval_length(_df)
     time_range = last_interval - first_interval

@@ -9,9 +9,9 @@ from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_pa
 import traceback
 
 
-class sympro_txt_read(object): 
+class sympro_txt_read(object):
 
-    def __init__(self, filename='', out_file='', **kwargs):
+    def __init__(self, filename='', out_file='', text_timestamps=False, **kwargs):
         """Class of pandas dataframes created from SymPRO standard txt output.
 
         If a filename is passed when calling class, the file is read in alone. Otherwise,
@@ -27,12 +27,14 @@ class sympro_txt_read(object):
             path to filename
         out_file : str, optional
             path to outputted file
+        text_timestamps : boolean
+            set to True for text timestamps
 
         Returns
         ---------
         ch_info : obj
             pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
-        ch_list : list 
+        ch_list : list
             list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
         data : obj
             pandas dataframe of all data
@@ -52,47 +54,48 @@ class sympro_txt_read(object):
         start_date : str
         """
 
+        self.filename = filename
+        self.text_timestamps = text_timestamps
+        self.out_file = out_file
+
+        if out_file == "":
+            out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
+
         if 'ch_details' in kwargs:
             self.ch_details = kwargs.get('ch_details')
         else:
             self.ch_details = False
-        
-        self.filename = filename
-        
-        if out_file == "":
-            out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
-        
-        self.out_file = out_file       
-        
+
         if self.filename:
             i = 0
             with open(self.filename) as infile:
                 for line in infile:
                     if line == "Data\n":
-                        break 
+                        break
                     else:
                         i = i + 1
             with open(self.filename) as myfile:
                 self.head = "".join([next(myfile) for x in range(2)])
-        
+
             header_len = i + 1
             read_len = header_len - 5
-        
-            self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t", 
-                                        index_col=False, nrows=read_len, 
+
+            self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t",
+                                        index_col=False, nrows=read_len,
                                         usecols=[0,1], header=None)
 
-            self.site_info = self.site_info.iloc[:self.site_info.loc[self.site_info[0]=='Data'].index.tolist()[0]+1]
+            self.site_info = self.site_info.iloc[:self.site_info.loc[self.site_info[0] == 'Data'].index.tolist()[0]+1]
             self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t", encoding='iso-8859-1')
+            if not self.text_timestamps:
+                self.data['Timestamp'] = pd.to_datetime(self.data['Timestamp'])
             self.first_timestamp = self.data.iloc[0]['Timestamp']
-        
             self.arrange_ch_info()
 
-        
+
     def __repr__(self):
         return '<class {}: {} >'.format(self.__class__.__name__,self.filename)
-    
-    def arrange_ch_info(self): 
+
+    def arrange_ch_info(self):
         """creates ch_info dataframe and ch_list array"""
         array = [
             'Channel:',
@@ -107,7 +110,7 @@ class sympro_txt_read(object):
             'Offset:',
             'Units:'
         ]
-        
+
         if self.ch_details == True:
             array += [
                 'P-SCM Type:',
@@ -122,7 +125,7 @@ class sympro_txt_read(object):
             pass
 
         self.array = array
-        self.ch_info = pd.DataFrame() 
+        self.ch_info = pd.DataFrame()
         ch_data = {}
         ch_list = []
         ch_details = 0
@@ -142,10 +145,10 @@ class sympro_txt_read(object):
                 ch_data[row[1][0]] = row[1][1]
 
         ch_list.append(ch_data) # last channel's data
-        
+
         self.ch_list = ch_list
         self.ch_info = self.ch_info.append(ch_list)
-        
+
         return self
 
     def format_site_data(self):
@@ -156,9 +159,9 @@ class sympro_txt_read(object):
             self._site_info.columns = self._site_info.iloc[0]
             self._site_info.columns = self._site_info.iloc[0]
             self._site_info = self._site_info[1:]
-            
+
             width = list(self._site_info.columns.values).index('Sensor History')
-            
+
             self._site_info.rename(columns=renamer(), inplace=True)
             self._site_info.drop(self._site_info.iloc[:, width:len(self._site_info.columns)], axis=1, inplace=True, errors='ignore')
             self._site_info.columns = [str(col).replace(':','').strip() for col in self._site_info.columns]
@@ -175,17 +178,17 @@ class sympro_txt_read(object):
             self.logger_type = self._site_info['Model'].values[0]
             self.ipack_type = self._site_info['Model_1'].values[0]
             self.time_zone = self._site_info['Time Zone'].values[0]
-            
+
         except Exception as e:
             self.e = e
             print("Warning: error processing site_info: {}".format(e))
 
-    def concat_txt(self, txt_dir='', file_type='meas', file_filter='', 
-                    filter2='', start_date='1970-01-01', end_date='2150-12-31', 
-                    ch_details=False, output_txt=False, out_file='', 
+    def concat_txt(self, txt_dir='', file_type='meas', file_filter='',
+                    filter2='', start_date='1970-01-01', end_date='2150-12-31',
+                    ch_details=False, output_txt=False, out_file='',
                     progress_bar=True, **kwargs):
         """Will concatenate all text files in the txt_dir
-        
+
         files must match the site_filter argument. Note these are both blank by default.
 
         Parameters
@@ -215,7 +218,7 @@ class sympro_txt_read(object):
         ---------
         ch_info : obj
             pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
-        ch_list : list 
+        ch_list : list
             list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
         data : obj
             pandas dataframe of all data
@@ -248,7 +251,7 @@ class sympro_txt_read(object):
                 start_date='2020-01-01',
                 end_date='2020-01-31',
             )
-        Time elapsed: 2 s | 33 / 33 [=============================================] 100%	
+        Time elapsed: 2 s | 33 / 33 [=============================================] 100%
         Queue processed
         >>> reader.logger_sn
         '820600019'
@@ -268,7 +271,7 @@ class sympro_txt_read(object):
         11 	0.00 	    20 	        NRG BP60 Baro 	2020-01-31 00:00:00 	0.00 	495.27700 	243.91400 	    NaN 	        Analog          hPa
         12 	0.00 	    21 	        NRG BP60 Baro 	2020-01-31 00:00:00 	2.00 	495.04400 	244.23900 	    9396FT1937          Analog  	hPa
         """
-        
+
         if 'site_filter' in kwargs and file_filter == '':
             self.file_filter = kwargs.get('site_filter')
         else:
@@ -280,25 +283,25 @@ class sympro_txt_read(object):
         self.filter2 = filter2
         self.file_type = file_type
         self.txt_file_names = []
-        
+
         if check_platform() == 'win32':
             self.txt_dir = windows_folder_path(txt_dir)
         else:
             self.txt_dir = linux_folder_path(txt_dir)
 
         first_file = True
-        
+
         files = [
             f for f in sorted(glob(self.txt_dir + '*.txt'))\
             if self.file_filter in f and self.filter2 in f\
             and date_check(self.start_date, self.end_date, f)
         ]
-        
+
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
         self.counter = 1
         self.start_time = datetime.now()
-        
+
         for f in files:
 
             if self.file_filter in f and self.file_type in f and self.filter2 in f:
@@ -310,9 +313,9 @@ class sympro_txt_read(object):
 
                 if first_file == True:
                     first_file = False
-        
+
                     try:
-                        base = sympro_txt_read(f)
+                        base = sympro_txt_read(f, text_timestamps=self.text_timestamps)
                         if progress_bar != True: print("[OK]")
                         self.txt_file_names.append(os.path.basename(f))
                     except IndexError:
@@ -320,31 +323,31 @@ class sympro_txt_read(object):
                         break
                     except:
                         if progress_bar != True: print("[FAILED]")
-                        print("could not concat {0}".format(os.path.basename(file_path)))
+                        print("could not concat {0}".format(os.path.basename(f)))
                         pass
                 else:
                     file_path = f
-        
+
                     try:
-                        s = sympro_txt_read(file_path, ch_details=self.ch_details)
+                        s = sympro_txt_read(file_path, ch_details=self.ch_details, text_timestamps=self.text_timestamps)
                         base.data = base.data.append(s.data, sort=False)
                         if progress_bar != True: print("[OK]")
                         self.txt_file_names.append(os.path.basename(f))
 
                     except:
                         if progress_bar != True: print("[FAILED]")
-                        print("could not concat {0}".format(os.path.basename(file_path)))
+                        print("could not concat {0}".format(os.path.basename(f)))
                         pass
             else:
                 pass
             self.counter += 1
-        
+
         if out_file != "":
             self.out_file = out_file
-        
+
         if output_txt == True:
             base.data.to_csv(os.path.join(txt_dir, out_file), sep=',', index=False)
-        
+
         try:
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
@@ -355,17 +358,17 @@ class sympro_txt_read(object):
             self.site_info = s.site_info
             self.format_site_data()
             print("\n")
-        
+
         except UnboundLocalError:
             print("No files match to contatenate.")
             return None
 
-        
-        
-    def select_channels_for_reformat(self, epe=False, soiling=False): 
+
+
+    def select_channels_for_reformat(self, epe=False, soiling=False):
         """determines which of the channel headers fit those required for post-processing for either
 
-            a. EPE formatting 
+            a. EPE formatting
             b. soiling ratio calculation
 
         Note that this formatting requires the the channel headers to be full (requires
@@ -430,7 +433,7 @@ class sympro_txt_read(object):
 
         self.data['CH01'] = self.data["Timestamp"].str.split(' ', 1).str[0].str.replace('-','')
         self.data['CH02'] = self.data["Timestamp"].str.split(' ', 1).str[1].str.replace(':','')
-        self.data['CH03'] = "000" 
+        self.data['CH03'] = "000"
         try:
             self.data['CH04'] = self.data[[col for col in self.data.columns if (baro_ch in col and 'Avg' in col)]]
         except:
@@ -466,12 +469,12 @@ class sympro_txt_read(object):
             self.data['CH17'] = self.data[[col for col in self.data.columns if (vane2_ch in col and 'Avg' in col)]]
             self.data['CH18'] = self.data[[col for col in self.data.columns if (vane2_ch in col and 'SD' in col)]]
         except:
-            self.data['CH17'], self.data['CH18'] = "000"        
+            self.data['CH17'], self.data['CH18'] = "000"
         try:
             self.data['CH19'] = self.data[[col for col in self.data.columns if (anem3_ch in col and 'Avg' in col)]]
             self.data['CH20'] = self.data[[col for col in self.data.columns if (anem3_ch in col and 'Max' in col)]]
             self.data['CH21'] = self.data[[col for col in self.data.columns if (anem3_ch in col and 'Min' in col)]]
-            self.data['CH22'] = self.data[[col for col in self.data.columns if (anem3_ch in col and 'SD' in col)]]        
+            self.data['CH22'] = self.data[[col for col in self.data.columns if (anem3_ch in col and 'SD' in col)]]
         except:
             self.data['CH19'], self.data['CH20'], self.data['CH21'], self.data['CH22'] = "000"
 
@@ -520,13 +523,13 @@ class sympro_txt_read(object):
         self.header = header
 
 
-    def calculate_soiling_ratio(self, method="IEC", T0=25, G0=1000, alpha=0.0004, 
+    def calculate_soiling_ratio(self, method="IEC", T0=25, G0=1000, alpha=0.0004,
                                 I_clean_SC_0=0.900000, I_soiled_SC_0=0.900000 ):
         isc_clean_ch = "Ch" + str(self.isc_clean['Channel:'].iloc[0]) + "_"
         isc_soiled_ch = "Ch" + str(self.isc_soiled['Channel:'].iloc[0]) + "_"
         pv_clean_ch = "Ch" + str(self.pv_temp_clean['Channel:'].iloc[0]) + "_"
         pv_soiled_ch = "Ch" + str(self.pv_temp_soiled['Channel:'].iloc[0]) + "_"
-        
+
         try:
             self.data['I_clean_SC'] = self.data[[col for col in self.data.columns if (isc_clean_ch in col and 'Avg' in col)]]
             self.data['I_soiled_SC'] = self.data[[col for col in self.data.columns if (isc_soiled_ch in col and 'Avg' in col)]]
@@ -535,7 +538,7 @@ class sympro_txt_read(object):
 
         except:
             print("error replicating ISC or PV data")
-            
+
         if method == "IEC":
             try:
                 # calculate G
@@ -549,7 +552,7 @@ class sympro_txt_read(object):
                 print("could not calculate SR column")
 
 
-    def output_txt_file(self, epe=False, soiling=False, standard=True, 
+    def output_txt_file(self, epe=False, soiling=False, standard=True,
                         shift_timestamps=False, out_file='', **kwargs):
 
         out_dir = kwargs.get('out_dir', '')
@@ -583,7 +586,7 @@ class sympro_txt_read(object):
                 self.cols = cols
 
                 with open(output_name, 'a', encoding='utf-16') as f:
-                    self.data.to_csv(f, header=False, sep="|", columns=cols, index=False,  
+                    self.data.to_csv(f, header=False, sep="|", columns=cols, index=False,
                                     index_label=False, decimal=",", line_terminator="|\n",
                                     float_format='%.2f')
 
@@ -598,18 +601,18 @@ class sympro_txt_read(object):
             if soiling == True:
                 if out_file != '':
                     output_name = out_file
-                else:                
+                else:
                     output_name = self.out_file[:-4]+"_soiling.txt"
 
                 output_file = open(output_name, 'w+', encoding = 'utf-8')
                 output_file.truncate()
-                output_file.write(self.head)       
+                output_file.write(self.head)
                 output_file.close()
 
                 # write header
                 with open(output_name, 'a', encoding='utf-8') as f:
                     self.site_info.to_csv(f, header=False, sep="\t", index=False,
-                                        index_label=False, line_terminator="\n")            
+                                        index_label=False, line_terminator="\n")
 
                 output_file.close()
 
@@ -619,7 +622,7 @@ class sympro_txt_read(object):
                                         index_label=False, line_terminator="\n")
                 output_file.close()
 
-                
+
             if shift_timestamps == True:
 
                 os.makedirs(out_dir, exist_ok=True)
@@ -631,7 +634,7 @@ class sympro_txt_read(object):
                 self.output_name = output_name
                 output_file = open(output_name, 'w+', encoding = 'utf-8')
                 output_file.truncate()
-                output_file.write(self.head)       
+                output_file.write(self.head)
                 output_file.close()
 
                 with open(output_name, 'a', encoding='utf-8') as f:
@@ -641,7 +644,7 @@ class sympro_txt_read(object):
                         print("couldn't rename 'Effective Date:' info in {0}".format(output_name))
                         pass
                     self.site_info.to_csv(f, header=False, sep="\t", index=False,
-                                        index_label=False, line_terminator="\n")            
+                                        index_label=False, line_terminator="\n")
 
                 output_file.close()
 
@@ -659,7 +662,7 @@ class sympro_txt_read(object):
 
                 output_file.close()
                 self.insert_blank_header_rows(output_name)
-                
+
             if standard == True:
                 if out_file != '':
                     output_name = out_file
@@ -671,13 +674,13 @@ class sympro_txt_read(object):
                 try:
                     output_file = open(output_name, 'w+', encoding = 'utf-8')
                     output_file.truncate()
-                    output_file.write(self.head)       
+                    output_file.write(self.head)
                     output_file.close()
 
                     # write header
                     with open(output_name, 'a', encoding='utf-8') as f:
                         self.site_info.to_csv(f, header=False, sep="\t", index=False,
-                                            index_label=False, line_terminator="\n")            
+                                            index_label=False, line_terminator="\n")
                     output_file.close()
 
                     #write data
@@ -694,7 +697,7 @@ class sympro_txt_read(object):
 
 
     def insert_blank_header_rows(self,filename):
-        """insert blank rows when using shift_timestamps() 
+        """insert blank rows when using shift_timestamps()
 
         ensures the resulting text file looks and feels like an
         original Sympro Desktop exported
@@ -703,46 +706,47 @@ class sympro_txt_read(object):
                                    "Site Properties",
                                    "Logger History",
                                    "iPack History",
-                                   "Sensor History", 
+                                   "Sensor History",
                                    "Data"]
-        
+
         blank_list = []
-        for i in self.site_info[self.site_info[0].str.contains("Export Parameters")==True].index:
+        for i in self.site_info[self.site_info[0].str.contains("Export Parameters") == True].index:
           blank_list.append(i)
           export_parameter_line = i + 2
-        
-        for i in self.site_info[self.site_info[0].str.contains("Site Properties")==True].index:
+
+        for i in self.site_info[self.site_info[0].str.contains("Site Properties") == True].index:
            blank_list.append(i)
            site_properties_line = i + 2
-    
-        for i in self.site_info[self.site_info[0].str.contains("Logger History")==True].index:
+
+        for i in self.site_info[self.site_info[0].str.contains("Logger History") == True].index:
             blank_list.append(i)
             logger_history_line = i + 2
 
-        for i in self.site_info[self.site_info[0].str.contains("iPack History")==True].index:
+        for i in self.site_info[self.site_info[0].str.contains("iPack History") == True].index:
             blank_list.append(i)
             ipack_history_line = i + 2
 
-        for i in self.site_info[self.site_info[0].str.contains("Sensor History")==True].index:
+        for i in self.site_info[self.site_info[0].str.contains("Sensor History") == True].index:
             blank_list.append(i)
             sensor_history_line = i + 2
 
         skip_first_channel = True
-        for i in self.site_info[self.site_info[0].str.contains("Channel:")==True].index:
+        for i in self.site_info[self.site_info[0].str.contains("Channel:") == True].index:
            if skip_first_channel == True:
                 skip_first_channel = False
            else:
               blank_list.append(i)
 
-        for i in self.site_info[self.site_info[0].str.match("Data")==True].index:
+        for i in self.site_info[self.site_info[0].str.match("Data") == True].index:
            blank_list.append(i)
            data_line = i + 2
 
-        for i in self.site_info[self.site_info[0].str.contains("Data Type:")==True].index:
+        for i in self.site_info[self.site_info[0].str.contains("Data Type:") == True].index:
             blank_list.remove(i)
-        for i in self.site_info[self.site_info[0].str.contains("Data Logging Mode:")==True].index:
+
+        for i in self.site_info[self.site_info[0].str.contains("Data Logging Mode:") == True].index:
             blank_list.remove(i)
-    
+
         f_read = open(filename, 'r')
         contents = f_read.readlines()
         f_read.close()
@@ -755,15 +759,15 @@ class sympro_txt_read(object):
         contents[data_line]             = header_section_headings[5] + '\n'
 
         for i in list(reversed(sorted(blank_list))):
-            contents.insert(i+2,"\n")
-        
+            contents.insert(i+2, "\n")
+
         f_write = open(filename, 'w')
         contents = "".join(contents)
         f_write.write(contents)
         f_write.close()
 
-    
-def shift_timestamps(txt_folder="", out_folder="", file_filter="", 
+
+def shift_timestamps(txt_folder="", out_folder="", file_filter="",
                      start_date="1970-01-01", end_date="2150-12-31",
                      seconds=3600):
     """Takes as input a folder of exported standard text files and
@@ -787,9 +791,9 @@ def shift_timestamps(txt_folder="", out_folder="", file_filter="",
     Returns
     -------
     obj
-        text files with shifted timestamps; new file names include shifted 
+        text files with shifted timestamps; new file names include shifted
         timestamp.
-        
+
     """
     if out_folder:
         out_dir = out_folder
@@ -807,7 +811,7 @@ def shift_timestamps(txt_folder="", out_folder="", file_filter="",
     file_count = len(files)
     counter = 1
     start_time = datetime.now()
-    
+
     for f in files:
 
         try:

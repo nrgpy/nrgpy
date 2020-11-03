@@ -1,9 +1,9 @@
-#!/bin/usr/python
-
 from datetime import datetime
+from glob import glob
 import os
-import pandas as pd
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, date_check, draw_progress_bar
+import pandas as pd
+
 
 class spidar_data_read(object):
     """reads in CSV file(s) using pandas and creates
@@ -12,10 +12,6 @@ class spidar_data_read(object):
     ----------
     data_file : str
         path to single CSV or ZIP to be read
-    directory : str
-        path of directory of data_files to concatenate
-    file_filter : str
-        text to filter data files on
 
     Returns
     --------
@@ -83,10 +79,28 @@ class spidar_data_read(object):
                    file_filter='', file_filter2='',
                    start_date='1970-01-01', end_date='2150-12-31',
                    progress_bar=True):
-        """
-        """
-        from glob import glob
+        """concatenate files in a folder
 
+        parameters
+        ----------
+        txt_dir : str
+            path to csv or csv.zip files
+        output_txt : boolean
+            export concatenated data
+        out_file : str
+            optional, filename of text export
+        start_date : str
+            yyy-mm-dd formatted string
+        end_date : str
+            yyy-mm-dd formatted string
+        progress_bar : boolean
+            show progress bar instead of each file being concatenated
+
+        returns
+        -------
+        None
+            adds data dataframe to reader object
+        """
         self.txt_dir = txt_dir
         self.output_txt = output_txt
         self.out_file = out_file
@@ -99,16 +113,19 @@ class spidar_data_read(object):
             self.txt_dir = windows_folder_path(txt_dir)
         else:
             self.txt_dir = linux_folder_path(txt_dir)
+
         first_file = True
         files = [
             f for f in sorted(glob(self.txt_dir + "*"))\
             if self.file_filter in f and self.file_filter2 in f\
             and date_check(self.start_date, self.end_date, f)
         ]
+
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
         self.counter = 1
         self.start_time = datetime.now()
+
         for f in files:
             if self.file_filter in f and self.file_filter2 in f:
                 if progress_bar:
@@ -138,17 +155,20 @@ class spidar_data_read(object):
             else:
                 pass
             self.counter += 1
+
         if out_file != "":
             self.out_file = out_file
-        if output_txt == True:
+        if output_txt:
             base.data.to_csv(txt_dir + out_file, sep=',', index=False)
 
         try:
             self.base = base
             self.heights = base.heights
+            self.serial_number = base.serial_number
             self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
             self.data.reset_index(drop=True,inplace=True)
             self.data.reset_index(drop=True,inplace=True)
+
         except Exception as e:
             print("No files match to contatenate.")
             print(e)

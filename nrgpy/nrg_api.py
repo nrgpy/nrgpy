@@ -58,12 +58,12 @@ class nrg_api(object):
         request_token_header = {'content-type': 'application/json'}
         request_payload = {'client_id': '{}'.format(self.client_id), 'client_secret': '{}'.format(self.client_secret)}
 
-        resp = requests.post(data=json.dumps(request_payload), headers=request_token_header, url=retrieve_token_url)
+        self.resp = requests.post(data=json.dumps(request_payload), headers=request_token_header, url=retrieve_token_url)
         self.session_start_time = datetime.now()
 
-        if resp.status_code == 200:
+        if self.resp.status_code == 200:
             print("[OK]")
-            self.session_token = json.loads(resp.text)['access_token']
+            self.session_token = json.loads(self.resp.text)['access_token']
         else:
             print("[FAILED] | unable to get session token.")
             self.session_token = False
@@ -183,16 +183,16 @@ class nrg_api_catalog(nrg_api):
             'enddate': self.end_date,
          }
 
-        resp = requests.post(data=self.data, url=data_catalog_url, headers=self.headers)
+        self.resp = requests.post(data=self.data, url=data_catalog_url, headers=self.headers)
 
-        if resp.status_code == 200:
-            self.f = json.loads(resp.content)
+        if self.resp.status_code == 200:
+            self.f = json.loads(self.resp.content)
             self.json = json.dumps(self.f, indent=2, sort_keys=True)
             self.df = pd.read_json(self.json)
 
         else:
-            print(resp.status_code)
-            print(resp.reason)
+            print(self.resp.status_code)
+            print(self.resp.reason)
             return False
 
 
@@ -486,6 +486,8 @@ class nrg_api_export(nrg_api):
         (True) whether to save the result to file
     nec_file : str, optional
         path to NEC file for custom export formatting
+    text_timestamps : bool
+        get export data with text timestamps instead of datetime
 
     Returns
     -------
@@ -524,7 +526,7 @@ class nrg_api_export(nrg_api):
                  serial_number='', site_number='',
                  start_date='2014-01-01', end_date='2023-12-31',
                  client_id='', client_secret='', nec_file='',
-                 save_file=True,  **kwargs):
+                 text_timestamps=False, save_file=True,  **kwargs):
 
         super().__init__(client_id, client_secret)
 
@@ -541,6 +543,7 @@ class nrg_api_export(nrg_api):
         self.start_date = start_date
         self.end_date = end_date
         self.nec_file = nec_file
+        self.text_timestamps = text_timestamps
 
         if self.nec_file:
             self.encoded_nec_bytes = self.prepare_file_bytes(self.nec_file)
@@ -563,17 +566,17 @@ class nrg_api_export(nrg_api):
             'necfilebytes': self.encoded_nec_bytes
         }
 
-        resp = requests.post(data=self.data, url=export_url, headers=self.headers)
+        self.resp = requests.post(data=self.data, url=export_url, headers=self.headers)
 
-        if resp.status_code == 200:
+        if self.resp.status_code == 200:
             with open(self.filepath, 'wb') as f:
-                f.write(resp.content)
+                f.write(self.resp.content)
 
             with zipfile.ZipFile(self.filepath, 'r') as z:
                 data_file = z.namelist()[0]
                 z.extractall(self.out_dir)
 
-            reader = sympro_txt_read(filename=os.path.join(self.out_dir, data_file))
+            reader = sympro_txt_read(filename=os.path.join(self.out_dir, data_file), text_timestamps=self.text_timestamps)
             reader.format_site_data()
 
             os.remove(self.filepath)
@@ -585,6 +588,6 @@ class nrg_api_export(nrg_api):
             return reader
 
         else:
-            print(resp.status_code)
-            print(resp.reason)
+            print(self.resp.status_code)
+            print(self.resp.reason)
             return False
