@@ -585,6 +585,10 @@ class nrg_api_export(nrg_api):
             if self.save_file:
                 reader.output_txt_file(standard=True, out_file=os.path.join(self.out_dir, self.txt_file))
 
+            del self.data['necfilebytes']
+            self.data['nec_file'] = self.nec_file
+            reader.post_json = self.data
+
             return reader
 
         else:
