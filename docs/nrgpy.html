@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -48,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> nrgpy
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
           
 
           
@@ -71,6 +72,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -102,6 +104,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -140,7 +143,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>nrgpy package</li>
     
@@ -262,7 +265,7 @@ up for an account, go to:
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rld_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – specify directory. Note for unc values, you
 will need to escape all forward slashes, e.g.
-rld_dir = “\soltechsupportdata”
+rld_dir = “\soltechsupportdata&quot;
 or use the r’path      odir’ approach</p></li>
 <li><p><strong>out_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – see note for rld_dir.</p></li>
 <li><p><strong>encryption_pass</strong> (<em>str</em>) – specify data encryption password if logger is set up for that.</p></li>
@@ -877,7 +880,7 @@ times are in logger local time</p></li>
 <dd class="field-odd"><p><strong>txt_file_names</strong> (<em>list</em>) – list of SymphoniePRO text file exports</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list of “missing” text file numbers</p>
+<dd class="field-even"><p>“missing” text file numbers</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
@@ -901,25 +904,19 @@ times are in logger local time</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>actual_rows</dt><dd><p>(int)
-actual number of rows in data section of
+<dt>actual_rows<span class="classifier">int</span></dt><dd><p>actual number of rows in data section of
 export file (1 subtracted for column headers)</p>
 </dd>
-<dt>expected_rows</dt><dd><p>(int)
-expected number of rows (assumes 10 min. AVG),
+<dt>expected_rows<span class="classifier">int</span></dt><dd><p>expected number of rows (assumes 10 min. AVG),
 converts result to whole integer</p>
 </dd>
-<dt>time_range</dt><dd><p>(str)
-range of time represented in export file</p>
+<dt>time_range<span class="classifier">str</span></dt><dd><p>range of time represented in export file</p>
 </dd>
-<dt>first_interval</dt><dd><p>(str)
-file starting timestamp</p>
+<dt>first_interval<span class="classifier">str</span></dt><dd><p>file starting timestamp</p>
 </dd>
-<dt>last_interval</dt><dd><p>(str)
-file ending timestamp</p>
+<dt>last_interval<span class="classifier">str</span></dt><dd><p>file ending timestamp</p>
 </dd>
-<dt>missing_timestamps</dt><dd><p>(list)
-a list of missing timestamps</p>
+<dt>missing_timestamps<span class="classifier">list</span></dt><dd><p>a list of missing timestamps</p>
 </dd>
 </dl>
 </p>
@@ -948,16 +945,21 @@ a list of missing timestamps</p>
 <dl class="py function">
 <dt id="nrgpy.quality.find_missing_intervals">
 <code class="sig-prename descclassname">nrgpy.quality.</code><code class="sig-name descname">find_missing_intervals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">__df</span></em>, <em class="sig-param"><span class="n">interval</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.quality.find_missing_intervals" title="Permalink to this definition">¶</a></dt>
-<dd><p>find gaps in data dataframe
-:returns: a list of all missing intervals
-:rtype: list</p>
+<dd><p>find gaps in data dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of all missing intervals</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="nrgpy.quality.select_interval_length">
 <code class="sig-prename descclassname">nrgpy.quality.</code><code class="sig-name descname">select_interval_length</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">seconds</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.quality.select_interval_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>get interval length of data set</p>
-<p>returns the mode of the first 10 intervals of the data set</p>
+<dd><p>returns the mode of the first 10 intervals of the data set</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1406,7 +1408,7 @@ Local export of text files, as of 0.1.8.</p>
 <dl class="py function">
 <dt id="nrgpy.utilities.windows_folder_path">
 <code class="sig-prename descclassname">nrgpy.utilities.</code><code class="sig-name descname">windows_folder_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.utilities.windows_folder_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>convert ‘/’ to ‘’ in folder_path and assert ending in ‘’</p>
+<dd><p>convert ‘/’ to ‘' in folder_path and assert ending in ‘'</p>
 </dd></dl>
 
 </div>
@@ -1426,11 +1428,19 @@ Local export of text files, as of 0.1.8.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, NRG Systems, Technical Services
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1441,7 +1451,6 @@ Local export of text files, as of 0.1.8.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

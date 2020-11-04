@@ -166,8 +166,8 @@ class spidar_data_read(object):
             self.heights = base.heights
             self.serial_number = base.serial_number
             self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
-
-            # self.data.reset_index(drop=True,inplace=True)
+            self.data.reset_index(drop=True,inplace=True)
+            self.data.reset_index(drop=True,inplace=True)
 
         except Exception as e:
             print("No files match to contatenate.")

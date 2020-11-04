@@ -17,25 +17,19 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
     Returns
     ----------
     dict
-        actual_rows
-            (int)
+        actual_rows : int
             actual number of rows in data section of
             export file (1 subtracted for column headers)
-        expected_rows
-            (int)
+        expected_rows : int
             expected number of rows (assumes 10 min. AVG),
             converts result to whole integer
-        time_range
-            (str)
+        time_range : str
             range of time represented in export file
-        first_interval
-            (str)
+        first_interval : str
             file starting timestamp
-        last_interval
-            (str)
+        last_interval : str
             file ending timestamp
-        missing_timestamps
-            (list)
+        missing_timestamps : list
             a list of missing timestamps
 
     Examples
@@ -70,14 +64,13 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
         first_interval = datetime.strptime(_df['Timestamp'].min(), time_fmt)
         last_interval = datetime.strptime(_df['Timestamp'].max(), time_fmt)
 
-
     interval = select_interval_length(_df)
-
-
     time_range = last_interval - first_interval
-
     expected_rows = int(time_range.total_seconds() / interval)
     actual_rows = len(df) - 1
+    loss_pct = round(
+        100 * (expected_rows - actual_rows) / expected_rows
+    )
 
     if expected_rows != actual_rows:
         missing_timestamps, _df = find_missing_intervals(_df, interval)
@@ -90,13 +83,13 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
         print('Data set Duration         : {0}'.format(time_range))
         print('Expected rows in data set : {0}'.format(expected_rows))
         print('Actual rows in data set   : {0}'.format(actual_rows))
-        print()
 
         if expected_rows == actual_rows:
-            print('Data set complete.')
+            print('\nData set complete.')
 
         else:
-            print('Missing {0} timestamps:'.format(len(missing_timestamps)))
+            print('Interval loss percentage  : {0}'.format(loss_pct))
+            print('\nMissing {0} timestamps:'.format(len(missing_timestamps)))
 
             if len(missing_timestamps) <= 8 or show_all_missing_timestamps == True:
                 for i, timestamp in enumerate(missing_timestamps):
@@ -115,6 +108,7 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
         interval_info['first_interval'] = first_interval
         interval_info['last_interval'] = last_interval
         interval_info['time_range'] = time_range
+        interval_info['loss_pct'] = loss_pct
 
         try:
             interval_info['missing_timestamps'] = missing_timestamps
@@ -126,7 +120,8 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
 
 def find_missing_intervals(__df, interval):
     """find gaps in data dataframe
-    Returns
+
+    returns
     ----------
     list
         a list of all missing intervals
@@ -150,9 +145,7 @@ def find_missing_intervals(__df, interval):
 
 
 def select_interval_length(df, seconds=True):
-    """ get interval length of data set
-
-    returns the mode of the first 10 intervals of the data set
+    """returns the mode of the first 10 intervals of the data set
 
     parameters
     ----------
@@ -200,22 +193,21 @@ def select_interval_length(df, seconds=True):
 
 
 def select_mode_from_list(lst):
-    """ """
     return max(set(lst), key=lst.count)
 
 
 def check_for_missing_txt_files(txt_file_names):
     """ check list of files for missing file numbers
 
-    Parameters
+    parameters
     ----------
     txt_file_names : list
         list of SymphoniePRO text file exports
 
-    Returns
+    returns
     -------
     list
-        list of "missing" text file numbers
+        "missing" text file numbers
 
     """
 
