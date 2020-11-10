@@ -14,7 +14,8 @@ setup(
       author_email='support@nrgsystems.com',
       keywords='nrg systems rld symphonie symphoniepro wind data spidar remote sensor lidar',
       packages=[
-            'nrgpy'
+            'nrgpy',
+            'api',
       ],
       install_requires=[
             'pandas>=0.23',

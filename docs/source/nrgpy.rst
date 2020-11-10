@@ -1,16 +1,16 @@
 nrgpy package
 =============
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   nrgpy.api
+
 Submodules
 ----------
-
-nrgpy.api\_connect module
--------------------------
-
-.. automodule:: nrgpy.api_connect
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 nrgpy.channel\_info\_arrays module
 ----------------------------------
@@ -40,14 +40,6 @@ nrgpy.ipk2lgr module
 --------------------
 
 .. automodule:: nrgpy.ipk2lgr
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-nrgpy.nrg\_api module
----------------------
-
-.. automodule:: nrgpy.nrg_api
    :members:
    :undoc-members:
    :show-inheritance:
@@ -99,6 +91,7 @@ nrgpy.utilities module
    :members:
    :undoc-members:
    :show-inheritance:
+
 
 Module contents
 ---------------

@@ -1,5 +1,4 @@
 __name__ = "nrgpy"
-from .api_connect import nrgApiUrl, token as tk
 from .channel_info_arrays import return_array
 from .convert_rld import local as local_rld, nrg_convert_api
 from .convert_rwd import local as local_rwd
