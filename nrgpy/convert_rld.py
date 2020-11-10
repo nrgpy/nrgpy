@@ -6,12 +6,9 @@ import io
 import glob
 import os
 import pandas as pd
-from pathlib import Path
-import requests
 import subprocess
 import time
-import zipfile
-from nrgpy.nrg_api import nrg_api_convert
+from nrgpy.api.convert import nrg_api_convert
 from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, date_check, draw_progress_bar
 
 
