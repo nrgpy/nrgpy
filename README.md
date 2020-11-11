@@ -74,8 +74,8 @@ converter = nrgpy.nrg_api_convert(
 file_filter = "000175"
 import nrgpy
 
-sympro_dfs = nrgpy.sympro_txt_read()
-sympro_dfs.concat_txt(
+reader = nrgpy.sympro_txt_read()
+reader.concat_txt(
     txt_dir=text_folder_name, 
     file_filter=file_filter, 
     start_date="2019-11-01",
@@ -87,8 +87,8 @@ sympro_dfs.concat_txt(
 ```python
 import nrgpy
 
-sympro_dfs = nrgpy.sympro_txt_read()
-sympro_dfs.concat_txt(
+reader = nrgpy.sympro_txt_read()
+reader.concat_txt(
     txt_dir=text_folder_name, 
     file_filter="000175", 
     start_date="2019-10-01",
