@@ -1,6 +1,6 @@
 from datetime import datetime
 import io
-from nrgpy.utilities import affirm_directory, date_check, draw_progress_bar
+from nrgpy.utils.utilities import affirm_directory, date_check, draw_progress_bar
 from .auth import nrg_api, convert_url
 import os
 import requests

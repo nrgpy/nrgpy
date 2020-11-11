@@ -1,5 +1,5 @@
 from datetime import datetime
-from nrgpy.utilities import affirm_directory
+from nrgpy.utils.utilities import affirm_directory
 from .auth import nrg_api, export_url
 import os
 import requests
@@ -97,7 +97,7 @@ class nrg_api_export(nrg_api):
         self.reader = self.export()
 
     def export(self):
-        from nrgpy.sympro_txt import sympro_txt_read
+        from nrgpy.read.sympro_txt import sympro_txt_read
 
         self.headers = {"Authorization": "Bearer " + self.session_token}
 

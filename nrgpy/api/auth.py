@@ -1,12 +1,8 @@
 import base64
 from datetime import datetime, timedelta
-import io
 import json
-from nrgpy.utilities import affirm_directory, date_check, draw_progress_bar
-import os
 import pickle
 import requests
-import zipfile
 
 
 retrieve_token_url = 'https://api.nrgsystems.com/api/RetrieveToken?code=y2/bWG4hRNf1E00lWICOp7nqLvpNPOtaiFf9Wq2bi1iUpdyQdjwicQ=='

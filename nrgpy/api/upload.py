@@ -1,5 +1,5 @@
 from datetime import datetime
-from nrgpy.utilities import date_check, draw_progress_bar
+from nrgpy.utils.utilities import date_check, draw_progress_bar
 from .auth import nrg_api, upload_url
 import os
 import requests
