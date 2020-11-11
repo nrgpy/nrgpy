@@ -1,15 +1,9 @@
-#!/bin/usr/python
-
-import base64
-from datetime import datetime, date, timedelta
-import io
-import glob
+from datetime import datetime
 import os
-import pandas as pd
 import subprocess
 import time
 from nrgpy.api.convert import nrg_api_convert
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, date_check, draw_progress_bar
+from nrgpy.utils.utilities import check_platform, windows_folder_path, affirm_directory, count_files
 
 
 class local(object):
@@ -62,7 +56,7 @@ class local(object):
                  process_type='convert', convert_type='meas', nec='', site_filter='', site_file='', **kwargs):
 
         self.rld_dir = windows_folder_path(rld_dir)
-        self.out_dir  = windows_folder_path(out_dir)
+        self.out_dir = windows_folder_path(out_dir)
         self.encryption_pass = encryption_pass
         self.hex_key = hex_key
         self.sympro_path = sympro_path
@@ -86,7 +80,6 @@ class local(object):
             Please use convert_rld.nrg_convert_api() method instead.
             """)
 
-
     def directory(self):
         """processes all rld files in self.rld_dir, outputs to txt files to out_dir"""
         affirm_directory(self.out_dir)
@@ -96,6 +89,7 @@ class local(object):
                 encryption = '/pass "{0}"'.format(self.encryption_pass)
             else:
                 encryption = ''
+
         except:
             print('could not parse encryption_pass')
 
@@ -104,6 +98,7 @@ class local(object):
                 encryption_key = '/key "{0}"'.format(self.hex_key)
             else:
                 encryption_key = ''
+
         except:
             print('could not parse hex_key')
 
@@ -112,16 +107,18 @@ class local(object):
                 nec = '/config "{0}"'.format(self.nec)
             else:
                 nec = ''
+
         except:
             print('could not parse encryption_pass')
 
         try:
-            if self.site_file == True:
+            if self.site_file:
                 site_file = '/site '
             elif self.site_file:
                 site_file = '/site "{0}"'.format(self.site_file)
             else:
                 site_file = ''
+
         except:
             print('could not parse encryption_pass')
 
@@ -131,15 +128,16 @@ class local(object):
             print('\nConverting {0} files from {1}\n'.format(rld_count, self.rld_dir))
             print('Saving outputs to {0}'.format(self.out_dir))
 
-            cmd = [self.sympro_path,
-                   "/cmd", self.process_type,
-                   "/file", '"'+"\\".join([self.rld_dir, self.site_filter])+'*.rld"',
-                   encryption,
-                   encryption_key,
-                   nec,
-                   site_file,
-                   "/type", '"'+self.convert_type+'"',
-                   "/outputdir", '"'+self.out_dir[:-1]+'"'
+            cmd = [
+                self.sympro_path,
+                "/cmd", self.process_type,
+                "/file", '"'+"\\".join([self.rld_dir, self.site_filter])+'*.rld"',
+                encryption,
+                encryption_key,
+                nec,
+                site_file,
+                "/type", '"'+self.convert_type+'"',
+                "/outputdir", '"'+self.out_dir[:-1]+'"'
             ]
 
             # print('\nUsing command line script:\n{}'.format(" ".join(cmd)))
@@ -177,14 +175,11 @@ class local(object):
         except:
             print('Unable to process files in directory')
 
-
     def convert(self):
         self.directory()
 
-
     def process(self):
         self.directory()
-
 
     def rename_rlds(self, **kwargs):
         """uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number and logger serial number.
@@ -213,7 +208,6 @@ class local(object):
                     pass
         except:
             print('Could not rename files')
-
 
     def single_file(self, filepath=''):
         self.filepath = filepath.replace('/','\\')
@@ -250,16 +244,17 @@ class local(object):
         except:
             print('could not get site file')
 
-        cmd = [self.sympro_path,
-                   "/cmd", "convert",
-                   "/file", '"'+self.filepath+'"',
-                   encryption,
-                   encryption_key,
-                   nec,
-                   site_file,
-                   "/type", '"'+self.convert_type+'"',
-                   "/outputdir", '"'+self.out_dir[:-1]+'"'
-            ]
+        cmd = [
+            self.sympro_path,
+            "/cmd", "convert",
+            "/file", '"'+self.filepath+'"',
+            encryption,
+            encryption_key,
+            nec,
+            site_file,
+            "/type", '"'+self.convert_type+'"',
+            "/outputdir", '"'+self.out_dir[:-1]+'"'
+        ]
         self.cmd = cmd
 
         try:

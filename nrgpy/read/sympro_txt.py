@@ -1,11 +1,9 @@
-#!/bin/usr/python
 import datetime
 from datetime import datetime, timedelta
 from glob import glob
 import os
 import pandas as pd
-import re
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar, date_check, renamer
+from nrgpy.utils.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar, date_check, renamer
 import traceback
 
 
@@ -57,6 +55,7 @@ class sympro_txt_read(object):
         self.filename = filename
         self.text_timestamps = text_timestamps
         self.out_file = out_file
+        self.reader_type = "SymphoniePRO"
 
         if out_file == "":
             out_file = datetime.today().strftime("%Y-%m-%d") + "_SymPRO.txt"
@@ -80,9 +79,11 @@ class sympro_txt_read(object):
             header_len = i + 1
             read_len = header_len - 5
 
-            self.site_info = pd.read_csv(self.filename, skiprows=2, sep="\t",
-                                        index_col=False, nrows=read_len,
-                                        usecols=[0,1], header=None)
+            self.site_info = pd.read_csv(
+                self.filename, skiprows=2, sep="\t",
+                index_col=False, nrows=read_len,
+                usecols=[0, 1], header=None
+            )
 
             self.site_info = self.site_info.iloc[:self.site_info.loc[self.site_info[0] == 'Data'].index.tolist()[0]+1]
             self.data = pd.read_csv(self.filename, skiprows=header_len, sep="\t", encoding='iso-8859-1')
@@ -91,9 +92,8 @@ class sympro_txt_read(object):
             self.first_timestamp = self.data.iloc[0]['Timestamp']
             self.arrange_ch_info()
 
-
     def __repr__(self):
-        return '<class {}: {} >'.format(self.__class__.__name__,self.filename)
+        return '<class {}: {} >'.format(self.__class__.__name__, self.filename)
 
     def arrange_ch_info(self):
         """creates ch_info dataframe and ch_list array"""
@@ -111,7 +111,7 @@ class sympro_txt_read(object):
             'Units:'
         ]
 
-        if self.ch_details == True:
+        if self.ch_details:
             array += [
                 'P-SCM Type:',
                 'Total Direction Offset:',
@@ -132,11 +132,11 @@ class sympro_txt_read(object):
 
         for row in self.site_info.loc[self.site_info[0].isin(array)].iterrows():
 
-            if row[1][0] == array[0] and ch_details == 0: # start channel data read
+            if row[1][0] == array[0] and ch_details == 0:  # start channel data read
                 ch_details = 1
                 ch_data[row[1][0]] = row[1][1]
 
-            elif row[1][0] == array[0] and ch_details == 1: # close channel, start new data read
+            elif row[1][0] == array[0] and ch_details == 1:  # close channel, start new data read
                 ch_list.append(ch_data)
                 ch_data = {}
                 ch_data[row[1][0]] = row[1][1]
@@ -144,7 +144,7 @@ class sympro_txt_read(object):
             elif row[1][0] in str(array):
                 ch_data[row[1][0]] = row[1][1]
 
-        ch_list.append(ch_data) # last channel's data
+        ch_list.append(ch_data)  # last channel's data
 
         self.ch_list = ch_list
         self.ch_info = self.ch_info.append(ch_list)

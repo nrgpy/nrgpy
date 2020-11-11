@@ -1,7 +1,7 @@
 from datetime import datetime
 from glob import glob
 import os
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, date_check, draw_progress_bar
+from nrgpy.utils.utilities import check_platform, windows_folder_path, linux_folder_path, date_check, draw_progress_bar
 import pandas as pd
 
 
@@ -57,10 +57,14 @@ class spidar_data_read(object):
     """
     def __init__(self, filename=''):
         self.filename = filename
+        self.reader_type = "SpidarV1"
 
         if self.filename:
             self.read_file(self.filename)
             pass
+
+    def __repr__(self):
+        return '<class {}: {} >'.format(self.__class__.__name__, self.filename)
 
     def read_file(self, f):
         self.data = pd.read_csv(
@@ -73,7 +77,6 @@ class spidar_data_read(object):
         self.columns = self.data.columns
         self.get_heights()
         self.serial_number = os.path.basename(f).split("_")[0]
-
 
     def concat_txt(self, txt_dir='', output_txt=False, out_file='',
                    file_filter='', file_filter2='',
@@ -116,8 +119,8 @@ class spidar_data_read(object):
 
         first_file = True
         files = [
-            f for f in sorted(glob(self.txt_dir + "*"))\
-            if self.file_filter in f and self.file_filter2 in f\
+            f for f in sorted(glob(self.txt_dir + "*"))
+            if self.file_filter in f and self.file_filter2 in f
             and date_check(self.start_date, self.end_date, f)
         ]
 
@@ -131,7 +134,7 @@ class spidar_data_read(object):
                 if progress_bar:
                     draw_progress_bar(self.counter, self.file_count, self.start_time)
                 else:
-                    print("Adding {0}/{1}  ...  {2} ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
+                    print("Adding {0}/{1}  ...  {2} ".format(str(self.counter).rjust(self.pad), str(self.file_count).ljust(self.pad), f), end="", flush=True)
                 if first_file == True:
                     first_file = False
                     try:
@@ -146,9 +149,11 @@ class spidar_data_read(object):
                     try:
                         s = spidar_data_read(file_path)
                         base.data = base.data.append(s.data, sort=False)
-                        if progress_bar == False: print("[OK]")
+                        if not progress_bar:
+                            print("[OK]")
                     except Exception as e:
-                        if progress_bar == False: print("[FAILED]")
+                        if not progress_bar:
+                            print("[FAILED]")
                         print("could not concat {0}".format(file_path))
                         print(e)
                         pass
@@ -166,18 +171,18 @@ class spidar_data_read(object):
             self.heights = base.heights
             self.serial_number = base.serial_number
             self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
-            self.data.reset_index(drop=True,inplace=True)
-            self.data.reset_index(drop=True,inplace=True)
+            self.data.reset_index(drop=True, inplace=True)
+            self.data.reset_index(drop=True, inplace=True)
 
         except Exception as e:
             print("No files match to contatenate.")
             print(e)
             return None
 
-
     def get_heights(self):
         self.heights = [
-            int(col.split("_")[1])\
-            for col in self.columns\
-            if "horz_mean" in col\
-            and "m/s" in col]
+            int(col.split("_")[1])
+            for col in self.columns
+            if "horz_mean" in col
+            and "m/s" in col
+        ]

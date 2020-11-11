@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 def check_intervals(df, verbose=True, return_info=False, show_all_missing_timestamps=False, interval=''):
     """checks for missing intervals in a pandas dataframe with a "Timestamp" column
 
@@ -48,9 +51,6 @@ def check_intervals(df, verbose=True, return_info=False, show_all_missing_timest
     Actual rows in data set   : 26093
     Data set complete.
     """
-    from datetime import datetime
-
-
     if "horz" in "".join(df.columns).lower() or isinstance(df['Timestamp'][0], datetime):
         df2 = df.copy()
         #  df2.Timestamp = df2.Timestamp.apply(lambda x: x.strftime("%Y-%m-%d %H:%M:%S"))

@@ -1,13 +1,9 @@
-#!/bin/usr/python
-
 import datetime
 import time
 import os
-import pandas as pd
-import pathlib
 import subprocess
 import shutil
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, draw_progress_bar
+from nrgpy.utils.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, draw_progress_bar
 
 
 class local(object):
@@ -49,8 +45,8 @@ class local(object):
 
     >>> from nrgpy.convert_rwd import local
     >>> converter = local(
-            rwd_dir='/path/to/rwd/files', 
-            out_dir=/path/to/txt/outputs, 
+            rwd_dir='/path/to/rwd/files',
+            out_dir=/path/to/txt/outputs,
             file_filter='1234202001', # for files from January 2020
         )
 
@@ -79,21 +75,20 @@ class local(object):
 
     """
 
-
     def __init__(self, rwd_dir='', out_dir='', filename='', encryption_pin='',
                  sdr_path=r'C:/NRG/SymDR/SDR.exe',
-                 convert_type='meas', file_filter='', 
-                 wine_folder='~/.wine/drive_c/', 
+                 convert_type='meas', file_filter='',
+                 wine_folder='~/.wine/drive_c/',
                  use_site_file=False, raw_mode=False, progress_bar=True, show_result=True, **kwargs):
 
         if encryption_pin != '':
-            self.command_switch = '/z' # noqueue with pin
+            self.command_switch = '/z'  # noqueue with pin
         else:
-            self.command_switch = '/q' # noqueue (logger params)
-        if use_site_file == True:
-            self.command_switch = '/s' # silent (site file params)
-        if raw_mode == True:
-            self.command_switch = '/r' # silent (site file params)
+            self.command_switch = '/q'  # noqueue (logger params)
+        if use_site_file:
+            self.command_switch = '/s'  # silent (site file params)
+        if raw_mode:
+            self.command_switch = '/r'  # silent (site file params)
 
         self.filename = filename
         self.progress_bar = progress_bar
@@ -115,11 +110,11 @@ class local(object):
 
         if self.platform == 'win32':
             self.out_dir = windows_folder_path(out_dir)
-            self.file_path_joiner = '\\'            
+            self.file_path_joiner = '\\'
         else:
             self.out_dir = linux_folder_path(out_dir)
             self.file_path_joiner = '/'
-        
+
         if self.filename:
             self.counter = 1
             self.rwd_dir = os.path.dirname(self.filename)
@@ -155,17 +150,15 @@ class local(object):
 
                 os.remove(os.path.join(self.wine_folder, "NRG/ScaledData/test.log"))
 
-
             except:
                 self.sdr_ok = False
                 print('SDR unable to start')
                 import traceback
                 print(traceback.format_exc())
 
-    
     def convert(self):
         """process rwd files
-        
+
         create list of RWD files that match filtering
         copy RWD files to RawData directory
         iterate through files
@@ -184,7 +177,7 @@ class local(object):
         for f in sorted(self.rwd_file_list):
             site_num = f[:4]
             try:
-                self._filename = "\\".join([self.RawData+site_num,f])
+                self._filename = "\\".join([self.RawData+site_num, f])
                 self._single_file()
             except:
                 print('file conversion failed on {}'.format(self._filename))
@@ -204,7 +197,6 @@ class local(object):
                     print('\t{}'.format(_filename))
             print('----------------\nDifference : {}'.format(self.raw_count - (txt_count + log_count)))
 
-
     def _list_files(self):
         """get list of files in rwd_dir"""
 
@@ -221,7 +213,6 @@ class local(object):
             for x in files:
                 if x.startswith(self.file_filter) and x.lower().endswith('rwd'):
                     self.rwd_file_list.append(x)
-
 
     def _single_file(self):
         """process for converting a single file"""
@@ -245,13 +236,13 @@ class local(object):
                     draw_progress_bar(self.counter, self.raw_count, self.start_time)
 
                 else:
-                    print("Converting  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.raw_count).ljust(self.pad),_f.split("\\")[-1]), end="", flush=True)
-
+                    print("Converting  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad), str(self.raw_count).ljust(self.pad), _f.split("\\")[-1]), end="", flush=True)
 
             subprocess.check_output(" ".join(self.cmd), shell=True)
             # subprocess.run(" ".join(self.cmd), stdout=subprocess.PIPE)
 
-            if not self.progress_bar and not self.show_result: print("[DONE]")
+            if not self.progress_bar and not self.show_result:
+                print("[DONE]")
 
             try:
                 self._copy_txt_file()
@@ -259,12 +250,11 @@ class local(object):
                 print('unable to copy {} to text folder'.format(_f))
 
         except:
-            if not self.progress_bar and not self.show_result: print("[FAILED]")
+            if not self.progress_bar and not self.show_result:
+                print("[FAILED]")
             import traceback
             print(traceback.format_exc())
 
-            
-            
     def _copy_rwd_files(self):
         """copy RWD files from self.RawData to self.rwd_dir"""
 
@@ -272,10 +262,10 @@ class local(object):
 
             if self.file_filter in f:
                 site_num = f[:4]
-                site_folder = os.path.join(self.RawData,site_num)
+                site_folder = os.path.join(self.RawData, site_num)
 
                 if self.platform == 'linux':
-                    site_folder = ''.join([self.wine_folder,'/NRG/RawData/',site_num])
+                    site_folder = ''.join([self.wine_folder, '/NRG/RawData/', site_num])
 
                 try:
                     affirm_directory(site_folder)
@@ -284,29 +274,28 @@ class local(object):
                     pass
 
                 try:
-                    shutil.copy(os.path.join(self.rwd_dir, f), os.path.join(site_folder))                    
+                    shutil.copy(os.path.join(self.rwd_dir, f), os.path.join(site_folder))
                 except:
                     print('unable to copy file to RawData folder:  {}'.format(f))
-
 
     def _copy_txt_file(self):
         """copy TXT file from self.ScaledData to self.out_dir"""
 
         try:
             txt_file_name = os.path.basename(self._filename)[:-4] + '.txt'
-            txt_file_path = os.path.join(self.ScaledData,txt_file_name)
-            out_path = self.file_path_joiner.join([self.out_dir,txt_file_name])
+            txt_file_path = os.path.join(self.ScaledData, txt_file_name)
+            out_path = self.file_path_joiner.join([self.out_dir, txt_file_name])
 
         except:
             print("could not do the needful")
 
         if self.platform == 'linux':
             out_path = linux_folder_path(self.out_dir) + txt_file_name
-            txt_file_path = ''.join([self.wine_folder, '/NRG/ScaledData/',txt_file_name])
+            txt_file_path = ''.join([self.wine_folder, '/NRG/ScaledData/', txt_file_name])
 
         try:
             shutil.copy(txt_file_path, out_path)
-            
+
             try:
                 os.remove(txt_file_path)
             except:
@@ -314,5 +303,5 @@ class local(object):
 
         except:
             import traceback
-            print(traceback.format_exc())            
+            print(traceback.format_exc())
             print("Unable to copy {0} to {1}".format(txt_file_name,self.out_dir))

@@ -1,12 +1,11 @@
-#!/bin/usr/python
 import codecs
 import datetime
 from datetime import datetime
 from glob import glob
 import os
 import pandas as pd
-from nrgpy.channel_info_arrays import return_array
-from nrgpy.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar, renamer
+from nrgpy.read.channel_info_arrays import return_array
+from nrgpy.utils.utilities import check_platform, windows_folder_path, linux_folder_path, draw_progress_bar, renamer
 
 
 class read_text_data(object):
@@ -59,10 +58,8 @@ class read_text_data(object):
         else:
             print('set filename or txt_dir parameters to proceed.')
 
-
     def __repr__(self):
-        return '<class {}: {} >'.format(self.__class__.__name__,self.filename)
-
+        return '<class {}: {} >'.format(self.__class__.__name__, self.filename)
 
     def arrange_ch_info(self):
         """generates list and dataframe of channel information"""
@@ -89,7 +86,6 @@ class read_text_data(object):
 
         self.ch_list = ch_list
         self.ch_info = self.ch_info.append(ch_list)
-
 
     def concat(self, output_txt=False, out_file='', file_filter='', filter2='', progress_bar=True):
         """combine exported rwd files (in txt format)
@@ -130,16 +126,19 @@ class read_text_data(object):
                 if progress_bar:
                     draw_progress_bar(self.counter, self.file_count, self.start_time)
                 else:
-                    print("Adding  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),f), end="", flush=True)
+                    print("Adding  {0}/{1}  {2}  ...  ".format(str(self.counter).rjust(self.pad), str(self.file_count).ljust(self.pad), f), end="", flush=True)
 
-                if first_file == True:
+                if first_file:
                     first_file = False
 
                     try:
-                        base = read_text_data(filename=f,data_type=self.data_type,
-                                                   file_filter=self.file_filter, file_ext=self.file_ext,
-                                                   sep=self.sep)
-                        if progress_bar != True: print("[OK]")
+                        base = read_text_data(
+                            filename=f, data_type=self.data_type,
+                            file_filter=self.file_filter, file_ext=self.file_ext,
+                            sep=self.sep
+                        )
+                        if not progress_bar:
+                            print("[OK]")
                         pass
 
                     except IndexError:
@@ -149,20 +148,24 @@ class read_text_data(object):
                 else:
                     file_path = f
                     try:
-                        s = read_text_data(filename=f,data_type=self.data_type,
-                                           file_filter=self.file_filter, file_ext=self.file_ext,
-                                           sep=self.sep)
+                        s = read_text_data(
+                            filename=f, data_type=self.data_type,
+                            file_filter=self.file_filter, file_ext=self.file_ext,
+                            sep=self.sep
+                        )
                         base.data = base.data.append(s.data, sort=False)
-                        if progress_bar != True: print("[OK]")
+                        if not progress_bar:
+                            print("[OK]")
                     except:
-                        if progress_bar != True: print("[FAILED]")
+                        if not progress_bar:
+                            print("[FAILED]")
                         print("could not concat {0}".format(file_path))
                         pass
             else:
                 pass
             self.counter += 1
 
-        if output_txt == True:
+        if output_txt:
 
             if out_file == "":
                 out_file = f"{self.data_type}_" + datetime.today().strftime("%Y-%m-%d") + ".txt"
@@ -183,7 +186,6 @@ class read_text_data(object):
             print("No files match to contatenate.")
             return None
 
-
     def get_site_info(self, _file):
         """create dataframe of site info"""
         self.header_len = 0
@@ -196,16 +198,17 @@ class read_text_data(object):
                     break
                 self.header_len += 1
 
-        self.site_info = pd.read_csv(_file, skiprows=self.skip_rows, skip_blank_lines=True,
-                                     sep=self.sep, nrows=self.header_len,
-                                     header=[0,1], encoding='ISO-8859-1',
-                                     error_bad_lines=False, warn_bad_lines=False)  #usecols=[0,1],
+        self.site_info = pd.read_csv(
+            _file, skiprows=self.skip_rows, skip_blank_lines=True,
+            sep=self.sep, nrows=self.header_len,
+            header=[0, 1], encoding='ISO-8859-1',
+            error_bad_lines=False, warn_bad_lines=False
+        )  # usecols=[0,1],
 
         if self.data_type.lower() in ["symphonieplus3", "symplus3", "sp3", "rwd", "4941"]:
             self.site_info.reset_index(inplace=True)  # , drop=True) works, but only for spro
             self.format_rwd_site_data()
-        #self.site_info = self.site_info.iloc[:self.site_info.iloc[self.site_info[0]==self.header_sections['data_header']].index.tolist()[0]+1]
-
+        # self.site_info = self.site_info.iloc[:self.site_info.iloc[self.site_info[0]==self.header_sections['data_header']].index.tolist()[0]+1]
 
     def get_head(self, _file):
         """get the first lines of the file
@@ -213,7 +216,7 @@ class read_text_data(object):
         excluding those without tabs up to the self.skip_rows line
         """
         self.head = []
-        i=0
+        i = 0
 
         with codecs.open(_file, 'r', 'ISO-8859-1') as head_f:
             for line in head_f:
@@ -223,15 +226,15 @@ class read_text_data(object):
                     self.head.append(line.replace("\n", "").split("\t"))
                 i += 1
 
-
     def get_data(self, _file):
         """create dataframe of tabulated data"""
         if self.data_type == "sympro":
             self.header_len += 1  # this shouldn't be necessary; something with get_site_info?
 
-        self.data = pd.read_csv(_file, skiprows=self.header_len,
-                                encoding='ISO-8859-1', sep=self.sep)
-
+        self.data = pd.read_csv(
+            _file, skiprows=self.header_len,
+            encoding='ISO-8859-1', sep=self.sep
+        )
 
     def format_rwd_site_data(self):
         """adds formatted site dataframe to reader object"""
@@ -272,7 +275,7 @@ def format_sympro_site_data(reader):
         width = list(reader._site_info.columns.values).index('Sensor History')
         reader._site_info.rename(columns=renamer(), inplace=True)
         reader._site_info.drop(reader._site_info.iloc[:, width:len(reader._site_info.columns)], axis=1, inplace=True, errors='ignore')
-        reader._site_info.columns = [str(col).replace(':','').strip() for col in reader._site_info.columns]
+        reader._site_info.columns = [str(col).replace(':', '').strip() for col in reader._site_info.columns]
 
         reader.latitude = float(reader._site_info['Latitude'].values[0])
         reader.longitude = float(reader._site_info['Longitude'].values[0])

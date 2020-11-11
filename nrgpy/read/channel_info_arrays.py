@@ -1,11 +1,8 @@
-#!/bin/usr/python
-
-
 def return_array(data_file_type):
     """return data file header parameter array based on data_file_type"""
 
     if data_file_type.lower() in ["rwd",
-                                  "symplus3", 
+                                  "symplus3",
                                   "symphonieplus3",
                                   "sp3",
                                   "4941"
@@ -17,13 +14,13 @@ def return_array(data_file_type):
         return a, b, c, d
 
     elif data_file_type.lower() in ["rld",
-                                    "sympro", 
-                                    "symphoniepro", 
-                                    "spro", 
+                                    "sympro",
+                                    "symphoniepro",
+                                    "spro",
                                     "8206"]:
-        a, b, c, d= return_spro_ch_info()
+        a, b, c, d = return_spro_ch_info()
         return a, b, c, d
-        
+
     else:
         print("unsupported data_type")
         return False
@@ -31,12 +28,12 @@ def return_array(data_file_type):
 
 def return_sp3_ch_info():
     """returns array of sensor info parameters for Symphonie, PLUS, and PLUS3 txt export files"""
-    
+
     array = [
         'Channel #',
         'Type',
         'Description',
-        #'Details',
+        # 'Details',
         'Serial Number',
         'Height',
         'Scale Factor',
@@ -50,7 +47,7 @@ def return_sp3_ch_info():
     header_sections['data_header'] = "Date & Time Stamp"
     skip_rows = 6
     data_type = 'symplus3'
-    
+
     return array, header_sections, skip_rows, data_type
 
 
