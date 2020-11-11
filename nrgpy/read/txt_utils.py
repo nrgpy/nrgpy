@@ -252,8 +252,8 @@ class read_text_data(object):
             self.location = self._site_info['Site Location'].values[0]
             self.site_description = self._site_info['Site Desc'].values[0]
 
-            self.logger_type = self.head[1][1]
-            self.logger_sn = self.logger_type + self.head[2][1]
+            self.logger_type = self.head[1][1].strip()
+            self.logger_sn = self.logger_type + self.head[2][1].strip()
             self.ipack_sn = ''
             self.ipack_type = ''
             self.time_zone = self._site_info['Time offset (hrs)'].values[0]
