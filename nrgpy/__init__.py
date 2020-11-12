@@ -1,4 +1,3 @@
-__name__ = "nrgpy"
 from .read.channel_info_arrays import return_array
 from .convert.convert_rld import local as local_rld, nrg_convert_api
 from .convert.convert_rwd import local as local_rwd

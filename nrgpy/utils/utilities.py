@@ -83,8 +83,12 @@ def date_check(start_date, end_date, string):
     """
     date_format = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
 
-    start = datetime.strptime(start_date, "%Y-%m-%d")
-    end   = datetime.strptime(end_date, "%Y-%m-%d")
+    try:
+        start = datetime.strptime(start_date, "%Y-%m-%d")
+        end   = datetime.strptime(end_date, "%Y-%m-%d")
+    except TypeError:
+        start = start_date
+        end = end_date
 
     try:
         date_text = re.search(date_format, string)
