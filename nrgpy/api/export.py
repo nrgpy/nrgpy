@@ -74,7 +74,7 @@ class nrg_api_export(nrg_api):
 
         super().__init__(client_id, client_secret)
 
-        self.txt_file = f"{serial_number}_{datetime.now()}.txt"
+        self.txt_file = f'{serial_number}_{start_date}_{end_date}.txt'
 
         self.filepath = os.path.join(out_dir, self.txt_file.replace('txt', 'zip'))
         self.out_dir = out_dir
