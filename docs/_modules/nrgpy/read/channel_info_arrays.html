@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nrgpy.read.channel_info_arrays &mdash; nrgpy 0.10.19 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">nrgpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nrgpy.read.channel_info_arrays</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nrgpy.read.channel_info_arrays</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="return_array"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.channel_info_arrays.return_array">[docs]</a><span></span><span class="k">def</span> <span class="nf">return_array</span><span class="p">(</span><span class="n">data_file_type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;return data file header parameter array based on data_file_type&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">data_file_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;rwd&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;symplus3&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;symphonieplus3&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;sp3&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;4941&quot;</span>
+                                  <span class="s2">&quot;symphonieplus&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;sp&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;4280&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;3090&quot;</span><span class="p">]:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">return_sp3_ch_info</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span>
+
+    <span class="k">elif</span> <span class="n">data_file_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;rld&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;sympro&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;symphoniepro&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;spro&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;8206&quot;</span><span class="p">]:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">return_spro_ch_info</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unsupported data_type&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="return_sp3_ch_info"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.channel_info_arrays.return_sp3_ch_info">[docs]</a><span class="k">def</span> <span class="nf">return_sp3_ch_info</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;returns array of sensor info parameters for Symphonie, PLUS, and PLUS3 txt export files&quot;&quot;&quot;</span>
+
+    <span class="n">array</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;Channel #&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Type&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Description&#39;</span><span class="p">,</span>
+        <span class="c1"># &#39;Details&#39;,</span>
+        <span class="s1">&#39;Serial Number&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Height&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Scale Factor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Offset&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Units&#39;</span>
+    <span class="p">]</span>
+
+    <span class="n">header_sections</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;site_info_start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-----Site Information-----&quot;</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;sensor_info_start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-----Sensor Information-----&quot;</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;data_header&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Date &amp; Time Stamp&quot;</span>
+    <span class="n">skip_rows</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">data_type</span> <span class="o">=</span> <span class="s1">&#39;symplus3&#39;</span>
+
+    <span class="k">return</span> <span class="n">array</span><span class="p">,</span> <span class="n">header_sections</span><span class="p">,</span> <span class="n">skip_rows</span><span class="p">,</span> <span class="n">data_type</span></div>
+
+
+<div class="viewcode-block" id="return_spro_ch_info"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.channel_info_arrays.return_spro_ch_info">[docs]</a><span class="k">def</span> <span class="nf">return_spro_ch_info</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;returns array of possible channel parameters for SymphoniePRO txt export files&quot;&quot;&quot;</span>
+
+    <span class="n">array</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;Channel:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Export Channel:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Effective Date:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Type:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Description:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Serial Number:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Height:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Bearing:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Scale Factor:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Offset:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Units:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;P-SCM Type:&#39;</span>
+    <span class="p">]</span>
+
+    <span class="n">header_sections</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;site_info_start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Export Parameters&quot;</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;sensor_info_start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Sensor History&quot;</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;data_header&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Data</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">skip_rows</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">data_type</span> <span class="o">=</span> <span class="s2">&quot;sympro&quot;</span>
+
+    <span class="k">return</span> <span class="n">array</span><span class="p">,</span> <span class="n">header_sections</span><span class="p">,</span> <span class="n">skip_rows</span><span class="p">,</span> <span class="n">data_type</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, NRG Systems, Technical Services
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

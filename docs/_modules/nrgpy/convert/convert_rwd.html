@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nrgpy.convert.convert_rwd &mdash; nrgpy 0.10.19 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">nrgpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nrgpy.convert.convert_rwd</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nrgpy.convert.convert_rwd</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="n">check_platform</span><span class="p">,</span> <span class="n">windows_folder_path</span><span class="p">,</span> <span class="n">linux_folder_path</span><span class="p">,</span> <span class="n">affirm_directory</span><span class="p">,</span> <span class="n">count_files</span><span class="p">,</span> <span class="n">draw_progress_bar</span>
+
+
+<div class="viewcode-block" id="local"><a class="viewcode-back" href="../../../nrgpy.convert.html#nrgpy.convert.convert_rwd.local">[docs]</a><span class="k">class</span> <span class="nc">local</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;nrgpy.convert_rwd.local - use local installation of Symphonie Data Retriever (SDR)</span>
+<span class="sd">    to convert *.RWD files to *.TXT</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        if populated, a single file is exported</span>
+<span class="sd">    encryption_pin : str</span>
+<span class="sd">        four digit pin, only used for encrypted files</span>
+<span class="sd">    sdr_path : str</span>
+<span class="sd">        r&#39;&quot;C:/NRG/SymDR/SDR.exe&quot;&#39;, may be any path</span>
+<span class="sd">    file_filter : str</span>
+<span class="sd">        filters files on text in filename</span>
+<span class="sd">    rwd_dir : str</span>
+<span class="sd">        folder to check for RWD files</span>
+<span class="sd">    out_dir : str</span>
+<span class="sd">        folder to save exported TXT files into</span>
+<span class="sd">    wine_folder : str</span>
+<span class="sd">        &#39;~/.wine/drive_c/&#39;, for linux installations</span>
+<span class="sd">    use_site_file : bool</span>
+<span class="sd">        set to True to use local site file</span>
+<span class="sd">    raw_mode : bool</span>
+<span class="sd">        set to True to convert raw counts and voltages</span>
+<span class="sd">    progress_bar : bool</span>
+<span class="sd">        set to False to see individual file conversions</span>
+<span class="sd">    show_result : bool</span>
+<span class="sd">        set to False to hide prints to console</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Convert a folder of RWD files to Text with SymphoniePRO Desktop Software</span>
+
+<span class="sd">    &gt;&gt;&gt; from nrgpy.convert_rwd import local</span>
+<span class="sd">    &gt;&gt;&gt; converter = local(</span>
+<span class="sd">            rwd_dir=&#39;/path/to/rwd/files&#39;,</span>
+<span class="sd">            out_dir=/path/to/txt/outputs,</span>
+<span class="sd">            file_filter=&#39;1234202001&#39;, # for files from January 2020</span>
+<span class="sd">        )</span>
+
+<span class="sd">    &gt;&gt;&gt; converter.convert()</span>
+
+
+<span class="sd">    Convert a folder ... on Linux; this assumes you followed the instructions</span>
+<span class="sd">    in the &#39;&#39;&#39;SDR_Linux_README.md&#39;&#39;&#39; file.</span>
+
+<span class="sd">    &gt;&gt;&gt; import getpass</span>
+<span class="sd">    &gt;&gt;&gt; import nrgpy</span>
+
+<span class="sd">    &gt;&gt;&gt; username = getpass.getuser()</span>
+
+<span class="sd">    &gt;&gt;&gt; rwd_dir = f&quot;/home/{username}/data/symplus3/raw&quot;</span>
+<span class="sd">    &gt;&gt;&gt; txt_dir = f&quot;/home/{username}/data/symplus3/export&quot;</span>
+<span class="sd">    &gt;&gt;&gt; wine_folder = f&quot;/home/{username}/prefix32/drive_c&quot;</span>
+
+<span class="sd">    &gt;&gt;&gt; converter = nrgpy.convert_rwd.local(</span>
+<span class="sd">            rwd_dir=rwd_dir,</span>
+<span class="sd">            out_dir=txt_dir,</span>
+<span class="sd">            wine_folder=wine_folder</span>
+<span class="sd">        )</span>
+
+<span class="sd">    &gt;&gt;&gt; converter.convert()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rwd_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">encryption_pin</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                 <span class="n">sdr_path</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;C:/NRG/SymDR/SDR.exe&#39;</span><span class="p">,</span>
+                 <span class="n">convert_type</span><span class="o">=</span><span class="s1">&#39;meas&#39;</span><span class="p">,</span> <span class="n">file_filter</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                 <span class="n">wine_folder</span><span class="o">=</span><span class="s1">&#39;~/.wine/drive_c/&#39;</span><span class="p">,</span>
+                 <span class="n">use_site_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">raw_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_result</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">encryption_pin</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">command_switch</span> <span class="o">=</span> <span class="s1">&#39;/z&#39;</span>  <span class="c1"># noqueue with pin</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">command_switch</span> <span class="o">=</span> <span class="s1">&#39;/q&#39;</span>  <span class="c1"># noqueue (logger params)</span>
+        <span class="k">if</span> <span class="n">use_site_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">command_switch</span> <span class="o">=</span> <span class="s1">&#39;/s&#39;</span>  <span class="c1"># silent (site file params)</span>
+        <span class="k">if</span> <span class="n">raw_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">command_switch</span> <span class="o">=</span> <span class="s1">&#39;/r&#39;</span>  <span class="c1"># silent (site file params)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span> <span class="o">=</span> <span class="n">progress_bar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encryption_pin</span> <span class="o">=</span> <span class="n">encryption_pin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sdr_path</span> <span class="o">=</span> <span class="n">windows_folder_path</span><span class="p">(</span><span class="n">sdr_path</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_folder</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdr_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">RawData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_folder</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">RawData</span><span class="se">\\</span><span class="s1">&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ScaledData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_folder</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">ScaledData</span><span class="se">\\</span><span class="s1">&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="o">=</span> <span class="n">file_filter</span>
+
+        <span class="k">if</span> <span class="s1">&#39;site_filter&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">file_filter</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_filter&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rwd_dir</span> <span class="o">=</span> <span class="n">windows_folder_path</span><span class="p">(</span><span class="n">rwd_dir</span><span class="p">)</span> <span class="c1"># rwd_dir must be in Windows format, even if using Wine</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_result</span> <span class="o">=</span> <span class="n">show_result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">=</span> <span class="n">check_platform</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wine_folder</span> <span class="o">=</span> <span class="n">wine_folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_sdr</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">windows_folder_path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_path_joiner</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">linux_folder_path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_path_joiner</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rwd_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="local.check_sdr"><a class="viewcode-back" href="../../../nrgpy.convert.html#nrgpy.convert.convert_rwd.local.check_sdr">[docs]</a>    <span class="k">def</span> <span class="nf">check_sdr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;determine if SDR is installed&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span><span class="p">:</span>
+            <span class="c1"># do the windows check</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdr_path</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sdr_ok</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">except</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sdr_ok</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SDR not installed. Please install SDR or check path.</span><span class="se">\n</span><span class="s1">https://www.nrgsystems.com/support/product-support/software/symphonie-data-retriever-software&#39;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># do the linux check</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="s1">&#39;wine&#39;</span><span class="p">,</span><span class="s1">&#39;--version&#39;</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">NotADirectoryError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;System not configured for running SDR.</span><span class="se">\n</span><span class="s1"> Please follow instructions in SDR_Linux_README.md to enable.&#39;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="s1">&#39;wine&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">sdr_path</span><span class="p">,</span><span class="s1">&#39;/s&#39;</span><span class="p">,</span><span class="s1">&#39;test.rwd&#39;</span><span class="p">])</span>
+                <span class="n">affirm_directory</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wine_folder</span><span class="p">,</span> <span class="s2">&quot;NRG/ScaledData&quot;</span><span class="p">))</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">sdr_ok</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wine_folder</span><span class="p">,</span> <span class="s2">&quot;NRG/ScaledData/test.log&quot;</span><span class="p">))</span>
+
+            <span class="k">except</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sdr_ok</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SDR unable to start&#39;</span><span class="p">)</span>
+                <span class="kn">import</span> <span class="nn">traceback</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="local.convert"><a class="viewcode-back" href="../../../nrgpy.convert.html#nrgpy.convert.convert_rwd.local.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;process rwd files</span>
+
+<span class="sd">        create list of RWD files that match filtering</span>
+<span class="sd">        copy RWD files to RawData directory</span>
+<span class="sd">        iterate through files</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">affirm_directory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_list_files</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_copy_rwd_files</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rwd_file_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rwd_file_list</span><span class="p">):</span>
+            <span class="n">site_num</span> <span class="o">=</span> <span class="n">f</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">RawData</span><span class="o">+</span><span class="n">site_num</span><span class="p">,</span> <span class="n">f</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_single_file</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;file conversion failed on </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filename</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">txt_count</span> <span class="o">=</span> <span class="n">count_files</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;txt&#39;</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_time</span><span class="p">)</span>
+            <span class="n">log_count</span><span class="p">,</span> <span class="n">log_files</span> <span class="o">=</span> <span class="n">count_files</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">show_files</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_time</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">RWDs in    : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;TXTs out   : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">txt_count</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;LOGs out   : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">log_count</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">log_files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Log files created:&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">_filename</span> <span class="ow">in</span> <span class="n">log_files</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_filename</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------</span><span class="se">\n</span><span class="s1">Difference : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span> <span class="o">-</span> <span class="p">(</span><span class="n">txt_count</span> <span class="o">+</span> <span class="n">log_count</span><span class="p">)))</span></div>
+
+    <span class="k">def</span> <span class="nf">_list_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;get list of files in rwd_dir&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dir_paths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rwd_file_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span><span class="p">:</span>
+            <span class="n">walk_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rwd_dir</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">walk_path</span> <span class="o">=</span> <span class="n">linux_folder_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rwd_dir</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">subdirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">walk_path</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dir_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span><span class="p">)</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;rwd&#39;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">rwd_file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_single_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;process for converting a single file&quot;&quot;&quot;</span>
+
+        <span class="n">_f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filename</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;linux&#39;</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">sdr_path</span> <span class="o">=</span> <span class="n">windows_folder_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdr_path</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">_f</span> <span class="o">=</span> <span class="n">windows_folder_path</span><span class="p">(</span><span class="n">_f</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">wine</span> <span class="o">=</span> <span class="s1">&#39;wine&#39;</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wine</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">wine</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">sdr_path</span><span class="o">+</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_switch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encryption_pin</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="n">_f</span><span class="o">+</span><span class="s1">&#39;&quot;&#39;</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_result</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="p">:</span>
+                    <span class="n">draw_progress_bar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converting  </span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2">  </span><span class="si">{2}</span><span class="s2">  ...  &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">),</span> <span class="n">_f</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># subprocess.run(&quot; &quot;.join(self.cmd), stdout=subprocess.PIPE)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_result</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[DONE]&quot;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_copy_txt_file</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;unable to copy </span><span class="si">{}</span><span class="s1"> to text folder&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_f</span><span class="p">))</span>
+
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_result</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED]&quot;</span><span class="p">)</span>
+            <span class="kn">import</span> <span class="nn">traceback</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">_copy_rwd_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;copy RWD files from self.RawData to self.rwd_dir&quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rwd_file_list</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">site_num</span> <span class="o">=</span> <span class="n">f</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+                <span class="n">site_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RawData</span><span class="p">,</span> <span class="n">site_num</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;linux&#39;</span><span class="p">:</span>
+                    <span class="n">site_folder</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">wine_folder</span><span class="p">,</span> <span class="s1">&#39;/NRG/RawData/&#39;</span><span class="p">,</span> <span class="n">site_num</span><span class="p">])</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">affirm_directory</span><span class="p">(</span><span class="n">site_folder</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;couldn&#39;t create </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site_folder</span><span class="p">))</span>
+                    <span class="k">pass</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rwd_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">site_folder</span><span class="p">))</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;unable to copy file to RawData folder:  </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_copy_txt_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;copy TXT file from self.ScaledData to self.out_dir&quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">txt_file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filename</span><span class="p">)[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.txt&#39;</span>
+            <span class="n">txt_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ScaledData</span><span class="p">,</span> <span class="n">txt_file_name</span><span class="p">)</span>
+            <span class="n">out_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path_joiner</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">txt_file_name</span><span class="p">])</span>
+
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not do the needful&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;linux&#39;</span><span class="p">:</span>
+            <span class="n">out_path</span> <span class="o">=</span> <span class="n">linux_folder_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span> <span class="o">+</span> <span class="n">txt_file_name</span>
+            <span class="n">txt_file_path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">wine_folder</span><span class="p">,</span> <span class="s1">&#39;/NRG/ScaledData/&#39;</span><span class="p">,</span> <span class="n">txt_file_name</span><span class="p">])</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">txt_file_path</span><span class="p">,</span> <span class="n">out_path</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">txt_file_path</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> remains in </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">txt_file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ScaledData</span><span class="p">))</span>
+
+        <span class="k">except</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">traceback</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to copy </span><span class="si">{0}</span><span class="s2"> to </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">txt_file_name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, NRG Systems, Technical Services
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

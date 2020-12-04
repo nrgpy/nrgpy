@@ -31,10 +31,18 @@ release = '0.10.19'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+#    'sphinx.ext.autodoc',
+#    'sphinx.ext.autosummary',
+#    'sphinx.ext.napoleon',
+#    'numpydoc',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-#    'sphinx.ext.napoleon',
+    'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
     'numpydoc',
+    'sphinx.ext.ifconfig',
+    'sphinx.ext.viewcode',
 ]
 
 autosummary_generate = True
@@ -53,6 +61,8 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+import numpydoc
+
 html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
