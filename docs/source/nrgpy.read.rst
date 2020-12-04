@@ -36,7 +36,6 @@ nrgpy.read.txt\_utils module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

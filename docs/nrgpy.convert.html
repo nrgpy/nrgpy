@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -48,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> nrgpy
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
           
 
           
@@ -71,6 +72,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -92,6 +94,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -130,7 +133,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>nrgpy.convert package</li>
     
@@ -166,22 +169,32 @@
 <p>This method uses locally installed SymphoniePRO Desktop software to convert <a href="#id3"><span class="problematic" id="id4">*</span></a>.rld files to txt format (tab-delimited-text).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>rld_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – specify directory. Note for unc values, you
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rld_dir</strong><span class="classifier">str, optional</span></dt><dd><p>specify directory. Note for unc values, you
 will need to escape all forward slashes, e.g.
-rld_dir = “\soltechsupportdata”
-or use the r’path      odir’ approach</p></li>
-<li><p><strong>out_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – see note for rld_dir.</p></li>
-<li><p><strong>encryption_pass</strong> (<em>str</em>) – specify data encryption password if logger is set up for that.</p></li>
-<li><p><strong>hex_key</strong> (<em>str</em>) – specify if using hex data encryption key</p></li>
-<li><p><strong>sympro_path</strong> (<em>str</em>) – default is “C:Program Files (x86)Renewable NRG SystemsSymPRO DesktopSymPRODesktop.exe”</p></li>
-<li><p><strong>process_type</strong> (<em>str</em>) – [convert], or import</p></li>
-<li><p><strong>convert_type</strong> (<em>str</em>) – ‘meas’, alternately specify ‘comm’, ‘diag’, ‘sample’, or ‘events’</p></li>
-<li><p><strong>nec</strong> (<em>str</em>) – path to nec file</p></li>
-<li><p><strong>site_filter</strong> (<em>str</em>) – specify part or all of the file you’d like to filter on, like site_filter=’123456_2018-09’
-would filter on site 123456 and only the month of September in 2018.</p></li>
-<li><p><strong>site_file</strong> (<em>bool</em><em> or </em><em>str</em>) – set to True to use local ndb site file, or set to path to an alternate ndb site file</p></li>
-</ul>
+rld_dir = “\soltechsupportdata&quot;
+or use the r’path      odir’ approach</p>
+</dd>
+<dt><strong>out_dir</strong><span class="classifier">str, optional</span></dt><dd><p>see note for rld_dir.</p>
+</dd>
+<dt><strong>encryption_pass</strong><span class="classifier">str</span></dt><dd><p>specify data encryption password if logger is set up for that.</p>
+</dd>
+<dt><strong>hex_key</strong><span class="classifier">str</span></dt><dd><p>specify if using hex data encryption key</p>
+</dd>
+<dt><strong>sympro_path</strong><span class="classifier">str</span></dt><dd><p>default is “C:Program Files (x86)Renewable NRG SystemsSymPRO DesktopSymPRODesktop.exe”</p>
+</dd>
+<dt><strong>process_type</strong><span class="classifier">str</span></dt><dd><p>[convert], or import</p>
+</dd>
+<dt><strong>convert_type</strong><span class="classifier">str</span></dt><dd><p>‘meas’, alternately specify ‘comm’, ‘diag’, ‘sample’, or ‘events’</p>
+</dd>
+<dt><strong>nec</strong><span class="classifier">str</span></dt><dd><p>path to nec file</p>
+</dd>
+<dt><strong>site_filter</strong><span class="classifier">str</span></dt><dd><p>specify part or all of the file you’d like to filter on, like site_filter=’123456_2018-09’
+would filter on site 123456 and only the month of September in 2018.</p>
+</dd>
+<dt><strong>site_file</strong><span class="classifier">bool or str</span></dt><dd><p>set to True to use local ndb site file, or set to path to an alternate ndb site file</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -195,6 +208,38 @@ would filter on site 123456 and only the month of September in 2018.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.convert.convert_rld.local.directory" title="nrgpy.convert.convert_rld.local.directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">directory</span></code></a>()</p></td>
+<td><p>processes all rld files in self.rld_dir, outputs to txt files to out_dir</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.convert.convert_rld.local.rename_rlds" title="nrgpy.convert.convert_rld.local.rename_rlds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename_rlds</span></code></a>(**kwargs)</p></td>
+<td><p>uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number and logger serial number.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>convert</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>process</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>single_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="nrgpy.convert.convert_rld.local.convert">
 <code class="sig-name descname">convert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert.convert_rld.local.convert" title="Permalink to this definition">¶</a></dt>
@@ -237,25 +282,35 @@ a local installation of SymphoniePRO Desktop software</p>
 to convert <a href="#id5"><span class="problematic" id="id6">*</span></a>.RWD files to <a href="#id7"><span class="problematic" id="id8">*</span></a>.TXT</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>str</em>) – if populated, a single file is exported</p></li>
-<li><p><strong>encryption_pin</strong> (<em>str</em>) – four digit pin, only used for encrypted files</p></li>
-<li><p><strong>sdr_path</strong> (<em>str</em>) – r‘“C:/NRG/SymDR/SDR.exe”’, may be any path</p></li>
-<li><p><strong>file_filter</strong> (<em>str</em>) – filters files on text in filename</p></li>
-<li><p><strong>rwd_dir</strong> (<em>str</em>) – folder to check for RWD files</p></li>
-<li><p><strong>out_dir</strong> (<em>str</em>) – folder to save exported TXT files into</p></li>
-<li><p><strong>wine_folder</strong> (<em>str</em>) – ‘~/.wine/drive_c/’, for linux installations</p></li>
-<li><p><strong>use_site_file</strong> (<em>bool</em>) – set to True to use local site file</p></li>
-<li><p><strong>raw_mode</strong> (<em>bool</em>) – set to True to convert raw counts and voltages</p></li>
-<li><p><strong>progress_bar</strong> (<em>bool</em>) – set to False to see individual file conversions</p></li>
-<li><p><strong>show_result</strong> (<em>bool</em>) – set to False to hide prints to console</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>if populated, a single file is exported</p>
+</dd>
+<dt><strong>encryption_pin</strong><span class="classifier">str</span></dt><dd><p>four digit pin, only used for encrypted files</p>
+</dd>
+<dt><strong>sdr_path</strong><span class="classifier">str</span></dt><dd><p>r‘“C:/NRG/SymDR/SDR.exe”’, may be any path</p>
+</dd>
+<dt><strong>file_filter</strong><span class="classifier">str</span></dt><dd><p>filters files on text in filename</p>
+</dd>
+<dt><strong>rwd_dir</strong><span class="classifier">str</span></dt><dd><p>folder to check for RWD files</p>
+</dd>
+<dt><strong>out_dir</strong><span class="classifier">str</span></dt><dd><p>folder to save exported TXT files into</p>
+</dd>
+<dt><strong>wine_folder</strong><span class="classifier">str</span></dt><dd><p>‘~/.wine/drive_c/’, for linux installations</p>
+</dd>
+<dt><strong>use_site_file</strong><span class="classifier">bool</span></dt><dd><p>set to True to use local site file</p>
+</dd>
+<dt><strong>raw_mode</strong><span class="classifier">bool</span></dt><dd><p>set to True to convert raw counts and voltages</p>
+</dd>
+<dt><strong>progress_bar</strong><span class="classifier">bool</span></dt><dd><p>set to False to see individual file conversions</p>
+</dd>
+<dt><strong>show_result</strong><span class="classifier">bool</span></dt><dd><p>set to False to hide prints to console</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -295,6 +350,21 @@ in the ‘’’SDR_Linux_README.md’’’ file.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.convert.convert_rwd.local.check_sdr" title="nrgpy.convert.convert_rwd.local.check_sdr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_sdr</span></code></a>()</p></td>
+<td><p>determine if SDR is installed</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.convert.convert_rwd.local.convert" title="nrgpy.convert.convert_rwd.local.convert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert</span></code></a>()</p></td>
+<td><p>process rwd files</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="nrgpy.convert.convert_rwd.local.check_sdr">
 <code class="sig-name descname">check_sdr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.convert.convert_rwd.local.check_sdr" title="Permalink to this definition">¶</a></dt>
@@ -329,11 +399,19 @@ iterate through files</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, NRG Systems, Technical Services
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -344,7 +422,6 @@ iterate through files</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

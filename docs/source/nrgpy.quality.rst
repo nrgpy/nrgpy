@@ -12,7 +12,6 @@ nrgpy.quality.quality module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

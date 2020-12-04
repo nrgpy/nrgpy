@@ -55,6 +55,7 @@ class nrg_api_export(nrg_api):
             serial_number=820600019,
             start_date="2020-05-01",
             end_date="2020-05-03",
+            text_timestamps=False,
             save_file=False
         )
     >>> reader = exporter.reader
@@ -82,7 +83,6 @@ class nrg_api_export(nrg_api):
         affirm_directory(self.out_dir)
 
         self.serial_number = str(serial_number)[-5:]
-        # self.site_number = str(site_number)
         self.start_date = start_date
         self.end_date = end_date
         self.nec_file = nec_file
@@ -121,7 +121,10 @@ class nrg_api_export(nrg_api):
                 data_file = z.namelist()[0]
                 z.extractall(self.out_dir)
 
-            reader = sympro_txt_read(filename=os.path.join(self.out_dir, data_file), text_timestamps=self.text_timestamps)
+            reader = sympro_txt_read(
+                filename=os.path.join(self.out_dir, data_file),
+                text_timestamps=self.text_timestamps
+            )
             reader.format_site_data()
             self.serial_number = reader.logger_sn
             self.site_number = reader.site_number
@@ -132,6 +135,7 @@ class nrg_api_export(nrg_api):
             if self.save_file:
                 if not self.out_file:
                     self.out_file = f'{self.site_number}_{self.start_date}_{self.end_date}.txt'.replace(':', '.').replace(' ', '')
+
                 else:
                     self.out_file = os.path.join(self.out_dir, self.txt_file)
                 reader.output_txt_file(standard=True, out_file=self.out_file)

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -48,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> nrgpy
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
           
 
           
@@ -71,6 +72,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -93,6 +95,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -131,7 +134,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>nrgpy.utils package</li>
     
@@ -209,13 +212,18 @@
 <dd><p>counts the number of files in the first level of a directory</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>directory</strong> (<em>str</em>) – path of directory to be checked</p></li>
-<li><p><strong>filters</strong> (<em>str</em>) – filter present in file to be checked</p></li>
-<li><p><strong>extension</strong> (<em>str</em>) – secondary filter</p></li>
-<li><p><strong>show_files</strong> (<em>bool</em><em>, </em><em>optional</em>) – if set to True, prints file name</p></li>
-<li><p><strong>start_time</strong> (<em>int</em>) – seconds; if set, use as reference; only count if file is newer than start_time</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>directory</strong><span class="classifier">str</span></dt><dd><p>path of directory to be checked</p>
+</dd>
+<dt><strong>filters</strong><span class="classifier">str</span></dt><dd><p>filter present in file to be checked</p>
+</dd>
+<dt><strong>extension</strong><span class="classifier">str</span></dt><dd><p>secondary filter</p>
+</dd>
+<dt><strong>show_files</strong><span class="classifier">bool, optional</span></dt><dd><p>if set to True, prints file name</p>
+</dd>
+<dt><strong>start_time</strong><span class="classifier">int</span></dt><dd><p>seconds; if set, use as reference; only count if file is newer than start_time</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -226,11 +234,14 @@
 <dd><p>returns true if string date is between dates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>start_date</strong> (<em>str</em>) – “YYYY-mm-dd”</p></li>
-<li><p><strong>end_date</strong> (<em>str</em>) – “YYYY-mm-dd”</p></li>
-<li><p><strong>string</strong> (<em>str</em>) – string including date to check</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-mm-dd”</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-mm-dd”</p>
+</dd>
+<dt><strong>string</strong><span class="classifier">str</span></dt><dd><p>string including date to check</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -253,16 +264,18 @@
 <dd><p>recall a reader from a pickle file by site number or filename</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>site_number</strong> (<em>str</em>) – 6-digit site number of stored reader OR spidar serial number</p></li>
-<li><p><strong>filename</strong> (<em>str</em>) – full or relative path of pickle file</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>site_number</strong><span class="classifier">str</span></dt><dd><p>6-digit site number of stored reader OR spidar serial number</p>
+</dd>
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>full or relative path of pickle file</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>contents of pickle file</p>
+<dd class="field-even"><dl class="simple">
+<dt>object</dt><dd><p>contents of pickle file</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>object</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -272,6 +285,18 @@
 <em class="property">class </em><code class="sig-prename descclassname">nrgpy.utils.utilities.</code><code class="sig-name descname">renamer</code><a class="headerlink" href="#nrgpy.utils.utilities.renamer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>for replacing duplicate column names after transpose</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code>(x)</p></td>
+<td><p>Call self as a function.</p></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="py function">
@@ -283,7 +308,7 @@
 <dl class="py function">
 <dt id="nrgpy.utils.utilities.windows_folder_path">
 <code class="sig-prename descclassname">nrgpy.utils.utilities.</code><code class="sig-name descname">windows_folder_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.utils.utilities.windows_folder_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>convert ‘/’ to ‘’ in folder_path and assert ending in ‘’</p>
+<dd><p>convert ‘/’ to ‘' in folder_path and assert ending in ‘'</p>
 </dd></dl>
 
 </div>
@@ -303,11 +328,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, NRG Systems, Technical Services
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -318,7 +351,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -48,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> nrgpy
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
           
 
           
@@ -71,6 +72,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -95,6 +97,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -133,7 +136,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>nrgpy.api package</li>
     
@@ -166,6 +169,41 @@
 <em class="property">class </em><code class="sig-prename descclassname">nrgpy.api.auth.</code><code class="sig-name descname">nrg_api</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client_id</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">client_secret</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api.auth.nrg_api" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Parent class for NRG API functionality</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.api.auth.nrg_api.load_token" title="nrgpy.api.auth.nrg_api.load_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code></a>([filename])</p></td>
+<td><p>read session token from pickle file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.api.auth.nrg_api.maintain_session_token" title="nrgpy.api.auth.nrg_api.maintain_session_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code></a>([filename])</p></td>
+<td><p>maintain a current/valid session token for data service api</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.api.auth.nrg_api.request_session_token" title="nrgpy.api.auth.nrg_api.request_session_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code></a>()</p></td>
+<td><p>generates a new session token for convert service api</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.api.auth.nrg_api.save_token" title="nrgpy.api.auth.nrg_api.save_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code></a>([filename])</p></td>
+<td><p>save session token in token pickle file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.api.auth.nrg_api.token_valid" title="nrgpy.api.auth.nrg_api.token_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code></a>()</p></td>
+<td><p>check if token is still valid</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>prepare_file_bytes</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="nrgpy.api.auth.nrg_api.load_token">
 <code class="sig-name descname">load_token</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">'.nrgpy_token'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api.auth.nrg_api.load_token" title="Permalink to this definition">¶</a></dt>
@@ -192,17 +230,19 @@ up for an account, go to:
 <a class="reference external" href="https://services.nrgsystems.com">https://services.nrgsystems.com</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>client_id</strong> (<em>str</em>) – obtained from NRG Systems</p></li>
-<li><p><strong>client_secret</strong> (<em>str</em>) – </p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>obtained from NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd></dd>
+</dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>session_token</strong> (<em>str</em>) – valid for 24 hour</p></li>
-<li><p><strong>session_start_time</strong> (<em>datetime</em>) – start time of 24 hour countdown</p></li>
-</ul>
-</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>session_token</strong><span class="classifier">str</span></dt><dd><p>valid for 24 hour</p>
+</dd>
+<dt><strong>session_start_time</strong><span class="classifier">datetime</span></dt><dd><p>start time of 24 hour countdown</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -219,13 +259,16 @@ up for an account, go to:
 <dd><p>check if token is still valid</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>session_start_time</strong> (<em>datetime</em>) – generated at time of token request</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>session_start_time</strong><span class="classifier">datetime</span></dt><dd><p>generated at time of token request</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>status</strong> – true if still valid, false if expired</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>status</strong><span class="classifier">bool</span></dt><dd><p>true if still valid, false if expired</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -243,22 +286,28 @@ up for an account, go to:
 To sign up for the service, go to <a class="reference external" href="https://services.nrgsystems.com/">https://services.nrgsystems.com/</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>serial_number</strong> (<em>str</em><em> or </em><em>int</em>) – serial number of data logger (like, 820612345)</p></li>
-<li><p><strong>site_number</strong> (<em>str</em><em> or </em><em>int</em>) – up to 6-digit site number</p></li>
-<li><p><strong>start_date</strong> (<em>str</em>) – “YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
-times are in logger local time</p></li>
-<li><p><strong>end_date</strong> (<em>str</em>) – “YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
-times are in logger local time</p></li>
-<li><p><strong>client_id</strong> (<em>str</em>) – provided by NRG Systems</p></li>
-<li><p><strong>client_secret</strong> (<em>str</em>) – provided by NRG Systems</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>serial_number</strong><span class="classifier">str or int</span></dt><dd><p>serial number of data logger (like, 820612345)</p>
+</dd>
+<dt><strong>site_number</strong><span class="classifier">str or int</span></dt><dd><p>up to 6-digit site number</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
+times are in logger local time</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
+times are in logger local time</p>
+</dd>
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>export object</p>
+<dd class="field-even"><dl class="simple">
+<dt>object</dt><dd><p>export object</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>object</p>
+</dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -277,6 +326,44 @@ times are in logger local time</p></li>
 <span class="go">    )</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code>([filename])</p></td>
+<td><p>read session token from pickle file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code>([filename])</p></td>
+<td><p>maintain a current/valid session token for data service api</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
+<td><p>generates a new session token for convert service api</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
+<td><p>save session token in token pickle file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code>()</p></td>
+<td><p>check if token is still valid</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>data_catalog</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>prepare_file_bytes</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="nrgpy.api.catalog.nrg_api_catalog.data_catalog">
 <code class="sig-name descname">data_catalog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api.catalog.nrg_api_catalog.data_catalog" title="Permalink to this definition">¶</a></dt>
@@ -295,22 +382,36 @@ times are in logger local time</p></li>
 To sign up for the service, go to <a class="reference external" href="https://services.nrgsystems.com/">https://services.nrgsystems.com/</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>rld_dir</strong> (<em>str</em>) – path to rld file directory</p></li>
-<li><p><strong>out_dir</strong> (<em>str</em>) – path to save text export files</p></li>
-<li><p><strong>filename</strong> (<em>str</em>) – provide for single file conversion</p></li>
-<li><p><strong>site_filter</strong> (<em>str</em><em>, </em><em>optional</em>) – text filter for limiting file set</p></li>
-<li><p><strong>filter2</strong> (<em>str</em><em>, </em><em>optional</em>) – another text filter…</p></li>
-<li><p><strong>start_date</strong> (<em>str</em><em>, </em><em>optional</em>) – text start date to filter on “YYYY-mm-dd”</p></li>
-<li><p><strong>end_date</strong> (<em>str</em><em>, </em><em>optional</em>) – text end date to filter on “YYYY-mm-dd”</p></li>
-<li><p><strong>client_id</strong> (<em>str</em>) – provided by NRG Systems</p></li>
-<li><p><strong>client_secret</strong> (<em>str</em>) – provided by NRG Systems</p></li>
-<li><p><strong>token</strong> (<em>str</em>) – deprecated, for beta conversion service users</p></li>
-<li><p><strong>encryption_pass</strong> (<em>str</em><em>, </em><em>optional</em>) – password for rld files (set in logger)</p></li>
-<li><p><strong>header_type</strong> (<em>str</em>) – [standard], columnonly, or none</p></li>
-<li><p><strong>nec_file</strong> (<em>str</em><em>, </em><em>optional</em>) – path to NEC file for custom export formatting</p></li>
-<li><p><strong>export_type</strong> (<em>str</em>) – [meas], samples, diag, comm</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rld_dir</strong><span class="classifier">str</span></dt><dd><p>path to rld file directory</p>
+</dd>
+<dt><strong>out_dir</strong><span class="classifier">str</span></dt><dd><p>path to save text export files</p>
+</dd>
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>provide for single file conversion</p>
+</dd>
+<dt><strong>site_filter</strong><span class="classifier">str, optional</span></dt><dd><p>text filter for limiting file set</p>
+</dd>
+<dt><strong>filter2</strong><span class="classifier">str, optional</span></dt><dd><p>another text filter…</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str, optional</span></dt><dd><p>text start date to filter on “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str, optional</span></dt><dd><p>text end date to filter on “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>token</strong><span class="classifier">str</span></dt><dd><p>deprecated, for beta conversion service users</p>
+</dd>
+<dt><strong>encryption_pass</strong><span class="classifier">str, optional</span></dt><dd><p>password for rld files (set in logger)</p>
+</dd>
+<dt><strong>header_type</strong><span class="classifier">str</span></dt><dd><p>[standard], columnonly, or none</p>
+</dd>
+<dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
+</dd>
+<dt><strong>export_type</strong><span class="classifier">str</span></dt><dd><p>[meas], samples, diag, comm</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -346,6 +447,47 @@ To sign up for the service, go to <a class="reference external" href="https://se
 <span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code>([filename])</p></td>
+<td><p>read session token from pickle file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code>([filename])</p></td>
+<td><p>maintain a current/valid session token for data service api</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
+<td><p>generates a new session token for convert service api</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
+<td><p>save session token in token pickle file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code>()</p></td>
+<td><p>check if token is still valid</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>prepare_file_bytes</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>process</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>single_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="nrgpy.api.convert.nrg_api_convert.process">
 <code class="sig-name descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api.convert.nrg_api_convert.process" title="Permalink to this definition">¶</a></dt>
@@ -369,26 +511,36 @@ To sign up for the service, go to <a class="reference external" href="https://se
 To sign up for the service, go to <a class="reference external" href="https://services.nrgsystems.com/">https://services.nrgsystems.com/</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>out_dir</strong> (<em>str</em>) – path to save exported data</p></li>
-<li><p><strong>out_file</strong> (<em>str</em>) – (optional) filename to save</p></li>
-<li><p><strong>serial_number</strong> (<em>str</em><em> or </em><em>int</em>) – serial number of data logger (like, 820612345)</p></li>
-<li><p><strong>start_date</strong> (<em>str</em>) – “YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
-times are in logger local time</p></li>
-<li><p><strong>end_date</strong> (<em>str</em>) – “YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
-times are in logger local time</p></li>
-<li><p><strong>client_id</strong> (<em>str</em>) – provided by NRG Systems</p></li>
-<li><p><strong>client_secret</strong> (<em>str</em>) – provided by NRG Systems</p></li>
-<li><p><strong>save_file</strong> (<em>bool</em>) – (True) whether to save the result to file</p></li>
-<li><p><strong>nec_file</strong> (<em>str</em><em>, </em><em>optional</em>) – path to NEC file for custom export formatting</p></li>
-<li><p><strong>text_timestamps</strong> (<em>bool</em>) – get export data with text timestamps instead of datetime</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>out_dir</strong><span class="classifier">str</span></dt><dd><p>path to save exported data</p>
+</dd>
+<dt><strong>out_file</strong><span class="classifier">str</span></dt><dd><p>(optional) filename to save</p>
+</dd>
+<dt><strong>serial_number</strong><span class="classifier">str or int</span></dt><dd><p>serial number of data logger (like, 820612345)</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
+times are in logger local time</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
+times are in logger local time</p>
+</dd>
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>save_file</strong><span class="classifier">bool</span></dt><dd><p>(True) whether to save the result to file</p>
+</dd>
+<dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
+</dd>
+<dt><strong>text_timestamps</strong><span class="classifier">bool</span></dt><dd><p>get export data with text timestamps instead of datetime</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>export object that includes an nrgpy reader object</p>
+<dd class="field-even"><dl class="simple">
+<dt>object</dt><dd><p>export object that includes an nrgpy reader object</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>object</p>
+</dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -404,6 +556,7 @@ times are in logger local time</p></li>
 <span class="go">        serial_number=820600019,</span>
 <span class="go">        start_date=&quot;2020-05-01&quot;,</span>
 <span class="go">        end_date=&quot;2020-05-03&quot;,</span>
+<span class="go">        text_timestamps=False,</span>
 <span class="go">        save_file=False</span>
 <span class="go">    )</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">exporter</span><span class="o">.</span><span class="n">reader</span>
@@ -416,6 +569,44 @@ times are in logger local time</p></li>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unable to get reader&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code>([filename])</p></td>
+<td><p>read session token from pickle file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code>([filename])</p></td>
+<td><p>maintain a current/valid session token for data service api</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
+<td><p>generates a new session token for convert service api</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
+<td><p>save session token in token pickle file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code>()</p></td>
+<td><p>check if token is still valid</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>export</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>prepare_file_bytes</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="nrgpy.api.export.nrg_api_export.export">
 <code class="sig-name descname">export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api.export.nrg_api_export.export" title="Permalink to this definition">¶</a></dt>
@@ -430,6 +621,47 @@ times are in logger local time</p></li>
 <dt id="nrgpy.api.upload.nrg_api_upload">
 <em class="property">class </em><code class="sig-prename descclassname">nrgpy.api.upload.</code><code class="sig-name descname">nrg_api_upload</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client_id</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">client_secret</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">rld_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">site_filter</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">site_filter2</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">'1970-01-01'</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">'2150-12-31'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api.upload.nrg_api_upload" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#nrgpy.api.auth.nrg_api" title="nrgpy.api.auth.nrg_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.api.auth.nrg_api</span></code></a></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code>([filename])</p></td>
+<td><p>read session token from pickle file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code>([filename])</p></td>
+<td><p>maintain a current/valid session token for data service api</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
+<td><p>generates a new session token for convert service api</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
+<td><p>save session token in token pickle file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code>()</p></td>
+<td><p>check if token is still valid</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>prepare_file_bytes</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>upload_directory</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>upload_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="nrgpy.api.upload.nrg_api_upload.upload_directory">
 <code class="sig-name descname">upload_directory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">progress_bar</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.api.upload.nrg_api_upload.upload_directory" title="Permalink to this definition">¶</a></dt>
@@ -459,11 +691,19 @@ times are in logger local time</p></li>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, NRG Systems, Technical Services
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -474,7 +714,6 @@ times are in logger local time</p></li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

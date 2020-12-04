@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -48,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> nrgpy
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
           
 
           
@@ -71,6 +72,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -94,6 +96,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -132,7 +135,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>nrgpy.read package</li>
     
@@ -188,14 +191,18 @@
 <p>reads in CSV file(s) using pandas and creates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data_file</strong> (<em>str</em>) – path to single CSV or ZIP to be read</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data_file</strong><span class="classifier">str</span></dt><dd><p>path to single CSV or ZIP to be read</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>data</strong> (<em>obj</em>) – pandas dataframe of all available data</p></li>
-<li><p><strong>heights</strong> (<em>list</em>) – list of measurement heights</p></li>
-</ul>
-</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of all available data</p>
+</dd>
+<dt><strong>heights</strong><span class="classifier">list</span></dt><dd><p>list of measurement heights</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -233,26 +240,58 @@
 <span class="go">&#39;1922AG0070&#39;</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.spidar_txt.spidar_data_read.concat_txt" title="nrgpy.read.spidar_txt.spidar_data_read.concat_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat_txt</span></code></a>([txt_dir, output_txt, out_file, …])</p></td>
+<td><p>concatenate files in a folder</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>get_heights</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>read_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="nrgpy.read.spidar_txt.spidar_data_read.concat_txt">
 <code class="sig-name descname">concat_txt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">txt_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">output_txt</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">file_filter</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">file_filter2</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">'1970-01-01'</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">'2150-12-31'</span></em>, <em class="sig-param"><span class="n">progress_bar</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.read.spidar_txt.spidar_data_read.concat_txt" title="Permalink to this definition">¶</a></dt>
 <dd><p>concatenate files in a folder</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>txt_dir</strong> (<em>str</em>) – path to csv or csv.zip files</p></li>
-<li><p><strong>output_txt</strong> (<em>boolean</em>) – export concatenated data</p></li>
-<li><p><strong>out_file</strong> (<em>str</em>) – optional, filename of text export</p></li>
-<li><p><strong>start_date</strong> (<em>str</em>) – yyy-mm-dd formatted string</p></li>
-<li><p><strong>end_date</strong> (<em>str</em>) – yyy-mm-dd formatted string</p></li>
-<li><p><strong>progress_bar</strong> (<em>boolean</em>) – show progress bar instead of each file being concatenated</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>txt_dir</strong><span class="classifier">str</span></dt><dd><p>path to csv or csv.zip files</p>
+</dd>
+<dt><strong>output_txt</strong><span class="classifier">boolean</span></dt><dd><p>export concatenated data</p>
+</dd>
+<dt><strong>out_file</strong><span class="classifier">str</span></dt><dd><p>optional, filename of text export</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>yyy-mm-dd formatted string</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>yyy-mm-dd formatted string</p>
+</dd>
+<dt><strong>progress_bar</strong><span class="classifier">boolean</span></dt><dd><p>show progress bar instead of each file being concatenated</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>adds data dataframe to reader object</p>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>adds data dataframe to reader object</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -279,21 +318,27 @@
 time to shift in seconds.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>txt_folder</strong> (<em>str</em>) – path to folder with txt files to shift</p></li>
-<li><p><strong>out_folder</strong> (<em>str</em>) – where to put the shifted files (in subfolder by default)</p></li>
-<li><p><strong>file_filter</strong> (<em>str</em>) – filter for restricting file set</p></li>
-<li><p><strong>start_date</strong> (<em>str</em>) – date filter “YYYY-mm-dd”</p></li>
-<li><p><strong>end_date</strong> (<em>str</em>) – date filter “YYYY-mm-dd”</p></li>
-<li><p><strong>seconds</strong> (<em>int</em>) – time in seconds to shift timestamps (default 3600)</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>txt_folder</strong><span class="classifier">str</span></dt><dd><p>path to folder with txt files to shift</p>
+</dd>
+<dt><strong>out_folder</strong><span class="classifier">str</span></dt><dd><p>where to put the shifted files (in subfolder by default)</p>
+</dd>
+<dt><strong>file_filter</strong><span class="classifier">str</span></dt><dd><p>filter for restricting file set</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>date filter “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>date filter “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>seconds</strong><span class="classifier">int</span></dt><dd><p>time in seconds to shift timestamps (default 3600)</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>text files with shifted timestamps; new file names include shifted
+<dd class="field-even"><dl class="simple">
+<dt>obj</dt><dd><p>text files with shifted timestamps; new file names include shifted
 timestamp.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>obj</p>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -302,6 +347,50 @@ timestamp.</p>
 <dt id="nrgpy.read.sympro_txt.sympro_txt_read">
 <em class="property">class </em><code class="sig-prename descclassname">nrgpy.read.sympro_txt.</code><code class="sig-name descname">sympro_txt_read</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">text_timestamps</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.read.sympro_txt.sympro_txt_read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info" title="nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arrange_ch_info</span></code></a>()</p></td>
+<td><p>creates ch_info dataframe and ch_list array</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.read.sympro_txt.sympro_txt_read.concat_txt" title="nrgpy.read.sympro_txt.sympro_txt_read.concat_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat_txt</span></code></a>([txt_dir, file_type, …])</p></td>
+<td><p>Will concatenate all text files in the txt_dir</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.sympro_txt.sympro_txt_read.format_site_data" title="nrgpy.read.sympro_txt.sympro_txt_read.format_site_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_site_data</span></code></a>()</p></td>
+<td><p>take txt header to create oject data</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.read.sympro_txt.sympro_txt_read.insert_blank_header_rows" title="nrgpy.read.sympro_txt.sympro_txt_read.insert_blank_header_rows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_blank_header_rows</span></code></a>(filename)</p></td>
+<td><p>insert blank rows when using shift_timestamps()</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.sympro_txt.sympro_txt_read.select_channels_for_reformat" title="nrgpy.read.sympro_txt.sympro_txt_read.select_channels_for_reformat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_channels_for_reformat</span></code></a>([epe, soiling])</p></td>
+<td><p>determines which of the channel headers fit those required for post-processing for either</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 73%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>calculate_soiling_ratio</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>format_data_for_epe</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>make_header_for_epe</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>output_txt_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info">
 <code class="sig-name descname">arrange_ch_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info" title="Permalink to this definition">¶</a></dt>
@@ -320,39 +409,54 @@ timestamp.</p>
 <p>files must match the site_filter argument. Note these are both blank by default.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>txt_dir</strong> (<em>str</em>) – directory holding txt files</p></li>
-<li><p><strong>file_type</strong> (<em>str</em>) – type of export (meas, event, comm, sample, etc…)</p></li>
-<li><p><strong>file_filter</strong> (<em>str</em>) – text filter for txt files, like site number, etc.</p></li>
-<li><p><strong>filter2</strong> (<em>str</em>) – secondary text filter</p></li>
-<li><p><strong>start_date</strong> (<em>str</em>) – for filtering files to concat based on date “YYYY-mm-dd”</p></li>
-<li><p><strong>end_date</strong> (<em>str</em>) – for filtering files to concat based on date “YYYY-mm-dd”</p></li>
-<li><p><strong>ch_details</strong> (<em>bool</em>) – show additional info in ch_info dataframe</p></li>
-<li><p><strong>output_txt</strong> (<em>bool</em>) – create a txt output of data df</p></li>
-<li><p><strong>out_file</strong> (<em>str</em>) – filename to write data dataframe too if output_txt = True</p></li>
-<li><p><strong>progress_bar</strong> (<em>bool</em>) – show bar on concat [True] or list of files [False]</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>txt_dir</strong><span class="classifier">str</span></dt><dd><p>directory holding txt files</p>
+</dd>
+<dt><strong>file_type</strong><span class="classifier">str</span></dt><dd><p>type of export (meas, event, comm, sample, etc…)</p>
+</dd>
+<dt><strong>file_filter</strong><span class="classifier">str</span></dt><dd><p>text filter for txt files, like site number, etc.</p>
+</dd>
+<dt><strong>filter2</strong><span class="classifier">str</span></dt><dd><p>secondary text filter</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>for filtering files to concat based on date “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>for filtering files to concat based on date “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>ch_details</strong><span class="classifier">bool</span></dt><dd><p>show additional info in ch_info dataframe</p>
+</dd>
+<dt><strong>output_txt</strong><span class="classifier">bool</span></dt><dd><p>create a txt output of data df</p>
+</dd>
+<dt><strong>out_file</strong><span class="classifier">str</span></dt><dd><p>filename to write data dataframe too if output_txt = True</p>
+</dd>
+<dt><strong>progress_bar</strong><span class="classifier">bool</span></dt><dd><p>show bar on concat [True] or list of files [False]</p>
+</dd>
+</dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>ch_info</strong> (<em>obj</em>) – pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()</p></li>
-<li><p><strong>ch_list</strong> (<em>list</em>) – list of channel info; can be converted to json w/ import json … json.dumps(fut.ch_info)</p></li>
-<li><p><strong>data</strong> (<em>obj</em>) – pandas dataframe of all data</p></li>
-<li><p><strong>head</strong> (<em>obj</em>) – lines at the top of the txt file…, used when rebuilding timeshifted files</p></li>
-<li><p><strong>site_info</strong> (<em>obj</em>) – pandas dataframe of site information</p></li>
-<li><p><strong>logger_sn</strong> (<em>str</em>)</p></li>
-<li><p><strong>ipack_sn</strong> (<em>str</em>)</p></li>
-<li><p><strong>logger_type</strong> (<em>str</em>)</p></li>
-<li><p><strong>ipack_type</strong> (<em>str</em>)</p></li>
-<li><p><strong>latitude</strong> (<em>float</em>)</p></li>
-<li><p><strong>longitude</strong> (<em>float</em>)</p></li>
-<li><p><strong>elevation</strong> (<em>int</em>)</p></li>
-<li><p><strong>site_number</strong> (<em>str</em>)</p></li>
-<li><p><strong>site_description</strong> (<em>str</em>)</p></li>
-<li><p><strong>start_date</strong> (<em>str</em>)</p></li>
-<li><p><strong>txt_file_names</strong> (<em>list</em>) – list of files included in concatenation</p></li>
-</ul>
-</p>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ch_info</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()</p>
+</dd>
+<dt><strong>ch_list</strong><span class="classifier">list</span></dt><dd><p>list of channel info; can be converted to json w/ import json … json.dumps(fut.ch_info)</p>
+</dd>
+<dt><strong>data</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of all data</p>
+</dd>
+<dt><strong>head</strong><span class="classifier">obj</span></dt><dd><p>lines at the top of the txt file…, used when rebuilding timeshifted files</p>
+</dd>
+<dt><strong>site_info</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of site information</p>
+</dd>
+<dt><strong>logger_sn</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>ipack_sn</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>logger_type</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>ipack_type</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>latitude</strong><span class="classifier">float</span></dt><dd></dd>
+<dt><strong>longitude</strong><span class="classifier">float</span></dt><dd></dd>
+<dt><strong>elevation</strong><span class="classifier">int</span></dt><dd></dd>
+<dt><strong>site_number</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>site_description</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>txt_file_names</strong><span class="classifier">list</span></dt><dd><p>list of files included in concatenation</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -449,16 +553,49 @@ Local export of text files, as of 0.1.8.</p>
 <p>class for handling known csv-style text data files with header information</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>str</em><em>, </em><em>optional</em>) – perform a single file read (takes precedence over txt_dir)</p></li>
-<li><p><strong>data_type</strong> (<em>str</em>) – specify instrument that the data file came from</p></li>
-<li><p><strong>sep</strong> (<em>str</em>) – ‘       ‘; csv separator</p></li>
-<li><p><strong>txt_dir</strong> (<em>str</em>) – folder path of text files to read and concatenate</p></li>
-<li><p><strong>file_filter</strong> (<em>str</em><em>, </em><em>optional</em>) – use when using txt_dir to filter on subset of files</p></li>
-<li><p><strong>file_ext</strong> (<em>str</em><em>, </em><em>optional</em>) – secondary file filter</p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename</strong><span class="classifier">str, optional</span></dt><dd><p>perform a single file read (takes precedence over txt_dir)</p>
+</dd>
+<dt><strong>data_type</strong><span class="classifier">str</span></dt><dd><p>specify instrument that the data file came from</p>
+</dd>
+<dt><strong>sep</strong><span class="classifier">str</span></dt><dd><p>‘       ‘; csv separator</p>
+</dd>
+<dt><strong>txt_dir</strong><span class="classifier">str</span></dt><dd><p>folder path of text files to read and concatenate</p>
+</dd>
+<dt><strong>file_filter</strong><span class="classifier">str, optional</span></dt><dd><p>use when using txt_dir to filter on subset of files</p>
+</dd>
+<dt><strong>file_ext</strong><span class="classifier">str, optional</span></dt><dd><p>secondary file filter</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info" title="nrgpy.read.txt_utils.read_text_data.arrange_ch_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arrange_ch_info</span></code></a>()</p></td>
+<td><p>generates list and dataframe of channel information</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.concat" title="nrgpy.read.txt_utils.read_text_data.concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat</span></code></a>([output_txt, out_file, file_filter, …])</p></td>
+<td><p>combine exported rwd files (in txt format)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data" title="nrgpy.read.txt_utils.read_text_data.format_rwd_site_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_rwd_site_data</span></code></a>()</p></td>
+<td><p>adds formatted site dataframe to reader object</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.get_data" title="nrgpy.read.txt_utils.read_text_data.get_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_data</span></code></a>(_file)</p></td>
+<td><p>create dataframe of tabulated data</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.get_head" title="nrgpy.read.txt_utils.read_text_data.get_head"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_head</span></code></a>(_file)</p></td>
+<td><p>get the first lines of the file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.get_site_info" title="nrgpy.read.txt_utils.read_text_data.get_site_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_site_info</span></code></a>(_file)</p></td>
+<td><p>create dataframe of site info</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="nrgpy.read.txt_utils.read_text_data.arrange_ch_info">
 <code class="sig-name descname">arrange_ch_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info" title="Permalink to this definition">¶</a></dt>
@@ -471,13 +608,15 @@ Local export of text files, as of 0.1.8.</p>
 <dd><p>combine exported rwd files (in txt format)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>output_txt</strong> (<em>bool</em>) – set to True to save a concatenated text file</p></li>
-<li><p><strong>out_file</strong> (<em>str</em>) – filepath, absolute or relative</p></li>
-<li><p><strong>file_filter</strong> (<em>str</em>) – </p></li>
-<li><p><strong>filter2</strong> (<em>str</em>) – </p></li>
-<li><p><strong>progress_bar</strong> (<em>bool</em>) – </p></li>
-</ul>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>output_txt</strong><span class="classifier">bool</span></dt><dd><p>set to True to save a concatenated text file</p>
+</dd>
+<dt><strong>out_file</strong><span class="classifier">str</span></dt><dd><p>filepath, absolute or relative</p>
+</dd>
+<dt><strong>file_filter</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>filter2</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>progress_bar</strong><span class="classifier">bool</span></dt><dd></dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -526,11 +665,19 @@ Local export of text files, as of 0.1.8.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, NRG Systems, Technical Services
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -541,7 +688,6 @@ Local export of text files, as of 0.1.8.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -20,7 +20,6 @@ nrgpy.convert.convert\_rwd module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

@@ -304,42 +304,39 @@ class sympro_txt_read(object):
 
         for f in files:
 
-            if self.file_filter in f and self.file_type in f and self.filter2 in f:
-
-                if progress_bar:
-                    draw_progress_bar(self.counter, self.file_count, self.start_time)
-                else:
-                    print("Adding {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
-
-                if first_file == True:
-                    first_file = False
-
-                    try:
-                        base = sympro_txt_read(f, text_timestamps=self.text_timestamps)
-                        if progress_bar != True: print("[OK]")
-                        self.txt_file_names.append(os.path.basename(f))
-                    except IndexError:
-                        print('Only standard SymPRO headertypes accepted')
-                        break
-                    except:
-                        if progress_bar != True: print("[FAILED]")
-                        print("could not concat {0}".format(os.path.basename(f)))
-                        pass
-                else:
-                    file_path = f
-
-                    try:
-                        s = sympro_txt_read(file_path, ch_details=self.ch_details, text_timestamps=self.text_timestamps)
-                        base.data = base.data.append(s.data, sort=False)
-                        if progress_bar != True: print("[OK]")
-                        self.txt_file_names.append(os.path.basename(f))
-
-                    except:
-                        if progress_bar != True: print("[FAILED]")
-                        print("could not concat {0}".format(os.path.basename(f)))
-                        pass
+            if progress_bar:
+                draw_progress_bar(self.counter, self.file_count, self.start_time)
             else:
-                pass
+                print("Adding {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
+
+            if first_file == True:
+                first_file = False
+
+                try:
+                    base = sympro_txt_read(f, text_timestamps=self.text_timestamps)
+                    if progress_bar != True: print("[OK]")
+                    self.txt_file_names.append(os.path.basename(f))
+                except IndexError:
+                    print('Only standard SymPRO headertypes accepted')
+                    break
+                except:
+                    if progress_bar != True: print("[FAILED]")
+                    print("could not concat {0}".format(os.path.basename(f)))
+                    pass
+            else:
+                file_path = f
+
+                try:
+                    s = sympro_txt_read(file_path, ch_details=self.ch_details, text_timestamps=self.text_timestamps)
+                    base.data = base.data.append(s.data, sort=False)
+                    if progress_bar != True: print("[OK]")
+                    self.txt_file_names.append(os.path.basename(f))
+
+                except:
+                    if progress_bar != True: print("[FAILED]")
+                    print("could not concat {0}".format(os.path.basename(f)))
+                    pass
+
             self.counter += 1
 
         if out_file != "":

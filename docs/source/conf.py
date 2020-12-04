@@ -33,7 +33,8 @@ release = '0.10.19'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.napoleon'
+#    'sphinx.ext.napoleon',
+    'numpydoc',
 ]
 
 autosummary_generate = True
