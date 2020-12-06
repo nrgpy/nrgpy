@@ -64,6 +64,8 @@ class sympro_txt_read(object):
             self.ch_details = kwargs.get('ch_details')
         else:
             self.ch_details = False
+        if 'site_details' in kwargs:
+            self.site_details = kwargs.get('site_details')
 
         if self.filename:
             i = 0
@@ -91,6 +93,8 @@ class sympro_txt_read(object):
                 self.data['Timestamp'] = pd.to_datetime(self.data['Timestamp'])
             self.first_timestamp = self.data.iloc[0]['Timestamp']
             self.arrange_ch_info()
+            if not hasattr(self, 'site_details'):
+                self.format_site_data()
 
     def __repr__(self):
         return '<class {}: {} >'.format(self.__class__.__name__, self.filename)
@@ -327,7 +331,12 @@ class sympro_txt_read(object):
                 file_path = f
 
                 try:
-                    s = sympro_txt_read(file_path, ch_details=self.ch_details, text_timestamps=self.text_timestamps)
+                    s = sympro_txt_read(
+                        file_path,
+                        ch_details=self.ch_details,
+                        text_timestamps=self.text_timestamps,
+                        site_details=False,
+                    )
                     base.data = base.data.append(s.data, sort=False)
                     if progress_bar != True: print("[OK]")
                     self.txt_file_names.append(os.path.basename(f))
