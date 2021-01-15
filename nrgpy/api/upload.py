@@ -42,6 +42,7 @@ class nrg_api_upload(nrg_api):
         self.encoded_rld_bytes = self.prepare_file_bytes(self.filename)
 
         data = {
+            'type': self.filename[-3:].upper(),
             'filebytes': self.encoded_rld_bytes
         }
 
@@ -60,7 +61,7 @@ class nrg_api_upload(nrg_api):
         self.files = [
             f for f in sorted(os.listdir(self.rld_dir))
             if self.site_filter in f and self.site_filter2 in f
-            and f.lower().endswith("rld")
+            and f.lower().endswith(('rwd', 'rld'))
             and date_check(self.start_date, self.end_date, f)
         ]
 

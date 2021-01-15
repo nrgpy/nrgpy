@@ -8,7 +8,7 @@ import zipfile
 
 
 class nrg_api_convert(nrg_api):
-    """Uses NRG hosted web-based API to convert RLD files text format
+    """Uses NRG hosted web-based API to convert RLD and RWD files to text format
     To sign up for the service, go to https://services.nrgsystems.com/
 
     Parameters
@@ -44,7 +44,7 @@ class nrg_api_convert(nrg_api):
 
     Examples
     --------
-    Convert a single RLD file to Text with NRG Convert API
+    Convert a single raw data file to Text with NRG Convert API
 
     >>> import nrgpy
     >>> filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
@@ -57,7 +57,7 @@ class nrg_api_convert(nrg_api):
             client_secret=client_secret,
         )
 
-    Convert a folder of RLD files to Text with NRG Convert API
+    Convert a folder of raw data files to Text with NRG Convert API
 
     >>> import nrgpy
     >>> file_filter = "000175"
@@ -125,6 +125,7 @@ class nrg_api_convert(nrg_api):
             f for f in sorted(os.listdir(self.rld_dir))
             if self.site_filter in f and self.filter2 in f
             and f.lower().endswith('rld')
+            # and f.lower().endswith(('rwd', 'rld'))    ## Uncomment when RWD convert is supported
             and date_check(self.start_date, self.end_date, f)
         ]
 
@@ -158,6 +159,7 @@ class nrg_api_convert(nrg_api):
             headers = {"Authorization": "Bearer {}".format(self.session_token)}
 
             self.data = {
+                        'type': rld[-3:].upper(),
                         'filebytes': self.encoded_rld_bytes,
                         'necfilebytes': self.encoded_nec_bytes,
                         'headertype': self.header_type,      # standard | columnonly  | none
@@ -172,7 +174,7 @@ class nrg_api_convert(nrg_api):
             zipped_data_file = zipfile.ZipFile(io.BytesIO(self.resp.content))
             reg_data_file = self.resp.content
             name = zipped_data_file.infolist().pop()
-            out_filename = os.path.basename(rld).split('.rld')[0] + '.txt'
+            out_filename = os.path.basename(rld)[-3:] + 'txt'
 
             with open(os.path.join(self.out_dir, out_filename), 'wb') as outputfile:
                 outputfile.write(zipped_data_file.read(name))

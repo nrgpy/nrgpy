@@ -82,7 +82,8 @@ class nrg_api_export(nrg_api):
         self.out_file = out_file
         affirm_directory(self.out_dir)
 
-        self.serial_number = str(serial_number)[-5:]
+        # self.serial_number = str(serial_number)[-5:]  # removing... no longer necessary 2021-01-14
+        self.serial_number = serial_number
         self.start_date = start_date
         self.end_date = end_date
         self.nec_file = nec_file
