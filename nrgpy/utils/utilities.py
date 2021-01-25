@@ -81,12 +81,18 @@ def date_check(start_date, end_date, string):
     string : str
         string including date to check
     """
-    date_format = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
+    if string.lower().endswith("rld") or "_" in string:
+        date_format = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
+    elif string.lower().endswith("rwd"):
+        date_format = "([0-9]{4}[0-9]{2}[0-9]{2})"
+        string = string[4:]
 
     try:
         start = datetime.strptime(start_date, "%Y-%m-%d")
         end   = datetime.strptime(end_date, "%Y-%m-%d")
-    except TypeError:
+    except TypeError as t:
+        import traceback
+        print(traceback.format_exc())
         start = start_date
         end = end_date
 
@@ -97,7 +103,18 @@ def date_check(start_date, end_date, string):
             return True
         else:
             return False
+
+    except ValueError:
+        date_text = re.search(date_format, string)
+        file_date = datetime.strptime(date_text[0], "%Y%m%d")
+        if (file_date >= start) and (file_date <= end):
+            return True
+        else:
+            return False
+
     except Exception as e:
+        import traceback
+        print(traceback.format_exc())
         return False
 
 
