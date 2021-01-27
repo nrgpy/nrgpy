@@ -212,3 +212,71 @@ def load(site_number="", filename=""):
         reader = pickle.load(pkl)
 
     return reader
+
+
+def data_months(start_date, end_date, output="string"):
+    """returns list of months for a date range in YYYY-mm-dd format
+    
+    parameters
+    ----------
+    start_date : str or datetime
+        YYYY-mm-dd formatted date or datetime object
+    end_date : str or datetime
+        must be same formatting as start_date or god help you
+    output : str
+        "string" or "datetime"; specify date types you want returned.
+    
+    returns
+    -------
+    list
+    """
+
+    if isinstance(start_date, str) and re.match("^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])", start_date):
+        start_year = start_date.split("-")[0]
+        start_month = start_date.split("-")[1]
+        start_day = start_date.split("-")[2]
+        end_year = end_date.split("-")[0]
+        end_month = end_date.split("-")[1]
+        end_day = end_date.split("-")[2]
+        
+    elif isinstance(start_date, datetime):
+        start_year = start_date.year
+        start_month = start_date.month
+        start_day = start_date.day
+        end_year = end_date.year
+        end_month = end_date.month
+        end_day = end_date.day
+
+    else:
+        print(f"unsupported date type: {output}\nuse 'YYYY-mm-dd' or datetime object")
+        return False
+
+    years = list(range(int(start_year), int(end_year)+1))
+    
+    months = []
+    
+    for y in years:
+        
+        if str(y) == str(start_year):
+            _month0 = int(start_month)
+        else:
+            _month0 = 1
+            
+        if str(y) == str(end_year):
+            _month12 = int(end_month)
+        else:
+            _month12 = 12
+            
+        for _m in list(range(_month0, _month12+1)):
+            
+            if output == "string":
+                months.append(f"{y}-{str(_m).zfill(2)}-01")
+
+            elif output == "datetime":
+                months.append(datetime(y, _m, 1))
+
+            else:
+                print(f"unsupported output type: {output}\nuse 'string' or 'datetime'")
+                return False
+            
+    return months
