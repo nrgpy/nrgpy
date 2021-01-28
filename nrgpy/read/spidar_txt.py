@@ -67,12 +67,21 @@ class spidar_data_read(object):
         return '<class {}: {} >'.format(self.__class__.__name__, self.filename)
 
     def read_file(self, f):
-        self.data = pd.read_csv(
-            f,
-            encoding='UTF_16_LE',
-            parse_dates=True,
-            index_col=[0]
-        )
+        try:
+            self.data = pd.read_csv(
+                f,
+                encoding='UTF_16_LE',
+                parse_dates=True,
+                index_col=[0]
+            )
+        except UnicodeDecodeError:
+            self.data = pd.read_csv(
+                f,
+                encoding='UTF_8',
+                parse_dates=True,
+                index_col=[0]
+            )
+
         self.data.reset_index(drop=False, inplace=True)
         self.columns = self.data.columns
         self.get_heights()
