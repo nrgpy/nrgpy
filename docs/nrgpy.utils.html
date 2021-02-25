@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>nrgpy.utils package &mdash; nrgpy 0.10.19 documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -49,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
+            <a href="index.html" class="icon icon-home"> nrgpy
           
 
           
@@ -130,6 +132,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -141,7 +145,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/nrgpy.utils.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -223,6 +227,29 @@
 </dd>
 <dt><strong>start_time</strong><span class="classifier">int</span></dt><dd><p>seconds; if set, use as reference; only count if file is newer than start_time</p>
 </dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nrgpy.utils.utilities.data_months">
+<code class="sig-prename descclassname">nrgpy.utils.utilities.</code><code class="sig-name descname">data_months</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start_date</span></em>, <em class="sig-param"><span class="n">end_date</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">'string'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#data_months"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nrgpy.utils.utilities.data_months" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns list of months for a date range in YYYY-mm-dd format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_date</strong><span class="classifier">str or datetime</span></dt><dd><p>YYYY-mm-dd formatted date or datetime object</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str or datetime</span></dt><dd><p>must be same formatting as start_date or god help you</p>
+</dd>
+<dt><strong>output</strong><span class="classifier">str</span></dt><dd><p>“string” or “datetime”; specify date types you want returned.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>list</dt><dd></dd>
 </dl>
 </dd>
 </dl>
@@ -322,28 +349,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, NRG Systems, Technical Services
+        &#169; Copyright 2020, NRG Systems, Technical Services.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>nrgpy.api package &mdash; nrgpy 0.10.19 documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -49,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
+            <a href="index.html" class="icon icon-home"> nrgpy
           
 
           
@@ -132,6 +134,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -143,7 +147,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/nrgpy.api.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -378,7 +382,7 @@ times are in logger local time</p>
 <dt id="nrgpy.api.convert.nrg_api_convert">
 <em class="property">class </em><code class="sig-prename descclassname">nrgpy.api.convert.</code><code class="sig-name descname">nrg_api_convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rld_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">out_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">site_filter</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">filter2</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">'1970-01-01'</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">'2150-12-31'</span></em>, <em class="sig-param"><span class="n">client_id</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">client_secret</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">encryption_pass</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">header_type</span><span class="o">=</span><span class="default_value">'standard'</span></em>, <em class="sig-param"><span class="n">nec_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">export_type</span><span class="o">=</span><span class="default_value">'meas'</span></em>, <em class="sig-param"><span class="n">export_format</span><span class="o">=</span><span class="default_value">'csv_zipped'</span></em>, <em class="sig-param"><span class="n">progress_bar</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/convert.html#nrg_api_convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nrgpy.api.convert.nrg_api_convert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#nrgpy.api.auth.nrg_api" title="nrgpy.api.auth.nrg_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.api.auth.nrg_api</span></code></a></p>
-<p>Uses NRG hosted web-based API to convert RLD files text format
+<p>Uses NRG hosted web-based API to convert RLD and RWD files to text format
 To sign up for the service, go to <a class="reference external" href="https://services.nrgsystems.com/">https://services.nrgsystems.com/</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -415,7 +419,7 @@ To sign up for the service, go to <a class="reference external" href="https://se
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>Convert a single RLD file to Text with NRG Convert API</p>
+<p>Convert a single raw data file to Text with NRG Convert API</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
@@ -428,7 +432,7 @@ To sign up for the service, go to <a class="reference external" href="https://se
 <span class="go">    )</span>
 </pre></div>
 </div>
-<p>Convert a folder of RLD files to Text with NRG Convert API</p>
+<p>Convert a folder of raw data files to Text with NRG Convert API</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">file_filter</span> <span class="o">=</span> <span class="s2">&quot;000175&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rld_directory</span> <span class="o">=</span> <span class="s2">&quot;rlds&quot;</span>
@@ -505,7 +509,7 @@ To sign up for the service, go to <a class="reference external" href="https://se
 <span id="nrgpy-api-export-module"></span><h2>nrgpy.api.export module<a class="headerlink" href="#module-nrgpy.api.export" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="nrgpy.api.export.nrg_api_export">
-<em class="property">class </em><code class="sig-prename descclassname">nrgpy.api.export.</code><code class="sig-name descname">nrg_api_export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">out_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">serial_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">'2014-01-01'</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">'2023-12-31'</span></em>, <em class="sig-param"><span class="n">client_id</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">client_secret</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">nec_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">text_timestamps</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_file</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/export.html#nrg_api_export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nrgpy.api.export.nrg_api_export" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">nrgpy.api.export.</code><code class="sig-name descname">nrg_api_export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">out_dir</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">serial_number</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">'2014-01-01'</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">'2023-12-31'</span></em>, <em class="sig-param"><span class="n">client_id</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">client_secret</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">nec_file</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">export_type</span><span class="o">=</span><span class="default_value">'meas'</span></em>, <em class="sig-param"><span class="n">text_timestamps</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_file</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/export.html#nrg_api_export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nrgpy.api.export.nrg_api_export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#nrgpy.api.auth.nrg_api" title="nrgpy.api.auth.nrg_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.api.auth.nrg_api</span></code></a></p>
 <p>Uses NRG hosted web-based API to download data in text format
 To sign up for the service, go to <a class="reference external" href="https://services.nrgsystems.com/">https://services.nrgsystems.com/</a></p>
@@ -533,6 +537,8 @@ times are in logger local time</p>
 <dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
 </dd>
 <dt><strong>text_timestamps</strong><span class="classifier">bool</span></dt><dd><p>get export data with text timestamps instead of datetime</p>
+</dd>
+<dt><strong>export_type</strong><span class="classifier">str</span></dt><dd><p>[meas], samples, diag, comm</p>
 </dd>
 </dl>
 </dd>
@@ -685,28 +691,25 @@ times are in logger local time</p>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, NRG Systems, Technical Services
+        &#169; Copyright 2020, NRG Systems, Technical Services.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>nrgpy.utils.utilities &mdash; nrgpy 0.10.19 documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -49,7 +51,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
+            <a href="../../../index.html" class="icon icon-home"> nrgpy
           
 
           
@@ -105,6 +107,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -227,12 +231,18 @@
 <span class="sd">    string : str</span>
 <span class="sd">        string including date to check</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+    <span class="k">if</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;rld&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span>
+        <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+    <span class="k">elif</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;rwd&quot;</span><span class="p">):</span>
+        <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">[0-9]</span><span class="si">{2}</span><span class="s2">[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">end</span>   <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">traceback</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">start_date</span>
         <span class="n">end</span> <span class="o">=</span> <span class="n">end_date</span>
 
@@ -243,7 +253,18 @@
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">date_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        <span class="n">file_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_text</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">file_date</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">file_date</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">traceback</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
@@ -341,34 +362,99 @@
         <span class="n">reader</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pkl</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">reader</span></div>
+
+
+<div class="viewcode-block" id="data_months"><a class="viewcode-back" href="../../../nrgpy.utils.html#nrgpy.utils.utilities.data_months">[docs]</a><span class="k">def</span> <span class="nf">data_months</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;returns list of months for a date range in YYYY-mm-dd format</span>
+<span class="sd">    </span>
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    start_date : str or datetime</span>
+<span class="sd">        YYYY-mm-dd formatted date or datetime object</span>
+<span class="sd">    end_date : str or datetime</span>
+<span class="sd">        must be same formatting as start_date or god help you</span>
+<span class="sd">    output : str</span>
+<span class="sd">        &quot;string&quot; or &quot;datetime&quot;; specify date types you want returned.</span>
+<span class="sd">    </span>
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;^\d</span><span class="si">{4}</span><span class="s2">\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="p">):</span>
+        <span class="n">start_year</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">start_month</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">start_day</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">end_year</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">end_month</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">end_day</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+        
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
+        <span class="n">start_year</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">year</span>
+        <span class="n">start_month</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">month</span>
+        <span class="n">start_day</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">day</span>
+        <span class="n">end_year</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">year</span>
+        <span class="n">end_month</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">month</span>
+        <span class="n">end_day</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">day</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unsupported date type: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="se">\n</span><span class="s2">use &#39;YYYY-mm-dd&#39; or datetime object&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">start_year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">end_year</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    
+    <span class="n">months</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">:</span>
+        
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_year</span><span class="p">):</span>
+            <span class="n">_month0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_month</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_month0</span> <span class="o">=</span> <span class="mi">1</span>
+            
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_year</span><span class="p">):</span>
+            <span class="n">_month12</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">end_month</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_month12</span> <span class="o">=</span> <span class="mi">12</span>
+            
+        <span class="k">for</span> <span class="n">_m</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">_month0</span><span class="p">,</span> <span class="n">_month12</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
+            
+            <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">:</span>
+                <span class="n">months</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">_m</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">-01&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;datetime&quot;</span><span class="p">:</span>
+                <span class="n">months</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">_m</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unsupported output type: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="se">\n</span><span class="s2">use &#39;string&#39; or &#39;datetime&#39;&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            
+    <span class="k">return</span> <span class="n">months</span></div>
 </pre></div>
 
            </div>
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, NRG Systems, Technical Services
+        &#169; Copyright 2020, NRG Systems, Technical Services.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

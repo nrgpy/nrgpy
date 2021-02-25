@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>nrgpy.read.sympro_txt &mdash; nrgpy 0.10.19 documentation</title>
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -49,7 +51,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> nrgpy
+            <a href="../../../index.html" class="icon icon-home"> nrgpy
           
 
           
@@ -105,6 +107,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -210,6 +214,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">ch_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ch_details&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ch_details</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="s1">&#39;site_details&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_details</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_details&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
             <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
@@ -237,6 +243,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">first_timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">arrange_ch_info</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;site_details&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">format_site_data</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;class </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1"> &gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
@@ -473,7 +481,12 @@
                 <span class="n">file_path</span> <span class="o">=</span> <span class="n">f</span>
 
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">s</span> <span class="o">=</span> <span class="n">sympro_txt_read</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">ch_details</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ch_details</span><span class="p">,</span> <span class="n">text_timestamps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span><span class="p">)</span>
+                    <span class="n">s</span> <span class="o">=</span> <span class="n">sympro_txt_read</span><span class="p">(</span>
+                        <span class="n">file_path</span><span class="p">,</span>
+                        <span class="n">ch_details</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ch_details</span><span class="p">,</span>
+                        <span class="n">text_timestamps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span><span class="p">,</span>
+                        <span class="n">site_details</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="p">)</span>
                     <span class="n">base</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">progress_bar</span> <span class="o">!=</span> <span class="kc">True</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK]&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">txt_file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
@@ -978,28 +991,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, NRG Systems, Technical Services
+        &#169; Copyright 2020, NRG Systems, Technical Services.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

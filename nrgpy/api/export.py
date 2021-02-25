@@ -34,6 +34,8 @@ class nrg_api_export(nrg_api):
         path to NEC file for custom export formatting
     text_timestamps : bool
         get export data with text timestamps instead of datetime
+    export_type : str
+        [meas], samples, diag, comm
 
     Returns
     -------
@@ -71,7 +73,8 @@ class nrg_api_export(nrg_api):
     def __init__(self, out_dir='', serial_number='', out_file='',
                  start_date='2014-01-01', end_date='2023-12-31',
                  client_id='', client_secret='', nec_file='',
-                 text_timestamps=False, save_file=True,  **kwargs):
+                 export_type='meas', text_timestamps=False, 
+                 save_file=True,  **kwargs):
 
         super().__init__(client_id, client_secret)
 
@@ -87,6 +90,7 @@ class nrg_api_export(nrg_api):
         self.start_date = start_date
         self.end_date = end_date
         self.nec_file = nec_file
+        self.export_type = export_type
         self.text_timestamps = text_timestamps
 
         if self.nec_file:
@@ -107,6 +111,7 @@ class nrg_api_export(nrg_api):
             # 'sitenumber': self.site_number,
             'startdate': self.start_date,
             'enddate': self.end_date,
+            'exporttype': self.export_type,
             'necfilebytes': self.encoded_nec_bytes
         }
 
@@ -127,8 +132,12 @@ class nrg_api_export(nrg_api):
                 text_timestamps=self.text_timestamps
             )
             reader.format_site_data()
-            self.serial_number = reader.logger_sn
-            self.site_number = reader.site_number
+
+            try:
+                self.serial_number = reader.logger_sn
+                self.site_number = reader.site_number
+            except AttributeError:
+                pass
 
             os.remove(self.filepath)
             os.remove(os.path.join(self.out_dir, data_file))
