@@ -174,7 +174,7 @@ class nrg_api_convert(nrg_api):
             zipped_data_file = zipfile.ZipFile(io.BytesIO(self.resp.content))
             reg_data_file = self.resp.content
             name = zipped_data_file.infolist().pop()
-            out_filename = os.path.basename(rld)[-3:] + 'txt'
+            out_filename = os.path.basename(rld)[:-3] + 'txt'
 
             with open(os.path.join(self.out_dir, out_filename), 'wb') as outputfile:
                 outputfile.write(zipped_data_file.read(name))
