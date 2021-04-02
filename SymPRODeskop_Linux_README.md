@@ -17,8 +17,8 @@ Also note that only command line functions are available. The program will not l
           `export WINEPREFIX="/home/$USER/prefix64"` <br>
 					`export WINEARCH=win64` <br>
 					`winetricks win10` <br>
+					`winetricks vcrun2013` <br>
 					`winetricks dotnet472` <br>
-					`winetricks vcrun2013`<br>
 1. Install the software <br>
            `wine 8968-SymPRODesktopApp-3.10.1.12.exe` <br>
 					 `# accept defaults EXCEPT!! do not allow SymphoniePRO Desktop to make a firewall rule!` <br>
