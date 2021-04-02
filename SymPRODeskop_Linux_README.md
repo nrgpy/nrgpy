@@ -23,8 +23,8 @@ Also note that only command line functions are available. The program will not l
            `wine 8968-SymPRODesktopApp-3.10.1.12.exe` <br>
 					 `# accept defaults EXCEPT!! do not allow SymphoniePRO Desktop to make a firewall rule!` <br>
 					 `# press enter to clear command line` <br>
-1.  Try it out!
-	2.  Copy some files into your /home/$USER/Documents/Renewable NRG Systems/Raw directory
+1.  Try it out! <br>
+	2.  Copy some files into your /home/$USER/Documents/Renewable NRG Systems/Raw directory <br>
 	3.  Run a convert! <br>
 	           `cd prefix64/drive_c/Program\ Files\ \(x86\)/Renewable\ NRG\ Systems/SymPRO\ Desktop/`<br>
 						 `wine SymPRODesktop.exe /cmd convert /file "C:\\users\\[your-username]\\My Documents\\Renewable NRG Systems\\Raw\\353008\\353008_2021-01-*.rld"`<br><br>
