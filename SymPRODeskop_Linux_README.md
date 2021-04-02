@@ -3,7 +3,7 @@
 **Summary** <br>
 The following is an example of how to convert RLD raw wind data files from SymphoniePRO Data Loggers to TXT format by using Wine on Ubuntu 20.04 Linux. Steps for other distros should be  similar. 
 
-Note that this process requires the presence of an x-environment (GUI). The SDR installation will not complete without a graphical environment.
+Note that this process requires the presence of an x-environment (GUI). The SymPRO Desktop installation will not complete without a graphical environment.
 
 Also note that only command line functions are available. The program will not load the graphical user interface (as of 4/1/2021).
 <br><br>
