@@ -6,6 +6,7 @@ from .api.catalog import nrg_api_catalog
 from .api.convert import nrg_api_convert
 from .api.export import nrg_api_export
 from .api.upload import nrg_api_upload
+from .cloud_api.auth import cloud_api
 from .quality.quality import check_intervals
 from .read.spidar_txt import spidar_data_read
 from .read.sympro_txt import sympro_txt_read, shift_timestamps
