@@ -1,7 +1,7 @@
 from datetime import datetime
 import io
 from nrgpy.utils.utilities import affirm_directory, date_check, draw_progress_bar
-from .auth import cloud_api, convert_url
+from auth import cloud_api, convert_url
 import os
 import requests
 import zipfile

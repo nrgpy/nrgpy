@@ -105,7 +105,9 @@ class export(cloud_api):
     def export(self):
         from nrgpy.read.sympro_txt import sympro_txt_read
 
-        self.headers = {"Authorization": "Bearer " + self.session_token}
+        self.headers = {"Authorization": "Bearer " + self.session_token,
+                        #"Content-Type": "application/json"
+                        }
 
         self.data = {
             'siteid': self.site_id,
@@ -117,7 +119,7 @@ class export(cloud_api):
         }
 
         self.request_time = datetime.now()
-        self.resp = requests.post(data=self.data, url=export_url, headers=self.headers)
+        self.resp = requests.post(json=self.data, url=export_url, headers=self.headers)
         self.request_duration = datetime.now() - self.request_time
 
         if self.resp.status_code == 200:
