@@ -23,7 +23,7 @@ setup(
         'nrgpy.utils',
     ],
     install_requires=[
-        'pandas>=0.23',
+        'pandas>=1.0',
         'requests',
     ],
     python_requires='>=3.0',

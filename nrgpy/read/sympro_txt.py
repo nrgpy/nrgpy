@@ -313,7 +313,7 @@ class sympro_txt_read(object):
             else:
                 print("Adding {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad),str(self.file_count).ljust(self.pad),os.path.basename(f)), end="", flush=True)
 
-            if first_file == True:
+            if first_file:
                 first_file = False
 
                 try:
@@ -337,7 +337,8 @@ class sympro_txt_read(object):
                         text_timestamps=self.text_timestamps,
                         site_details=False,
                     )
-                    base.data = base.data.append(s.data, sort=False)
+                    base.data = base.data.append(s.data)
+                    base.ch_info = base.ch_info.append(s.ch_info)
                     if progress_bar != True: print("[OK]")
                     self.txt_file_names.append(os.path.basename(f))
 
@@ -351,7 +352,7 @@ class sympro_txt_read(object):
         if out_file != "":
             self.out_file = out_file
 
-        if output_txt == True:
+        if output_txt:
             base.data.to_csv(os.path.join(txt_dir, out_file), sep=',', index=False)
 
         try:
@@ -360,6 +361,12 @@ class sympro_txt_read(object):
             self.array = s.array
             self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
             self.data.reset_index(drop=True,inplace=True)
+            base.ch_info['ch'] = base.ch_info['Channel:'].astype(int)
+            self.ch_info = base.ch_info.sort_values(by=['ch'])\
+                .drop_duplicates(
+                    subset=['Serial Number:', 'Channel:', 'Type:', 'Description:', 'Height:', 'Bearing:', 
+                            'Scale Factor:', 'Offset:', 'Units:'], ignore_index=True).drop(['ch'], 1)
+
             self.head = s.head
             self.site_info = s.site_info
             self.format_site_data()
