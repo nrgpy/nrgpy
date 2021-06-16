@@ -111,11 +111,10 @@ class export(cloud_api):
 
         self.data = {
             'siteid': self.site_id,
-            # 'sitenumber': self.site_number,
             'fromdate': self.start_date,
             'todate': self.end_date,
-            'exporttype': self.export_type,
-            #'necfilebytes': self.encoded_nec_bytes
+            'NecFile64BitEncoded': self.encoded_nec_bytes.decode('utf-8'),
+            'exporttype': self.export_type            
         }
 
         self.request_time = datetime.now()
@@ -143,7 +142,7 @@ class export(cloud_api):
                 pass
 
             os.remove(self.filepath)
-            os.remove(os.path.join(self.out_dir, data_file))
+           # os.remove(os.path.join(self.out_dir, data_file))
 
             if self.save_file:
                 if not self.out_file:
@@ -153,9 +152,9 @@ class export(cloud_api):
                     self.out_file = os.path.join(self.out_dir, self.txt_file)
                 reader.output_txt_file(standard=True, out_file=self.out_file)
 
-            del self.data['necfilebytes']
-            self.data['nec_file'] = self.nec_file
-            reader.post_json = self.data
+            # del self.data['NecFile64BitEncoded']
+            # self.data['nec_file'] = self.nec_file
+            # reader.post_json = self.data
 
             return reader
 
