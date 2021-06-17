@@ -73,7 +73,8 @@ class export(cloud_api):
     def __init__(self, out_dir='', site_id='', serial_number='', out_file='',
                  start_date='2014-01-01', end_date='2023-12-31',
                  client_id='', client_secret='', nec_file='',
-                 export_type='measurements', text_timestamps=False, 
+                 export_type='measurements', interval='',
+                 text_timestamps=False, 
                  save_file=True,  **kwargs):
 
         super().__init__(client_id, client_secret)
@@ -92,12 +93,15 @@ class export(cloud_api):
         self.end_date = end_date
         self.nec_file = nec_file
         self.export_type = export_type
+        self.interval = interval
         self.text_timestamps = text_timestamps
 
         if self.nec_file:
             self.encoded_nec_bytes = self.prepare_file_bytes(self.nec_file)
+            self.encoded_nec_string = self.encoded_nec_bytes.decode('utf-8')
         else:
             self.encoded_nec_bytes = ''
+            self.encoded_nec_string = ''
 
         self.save_file = save_file
         self.reader = self.export()
@@ -113,9 +117,12 @@ class export(cloud_api):
             'siteid': self.site_id,
             'fromdate': self.start_date,
             'todate': self.end_date,
-            'NecFile64BitEncoded': self.encoded_nec_bytes.decode('utf-8'),
-            'exporttype': self.export_type            
+            'NecFileBytes': self.encoded_nec_string,
+            'exporttype': self.export_type           
         }
+
+        if self.interval:
+            self.data['interval'] = self.interval
 
         self.request_time = datetime.now()
         self.resp = requests.post(json=self.data, url=export_url, headers=self.headers)
@@ -161,4 +168,5 @@ class export(cloud_api):
         else:
             print(self.resp.status_code)
             print(self.resp.reason)
+            print(self.resp.text)
             return False
