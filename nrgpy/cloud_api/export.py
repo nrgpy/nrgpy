@@ -8,14 +8,14 @@ import zipfile
 
 class export(cloud_api):
     """Uses NRG hosted web-based API to download data in text format
-    To sign up for the service, go to https://services.nrgsystems.com/
+    To sign up for the service, go to https://cloud.nrgsystems.com
 
     Parameters
     ----------
     out_dir : str
         path to save exported data
-    out_file : str
-        (optional) filename to save
+    site_id : int
+        NRG Cloud site identifier (NOT the site number)
     serial_number : str or int
         serial number of data logger (like, 820612345)
     start_date : str
@@ -25,42 +25,46 @@ class export(cloud_api):
         "YYYY-MM-DD HH:MM:SS" format, if just date it will return the whole day
         times are in logger local time
     client_id : str
-        provided by NRG Systems
+        available in the NRG Cloud portal
     client_secret : str
-        provided by NRG Systems
-    save_file : bool
-        (True) whether to save the result to file
+        available in the NRG Cloud portal
     nec_file : str, optional
         path to NEC file for custom export formatting
-    text_timestamps : bool
-        get export data with text timestamps instead of datetime
     export_type : str
-        [meas], samples, diag, comm
+        ['measurements'], 'diagnostic', 'events', 'communication'
+    interval : str, optional
+        'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
+        'thirtyMinute', 'Hour', 'Day' 
+        must be a multiple of the logger's statistical interval
+    unzip : bool
+        (True) whether to extract the .txt data file from the .zip file
 
     Returns
     -------
     object
-        export object that includes an nrgpy reader object
+        export object, including API response
 
     Examples
     --------
-    Download 3 days of data with an NEC file applied
+    Download 15 days of data with an NEC file applied, and read data
 
     >>> import nrgpy
-    >>> client_id = "contact support@nrgsystems.com for access"
-    >>> client_secret = "contact support@nrgsystems.com for access"
-    >>> exporter = nrgpy.nrg_api_export(
+    >>>
+    >>> client_id = "go to https://cloud.nrgsystems.com for access"
+    >>> client_secret = "go to https://cloud.nrgsystems.com for access"
+    >>> txt_dir = '\\path\\to\\exported\\data'
+    >>>
+    >>> exporter = nrgpy.cloud_api.export(
             client_id=client_id,
             client_secret=client_secret,
             out_dir=txt_dir,
             nec_file='12vbat.nec',
-            serial_number=820600019,
-            start_date="2020-05-01",
-            end_date="2020-05-03",
-            text_timestamps=False,
-            save_file=False
+            site_id=245,
+            start_date="2021-05-01",
+            end_date="2021-05-15",
         )
-    >>> reader = exporter.reader
+    >>>
+    >>> reader = ngrpy.sympro_txt_read(exporter.export_filepath)
     >>> reader.format_site_data()
     >>> if reader:
     >>>     print(f"Site number               : {reader.site_number}")
@@ -70,23 +74,20 @@ class export(cloud_api):
     >>>     print("unable to get reader")
     """
 
-    def __init__(self, out_dir='', site_id='', serial_number='', out_file='',
+    def __init__(self, out_dir='', site_id='', serial_number='',
                  start_date='2014-01-01', end_date='2023-12-31',
                  client_id='', client_secret='', nec_file='',
-                 export_type='measurements', interval='',
-                 text_timestamps=False, 
-                 save_file=True,  **kwargs):
+                 export_type='measurements', interval='', 
+                 unzip=True,  **kwargs):
 
         super().__init__(client_id, client_secret)
 
-        self.txt_file = f'{serial_number}_{start_date}_{end_date}.txt'.replace(':', '-').replace(' ', '_')
+        self.zip_file = f'siteid{site_id}_{start_date}_{end_date}_{export_type}.zip'.replace(':', '-').replace(' ', '_')
 
-        self.filepath = os.path.join(out_dir, self.txt_file.replace('txt', 'zip'))
+        self.filepath = os.path.join(out_dir, self.zip_file)
         self.out_dir = out_dir
-        self.out_file = out_file
         affirm_directory(self.out_dir)
 
-        # self.serial_number = str(serial_number)[-5:]  # removing... no longer necessary 2021-01-14
         self.site_id = site_id
         self.serial_number = serial_number
         self.start_date = start_date
@@ -94,7 +95,8 @@ class export(cloud_api):
         self.nec_file = nec_file
         self.export_type = export_type
         self.interval = interval
-        self.text_timestamps = text_timestamps
+        
+        self.unzip = unzip
 
         if self.nec_file:
             self.encoded_nec_bytes = self.prepare_file_bytes(self.nec_file)
@@ -102,15 +104,12 @@ class export(cloud_api):
         else:
             self.encoded_nec_bytes = ''
             self.encoded_nec_string = ''
-
-        self.save_file = save_file
-        self.reader = self.export()
+       
+        self.export()
 
     def export(self):
-        from nrgpy.read.sympro_txt import sympro_txt_read
 
         self.headers = {"Authorization": "Bearer " + self.session_token,
-                        #"Content-Type": "application/json"
                         }
 
         self.data = {
@@ -132,41 +131,22 @@ class export(cloud_api):
             with open(self.filepath, 'wb') as f:
                 f.write(self.resp.content)
 
-            with zipfile.ZipFile(self.filepath, 'r') as z:
-                data_file = z.namelist()[0]
-                z.extractall(self.out_dir)
-
-            reader = sympro_txt_read(
-                filename=os.path.join(self.out_dir, data_file),
-                text_timestamps=self.text_timestamps
-            )
-            reader.format_site_data()
-
-            try:
-                self.serial_number = reader.logger_sn
-                self.site_number = reader.site_number
-            except AttributeError:
-                pass
-
-            os.remove(self.filepath)
-           # os.remove(os.path.join(self.out_dir, data_file))
-
-            if self.save_file:
-                if not self.out_file:
-                    self.out_file = f'{self.site_number}_{self.start_date}_{self.end_date}.txt'.replace(':', '.').replace(' ', '')
-
-                else:
-                    self.out_file = os.path.join(self.out_dir, self.txt_file)
-                reader.output_txt_file(standard=True, out_file=self.out_file)
-
-            # del self.data['NecFile64BitEncoded']
-            # self.data['nec_file'] = self.nec_file
-            # reader.post_json = self.data
-
-            return reader
+            if self.unzip:
+                with zipfile.ZipFile(self.filepath, 'r') as z:
+                    self.export_filename = z.namelist()[0]
+                    z.extractall(self.out_dir)
+                os.remove(self.filepath)
+                self.export_filepath = os.path.normpath(
+                    os.path.join(self.out_dir, self.export_filename))
+            
+            else:
+                self.export_filepath = os.path.normpath(self.filepath)
+                self.export_filename = self.zip_file
+        
+            print(self.export_filepath)
 
         else:
-            print(self.resp.status_code)
-            print(self.resp.reason)
-            print(self.resp.text)
+            print(str(self.resp.status_code) + ' | ' + self.resp.reason)
+            print(self.resp.text.split(':')[1].split('"')[1])
             return False
+        
