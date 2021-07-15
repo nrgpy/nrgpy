@@ -17,7 +17,9 @@ class export(cloud_api):
         path to save exported data
     site_id : int
         NRG Cloud site identifier (NOT the site number)
-    serial_number : str or int
+    site : int
+        site number
+    logger_sn : str or int
         serial number of data logger (like, 820612345)
     start_date : str
         "YYYY-MM-DD HH:MM:SS" format, if just date it will return the whole day
