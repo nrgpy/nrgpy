@@ -31,16 +31,10 @@ class convert(cloud_api):
         provided by NRG Systems
     client_secret : str
         provided by NRG Systems
-    token : str
-        deprecated, for beta conversion service users
-    encryption_pass : str, optional
-        password for rld files (set in logger)
-    header_type : str
-        [standard], columnonly, or none
     nec_file : str, optional
         path to NEC file for custom export formatting
     export_type : str
-        [meas], samples, diag, comm
+        [measurements], diagnostic, events, communication
 
     Examples
     --------
@@ -81,14 +75,11 @@ class convert(cloud_api):
                  site_filter='', filter2='',
                  start_date='1970-01-01', end_date='2150-12-31',
                  client_id='', client_secret='',
-                 encryption_pass='', header_type='standard', nec_file='',
-                 export_type='measurements', export_format='csv_zipped',
+                 export_type='measurements', nec_file='', unzip=True,
                  progress_bar=True, **kwargs):
 
         super().__init__(client_id, client_secret)
 
-        self.encryption_pass = encryption_pass
-        self.export_format = export_format
         self.export_type = export_type
         self.site_filter = site_filter
 
@@ -99,11 +90,11 @@ class convert(cloud_api):
         self.filter2 = filter2
         self.start_date = start_date
         self.end_date = end_date
-        self.header_type = header_type
         self.nec_file = nec_file
         self.out_dir = out_dir
         self.rld_dir = rld_dir
         self.progress_bar = progress_bar
+        self.unzip = unzip
 
         affirm_directory(self.out_dir)
 
@@ -147,11 +138,14 @@ class convert(cloud_api):
                 print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad), str(self.raw_count).ljust(self.pad), os.path.basename(rld)), end="", flush=True)
 
             self.encoded_rld_bytes = self.prepare_file_bytes(rld)
+            self.encoded_rld_string = self.encoded_rld_bytes.decode('utf-8')
 
             if self.nec_file:
                 self.encoded_nec_bytes = self.prepare_file_bytes(self.nec_file)
+                self.encoded_nec_string = self.encoded_nec_bytes.decode('utf-8')
             else:
                 self.encoded_nec_bytes = ''
+                self.encoded_nec_string = ''
 
             if not self.token_valid():
                 self.session_token, self.session_start_time = self.request_session_token()
@@ -159,38 +153,40 @@ class convert(cloud_api):
             headers = {"Authorization": "Bearer {}".format(self.session_token)}
 
             self.data = {
-                        #'type': rld[-3:].upper(),
-                        'FileBytes64BitEncoded': self.encoded_rld_bytes,
-                        'NecFile64BitEncoded': self.encoded_nec_bytes,
-                        #'headertype': self.header_type,      # standard | columnonly  | none
+                        'FileBytes64BitEncoded': self.encoded_rld_string,
+                        'NecFile64BitEncoded': self.encoded_nec_string,
                         'exportType': self.export_type,      # measurements (default) | samples
-                        #'exportformat': self.export_format,  # csv_zipped (default)   | parquet
-                        #'encryptionkey': self.encryption_pass,
-                        #'columnheaderformat': '',            # not implemented yet
                     }
 
-            self.resp = requests.post(data=self.data, url=convert_url, headers=headers)
+            self.resp = requests.post(json=self.data, url=convert_url, headers=headers)
 
-            zipped_data_file = zipfile.ZipFile(io.BytesIO(self.resp.content))
-            reg_data_file = self.resp.content
-            name = zipped_data_file.infolist().pop()
-            out_filename = os.path.basename(rld)[:-3] + 'txt'
+            self.zip_file = os.path.basename(rld)[:-3] + 'zip'
+            self.filepath = os.path.join(self.out_dir, self.zip_file)
 
-            with open(os.path.join(self.out_dir, out_filename), 'wb') as outputfile:
-                outputfile.write(zipped_data_file.read(name))
+            if self.resp.status_code == 200:
+                with open(self.filepath, 'wb') as f:
+                    f.write(self.resp.content)
 
-            try:
-                filename = os.path.join(self.out_dir, out_filename)
-                file_contents = open(filename, "r").read()
-                f = open(filename, "w", newline="\r\n")
-                f.write(file_contents)
-                f.close()
-
-            except:
-                print("Could not convert Windows newline characters properly; file may be unstable")
-
-            if self.progress_bar is False:
-                print("[DONE]")
+                if self.unzip:
+                    with zipfile.ZipFile(self.filepath, 'r') as z:
+                        self.export_filename = z.namelist()[0]
+                        z.extractall(self.out_dir)
+                    os.remove(self.filepath)
+                    self.export_filepath = os.path.normpath(
+                        os.path.join(self.out_dir, self.export_filename))
+                
+                else:
+                    self.export_filepath = os.path.normpath(self.filepath)
+                    self.export_filename = self.zip_file
+                
+                if self.progress_bar is False:
+                    print("[DONE]")
+            
+            else:
+                print('\nunable to process file: {0}'.format(rld))
+                print(str(self.resp.status_code) + ' | ' + self.resp.reason)
+                print(self.resp.text.split(':')[1].split('"')[1])    
+           
 
         except Exception as e:
             if self.progress_bar is False:
@@ -198,5 +194,4 @@ class convert(cloud_api):
 
             print('unable to process file: {0}'.format(rld))
             print(e)
-            print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
             pass

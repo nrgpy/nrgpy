@@ -1,6 +1,7 @@
 from datetime import datetime
 from nrgpy.utils.utilities import affirm_directory
 from auth import cloud_api, export_url
+from sites import sites
 import os
 import requests
 import zipfile
@@ -74,7 +75,7 @@ class export(cloud_api):
     >>>     print("unable to get reader")
     """
 
-    def __init__(self, out_dir='', site_id='', serial_number='',
+    def __init__(self, out_dir='', site_id='', site='', logger_sn='',
                  start_date='2014-01-01', end_date='2023-12-31',
                  client_id='', client_secret='', nec_file='',
                  export_type='measurements', interval='', 
@@ -88,8 +89,12 @@ class export(cloud_api):
         self.out_dir = out_dir
         affirm_directory(self.out_dir)
 
-        self.site_id = site_id
-        self.serial_number = serial_number
+        if site_id:
+            self.site_id = site_id       
+        else:
+            client_sites = sites(client_id=client_id, client_secret=client_secret)
+            self.site_id = client_sites.get_siteid(site=site, logger_sn=logger_sn)       
+        
         self.start_date = start_date
         self.end_date = end_date
         self.nec_file = nec_file
