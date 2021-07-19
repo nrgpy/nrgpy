@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    nrgpy.api
+   nrgpy.cloud_api
    nrgpy.convert
    nrgpy.quality
    nrgpy.read

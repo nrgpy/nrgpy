@@ -1,13 +1,13 @@
 from datetime import datetime
 from nrgpy.utils.utilities import affirm_directory
-from auth import cloud_api, export_url
-from sites import sites
+from .auth import cloud_api, export_url
+from .sites import cloud_sites
 import os
 import requests
 import zipfile
 
 
-class export(cloud_api):
+class cloud_export(cloud_api):
     """Uses NRG hosted web-based API to download data in text format
     To sign up for the service, go to https://cloud.nrgsystems.com
 
@@ -17,7 +17,7 @@ class export(cloud_api):
         path to save exported data
     site_id : int
         NRG Cloud site identifier (NOT the site number)
-    site : int
+    site_number : int
         site number
     logger_sn : str or int
         serial number of data logger (like, 820612345)
@@ -57,7 +57,7 @@ class export(cloud_api):
     >>> client_secret = "go to https://cloud.nrgsystems.com for access"
     >>> txt_dir = '\\path\\to\\exported\\data'
     >>>
-    >>> exporter = nrgpy.cloud_api.export(
+    >>> exporter = nrgpy.cloud_export(
             client_id=client_id,
             client_secret=client_secret,
             out_dir=txt_dir,
@@ -77,7 +77,7 @@ class export(cloud_api):
     >>>     print("unable to get reader")
     """
 
-    def __init__(self, out_dir='', site_id='', site='', logger_sn='',
+    def __init__(self, out_dir='', site_id='', site_number='', logger_sn='',
                  start_date='2014-01-01', end_date='2023-12-31',
                  client_id='', client_secret='', nec_file='',
                  export_type='measurements', interval='', 
@@ -94,8 +94,8 @@ class export(cloud_api):
         if site_id:
             self.site_id = site_id       
         else:
-            client_sites = sites(client_id=client_id, client_secret=client_secret)
-            self.site_id = client_sites.get_siteid(site=site, logger_sn=logger_sn)       
+            client_sites = cloud_sites(client_id=client_id, client_secret=client_secret)
+            self.site_id = client_sites.get_siteid(site_number=site_number, logger_sn=logger_sn)       
         
         self.start_date = start_date
         self.end_date = end_date
@@ -116,8 +116,10 @@ class export(cloud_api):
 
     def export(self):
 
-        self.headers = {"Authorization": "Bearer " + self.session_token,
-                        }
+        try:
+            self.headers = {"Authorization": "Bearer " + self.session_token}
+        except TypeError:
+            return False
 
         self.data = {
             'siteid': self.site_id,

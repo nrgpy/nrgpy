@@ -1,8 +1,23 @@
-from auth import cloud_api, sites_url
+from .auth import cloud_api, sites_url
+import pandas as pd
 import requests
 
-class sites(cloud_api):
+class cloud_sites(cloud_api):
+    """Returns sites that user has access to.
     
+    Parameters
+    ----------
+    client_id : str
+        available in the NRG Cloud portal
+    client_secret : str
+        available in the NRG Cloud portal
+    
+    Returns
+    -------
+    object
+        sites_list : list
+        sites_df : pandas dataframe
+    """
     def __init__(self, client_id, client_secret):
         
         super().__init__(client_id, client_secret)
@@ -19,11 +34,12 @@ class sites(cloud_api):
         self.resp = requests.get(url=sites_url, headers=self.headers)
         
         self.sites_list = self.resp.json()['sites']
+        self.sites_df = pd.DataFrame(self.sites_list)
         
-    def get_siteid(self, site='', logger_sn=''):
-        if site and logger_sn:
+    def get_siteid(self, site_number='', logger_sn=''):
+        if site_number and logger_sn:
             matching_sites = [site_dict for site_dict in self.sites_list if
-             site_dict['siteNumber']==site and site_dict['loggerSerialNumber']==logger_sn]
+             site_dict['siteNumber']==site_number and site_dict['loggerSerialNumber']==logger_sn]
             
             if len(matching_sites)==1:
                 return matching_sites[0]['siteId']
@@ -33,9 +49,9 @@ class sites(cloud_api):
                       "Confirm that you have entered the values correctly " +
                       "and that you have access to this site.")
 
-        elif site:
+        elif site_number:
             matching_sites = [site_dict for site_dict in self.sites_list if
-             site_dict['siteNumber']==site]
+             site_dict['siteNumber']==site_number]
             
             if len(matching_sites)>1:
                 print("There is more than one site with that site number. " +

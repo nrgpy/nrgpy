@@ -1,5 +1,5 @@
-__name__ = "api"
+__name__ = "cloud_api"
 from .auth import cloud_api
-from .convert import convert
-from .export import export
-from .sites import sites
+from .convert import cloud_convert
+from .export import cloud_export
+from .sites import cloud_sites

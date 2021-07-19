@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -201,9 +204,17 @@
 </li>
       <li><a href="nrgpy.utils.html#nrgpy.utils.utilities.check_platform">check_platform() (in module nrgpy.utils.utilities)</a>
 </li>
+      <li><a href="nrgpy.convert.html#nrgpy.convert.convert_rwd.local.check_sdr">check_sdr() (nrgpy.convert.convert_rwd.local method)</a>
+</li>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api">cloud_api (class in nrgpy.cloud_api.auth)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="nrgpy.convert.html#nrgpy.convert.convert_rwd.local.check_sdr">check_sdr() (nrgpy.convert.convert_rwd.local method)</a>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.convert.cloud_convert">cloud_convert (class in nrgpy.cloud_api.convert)</a>
+</li>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.export.cloud_export">cloud_export (class in nrgpy.cloud_api.export)</a>
+</li>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.sites.cloud_sites">cloud_sites (class in nrgpy.cloud_api.sites)</a>
 </li>
       <li><a href="nrgpy.read.html#nrgpy.read.txt_utils.read_text_data.concat">concat() (nrgpy.read.txt_utils.read_text_data method)</a>
 </li>
@@ -246,7 +257,11 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.api.html#nrgpy.api.export.nrg_api_export.export">export() (nrgpy.api.export.nrg_api_export method)</a>
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.export.cloud_export.export">(nrgpy.cloud_api.export.cloud_export method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -275,11 +290,15 @@
 </li>
       <li><a href="nrgpy.read.html#nrgpy.read.txt_utils.read_text_data.get_head">get_head() (nrgpy.read.txt_utils.read_text_data method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.read.html#nrgpy.read.spidar_txt.spidar_data_read.get_heights">get_heights() (nrgpy.read.spidar_txt.spidar_data_read method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.read.html#nrgpy.read.txt_utils.read_text_data.get_site_info">get_site_info() (nrgpy.read.txt_utils.read_text_data method)</a>
+</li>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.sites.cloud_sites.get_siteid">get_siteid() (nrgpy.cloud_api.sites.cloud_sites method)</a>
+</li>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.sites.cloud_sites.get_sites">get_sites() (nrgpy.cloud_api.sites.cloud_sites method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -307,10 +326,14 @@
 </li>
       <li><a href="nrgpy.utils.html#nrgpy.utils.utilities.load">load() (in module nrgpy.utils.utilities)</a>
 </li>
+      <li><a href="nrgpy.api.html#nrgpy.api.auth.nrg_api.load_token">load_token() (nrgpy.api.auth.nrg_api method)</a>
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.load_token">(nrgpy.cloud_api.auth.cloud_api method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="nrgpy.api.html#nrgpy.api.auth.nrg_api.load_token">load_token() (nrgpy.api.auth.nrg_api method)</a>
-</li>
       <li><a href="nrgpy.convert.html#nrgpy.convert.convert_rld.local">local (class in nrgpy.convert.convert_rld)</a>
 
       <ul>
@@ -324,7 +347,11 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.api.html#nrgpy.api.auth.nrg_api.maintain_session_token">maintain_session_token() (nrgpy.api.auth.nrg_api method)</a>
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.maintain_session_token">(nrgpy.cloud_api.auth.cloud_api method)</a>
 </li>
+      </ul></li>
       <li><a href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.make_header_for_epe">make_header_for_epe() (nrgpy.read.sympro_txt.sympro_txt_read method)</a>
 </li>
       <li>
@@ -344,6 +371,16 @@
         <li><a href="nrgpy.api.html#module-nrgpy.api.export">nrgpy.api.export</a>
 </li>
         <li><a href="nrgpy.api.html#module-nrgpy.api.upload">nrgpy.api.upload</a>
+</li>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api">nrgpy.cloud_api</a>
+</li>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.auth">nrgpy.cloud_api.auth</a>
+</li>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.convert">nrgpy.cloud_api.convert</a>
+</li>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.export">nrgpy.cloud_api.export</a>
+</li>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.sites">nrgpy.cloud_api.sites</a>
 </li>
         <li><a href="nrgpy.convert.html#module-nrgpy.convert">nrgpy.convert</a>
 </li>
@@ -438,6 +475,43 @@
 </li>
       </ul></li>
       <li>
+    nrgpy.cloud_api
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api">module</a>
+</li>
+      </ul></li>
+      <li>
+    nrgpy.cloud_api.auth
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.auth">module</a>
+</li>
+      </ul></li>
+      <li>
+    nrgpy.cloud_api.convert
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.convert">module</a>
+</li>
+      </ul></li>
+      <li>
+    nrgpy.cloud_api.export
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.export">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    nrgpy.cloud_api.sites
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.sites">module</a>
+</li>
+      </ul></li>
+      <li>
     nrgpy.convert
 
       <ul>
@@ -451,8 +525,6 @@
         <li><a href="nrgpy.convert.html#module-nrgpy.convert.convert_rld">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     nrgpy.convert.convert_rwd
 
@@ -545,12 +617,18 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.api.html#nrgpy.api.auth.nrg_api.prepare_file_bytes">prepare_file_bytes() (nrgpy.api.auth.nrg_api method)</a>
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.prepare_file_bytes">(nrgpy.cloud_api.auth.cloud_api method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.api.html#nrgpy.api.convert.nrg_api_convert.process">process() (nrgpy.api.convert.nrg_api_convert method)</a>
 
       <ul>
+        <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.convert.cloud_convert.process">(nrgpy.cloud_api.convert.cloud_convert method)</a>
+</li>
         <li><a href="nrgpy.convert.html#nrgpy.convert.convert_rld.local.process">(nrgpy.convert.convert_rld.local method)</a>
 </li>
       </ul></li>
@@ -571,7 +649,11 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.api.html#nrgpy.api.auth.nrg_api.request_session_token">request_session_token() (nrgpy.api.auth.nrg_api method)</a>
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.request_session_token">(nrgpy.cloud_api.auth.cloud_api method)</a>
 </li>
+      </ul></li>
       <li><a href="nrgpy.read.html#nrgpy.read.channel_info_arrays.return_array">return_array() (in module nrgpy.read.channel_info_arrays)</a>
 </li>
       <li><a href="nrgpy.read.html#nrgpy.read.channel_info_arrays.return_sp3_ch_info">return_sp3_ch_info() (in module nrgpy.read.channel_info_arrays)</a>
@@ -587,7 +669,11 @@
       <li><a href="nrgpy.utils.html#nrgpy.utils.utilities.save">save() (in module nrgpy.utils.utilities)</a>
 </li>
       <li><a href="nrgpy.api.html#nrgpy.api.auth.nrg_api.save_token">save_token() (nrgpy.api.auth.nrg_api method)</a>
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.save_token">(nrgpy.cloud_api.auth.cloud_api method)</a>
 </li>
+      </ul></li>
       <li><a href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.select_channels_for_reformat">select_channels_for_reformat() (nrgpy.read.sympro_txt.sympro_txt_read method)</a>
 </li>
       <li><a href="nrgpy.quality.html#nrgpy.quality.quality.select_interval_length">select_interval_length() (in module nrgpy.quality.quality)</a>
@@ -601,6 +687,8 @@
       <li><a href="nrgpy.api.html#nrgpy.api.convert.nrg_api_convert.single_file">single_file() (nrgpy.api.convert.nrg_api_convert method)</a>
 
       <ul>
+        <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.convert.cloud_convert.single_file">(nrgpy.cloud_api.convert.cloud_convert method)</a>
+</li>
         <li><a href="nrgpy.convert.html#nrgpy.convert.convert_rld.local.single_file">(nrgpy.convert.convert_rld.local method)</a>
 </li>
       </ul></li>
@@ -615,7 +703,11 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.api.html#nrgpy.api.auth.nrg_api.token_valid">token_valid() (nrgpy.api.auth.nrg_api method)</a>
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.token_valid">(nrgpy.cloud_api.auth.cloud_api method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 

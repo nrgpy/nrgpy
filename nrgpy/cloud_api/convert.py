@@ -1,13 +1,13 @@
 from datetime import datetime
 import io
 from nrgpy.utils.utilities import affirm_directory, date_check, draw_progress_bar
-from auth import cloud_api, convert_url
+from .auth import cloud_api, convert_url
 import os
 import requests
 import zipfile
 
 
-class convert(cloud_api):
+class cloud_convert(cloud_api):
     """Uses NRG hosted web-based API to convert RLD and RWD files to text format
     To sign up for the service, go to https://cloud.nrgsystems.com/
 
@@ -44,7 +44,7 @@ class convert(cloud_api):
     >>> filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
     >>> client_id = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
     >>> client_secret = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
-    >>> converter = nrgpy.nrg_api_convert(
+    >>> converter = nrgpy.cloud_convert(
             file_filter=file_filter,
             filename=filename,
             client_id=client_id,
@@ -59,7 +59,7 @@ class convert(cloud_api):
     >>> txt_dir = "/home/user/data/sympro/000123/txt/"
     >>> client_id = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
     >>> client_secret = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
-    >>> converter = nrgpy.nrg_api_convert(
+    >>> converter = nrgpy.cloud_convert(
             file_filter=file_filter,
             rld_dir=rld_directory,
             out_dir=txt_dir,
