@@ -39,11 +39,11 @@ converter.convert()
 
 ```python
 import nrgpy
-file_filter = "000175"
+file_filter = "000110"
 rld_directory = "rlds"
-client_id = "contact support@nrgsystems.com for access"
-client_secret = "contact support@nrgsystems.com for access"
-converter = nrgpy.nrg_api_convert(
+client_id = "https://cloud.nrgsystems.com/data-manager/api-setup"
+client_secret = ""
+converter = nrgpy.cloud_convert(
     file_filter=file_filter, 
     rld_dir=rld_directory, 
     client_id=client_id,
@@ -54,15 +54,14 @@ converter = nrgpy.nrg_api_convert(
 converter.process()
 ```
 
-#### Convert a single RLD file to Text with NRG Convert API
+#### Convert a single RLD file to Text with NRG Cloud API
 ```python
 import nrgpy
-filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
-txt_dir = "/home/user/data/sympro/000123/txt/"
-client_id = "contact support@nrgsystems.com for access"
-client_secret = "contact support@nrgsystems.com for access"
-converter = nrgpy.nrg_api_convert(
-    file_filter=file_filter, 
+filename = "path/to/rld"
+txt_dir = "path/to/txt/"
+client_id = "https://cloud.nrgsystems.com/data-manager/api-setup"
+client_secret = ""
+converter = nrgpy.cloud_convert(
     filename=filename, 
     client_id=client_id,
     client_secret=client_secret,
@@ -71,7 +70,7 @@ converter = nrgpy.nrg_api_convert(
 
 #### Read files
 ```python
-file_filter = "000175"
+file_filter = "000110"
 import nrgpy
 
 reader = nrgpy.sympro_txt_read()
@@ -80,22 +79,6 @@ reader.concat_txt(
     file_filter=file_filter, 
     start_date="2019-11-01",
     end_date="2019-11-30",
-)
-```
-
-#### Read with more options...
-```python
-import nrgpy
-
-reader = nrgpy.sympro_txt_read()
-reader.concat_txt(
-    txt_dir=text_folder_name, 
-    file_filter="000175", 
-    start_date="2019-10-01",
-    end_date="2019-10-31",
-    ch_details=True,
-    output_txt=True,
-    output_file="000175_2019_October_Data.txt"
 )
 ```
 

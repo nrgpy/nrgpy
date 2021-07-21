@@ -127,6 +127,9 @@ class cloud_convert(cloud_api):
         for rld in self.files:
             self.single_file(os.path.join(self.rld_dir, rld))
             self.counter += 1
+            if self.resp.status_code == 401:
+                print("\nAccess to site at Coordinator or Administrator level is required for data functions")
+                break
 
         print('\n')
 
@@ -182,6 +185,9 @@ class cloud_convert(cloud_api):
                 if self.progress_bar is False:
                     print("[DONE]")
             
+            elif self.resp.status_code == 401:
+                pass
+
             else:
                 print('\nunable to process file: {0}'.format(rld))
                 print(str(self.resp.status_code) + ' | ' + self.resp.reason)

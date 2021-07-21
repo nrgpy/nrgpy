@@ -102,7 +102,7 @@ class local(object):
         if 'site_filter' in kwargs and file_filter == '':
             self.file_filter = kwargs.get('site_filter')
 
-        self.rwd_dir = windows_folder_path(rwd_dir) # rwd_dir must be in Windows format, even if using Wine
+        self.rwd_dir = rwd_dir  # windows_folder_path(rwd_dir) # rwd_dir must be in Windows format, even if using Wine
         self.show_result = show_result
         self.platform = check_platform()
         self.wine_folder = wine_folder
@@ -112,8 +112,8 @@ class local(object):
             self.out_dir = windows_folder_path(out_dir)
             self.file_path_joiner = '\\'
         else:
-            self.out_dir = linux_folder_path(out_dir)
             self.file_path_joiner = '/'
+            self.out_dir = out_dir
 
         if self.filename:
             self.counter = 1
@@ -274,9 +274,15 @@ class local(object):
                     pass
 
                 try:
-                    shutil.copy(os.path.join(self.rwd_dir, f), os.path.join(site_folder))
+                    # shutil.copy(os.path.join(self.rwd_dir, f), os.path.join(site_folder))
+                    shutil.copy(self.rwd_dir + f, os.path.join(site_folder))
                 except:
+                    import traceback
                     print('unable to copy file to RawData folder:  {}'.format(f))
+
+                    print(traceback.format_exc())
+                    print(os.path.join(self.rwd_dir, f))
+                    print(os.path.join(site_folder))
 
     def _copy_txt_file(self):
         """copy TXT file from self.ScaledData to self.out_dir"""
@@ -288,10 +294,13 @@ class local(object):
 
         except:
             print("could not do the needful")
+            import traceback
+            print(traceback.format_exc())
 
         if self.platform == 'linux':
-            out_path = linux_folder_path(self.out_dir) + txt_file_name
-            txt_file_path = ''.join([self.wine_folder, '/NRG/ScaledData/', txt_file_name])
+            out_path = linux_folder_path(self.out_dir) + txt_file_name.split("\\")[-1]
+            txt_file_path = ''.join([self.wine_folder, '/NRG/ScaledData/', txt_file_name.split("\\")[-1]])
+            self.txt_file_path = txt_file_path
 
         try:
             shutil.copy(txt_file_path, out_path)
