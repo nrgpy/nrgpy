@@ -5,18 +5,11 @@ import pickle
 import requests
 
 
-# token_url = 'https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi/token'
+token_url = 'https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/token'
 
-# convert_url = 'https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi/data/convert'
-# export_url = 'https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi/data/export'
-# sites_url = "https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi/sites"
-
-token_url = 'https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi-clone/token'
-
-convert_url = 'https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi-clone/data/convert'
-export_url = 'https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi-clone/data/export'
-sites_url = "https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi-clone/sites"
-
+convert_url = 'https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/data/convert'
+export_url = 'https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/data/export'
+sites_url = "https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/sites"
 
 
 token_file = '.cloud_token'
@@ -34,7 +27,7 @@ class cloud_api(object):
         if self.client_id and self.client_secret:
             self.maintain_session_token()
         else:
-            print('[Access error] Valid credentials are required.\nPlease contact support@nrgsystems.com or visit \nhttps://cloud.nrgsystems.com/data-manager/api-setup for API access')
+            print('[Access error] Valid credentials are required.\n\nPlease visit https://cloud.nrgsystems.com/data-manager/api-setup\nto access your API credentials')
 
     def request_session_token(self):
         """generates a new session token for convert service api

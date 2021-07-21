@@ -158,18 +158,11 @@
 <span class="kn">import</span> <span class="nn">requests</span>
 
 
-<span class="c1"># token_url = &#39;https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi/token&#39;</span>
+<span class="n">token_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/token&#39;</span>
 
-<span class="c1"># convert_url = &#39;https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi/data/convert&#39;</span>
-<span class="c1"># export_url = &#39;https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi/data/export&#39;</span>
-<span class="c1"># sites_url = &quot;https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi/sites&quot;</span>
-
-<span class="n">token_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi-clone/token&#39;</span>
-
-<span class="n">convert_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi-clone/data/convert&#39;</span>
-<span class="n">export_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi-clone/data/export&#39;</span>
-<span class="n">sites_url</span> <span class="o">=</span> <span class="s2">&quot;https://nrgcloudapi.azure-api.net/nrgcloudcustomerapi-clone/sites&quot;</span>
-
+<span class="n">convert_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/data/convert&#39;</span>
+<span class="n">export_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/data/export&#39;</span>
+<span class="n">sites_url</span> <span class="o">=</span> <span class="s2">&quot;https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/sites&quot;</span>
 
 
 <span class="n">token_file</span> <span class="o">=</span> <span class="s1">&#39;.cloud_token&#39;</span>
@@ -187,7 +180,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">maintain_session_token</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Access error] Valid credentials are required.</span><span class="se">\n</span><span class="s1">Please contact support@nrgsystems.com or visit </span><span class="se">\n</span><span class="s1">https://cloud.nrgsystems.com/data-manager/api-setup for API access&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Access error] Valid credentials are required.</span><span class="se">\n\n</span><span class="s1">Please visit https://cloud.nrgsystems.com/data-manager/api-setup</span><span class="se">\n</span><span class="s1">to access your API credentials&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="cloud_api.request_session_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.request_session_token">[docs]</a>    <span class="k">def</span> <span class="nf">request_session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;generates a new session token for convert service api</span>

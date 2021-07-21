@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
@@ -252,7 +255,7 @@
         <span class="k">if</span> <span class="s1">&#39;site_filter&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">file_filter</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_filter&#39;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">rwd_dir</span> <span class="o">=</span> <span class="n">windows_folder_path</span><span class="p">(</span><span class="n">rwd_dir</span><span class="p">)</span> <span class="c1"># rwd_dir must be in Windows format, even if using Wine</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rwd_dir</span> <span class="o">=</span> <span class="n">rwd_dir</span>  <span class="c1"># windows_folder_path(rwd_dir) # rwd_dir must be in Windows format, even if using Wine</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show_result</span> <span class="o">=</span> <span class="n">show_result</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">=</span> <span class="n">check_platform</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wine_folder</span> <span class="o">=</span> <span class="n">wine_folder</span>
@@ -262,8 +265,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">windows_folder_path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_path_joiner</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">linux_folder_path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_path_joiner</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
@@ -424,9 +427,15 @@
                     <span class="k">pass</span>
 
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rwd_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">site_folder</span><span class="p">))</span>
+                    <span class="c1"># shutil.copy(os.path.join(self.rwd_dir, f), os.path.join(site_folder))</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rwd_dir</span> <span class="o">+</span> <span class="n">f</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">site_folder</span><span class="p">))</span>
                 <span class="k">except</span><span class="p">:</span>
+                    <span class="kn">import</span> <span class="nn">traceback</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;unable to copy file to RawData folder:  </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+                    <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rwd_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">site_folder</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_copy_txt_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;copy TXT file from self.ScaledData to self.out_dir&quot;&quot;&quot;</span>
@@ -438,10 +447,13 @@
 
         <span class="k">except</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not do the needful&quot;</span><span class="p">)</span>
+            <span class="kn">import</span> <span class="nn">traceback</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;linux&#39;</span><span class="p">:</span>
-            <span class="n">out_path</span> <span class="o">=</span> <span class="n">linux_folder_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span> <span class="o">+</span> <span class="n">txt_file_name</span>
-            <span class="n">txt_file_path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">wine_folder</span><span class="p">,</span> <span class="s1">&#39;/NRG/ScaledData/&#39;</span><span class="p">,</span> <span class="n">txt_file_name</span><span class="p">])</span>
+            <span class="n">out_path</span> <span class="o">=</span> <span class="n">linux_folder_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span> <span class="o">+</span> <span class="n">txt_file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">txt_file_path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">wine_folder</span><span class="p">,</span> <span class="s1">&#39;/NRG/ScaledData/&#39;</span><span class="p">,</span> <span class="n">txt_file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">txt_file_path</span> <span class="o">=</span> <span class="n">txt_file_path</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">txt_file_path</span><span class="p">,</span> <span class="n">out_path</span><span class="p">)</span>

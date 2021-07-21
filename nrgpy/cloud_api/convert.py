@@ -9,7 +9,10 @@ import zipfile
 
 class cloud_convert(cloud_api):
     """Uses NRG hosted web-based API to convert RLD and RWD files to text format
-    To sign up for the service, go to https://cloud.nrgsystems.com/
+    To sign up for the service, go to https://cloud.nrgsystems.com/. 
+    
+    Note that the site must exist in the NRG Cloud platform, and you must have 
+    Contributor or Administrator level access to the site to use these features.
 
     Parameters
     ----------

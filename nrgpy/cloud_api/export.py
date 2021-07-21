@@ -10,7 +10,10 @@ import zipfile
 class cloud_export(cloud_api):
     """Uses NRG hosted web-based API to download data in text format
     To sign up for the service, go to https://cloud.nrgsystems.com
-
+    
+    Note that the site must exist in the NRG Cloud platform, and you must have 
+    Contributor or Administrator level access to the site to use these features.
+    
     Parameters
     ----------
     out_dir : str
@@ -152,8 +155,6 @@ class cloud_export(cloud_api):
                 self.export_filepath = os.path.normpath(self.filepath)
                 self.export_filename = self.zip_file
         
-            print(self.export_filepath)
-
         else:
             print(str(self.resp.status_code) + ' | ' + self.resp.reason)
             print(self.resp.text.split(':')[1].split('"')[1])

@@ -10,7 +10,7 @@ It provides tools for:
 
 - Converting binary ".rld" and ".rwd files to text format
     - using locally installed SymphoniePRO Desktop Software and Symphonie Data Retriever
-    - using web api (compatible with Linux!) *(SymphoniePRO only at this time)
+    - using NRG Cloud API (compatible with Linux!) *(SymphoniePRO only at this time)
 - Reading Symphonie text exports into Pandas dataframes
 - Reading Spidar zip/csv files into Pandas dataframes
 - Timestamp adjustment (of text files)
