@@ -10,7 +10,7 @@ from .cloud_api.auth import cloud_api
 from .cloud_api.convert import cloud_convert
 from .cloud_api.export import cloud_export
 from .cloud_api.sites import cloud_sites
-from .quality.quality import check_intervals
+from .quality.quality import check_intervals, select_interval_length
 from .read.spidar_txt import spidar_data_read
 from .read.sympro_txt import sympro_txt_read, shift_timestamps
 from .read.txt_utils import read_text_data
