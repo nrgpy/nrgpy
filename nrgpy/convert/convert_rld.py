@@ -76,8 +76,13 @@ class local(object):
                 self.single_file(filepath=filename)
         else:
             print("""
-            convert_rld.local() method ONLY compatible with Windows OS.
-            Please use convert_rld.nrg_convert_api() method instead.
+convert_rld.local() method ONLY compatible with Windows OS.
+Please use nrgpy.cloud_convert() method instead.
+
+Alternately, follow the instructions for using SymphoniePRO Desktop
+with wine here:
+
+https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md            
             """)
 
     def directory(self):

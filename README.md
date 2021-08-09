@@ -35,7 +35,7 @@ converter = nrgpy.local_rld(rld_dir='', out_dir=text_folder_name, file_filter=da
 converter.convert()
 ```
 
-#### Convert a folder of RLD files to Text with NRG Convert API
+#### Convert a folder of RLD files to Text with NRG Cloud Convert API
 
 ```python
 import nrgpy
