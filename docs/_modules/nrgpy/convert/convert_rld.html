@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
@@ -226,8 +229,13 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">single_file</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">            convert_rld.local() method ONLY compatible with Windows OS.</span>
-<span class="s2">            Please use convert_rld.nrg_convert_api() method instead.</span>
+<span class="s2">convert_rld.local() method ONLY compatible with Windows OS.</span>
+<span class="s2">Please use nrgpy.cloud_convert() method instead.</span>
+
+<span class="s2">Alternately, follow the instructions for using SymphoniePRO Desktop</span>
+<span class="s2">with wine here:</span>
+
+<span class="s2">https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md            </span>
 <span class="s2">            &quot;&quot;&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="local.directory"><a class="viewcode-back" href="../../../nrgpy.convert.html#nrgpy.convert.convert_rld.local.directory">[docs]</a>    <span class="k">def</span> <span class="nf">directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

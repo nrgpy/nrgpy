@@ -216,7 +216,7 @@ def load(site_number="", filename=""):
 
 def data_months(start_date, end_date, output="string"):
     """returns list of months for a date range in YYYY-mm-dd format
-    
+
     parameters
     ----------
     start_date : str or datetime
@@ -225,7 +225,7 @@ def data_months(start_date, end_date, output="string"):
         must be same formatting as start_date or god help you
     output : str
         "string" or "datetime"; specify date types you want returned.
-    
+
     returns
     -------
     list
@@ -238,7 +238,7 @@ def data_months(start_date, end_date, output="string"):
         end_year = end_date.split("-")[0]
         end_month = end_date.split("-")[1]
         end_day = end_date.split("-")[2]
-        
+
     elif isinstance(start_date, datetime):
         start_year = start_date.year
         start_month = start_date.month
@@ -252,23 +252,23 @@ def data_months(start_date, end_date, output="string"):
         return False
 
     years = list(range(int(start_year), int(end_year)+1))
-    
+
     months = []
-    
+
     for y in years:
-        
+
         if str(y) == str(start_year):
             _month0 = int(start_month)
         else:
             _month0 = 1
-            
+
         if str(y) == str(end_year):
             _month12 = int(end_month)
         else:
             _month12 = 12
-            
+
         for _m in list(range(_month0, _month12+1)):
-            
+
             if output == "string":
                 months.append(f"{y}-{str(_m).zfill(2)}-01")
 
@@ -278,5 +278,5 @@ def data_months(start_date, end_date, output="string"):
             else:
                 print(f"unsupported output type: {output}\nuse 'string' or 'datetime'")
                 return False
-            
+
     return months

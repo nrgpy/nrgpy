@@ -89,6 +89,7 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">nrgpy.utils package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-nrgpy.utils.encodings">nrgpy.utils.encodings module</a></li>
 <li><a class="reference internal" href="#module-nrgpy.utils.ipk2lgr">nrgpy.utils.ipk2lgr module</a></li>
 <li><a class="reference internal" href="#nrgpy-utils-nsd-functions-module">nrgpy.utils.nsd_functions module</a></li>
 <li><a class="reference internal" href="#module-nrgpy.utils.utilities">nrgpy.utils.utilities module</a></li>
@@ -166,6 +167,60 @@
 <h1>nrgpy.utils package<a class="headerlink" href="#nrgpy-utils-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-nrgpy.utils.encodings">
+<span id="nrgpy-utils-encodings-module"></span><h2>nrgpy.utils.encodings module<a class="headerlink" href="#module-nrgpy.utils.encodings" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.utils.encodings.convert_utf16le_to_utf8">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nrgpy.utils.encodings.</span></span><span class="sig-name descname"><span class="pre">convert_utf16le_to_utf8</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/encodings.html#convert_utf16le_to_utf8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>for making Spidar data files compatible with programs that do not support utf-16-le character encoding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>(optional) path of file to convert</p>
+</dd>
+<dt><strong>input_directory</strong><span class="classifier">str</span></dt><dd><p>(optional) path of directory with files to convert</p>
+</dd>
+<dt><strong>output_directory</strong><span class="classifier">str</span></dt><dd><p>(optional) path of directory store converted files in</p>
+</dd>
+<dt><strong>inplace</strong><span class="classifier">bool</span></dt><dd><p>(False) if true, overwrites filename provided</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>convert single file</p>
+<p>&gt; import nrgpy
+&gt; filename = “/path/to/files/file.zip”
+&gt; nrgpy.convert_utf16le_to_utf8(filename)</p>
+<p>convert directory of files</p>
+<p>&gt; input_directory = “/path/to/files/”
+&gt; nrgpy.convert_utf16le_to_utf8(input_directory=input_directory)</p>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>single_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file">
+<span class="sig-name descname"><span class="pre">single_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/encodings.html#convert_utf16le_to_utf8.single_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-nrgpy.utils.ipk2lgr">
 <span id="nrgpy-utils-ipk2lgr-module"></span><h2>nrgpy.utils.ipk2lgr module<a class="headerlink" href="#module-nrgpy.utils.ipk2lgr" title="Permalink to this headline">¶</a></h2>

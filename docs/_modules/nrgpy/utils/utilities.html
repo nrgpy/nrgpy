@@ -369,7 +369,7 @@
 
 <div class="viewcode-block" id="data_months"><a class="viewcode-back" href="../../../nrgpy.utils.html#nrgpy.utils.utilities.data_months">[docs]</a><span class="k">def</span> <span class="nf">data_months</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;returns list of months for a date range in YYYY-mm-dd format</span>
-<span class="sd">    </span>
+
 <span class="sd">    parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    start_date : str or datetime</span>
@@ -378,7 +378,7 @@
 <span class="sd">        must be same formatting as start_date or god help you</span>
 <span class="sd">    output : str</span>
 <span class="sd">        &quot;string&quot; or &quot;datetime&quot;; specify date types you want returned.</span>
-<span class="sd">    </span>
+
 <span class="sd">    returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    list</span>
@@ -391,7 +391,7 @@
         <span class="n">end_year</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">end_month</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">end_day</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
-        
+
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
         <span class="n">start_year</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">year</span>
         <span class="n">start_month</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">month</span>
@@ -405,23 +405,23 @@
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">start_year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">end_year</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-    
+
     <span class="n">months</span> <span class="o">=</span> <span class="p">[]</span>
-    
+
     <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">:</span>
-        
+
         <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_year</span><span class="p">):</span>
             <span class="n">_month0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_month</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_month0</span> <span class="o">=</span> <span class="mi">1</span>
-            
+
         <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_year</span><span class="p">):</span>
             <span class="n">_month12</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">end_month</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_month12</span> <span class="o">=</span> <span class="mi">12</span>
-            
+
         <span class="k">for</span> <span class="n">_m</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">_month0</span><span class="p">,</span> <span class="n">_month12</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
-            
+
             <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">:</span>
                 <span class="n">months</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">_m</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">-01&quot;</span><span class="p">)</span>
 
@@ -431,7 +431,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unsupported output type: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="se">\n</span><span class="s2">use &#39;string&#39; or &#39;datetime&#39;&quot;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="kc">False</span>
-            
+
     <span class="k">return</span> <span class="n">months</span></div>
 </pre></div>
 
