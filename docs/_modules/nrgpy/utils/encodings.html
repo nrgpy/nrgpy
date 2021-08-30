@@ -159,7 +159,7 @@
 <div class="viewcode-block" id="convert_utf16le_to_utf8"><a class="viewcode-back" href="../../../nrgpy.utils.html#nrgpy.utils.encodings.convert_utf16le_to_utf8">[docs]</a><span class="k">class</span> <span class="nc">convert_utf16le_to_utf8</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;for making Spidar data files compatible with programs that do not support utf-16-le character encoding</span>
 
-<span class="sd">    parameters</span>
+<span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    filename : str</span>
 <span class="sd">        (optional) path of file to convert</span>
@@ -170,23 +170,23 @@
 <span class="sd">    inplace : bool</span>
 <span class="sd">        (False) if true, overwrites filename provided</span>
 
-<span class="sd">    returns</span>
+<span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
 
-<span class="sd">    examples</span>
+<span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 
 <span class="sd">    convert single file</span>
 
-<span class="sd">    &gt; import nrgpy</span>
-<span class="sd">    &gt; filename = &quot;/path/to/files/file.zip&quot;</span>
-<span class="sd">    &gt; nrgpy.convert_utf16le_to_utf8(filename)</span>
+<span class="sd">    &gt;&gt;&gt; import nrgpy</span>
+<span class="sd">    &gt;&gt;&gt; filename = &quot;/path/to/files/file.zip&quot;</span>
+<span class="sd">    &gt;&gt;&gt; nrgpy.convert_utf16le_to_utf8(filename)</span>
 
 <span class="sd">    convert directory of files</span>
 
-<span class="sd">    &gt; input_directory = &quot;/path/to/files/&quot;</span>
-<span class="sd">    &gt; nrgpy.convert_utf16le_to_utf8(input_directory=input_directory)</span>
+<span class="sd">    &gt;&gt;&gt; input_directory = &quot;/path/to/files/&quot;</span>
+<span class="sd">    &gt;&gt;&gt; nrgpy.convert_utf16le_to_utf8(input_directory=input_directory)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">input_directory</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">output_directory</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>

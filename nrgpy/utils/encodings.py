@@ -6,7 +6,7 @@ import pandas as pd
 class convert_utf16le_to_utf8(object):
     """for making Spidar data files compatible with programs that do not support utf-16-le character encoding
 
-    parameters
+    Parameters
     ----------
     filename : str
         (optional) path of file to convert
@@ -17,23 +17,23 @@ class convert_utf16le_to_utf8(object):
     inplace : bool
         (False) if true, overwrites filename provided
 
-    returns
+    Returns
     -------
     None
 
-    examples
+    Examples
     --------
 
     convert single file
 
-    > import nrgpy
-    > filename = "/path/to/files/file.zip"
-    > nrgpy.convert_utf16le_to_utf8(filename)
+    >>> import nrgpy
+    >>> filename = "/path/to/files/file.zip"
+    >>> nrgpy.convert_utf16le_to_utf8(filename)
 
     convert directory of files
 
-    > input_directory = "/path/to/files/"
-    > nrgpy.convert_utf16le_to_utf8(input_directory=input_directory)
+    >>> input_directory = "/path/to/files/"
+    >>> nrgpy.convert_utf16le_to_utf8(input_directory=input_directory)
     """
 
     def __init__(self, filename='', input_directory='', output_directory='', inplace=False):
