@@ -4,37 +4,13 @@ nrgpy.cloud\_api package
 Submodules
 ----------
 
-nrgpy.cloud\_api.auth module
-----------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: nrgpy.cloud_api.auth
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-nrgpy.cloud\_api.convert module
--------------------------------
-
-.. automodule:: nrgpy.cloud_api.convert
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-nrgpy.cloud\_api.export module
-------------------------------
-
-.. automodule:: nrgpy.cloud_api.export
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-nrgpy.cloud\_api.sites module
------------------------------
-
-.. automodule:: nrgpy.cloud_api.sites
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   nrgpy.cloud_api.auth
+   nrgpy.cloud_api.convert
+   nrgpy.cloud_api.export
+   nrgpy.cloud_api.sites
 
 Module contents
 ---------------

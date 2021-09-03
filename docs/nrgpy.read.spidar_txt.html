@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nrgpy.read.spidar_txt module &#8212; nrgpy  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nrgpy.read.sympro_txt module" href="nrgpy.read.sympro_txt.html" />
+    <link rel="prev" title="nrgpy.read.channel_info_arrays module" href="nrgpy.read.channel_info_arrays.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-nrgpy.read.spidar_txt">
+<span id="nrgpy-read-spidar-txt-module"></span><h1>nrgpy.read.spidar_txt module<a class="headerlink" href="#module-nrgpy.read.spidar_txt" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.read.spidar_txt.spidar_data_read">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.spidar_txt.</span></span><span class="sig-name descname"><span class="pre">spidar_data_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#spidar_data_read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.spidar_data_read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>reads in CSV file(s) using pandas and creates</p>
+<dl class="simple">
+<dt>data_file<span class="classifier">str</span></dt><dd><p>path to single CSV or ZIP to be read</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>data<span class="classifier">obj</span></dt><dd><p>pandas dataframe of all available data</p>
+</dd>
+<dt>heights<span class="classifier">list</span></dt><dd><p>list of measurement heights</p>
+</dd>
+</dl>
+<p>Read a spidar data file into an object:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">spidar_data_read</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">heights</span>
+<span class="go">[&#39;40&#39;, &#39;60&#39;, &#39;80&#39;, &#39;90&#39;, &#39;100&#39;, &#39;120&#39;, &#39;130&#39;, &#39;160&#39;, &#39;180&#39;, &#39;200&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">data</span>
+<span class="go">        Timestamp  pressure[mmHg]  temperature[C]  ...  dir_200_mean[Deg]  dir_200_std[Deg]  wind_measure_200_quality[%]</span>
+<span class="go">0   2019-07-03 23:40:00          753.55           23.68  ...             342.36             63.63                           48</span>
+<span class="go">1   2019-07-03 23:50:00          753.47           23.76  ...             345.70             57.59                           38</span>
+<span class="go">2   2019-07-04 00:00:00          753.46           23.96  ...             314.16             82.73                           20</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>Ex. read a directory of spidar data files into an object:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">spidar_data_read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">concat_txt</span><span class="p">(</span>
+<span class="go">        txt_dir=&quot;/path/to/spidardata/&quot;,</span>
+<span class="go">        file_filter=&quot;2020-01&quot;,</span>
+<span class="go">        progress_bar=False</span>
+<span class="go">    )</span>
+<span class="go">Adding 1/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_1.zip [OK]</span>
+<span class="go">Adding 2/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-01_2.csv [OK]</span>
+<span class="go">Adding 3/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-02_1.zip [OK]</span>
+<span class="go">Adding 4/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-03_1.zip [OK]</span>
+<span class="go">Adding 5/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-04_1.zip [OK]</span>
+<span class="go">Adding 6/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-05_1.zip [OK]</span>
+<span class="go">Adding 7/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-06_1.zip [OK]</span>
+<span class="go">Adding 8/8  ...  /home/user/spidardata/1922AG0070_CAG70-SPPP-LPPP_PENT_AVGWND_2019-07-07_1.zip [OK]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">serial_number</span>
+<span class="go">&#39;1922AG0070&#39;</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.read.spidar_txt.spidar_data_read.concat_txt">
+<span class="sig-name descname"><span class="pre">concat_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#spidar_data_read.concat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.spidar_data_read.concat_txt" title="Permalink to this definition">¶</a></dt>
+<dd><p>concatenate files in a folder</p>
+<dl class="simple">
+<dt>txt_dir<span class="classifier">str</span></dt><dd><p>path to csv or csv.zip files</p>
+</dd>
+<dt>output_txt<span class="classifier">boolean</span></dt><dd><p>export concatenated data</p>
+</dd>
+<dt>out_file<span class="classifier">str</span></dt><dd><p>optional, filename of text export</p>
+</dd>
+<dt>start_date<span class="classifier">str</span></dt><dd><p>yyy-mm-dd formatted string</p>
+</dd>
+<dt>end_date<span class="classifier">str</span></dt><dd><p>yyy-mm-dd formatted string</p>
+</dd>
+<dt>progress_bar<span class="classifier">boolean</span></dt><dd><p>show progress bar instead of each file being concatenated</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>None</dt><dd><p>adds data dataframe to reader object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.read.spidar_txt.spidar_data_read.get_heights">
+<span class="sig-name descname"><span class="pre">get_heights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#spidar_data_read.get_heights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.spidar_data_read.get_heights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.read.spidar_txt.spidar_data_read.read_file">
+<span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#spidar_data_read.read_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.spidar_data_read.read_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">nrgpy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="nrgpy.read.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="nrgpy.html">nrgpy package</a><ul>
+  <li><a href="nrgpy.read.html">nrgpy.read package</a><ul>
+      <li>Previous: <a href="nrgpy.read.channel_info_arrays.html" title="previous chapter">nrgpy.read.channel_info_arrays module</a></li>
+      <li>Next: <a href="nrgpy.read.sympro_txt.html" title="next chapter">nrgpy.read.sympro_txt module</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/nrgpy.read.spidar_txt.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
