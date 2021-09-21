@@ -6,32 +6,229 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nrgpy.cloud_api package &#8212; nrgpy  documentation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="nrgpy.convert package" href="nrgpy.convert.html" />
     <link rel="prev" title="nrgpy.api package" href="nrgpy.api.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-  </head><body>
-  
+    
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="nrgpy.html">
+   nrgpy package
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="nrgpy.api.html">
+     nrgpy.api package
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     nrgpy.cloud_api package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nrgpy.convert.html">
+     nrgpy.convert package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nrgpy.quality.html">
+     nrgpy.quality package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nrgpy.read.html">
+     nrgpy.read package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nrgpy.utils.html">
+     nrgpy.utils package
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="setup.html">
+   setup module
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
           
 
-          <div class="body" role="main">
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/nrgpy.cloud_api.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#submodules">
+   Submodules
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.auth">
+   nrgpy.cloud_api.auth module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.convert">
+   nrgpy.cloud_api.convert module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.export">
+   nrgpy.cloud_api.export module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.sites">
+   nrgpy.cloud_api.sites module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api">
+   Module contents
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   <div class="section" id="nrgpy-cloud-api-package">
 <h1>nrgpy.cloud_api package<a class="headerlink" href="#nrgpy-cloud-api-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
@@ -45,7 +242,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Parent class for NRG Cloud API functionality</p>
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
+<table class="longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -68,7 +265,7 @@
 </tr>
 </tbody>
 </table>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 69%" />
 <col style="width: 31%" />
@@ -223,7 +420,7 @@ Contributor or Administrator level access to the site to use these features.</p>
 </pre></div>
 </div>
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
+<table class="longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -246,7 +443,7 @@ Contributor or Administrator level access to the site to use these features.</p>
 </tr>
 </tbody>
 </table>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 69%" />
 <col style="width: 31%" />
@@ -355,7 +552,7 @@ must be a multiple of the logger’s statistical interval</p>
 </pre></div>
 </div>
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
+<table class="longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -378,7 +575,7 @@ must be a multiple of the logger’s statistical interval</p>
 </tr>
 </tbody>
 </table>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 69%" />
 <col style="width: 31%" />
@@ -425,7 +622,7 @@ sites_df : pandas dataframe</p>
 </dd>
 </dl>
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
+<table class="longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -448,7 +645,7 @@ sites_df : pandas dataframe</p>
 </tr>
 </tbody>
 </table>
-<table class="docutils align-default">
+<table class="table">
 <colgroup>
 <col style="width: 69%" />
 <col style="width: 31%" />
@@ -484,95 +681,56 @@ sites_df : pandas dataframe</p>
 </div>
 
 
-          </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">nrgpy</a></h1>
+              </div>
+              
+        
+            
 
 
 
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">nrgpy.cloud_api package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-nrgpy.cloud_api.auth">nrgpy.cloud_api.auth module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-nrgpy.cloud_api.convert">nrgpy.cloud_api.convert module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-nrgpy.cloud_api.export">nrgpy.cloud_api.export module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-nrgpy.cloud_api.sites">nrgpy.cloud_api.sites module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-nrgpy.cloud_api">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="nrgpy.html">nrgpy package</a><ul>
-      <li>Previous: <a href="nrgpy.api.html" title="previous chapter">nrgpy.api package</a></li>
-      <li>Next: <a href="nrgpy.convert.html" title="next chapter">nrgpy.convert package</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2021, Author.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/nrgpy.cloud_api.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
+<div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="nrgpy.api.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">nrgpy.api package</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="nrgpy.convert.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">nrgpy.convert package</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
-    
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Author<br/>
+        
+            &copy; Copyright 2021, Author.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
   </body>
 </html>
