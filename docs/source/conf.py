@@ -30,7 +30,7 @@ author = 'Author'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.todo',
+#    'sphinx.ext.todo',
     'sphinx.ext.autosummary',
     'numpydoc'
 ]
