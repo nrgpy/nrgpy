@@ -14,8 +14,6 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="nrgpy.quality package" href="nrgpy.quality.html" />
-    <link rel="prev" title="nrgpy.convert.convert_rld module" href="nrgpy.convert.convert_rld.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -40,31 +38,40 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>nrgpy.convert_rwd.local - use local installation of Symphonie Data Retriever (SDR)
 to convert <a href="#id1"><span class="problematic" id="id2">*</span></a>.RWD files to <a href="#id3"><span class="problematic" id="id4">*</span></a>.TXT</p>
-<dl class="simple">
-<dt>filename<span class="classifier">str</span></dt><dd><p>if populated, a single file is exported</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>if populated, a single file is exported</p>
 </dd>
-<dt>encryption_pin<span class="classifier">str</span></dt><dd><p>four digit pin, only used for encrypted files</p>
+<dt><strong>encryption_pin</strong><span class="classifier">str</span></dt><dd><p>four digit pin, only used for encrypted files</p>
 </dd>
-<dt>sdr_path<span class="classifier">str</span></dt><dd><p>r‘“C:/NRG/SymDR/SDR.exe”’, may be any path</p>
+<dt><strong>sdr_path</strong><span class="classifier">str</span></dt><dd><p>r‘“C:/NRG/SymDR/SDR.exe”’, may be any path</p>
 </dd>
-<dt>file_filter<span class="classifier">str</span></dt><dd><p>filters files on text in filename</p>
+<dt><strong>file_filter</strong><span class="classifier">str</span></dt><dd><p>filters files on text in filename</p>
 </dd>
-<dt>rwd_dir<span class="classifier">str</span></dt><dd><p>folder to check for RWD files</p>
+<dt><strong>rwd_dir</strong><span class="classifier">str</span></dt><dd><p>folder to check for RWD files</p>
 </dd>
-<dt>out_dir<span class="classifier">str</span></dt><dd><p>folder to save exported TXT files into</p>
+<dt><strong>out_dir</strong><span class="classifier">str</span></dt><dd><p>folder to save exported TXT files into</p>
 </dd>
-<dt>wine_folder<span class="classifier">str</span></dt><dd><p>‘~/.wine/drive_c/’, for linux installations</p>
+<dt><strong>wine_folder</strong><span class="classifier">str</span></dt><dd><p>‘~/.wine/drive_c/’, for linux installations</p>
 </dd>
-<dt>use_site_file<span class="classifier">bool</span></dt><dd><p>set to True to use local site file</p>
+<dt><strong>use_site_file</strong><span class="classifier">bool</span></dt><dd><p>set to True to use local site file</p>
 </dd>
-<dt>raw_mode<span class="classifier">bool</span></dt><dd><p>set to True to convert raw counts and voltages</p>
+<dt><strong>raw_mode</strong><span class="classifier">bool</span></dt><dd><p>set to True to convert raw counts and voltages</p>
 </dd>
-<dt>progress_bar<span class="classifier">bool</span></dt><dd><p>set to False to see individual file conversions</p>
+<dt><strong>progress_bar</strong><span class="classifier">bool</span></dt><dd><p>set to False to see individual file conversions</p>
 </dd>
-<dt>show_result<span class="classifier">bool</span></dt><dd><p>set to False to hide prints to console</p>
+<dt><strong>show_result</strong><span class="classifier">bool</span></dt><dd><p>set to False to hide prints to console</p>
 </dd>
 </dl>
-<p>None</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
 <p>Convert a folder of RWD files to Text with SymphoniePRO Desktop Software</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.convert_rwd</span> <span class="kn">import</span> <span class="n">local</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">local</span><span class="p">(</span>
@@ -101,6 +108,21 @@ in the ‘’’SDR_Linux_README.md’’’ file.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.convert.convert_rwd.local.check_sdr" title="nrgpy.convert.convert_rwd.local.check_sdr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_sdr</span></code></a>()</p></td>
+<td><p>determine if SDR is installed</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.convert.convert_rwd.local.convert" title="nrgpy.convert.convert_rwd.local.convert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert</span></code></a>()</p></td>
+<td><p>process rwd files</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.convert.convert_rwd.local.check_sdr">
 <span class="sig-name descname"><span class="pre">check_sdr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/convert/convert_rwd.html#local.check_sdr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.convert.convert_rwd.local.check_sdr" title="Permalink to this definition">¶</a></dt>
@@ -138,24 +160,8 @@ iterate through files</p>
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="nrgpy.convert.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nrgpy.convert.html#module-nrgpy.convert">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nrgpy.html">nrgpy package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
@@ -163,12 +169,6 @@ iterate through files</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="nrgpy.html">nrgpy package</a><ul>
-  <li><a href="nrgpy.convert.html">nrgpy.convert package</a><ul>
-      <li>Previous: <a href="nrgpy.convert.convert_rld.html" title="previous chapter">nrgpy.convert.convert_rld module</a></li>
-      <li>Next: <a href="nrgpy.quality.html" title="next chapter">nrgpy.quality package</a></li>
-  </ul></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>

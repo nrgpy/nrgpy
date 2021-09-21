@@ -4,10 +4,13 @@ nrgpy.quality package
 Submodules
 ----------
 
-.. toctree::
-   :maxdepth: 4
+nrgpy.quality.quality module
+----------------------------
 
-   nrgpy.quality.quality
+.. automodule:: nrgpy.quality.quality
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------

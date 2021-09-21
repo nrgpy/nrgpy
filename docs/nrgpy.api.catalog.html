@@ -14,8 +14,6 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="nrgpy.api.convert module" href="nrgpy.api.convert.html" />
-    <link rel="prev" title="nrgpy.api.auth module" href="nrgpy.api.auth.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -40,26 +38,33 @@
 <dd><p>Bases: <a class="reference internal" href="nrgpy.api.auth.html#nrgpy.api.auth.nrg_api" title="nrgpy.api.auth.nrg_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.api.auth.nrg_api</span></code></a></p>
 <p>Uses NRG hosted web-based API to catalog of available data in text format
 To sign up for the service, go to <a class="reference external" href="https://services.nrgsystems.com/">https://services.nrgsystems.com/</a></p>
-<dl class="simple">
-<dt>serial_number<span class="classifier">str or int</span></dt><dd><p>serial number of data logger (like, 820612345)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>serial_number</strong><span class="classifier">str or int</span></dt><dd><p>serial number of data logger (like, 820612345)</p>
 </dd>
-<dt>site_number<span class="classifier">str or int</span></dt><dd><p>up to 6-digit site number</p>
+<dt><strong>site_number</strong><span class="classifier">str or int</span></dt><dd><p>up to 6-digit site number</p>
 </dd>
-<dt>start_date<span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
 times are in logger local time</p>
 </dd>
-<dt>end_date<span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
 times are in logger local time</p>
 </dd>
-<dt>client_id<span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
 </dd>
-<dt>client_secret<span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
 </dd>
 </dl>
-<dl class="simple">
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
 <dt>object</dt><dd><p>export object</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
 <p>Check for available data files for site number 6</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
@@ -75,6 +80,44 @@ times are in logger local time</p>
 <span class="go">    )</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code>([filename])</p></td>
+<td><p>read session token from pickle file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code>([filename])</p></td>
+<td><p>maintain a current/valid session token for data service api</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
+<td><p>generates a new session token for convert service api</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
+<td><p>save session token in token pickle file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code>()</p></td>
+<td><p>check if token is still valid</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>data_catalog</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>prepare_file_bytes</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.api.catalog.nrg_api_catalog.data_catalog">
 <span class="sig-name descname"><span class="pre">data_catalog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/catalog.html#nrg_api_catalog.data_catalog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.catalog.nrg_api_catalog.data_catalog" title="Permalink to this definition">¶</a></dt>
@@ -102,24 +145,8 @@ times are in logger local time</p>
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="nrgpy.api.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nrgpy.html">nrgpy package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
@@ -127,12 +154,6 @@ times are in logger local time</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="nrgpy.html">nrgpy package</a><ul>
-  <li><a href="nrgpy.api.html">nrgpy.api package</a><ul>
-      <li>Previous: <a href="nrgpy.api.auth.html" title="previous chapter">nrgpy.api.auth module</a></li>
-      <li>Next: <a href="nrgpy.api.convert.html" title="next chapter">nrgpy.api.convert module</a></li>
-  </ul></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>

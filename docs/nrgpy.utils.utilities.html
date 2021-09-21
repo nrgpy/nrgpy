@@ -14,8 +14,6 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="setup module" href="setup.html" />
-    <link rel="prev" title="nrgpy.utils.nsd_functions module" href="nrgpy.utils.nsd_functions.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -51,16 +49,20 @@
 <dt class="sig sig-object py" id="nrgpy.utils.utilities.count_files">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">count_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#count_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.count_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>counts the number of files in the first level of a directory</p>
-<dl class="simple">
-<dt>directory<span class="classifier">str</span></dt><dd><p>path of directory to be checked</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>directory</strong><span class="classifier">str</span></dt><dd><p>path of directory to be checked</p>
 </dd>
-<dt>filters<span class="classifier">str</span></dt><dd><p>filter present in file to be checked</p>
+<dt><strong>filters</strong><span class="classifier">str</span></dt><dd><p>filter present in file to be checked</p>
 </dd>
-<dt>extension<span class="classifier">str</span></dt><dd><p>secondary filter</p>
+<dt><strong>extension</strong><span class="classifier">str</span></dt><dd><p>secondary filter</p>
 </dd>
-<dt>show_files<span class="classifier">bool, optional</span></dt><dd><p>if set to True, prints file name</p>
+<dt><strong>show_files</strong><span class="classifier">bool, optional</span></dt><dd><p>if set to True, prints file name</p>
 </dd>
-<dt>start_time<span class="classifier">int</span></dt><dd><p>seconds; if set, use as reference; only count if file is newer than start_time</p>
+<dt><strong>start_time</strong><span class="classifier">int</span></dt><dd><p>seconds; if set, use as reference; only count if file is newer than start_time</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -69,27 +71,39 @@
 <dt class="sig sig-object py" id="nrgpy.utils.utilities.data_months">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">data_months</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'string'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#data_months"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.data_months" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns list of months for a date range in YYYY-mm-dd format</p>
-<dl class="simple">
-<dt>start_date<span class="classifier">str or datetime</span></dt><dd><p>YYYY-mm-dd formatted date or datetime object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_date</strong><span class="classifier">str or datetime</span></dt><dd><p>YYYY-mm-dd formatted date or datetime object</p>
 </dd>
-<dt>end_date<span class="classifier">str or datetime</span></dt><dd><p>must be same formatting as start_date or god help you</p>
+<dt><strong>end_date</strong><span class="classifier">str or datetime</span></dt><dd><p>must be same formatting as start_date or god help you</p>
 </dd>
-<dt>output<span class="classifier">str</span></dt><dd><p>“string” or “datetime”; specify date types you want returned.</p>
+<dt><strong>output</strong><span class="classifier">str</span></dt><dd><p>“string” or “datetime”; specify date types you want returned.</p>
 </dd>
 </dl>
-<p>list</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>list</dt><dd></dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.utils.utilities.date_check">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">date_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#date_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.date_check" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns true if string date is between dates</p>
-<dl class="simple">
-<dt>start_date<span class="classifier">str</span></dt><dd><p>“YYYY-mm-dd”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-mm-dd”</p>
 </dd>
-<dt>end_date<span class="classifier">str</span></dt><dd><p>“YYYY-mm-dd”</p>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-mm-dd”</p>
 </dd>
-<dt>string<span class="classifier">str</span></dt><dd><p>string including date to check</p>
+<dt><strong>string</strong><span class="classifier">str</span></dt><dd><p>string including date to check</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -110,14 +124,20 @@
 <dt class="sig sig-object py" id="nrgpy.utils.utilities.load">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>recall a reader from a pickle file by site number or filename</p>
-<dl class="simple">
-<dt>site_number<span class="classifier">str</span></dt><dd><p>6-digit site number of stored reader OR spidar serial number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>site_number</strong><span class="classifier">str</span></dt><dd><p>6-digit site number of stored reader OR spidar serial number</p>
 </dd>
-<dt>filename<span class="classifier">str</span></dt><dd><p>full or relative path of pickle file</p>
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>full or relative path of pickle file</p>
 </dd>
 </dl>
-<dl class="simple">
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
 <dt>object</dt><dd><p>contents of pickle file</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -127,6 +147,18 @@
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">renamer</span></span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#renamer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.renamer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>for replacing duplicate column names after transpose</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code>(x)</p></td>
+<td><p>Call self as a function.</p></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="py function">
@@ -161,24 +193,8 @@
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="nrgpy.utils.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nrgpy.utils.html#module-nrgpy.utils">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nrgpy.html">nrgpy package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
@@ -186,12 +202,6 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="nrgpy.html">nrgpy package</a><ul>
-  <li><a href="nrgpy.utils.html">nrgpy.utils package</a><ul>
-      <li>Previous: <a href="nrgpy.utils.nsd_functions.html" title="previous chapter">nrgpy.utils.nsd_functions module</a></li>
-      <li>Next: <a href="setup.html" title="next chapter">setup module</a></li>
-  </ul></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>

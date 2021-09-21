@@ -14,8 +14,6 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="nrgpy.read.txt_utils module" href="nrgpy.read.txt_utils.html" />
-    <link rel="prev" title="nrgpy.read.spidar_txt module" href="nrgpy.read.spidar_txt.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -39,23 +37,29 @@
 <span class="sig-prename descclassname"><span class="pre">nrgpy.read.sympro_txt.</span></span><span class="sig-name descname"><span class="pre">shift_timestamps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#shift_timestamps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.shift_timestamps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes as input a folder of exported standard text files and
 time to shift in seconds.</p>
-<dl class="simple">
-<dt>txt_folder<span class="classifier">str</span></dt><dd><p>path to folder with txt files to shift</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>txt_folder</strong><span class="classifier">str</span></dt><dd><p>path to folder with txt files to shift</p>
 </dd>
-<dt>out_folder<span class="classifier">str</span></dt><dd><p>where to put the shifted files (in subfolder by default)</p>
+<dt><strong>out_folder</strong><span class="classifier">str</span></dt><dd><p>where to put the shifted files (in subfolder by default)</p>
 </dd>
-<dt>file_filter<span class="classifier">str</span></dt><dd><p>filter for restricting file set</p>
+<dt><strong>file_filter</strong><span class="classifier">str</span></dt><dd><p>filter for restricting file set</p>
 </dd>
-<dt>start_date<span class="classifier">str</span></dt><dd><p>date filter “YYYY-mm-dd”</p>
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>date filter “YYYY-mm-dd”</p>
 </dd>
-<dt>end_date<span class="classifier">str</span></dt><dd><p>date filter “YYYY-mm-dd”</p>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>date filter “YYYY-mm-dd”</p>
 </dd>
-<dt>seconds<span class="classifier">int</span></dt><dd><p>time in seconds to shift timestamps (default 3600)</p>
+<dt><strong>seconds</strong><span class="classifier">int</span></dt><dd><p>time in seconds to shift timestamps (default 3600)</p>
 </dd>
 </dl>
-<dl class="simple">
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
 <dt>obj</dt><dd><p>text files with shifted timestamps; new file names include shifted
 timestamp.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -64,6 +68,50 @@ timestamp.</p>
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.sympro_txt_read">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.sympro_txt.</span></span><span class="sig-name descname"><span class="pre">sympro_txt_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_timestamps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#sympro_txt_read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.sympro_txt_read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info" title="nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arrange_ch_info</span></code></a>()</p></td>
+<td><p>creates ch_info dataframe and ch_list array</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.read.sympro_txt.sympro_txt_read.concat_txt" title="nrgpy.read.sympro_txt.sympro_txt_read.concat_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat_txt</span></code></a>([txt_dir, file_type, …])</p></td>
+<td><p>Will concatenate all text files in the txt_dir</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.sympro_txt.sympro_txt_read.format_site_data" title="nrgpy.read.sympro_txt.sympro_txt_read.format_site_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_site_data</span></code></a>()</p></td>
+<td><p>take txt header to create oject data</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.read.sympro_txt.sympro_txt_read.insert_blank_header_rows" title="nrgpy.read.sympro_txt.sympro_txt_read.insert_blank_header_rows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_blank_header_rows</span></code></a>(filename)</p></td>
+<td><p>insert blank rows when using shift_timestamps()</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.sympro_txt.sympro_txt_read.select_channels_for_reformat" title="nrgpy.read.sympro_txt.sympro_txt_read.select_channels_for_reformat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_channels_for_reformat</span></code></a>([epe, soiling])</p></td>
+<td><p>determines which of the channel headers fit those required for post-processing for either</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 73%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>calculate_soiling_ratio</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>format_data_for_epe</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>make_header_for_epe</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>output_txt_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info">
 <span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#sympro_txt_read.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info" title="Permalink to this definition">¶</a></dt>
@@ -80,54 +128,59 @@ timestamp.</p>
 <span class="sig-name descname"><span class="pre">concat_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'meas'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#sympro_txt_read.concat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.sympro_txt_read.concat_txt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Will concatenate all text files in the txt_dir</p>
 <p>files must match the site_filter argument. Note these are both blank by default.</p>
-<dl class="simple">
-<dt>txt_dir<span class="classifier">str</span></dt><dd><p>directory holding txt files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>txt_dir</strong><span class="classifier">str</span></dt><dd><p>directory holding txt files</p>
 </dd>
-<dt>file_type<span class="classifier">str</span></dt><dd><p>type of export (meas, event, comm, sample, etc…)</p>
+<dt><strong>file_type</strong><span class="classifier">str</span></dt><dd><p>type of export (meas, event, comm, sample, etc…)</p>
 </dd>
-<dt>file_filter<span class="classifier">str</span></dt><dd><p>text filter for txt files, like site number, etc.</p>
+<dt><strong>file_filter</strong><span class="classifier">str</span></dt><dd><p>text filter for txt files, like site number, etc.</p>
 </dd>
-<dt>filter2<span class="classifier">str</span></dt><dd><p>secondary text filter</p>
+<dt><strong>filter2</strong><span class="classifier">str</span></dt><dd><p>secondary text filter</p>
 </dd>
-<dt>start_date<span class="classifier">str</span></dt><dd><p>for filtering files to concat based on date “YYYY-mm-dd”</p>
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>for filtering files to concat based on date “YYYY-mm-dd”</p>
 </dd>
-<dt>end_date<span class="classifier">str</span></dt><dd><p>for filtering files to concat based on date “YYYY-mm-dd”</p>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>for filtering files to concat based on date “YYYY-mm-dd”</p>
 </dd>
-<dt>ch_details<span class="classifier">bool</span></dt><dd><p>show additional info in ch_info dataframe</p>
+<dt><strong>ch_details</strong><span class="classifier">bool</span></dt><dd><p>show additional info in ch_info dataframe</p>
 </dd>
-<dt>output_txt<span class="classifier">bool</span></dt><dd><p>create a txt output of data df</p>
+<dt><strong>output_txt</strong><span class="classifier">bool</span></dt><dd><p>create a txt output of data df</p>
 </dd>
-<dt>out_file<span class="classifier">str</span></dt><dd><p>filename to write data dataframe too if output_txt = True</p>
+<dt><strong>out_file</strong><span class="classifier">str</span></dt><dd><p>filename to write data dataframe too if output_txt = True</p>
 </dd>
-<dt>progress_bar<span class="classifier">bool</span></dt><dd><p>show bar on concat [True] or list of files [False]</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>ch_info<span class="classifier">obj</span></dt><dd><p>pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()</p>
-</dd>
-<dt>ch_list<span class="classifier">list</span></dt><dd><p>list of channel info; can be converted to json w/ import json … json.dumps(fut.ch_info)</p>
-</dd>
-<dt>data<span class="classifier">obj</span></dt><dd><p>pandas dataframe of all data</p>
-</dd>
-<dt>head<span class="classifier">obj</span></dt><dd><p>lines at the top of the txt file…, used when rebuilding timeshifted files</p>
-</dd>
-<dt>site_info<span class="classifier">obj</span></dt><dd><p>pandas dataframe of site information</p>
+<dt><strong>progress_bar</strong><span class="classifier">bool</span></dt><dd><p>show bar on concat [True] or list of files [False]</p>
 </dd>
 </dl>
-<p>logger_sn : str
-ipack_sn : str
-logger_type : str
-ipack_type : str
-latitude : float
-longitude : float
-elevation : int
-site_number : str
-site_description : str
-start_date : str
-txt_file_names : list</p>
-<blockquote>
-<div><p>list of files included in concatenation</p>
-</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ch_info</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()</p>
+</dd>
+<dt><strong>ch_list</strong><span class="classifier">list</span></dt><dd><p>list of channel info; can be converted to json w/ import json … json.dumps(fut.ch_info)</p>
+</dd>
+<dt><strong>data</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of all data</p>
+</dd>
+<dt><strong>head</strong><span class="classifier">obj</span></dt><dd><p>lines at the top of the txt file…, used when rebuilding timeshifted files</p>
+</dd>
+<dt><strong>site_info</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of site information</p>
+</dd>
+<dt><strong>logger_sn</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>ipack_sn</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>logger_type</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>ipack_type</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>latitude</strong><span class="classifier">float</span></dt><dd></dd>
+<dt><strong>longitude</strong><span class="classifier">float</span></dt><dd></dd>
+<dt><strong>elevation</strong><span class="classifier">int</span></dt><dd></dd>
+<dt><strong>site_number</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>site_description</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>txt_file_names</strong><span class="classifier">list</span></dt><dd><p>list of files included in concatenation</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
 <p>Read files into nrgpy reader object</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">sympro_txt_read</span><span class="p">()</span>
@@ -225,24 +278,8 @@ Local export of text files, as of 0.1.8.</p>
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="nrgpy.read.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nrgpy.html">nrgpy package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
@@ -250,12 +287,6 @@ Local export of text files, as of 0.1.8.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="nrgpy.html">nrgpy package</a><ul>
-  <li><a href="nrgpy.read.html">nrgpy.read package</a><ul>
-      <li>Previous: <a href="nrgpy.read.spidar_txt.html" title="previous chapter">nrgpy.read.spidar_txt module</a></li>
-      <li>Next: <a href="nrgpy.read.txt_utils.html" title="next chapter">nrgpy.read.txt_utils module</a></li>
-  </ul></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>

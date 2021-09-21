@@ -14,8 +14,6 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="nrgpy.convert.convert_rwd module" href="nrgpy.convert.convert_rwd.html" />
-    <link rel="prev" title="nrgpy.convert package" href="nrgpy.convert.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -40,32 +38,37 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>For handling NRG SymphoniePRO Data Logger raw data files in the <a href="#id1"><span class="problematic" id="id2">*</span></a>.rld format.</p>
 <p>This method uses locally installed SymphoniePRO Desktop software to convert <a href="#id3"><span class="problematic" id="id4">*</span></a>.rld files to txt format (tab-delimited-text).</p>
-<dl class="simple">
-<dt>rld_dir<span class="classifier">str, optional</span></dt><dd><p>specify directory. Note for unc values, you
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rld_dir</strong><span class="classifier">str, optional</span></dt><dd><p>specify directory. Note for unc values, you
 will need to escape all forward slashes, e.g.
 rld_dir = “\soltechsupportdata&quot;
 or use the r’path      odir’ approach</p>
 </dd>
-<dt>out_dir<span class="classifier">str, optional</span></dt><dd><p>see note for rld_dir.</p>
+<dt><strong>out_dir</strong><span class="classifier">str, optional</span></dt><dd><p>see note for rld_dir.</p>
 </dd>
-<dt>encryption_pass<span class="classifier">str</span></dt><dd><p>specify data encryption password if logger is set up for that.</p>
+<dt><strong>encryption_pass</strong><span class="classifier">str</span></dt><dd><p>specify data encryption password if logger is set up for that.</p>
 </dd>
-<dt>hex_key<span class="classifier">str</span></dt><dd><p>specify if using hex data encryption key</p>
+<dt><strong>hex_key</strong><span class="classifier">str</span></dt><dd><p>specify if using hex data encryption key</p>
 </dd>
-<dt>sympro_path<span class="classifier">str</span></dt><dd><p>default is “C:Program Files (x86)Renewable NRG SystemsSymPRO DesktopSymPRODesktop.exe”</p>
+<dt><strong>sympro_path</strong><span class="classifier">str</span></dt><dd><p>default is “C:Program Files (x86)Renewable NRG SystemsSymPRO DesktopSymPRODesktop.exe”</p>
 </dd>
-<dt>process_type<span class="classifier">str</span></dt><dd><p>[convert], or import</p>
+<dt><strong>process_type</strong><span class="classifier">str</span></dt><dd><p>[convert], or import</p>
 </dd>
-<dt>convert_type<span class="classifier">str</span></dt><dd><p>‘meas’, alternately specify ‘comm’, ‘diag’, ‘sample’, or ‘events’</p>
+<dt><strong>convert_type</strong><span class="classifier">str</span></dt><dd><p>‘meas’, alternately specify ‘comm’, ‘diag’, ‘sample’, or ‘events’</p>
 </dd>
-<dt>nec<span class="classifier">str</span></dt><dd><p>path to nec file</p>
+<dt><strong>nec</strong><span class="classifier">str</span></dt><dd><p>path to nec file</p>
 </dd>
-<dt>site_filter<span class="classifier">str</span></dt><dd><p>specify part or all of the file you’d like to filter on, like site_filter=’123456_2018-09’
+<dt><strong>site_filter</strong><span class="classifier">str</span></dt><dd><p>specify part or all of the file you’d like to filter on, like site_filter=’123456_2018-09’
 would filter on site 123456 and only the month of September in 2018.</p>
 </dd>
-<dt>site_file<span class="classifier">bool or str</span></dt><dd><p>set to True to use local ndb site file, or set to path to an alternate ndb site file</p>
+<dt><strong>site_file</strong><span class="classifier">bool or str</span></dt><dd><p>set to True to use local ndb site file, or set to path to an alternate ndb site file</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
 <p>Convert a folder of RLD files to Text with SymphoniePRO Desktop Software</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.convert_rld</span> <span class="kn">import</span> <span class="n">local</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">local</span><span class="p">(</span>
@@ -76,6 +79,38 @@ would filter on site 123456 and only the month of September in 2018.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.convert.convert_rld.local.directory" title="nrgpy.convert.convert_rld.local.directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">directory</span></code></a>()</p></td>
+<td><p>processes all rld files in self.rld_dir, outputs to txt files to out_dir</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.convert.convert_rld.local.rename_rlds" title="nrgpy.convert.convert_rld.local.rename_rlds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename_rlds</span></code></a>(**kwargs)</p></td>
+<td><p>uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number and logger serial number.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>convert</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>process</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>single_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.convert.convert_rld.local.convert">
 <span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/convert/convert_rld.html#local.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.convert.convert_rld.local.convert" title="Permalink to this definition">¶</a></dt>
@@ -127,24 +162,8 @@ a local installation of SymphoniePRO Desktop software</p>
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="nrgpy.convert.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nrgpy.convert.html#module-nrgpy.convert">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nrgpy.html">nrgpy package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
@@ -152,12 +171,6 @@ a local installation of SymphoniePRO Desktop software</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="nrgpy.html">nrgpy package</a><ul>
-  <li><a href="nrgpy.convert.html">nrgpy.convert package</a><ul>
-      <li>Previous: <a href="nrgpy.convert.html" title="previous chapter">nrgpy.convert package</a></li>
-      <li>Next: <a href="nrgpy.convert.convert_rwd.html" title="next chapter">nrgpy.convert.convert_rwd module</a></li>
-  </ul></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>

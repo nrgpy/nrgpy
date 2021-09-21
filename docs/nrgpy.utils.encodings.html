@@ -14,8 +14,6 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="nrgpy.utils.ipk2lgr module" href="nrgpy.utils.ipk2lgr.html" />
-    <link rel="prev" title="nrgpy.utils package" href="nrgpy.utils.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -39,17 +37,26 @@
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nrgpy.utils.encodings.</span></span><span class="sig-name descname"><span class="pre">convert_utf16le_to_utf8</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/encodings.html#convert_utf16le_to_utf8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>for making Spidar data files compatible with programs that do not support utf-16-le character encoding</p>
-<dl class="simple">
-<dt>filename<span class="classifier">str</span></dt><dd><p>(optional) path of file to convert</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>(optional) path of file to convert</p>
 </dd>
-<dt>input_directory<span class="classifier">str</span></dt><dd><p>(optional) path of directory with files to convert</p>
+<dt><strong>input_directory</strong><span class="classifier">str</span></dt><dd><p>(optional) path of directory with files to convert</p>
 </dd>
-<dt>output_directory<span class="classifier">str</span></dt><dd><p>(optional) path of directory store converted files in</p>
+<dt><strong>output_directory</strong><span class="classifier">str</span></dt><dd><p>(optional) path of directory store converted files in</p>
 </dd>
-<dt>inplace<span class="classifier">bool</span></dt><dd><p>(False) if true, overwrites filename provided</p>
+<dt><strong>inplace</strong><span class="classifier">bool</span></dt><dd><p>(False) if true, overwrites filename provided</p>
 </dd>
 </dl>
-<p>None</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
 <p>convert single file</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/path/to/files/file.zip&quot;</span>
@@ -61,6 +68,18 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nrgpy</span><span class="o">.</span><span class="n">convert_utf16le_to_utf8</span><span class="p">(</span><span class="n">input_directory</span><span class="o">=</span><span class="n">input_directory</span><span class="p">)</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>single_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file">
 <span class="sig-name descname"><span class="pre">single_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/encodings.html#convert_utf16le_to_utf8.single_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file" title="Permalink to this definition">¶</a></dt>
@@ -88,24 +107,8 @@
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="nrgpy.utils.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nrgpy.utils.html#module-nrgpy.utils">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nrgpy.html">nrgpy package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
@@ -113,12 +116,6 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="nrgpy.html">nrgpy package</a><ul>
-  <li><a href="nrgpy.utils.html">nrgpy.utils package</a><ul>
-      <li>Previous: <a href="nrgpy.utils.html" title="previous chapter">nrgpy.utils package</a></li>
-      <li>Next: <a href="nrgpy.utils.ipk2lgr.html" title="next chapter">nrgpy.utils.ipk2lgr module</a></li>
-  </ul></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>

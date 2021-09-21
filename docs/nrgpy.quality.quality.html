@@ -14,8 +14,6 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="nrgpy.read package" href="nrgpy.read.html" />
-    <link rel="prev" title="nrgpy.quality package" href="nrgpy.quality.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -38,12 +36,18 @@
 <dt class="sig sig-object py" id="nrgpy.quality.quality.check_for_missing_txt_files">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.quality.quality.</span></span><span class="sig-name descname"><span class="pre">check_for_missing_txt_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_file_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/quality/quality.html#check_for_missing_txt_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.quality.quality.check_for_missing_txt_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>check list of files for missing file numbers</p>
-<dl class="simple">
-<dt>txt_file_names<span class="classifier">list</span></dt><dd><p>list of SymphoniePRO text file exports</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>txt_file_names</strong><span class="classifier">list</span></dt><dd><p>list of SymphoniePRO text file exports</p>
 </dd>
 </dl>
-<dl class="simple">
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
 <dt>list</dt><dd><p>“missing” text file numbers</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -52,19 +56,23 @@
 <dt class="sig sig-object py" id="nrgpy.quality.quality.check_intervals">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.quality.quality.</span></span><span class="sig-name descname"><span class="pre">check_intervals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_all_missing_timestamps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/quality/quality.html#check_intervals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.quality.quality.check_intervals" title="Permalink to this definition">¶</a></dt>
 <dd><p>checks for missing intervals in a pandas dataframe with a “Timestamp” column</p>
-<dl class="simple">
-<dt>df<span class="classifier">object</span></dt><dd><p>the dataframe to be checked</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>df</strong><span class="classifier">object</span></dt><dd><p>the dataframe to be checked</p>
 </dd>
-<dt>interval<span class="classifier">int</span></dt><dd><p>[deprecated] the averaging interval in seconds</p>
+<dt><strong>interval</strong><span class="classifier">int</span></dt><dd><p>[deprecated] the averaging interval in seconds</p>
 </dd>
-<dt>verbose<span class="classifier">bool</span></dt><dd><p>print results to terminal; False to skip</p>
+<dt><strong>verbose</strong><span class="classifier">bool</span></dt><dd><p>print results to terminal; False to skip</p>
 </dd>
-<dt>return_info<span class="classifier">bool</span></dt><dd><p>set to True to return dict with below values</p>
+<dt><strong>return_info</strong><span class="classifier">bool</span></dt><dd><p>set to True to return dict with below values</p>
 </dd>
-<dt>show_all_missing_timestamps<span class="classifier">bool</span></dt><dd><p>set to True to show all missing timestamps in verbose option. otherwise, shows first and last 3.</p>
+<dt><strong>show_all_missing_timestamps</strong><span class="classifier">bool</span></dt><dd><p>set to True to show all missing timestamps in verbose option. otherwise, shows first and last 3.</p>
 </dd>
 </dl>
-<dl class="simple">
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
 <dt>dict</dt><dd><dl class="simple">
 <dt>actual_rows<span class="classifier">int</span></dt><dd><p>actual number of rows in data section of
 export file (1 subtracted for column headers)</p>
@@ -83,6 +91,9 @@ converts result to whole integer</p>
 </dl>
 </dd>
 </dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
 <p>ex. pass a reader.data dataframe for an interval check:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">reader</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">sympro_txt_read</span><span class="p">()</span>
 <span class="go">instance created, no filename specified</span>
@@ -103,8 +114,12 @@ converts result to whole integer</p>
 <dt class="sig sig-object py" id="nrgpy.quality.quality.find_missing_intervals">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.quality.quality.</span></span><span class="sig-name descname"><span class="pre">find_missing_intervals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">__df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/quality/quality.html#find_missing_intervals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.quality.quality.find_missing_intervals" title="Permalink to this definition">¶</a></dt>
 <dd><p>find gaps in data dataframe</p>
-<dl class="simple">
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
 <dt>list</dt><dd><p>a list of all missing intervals</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -113,16 +128,22 @@ converts result to whole integer</p>
 <dt class="sig sig-object py" id="nrgpy.quality.quality.select_interval_length">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.quality.quality.</span></span><span class="sig-name descname"><span class="pre">select_interval_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/quality/quality.html#select_interval_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.quality.quality.select_interval_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the mode of the first 10 intervals of the data set</p>
-<blockquote>
-<div><p>reader : nrgpy reader object
-seconds : bool</p>
-<blockquote>
-<div><p>(True) set to False to get interval length in minutes</p>
-</div></blockquote>
-</div></blockquote>
-<blockquote>
-<div><p>int</p>
-</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>reader</strong><span class="classifier">nrgpy reader object</span></dt><dd><dl class="simple">
+<dt>seconds<span class="classifier">bool</span></dt><dd><p>(True) set to False to get interval length in minutes</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd></dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -150,24 +171,8 @@ seconds : bool</p>
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="nrgpy.quality.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nrgpy.quality.html#module-nrgpy.quality">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nrgpy.html">nrgpy package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
@@ -175,12 +180,6 @@ seconds : bool</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="nrgpy.html">nrgpy package</a><ul>
-  <li><a href="nrgpy.quality.html">nrgpy.quality package</a><ul>
-      <li>Previous: <a href="nrgpy.quality.html" title="previous chapter">nrgpy.quality package</a></li>
-      <li>Next: <a href="nrgpy.read.html" title="next chapter">nrgpy.read package</a></li>
-  </ul></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>

@@ -4,11 +4,21 @@ nrgpy.convert package
 Submodules
 ----------
 
-.. toctree::
-   :maxdepth: 4
+nrgpy.convert.convert\_rld module
+---------------------------------
 
-   nrgpy.convert.convert_rld
-   nrgpy.convert.convert_rwd
+.. automodule:: nrgpy.convert.convert_rld
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+nrgpy.convert.convert\_rwd module
+---------------------------------
+
+.. automodule:: nrgpy.convert.convert_rwd
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------

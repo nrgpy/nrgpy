@@ -14,8 +14,6 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="nrgpy.cloud_api.convert module" href="nrgpy.cloud_api.convert.html" />
-    <link rel="prev" title="nrgpy.cloud_api package" href="nrgpy.cloud_api.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -39,6 +37,41 @@
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.auth.</span></span><span class="sig-name descname"><span class="pre">cloud_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Parent class for NRG Cloud API functionality</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.cloud_api.auth.cloud_api.load_token" title="nrgpy.cloud_api.auth.cloud_api.load_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code></a>([filename])</p></td>
+<td><p>read session token from pickle file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.cloud_api.auth.cloud_api.maintain_session_token" title="nrgpy.cloud_api.auth.cloud_api.maintain_session_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code></a>([filename])</p></td>
+<td><p>maintain a current/valid session token for data service api</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.cloud_api.auth.cloud_api.request_session_token" title="nrgpy.cloud_api.auth.cloud_api.request_session_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code></a>()</p></td>
+<td><p>generates a new session token for convert service api</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.cloud_api.auth.cloud_api.save_token" title="nrgpy.cloud_api.auth.cloud_api.save_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code></a>([filename])</p></td>
+<td><p>save session token in token pickle file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.cloud_api.auth.cloud_api.token_valid" title="nrgpy.cloud_api.auth.cloud_api.token_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code></a>()</p></td>
+<td><p>check if token is still valid</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>prepare_file_bytes</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.auth.cloud_api.load_token">
 <span class="sig-name descname"><span class="pre">load_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.load_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.load_token" title="Permalink to this definition">¶</a></dt>
@@ -63,15 +96,21 @@
 <p>requires an active account with NRG Systems. to sign
 up for an account, go to:
 <a class="reference external" href="https://cloud.nrgsystems.com">https://cloud.nrgsystems.com</a></p>
-<dl class="simple">
-<dt>client_id<span class="classifier">str</span></dt><dd><p>obtained from NRG Systems</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>obtained from NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>session_token</strong><span class="classifier">str</span></dt><dd><p>valid for 24 hour</p>
+</dd>
+<dt><strong>session_start_time</strong><span class="classifier">datetime</span></dt><dd><p>start time of 24 hour countdown</p>
 </dd>
 </dl>
-<p>client_secret : str</p>
-<dl class="simple">
-<dt>session_token<span class="classifier">str</span></dt><dd><p>valid for 24 hour</p>
-</dd>
-<dt>session_start_time<span class="classifier">datetime</span></dt><dd><p>start time of 24 hour countdown</p>
 </dd>
 </dl>
 </dd></dl>
@@ -86,12 +125,18 @@ up for an account, go to:
 <dt class="sig sig-object py" id="nrgpy.cloud_api.auth.cloud_api.token_valid">
 <span class="sig-name descname"><span class="pre">token_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.token_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.token_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>check if token is still valid</p>
-<dl class="simple">
-<dt>session_start_time<span class="classifier">datetime</span></dt><dd><p>generated at time of token request</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>session_start_time</strong><span class="classifier">datetime</span></dt><dd><p>generated at time of token request</p>
 </dd>
 </dl>
-<dl class="simple">
-<dt>status<span class="classifier">bool</span></dt><dd><p>true if still valid, false if expired</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>status</strong><span class="classifier">bool</span></dt><dd><p>true if still valid, false if expired</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -118,24 +163,8 @@ up for an account, go to:
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="nrgpy.cloud_api.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nrgpy.html">nrgpy package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
@@ -143,12 +172,6 @@ up for an account, go to:
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="nrgpy.html">nrgpy package</a><ul>
-  <li><a href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a><ul>
-      <li>Previous: <a href="nrgpy.cloud_api.html" title="previous chapter">nrgpy.cloud_api package</a></li>
-      <li>Next: <a href="nrgpy.cloud_api.convert.html" title="next chapter">nrgpy.cloud_api.convert module</a></li>
-  </ul></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>

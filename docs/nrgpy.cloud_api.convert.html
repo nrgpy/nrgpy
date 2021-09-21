@@ -14,8 +14,6 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="nrgpy.cloud_api.export module" href="nrgpy.cloud_api.export.html" />
-    <link rel="prev" title="nrgpy.cloud_api.auth module" href="nrgpy.cloud_api.auth.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -42,30 +40,35 @@
 To sign up for the service, go to <a class="reference external" href="https://cloud.nrgsystems.com/">https://cloud.nrgsystems.com/</a>.</p>
 <p>Note that the site must exist in the NRG Cloud platform, and you must have 
 Contributor or Administrator level access to the site to use these features.</p>
-<dl class="simple">
-<dt>rld_dir<span class="classifier">str</span></dt><dd><p>path to rld file directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rld_dir</strong><span class="classifier">str</span></dt><dd><p>path to rld file directory</p>
 </dd>
-<dt>out_dir<span class="classifier">str</span></dt><dd><p>path to save text export files</p>
+<dt><strong>out_dir</strong><span class="classifier">str</span></dt><dd><p>path to save text export files</p>
 </dd>
-<dt>filename<span class="classifier">str</span></dt><dd><p>provide for single file conversion</p>
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>provide for single file conversion</p>
 </dd>
-<dt>site_filter<span class="classifier">str, optional</span></dt><dd><p>text filter for limiting file set</p>
+<dt><strong>site_filter</strong><span class="classifier">str, optional</span></dt><dd><p>text filter for limiting file set</p>
 </dd>
-<dt>filter2<span class="classifier">str, optional</span></dt><dd><p>another text filter…</p>
+<dt><strong>filter2</strong><span class="classifier">str, optional</span></dt><dd><p>another text filter…</p>
 </dd>
-<dt>start_date<span class="classifier">str, optional</span></dt><dd><p>text start date to filter on “YYYY-mm-dd”</p>
+<dt><strong>start_date</strong><span class="classifier">str, optional</span></dt><dd><p>text start date to filter on “YYYY-mm-dd”</p>
 </dd>
-<dt>end_date<span class="classifier">str, optional</span></dt><dd><p>text end date to filter on “YYYY-mm-dd”</p>
+<dt><strong>end_date</strong><span class="classifier">str, optional</span></dt><dd><p>text end date to filter on “YYYY-mm-dd”</p>
 </dd>
-<dt>client_id<span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
 </dd>
-<dt>client_secret<span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
 </dd>
-<dt>nec_file<span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
+<dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
 </dd>
-<dt>export_type<span class="classifier">str</span></dt><dd><p>[measurements], diagnostic, events, communication</p>
+<dt><strong>export_type</strong><span class="classifier">str</span></dt><dd><p>[measurements], diagnostic, events, communication</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
 <p>Convert a single raw data file to Text with NRG Convert API</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld</span>
@@ -98,6 +101,47 @@ Contributor or Administrator level access to the site to use these features.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
 </pre></div>
 </div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code>([filename])</p></td>
+<td><p>read session token from pickle file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code>([filename])</p></td>
+<td><p>maintain a current/valid session token for data service api</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
+<td><p>generates a new session token for convert service api</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
+<td><p>save session token in token pickle file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code>()</p></td>
+<td><p>check if token is still valid</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>prepare_file_bytes</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>process</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>single_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.convert.cloud_convert.process">
 <span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/convert.html#cloud_convert.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.convert.cloud_convert.process" title="Permalink to this definition">¶</a></dt>
@@ -130,24 +174,8 @@ Contributor or Administrator level access to the site to use these features.</p>
 
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="nrgpy.html">nrgpy package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="nrgpy.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="nrgpy.cloud_api.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.html#module-nrgpy">Module contents</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nrgpy.html">nrgpy package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
@@ -155,12 +183,6 @@ Contributor or Administrator level access to the site to use these features.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="nrgpy.html">nrgpy package</a><ul>
-  <li><a href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a><ul>
-      <li>Previous: <a href="nrgpy.cloud_api.auth.html" title="previous chapter">nrgpy.cloud_api.auth module</a></li>
-      <li>Next: <a href="nrgpy.cloud_api.export.html" title="next chapter">nrgpy.cloud_api.export module</a></li>
-  </ul></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>
