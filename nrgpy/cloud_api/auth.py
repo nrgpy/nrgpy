@@ -5,11 +5,11 @@ import pickle
 import requests
 
 
-token_url = 'https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/token'
+token_url = 'https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/token'
 
-convert_url = 'https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/data/convert'
-export_url = 'https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/data/export'
-sites_url = "https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/sites"
+convert_url = 'https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/data/convert'
+export_url = 'https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/data/export'
+sites_url = "https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/sites"
 
 
 token_file = '.cloud_token'

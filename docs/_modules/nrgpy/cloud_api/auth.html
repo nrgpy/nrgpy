@@ -1,155 +1,177 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>nrgpy.cloud_api.auth &mdash; nrgpy 0.10.19 documentation</title>
-  
 
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nrgpy.cloud_api.auth &#8212; nrgpy  documentation</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  <link href="../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
-</head>
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../../index.html" class="icon icon-home"> nrgpy
-          
-
-          
-          </a>
-
-          
-            
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">nrgpy</a>
-        
-      </nav>
+
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../nrgpy.html">
+   nrgpy package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.api.html">
+     nrgpy.api package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.cloud_api.html">
+     nrgpy.cloud_api package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.convert.html">
+     nrgpy.convert package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.quality.html">
+     nrgpy.quality package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.read.html">
+     nrgpy.read package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.utils.html">
+     nrgpy.utils package
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../setup.html">
+   setup module
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
 
 
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
           
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
-      <li>nrgpy.cloud_api.auth</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   <h1>Source code for nrgpy.cloud_api.auth</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
@@ -158,17 +180,17 @@
 <span class="kn">import</span> <span class="nn">requests</span>
 
 
-<span class="n">token_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/token&#39;</span>
+<span class="n">token_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/token&#39;</span>
 
-<span class="n">convert_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/data/convert&#39;</span>
-<span class="n">export_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/data/export&#39;</span>
-<span class="n">sites_url</span> <span class="o">=</span> <span class="s2">&quot;https://nrg-cloud-api.azure-api.net/nrgcloudcustomerapi/sites&quot;</span>
+<span class="n">convert_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/data/convert&#39;</span>
+<span class="n">export_url</span> <span class="o">=</span> <span class="s1">&#39;https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/data/export&#39;</span>
+<span class="n">sites_url</span> <span class="o">=</span> <span class="s2">&quot;https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/sites&quot;</span>
 
 
 <span class="n">token_file</span> <span class="o">=</span> <span class="s1">&#39;.cloud_token&#39;</span>
 
 
-<div class="viewcode-block" id="cloud_api"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api">[docs]</a><span class="k">class</span> <span class="nc">cloud_api</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="cloud_api"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api">[docs]</a><span class="k">class</span> <span class="nc">cloud_api</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parent class for NRG Cloud API functionality</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -182,7 +204,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Access error] Valid credentials are required.</span><span class="se">\n\n</span><span class="s1">Please visit https://cloud.nrgsystems.com/data-manager/api-setup</span><span class="se">\n</span><span class="s1">to access your API credentials&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="cloud_api.request_session_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.request_session_token">[docs]</a>    <span class="k">def</span> <span class="nf">request_session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="cloud_api.request_session_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.request_session_token">[docs]</a>    <span class="k">def</span> <span class="nf">request_session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;generates a new session token for convert service api</span>
 
 <span class="sd">        requires an active account with NRG Systems. to sign</span>
@@ -217,7 +239,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED] | unable to get session token.&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span> <span class="o">=</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="cloud_api.token_valid"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.token_valid">[docs]</a>    <span class="k">def</span> <span class="nf">token_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="cloud_api.token_valid"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.token_valid">[docs]</a>    <span class="k">def</span> <span class="nf">token_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;check if token is still valid</span>
 
 <span class="sd">        Parameters</span>
@@ -236,17 +258,17 @@
 
         <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="cloud_api.save_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.save_token">[docs]</a>    <span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
+<div class="viewcode-block" id="cloud_api.save_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.save_token">[docs]</a>    <span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;save session token in token pickle file&quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span><span class="p">],</span> <span class="n">f</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="cloud_api.load_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.load_token">[docs]</a>    <span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
+<div class="viewcode-block" id="cloud_api.load_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.load_token">[docs]</a>    <span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;read session token from pickle file&quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="cloud_api.maintain_session_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.maintain_session_token">[docs]</a>    <span class="k">def</span> <span class="nf">maintain_session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
+<div class="viewcode-block" id="cloud_api.maintain_session_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.maintain_session_token">[docs]</a>    <span class="k">def</span> <span class="nf">maintain_session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;maintain a current/valid session token for data service api&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">)</span>
@@ -257,52 +279,43 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">request_session_token</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save_token</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="cloud_api.prepare_file_bytes"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.prepare_file_bytes">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_file_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="cloud_api.prepare_file_bytes"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.prepare_file_bytes">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_file_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="n">file_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">encodebytes</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">file_bytes</span></div></div>
 </pre></div>
 
-           </div>
-           
-          </div>
-          <footer>
+              </div>
+              
+        
+            
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, NRG Systems, Technical Services.
 
-    </p>
-  </div>
+<div class='prev-next-bottom'>
     
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-</footer>
+</div>
+        
         </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Author<br/>
+        
+            &copy; Copyright 2021, Author.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
       </div>
-
-    </section>
-
-  </div>
+    </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
-  
-    
-   
-
-</body>
+  </body>
 </html>
