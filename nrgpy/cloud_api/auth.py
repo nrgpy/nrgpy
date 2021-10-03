@@ -4,12 +4,14 @@ import json
 import pickle
 import requests
 
+url_base = 'https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/'
 
-token_url = 'https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/token'
+# url_base = 'https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/'
 
-convert_url = 'https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/data/convert'
-export_url = 'https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/data/export'
-sites_url = "https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/sites"
+token_url = url_base + 'token'
+convert_url = url_base + 'data/convert'
+export_url = url_base + 'data/export'
+sites_url = url_base + "sites"
 
 
 token_file = '.cloud_token'
