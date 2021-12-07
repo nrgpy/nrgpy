@@ -296,8 +296,10 @@ class sympro_txt_read(object):
         first_file = True
 
         files = [
-            f for f in sorted(glob(self.txt_dir + '*.txt'))\
-            if self.file_filter in f and self.filter2 in f\
+            os.path.join(self.txt_dir, f)\
+            for f in sorted(os.listdir(self.txt_dir))\
+            if f.endswith('txt')\
+            and self.file_filter in f and self.filter2 in f\
             and date_check(self.start_date, self.end_date, f)
         ]
 

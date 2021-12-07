@@ -70,7 +70,7 @@ class cloud_export(cloud_api):
             end_date="2021-05-15",
         )
     >>>
-    >>> reader = ngrpy.sympro_txt_read(exporter.export_filepath)
+    >>> reader = nrgpy.sympro_txt_read(exporter.export_filepath)
     >>> reader.format_site_data()
     >>> if reader:
     >>>     print(f"Site number               : {reader.site_number}")
