@@ -136,7 +136,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             cmd = [
                 self.sympro_path,
                 "/cmd", self.process_type,
-                "/file", '"'+"\\".join([self.rld_dir, self.site_filter])+'*.rld"',
+                "/file", '"'+"\\".join([self.rld_dir, '*'+self.site_filter])+'*.rld"',
                 encryption,
                 encryption_key,
                 nec,
