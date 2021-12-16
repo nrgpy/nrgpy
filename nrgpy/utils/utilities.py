@@ -1,3 +1,7 @@
+try:
+    from nrgpy import logger
+except ImportError:
+    pass
 from datetime import datetime
 import os
 import pathlib
@@ -280,3 +284,48 @@ def data_months(start_date, end_date, output="string"):
                 return False
 
     return months
+
+
+def create_spd_filename_from_cloud_export(filename):
+        
+    from datetime import datetime
+
+    cld_fmt = "%m-%d-%Y"
+    spd_fmt = "%Y-%m-%d"
+
+    splits = filename.split("_")
+    site = splits[0].zfill(6)
+    start = datetime.strptime(splits[1], cld_fmt).strftime(spd_fmt)
+    end = datetime.strptime(splits[3], cld_fmt).strftime(spd_fmt)
+    outname = "_".join([site, start, end, splits[-1]]).replace("Measurements", "meas")
+
+    return outname
+
+
+def rename_cloud_export_like_spd(filepath):
+    """rename nrg cloud export files with SPD formatting"""
+
+    import os
+
+    filename = os.path.basename(filepath)
+    directory = os.path.dirname(filepath)
+    new_filename = create_spd_filename_from_cloud_export(filename)
+
+    try:
+        os.rename(filepath, os.path.join(directory, new_filename))
+        logger.info(f"renamed {filename} to {new_filename}")
+        return True
+
+    except FileExistsError:
+        logger.info(f"{new_filename} exists, replacing")
+        os.remove(os.path.join(directory, new_filename))
+        os.rename(filepath, os.path.join(directory, new_filename))
+        logger.info(f"renamed {filename} to {new_filename}")
+
+    except:
+        logger.error(f"couldn't rename {filename} to {new_filename}")
+        print(f"couldn't rename {filename} to {new_filename}")
+        import traceback
+        logger.debug(traceback.format_exc())
+        print(traceback.format_exc())
+        return False

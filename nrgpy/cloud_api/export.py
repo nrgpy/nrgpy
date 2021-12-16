@@ -3,7 +3,8 @@ try:
 except ImportError:
     pass
 from datetime import datetime
-from nrgpy.utils.utilities import affirm_directory
+from nrgpy.utils.utilities import affirm_directory, rename_cloud_export_like_spd, \
+    create_spd_filename_from_cloud_export
 from .auth import cloud_api, export_url
 from .sites import cloud_sites
 import os
@@ -46,6 +47,8 @@ class cloud_export(cloud_api):
         'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
         'thirtyMinute', 'Hour', 'Day' 
         must be a multiple of the logger's statistical interval
+    spd_filenames : bool
+        (True) convert export filenames to match formatting of SymphoniePRO Desktop Software
     unzip : bool
         (True) whether to extract the .txt data file from the .zip file
 
@@ -87,7 +90,7 @@ class cloud_export(cloud_api):
     def __init__(self, out_dir='', site_id='', site_number='', logger_sn='',
                  start_date='2014-01-01', end_date='2023-12-31',
                  client_id='', client_secret='', nec_file='',
-                 export_type='measurements', interval='', 
+                 export_type='measurements', interval='', spd_filenames=True,
                  unzip=True,  **kwargs):
 
         super().__init__(client_id, client_secret)
@@ -109,7 +112,7 @@ class cloud_export(cloud_api):
         self.nec_file = nec_file
         self.export_type = export_type
         self.interval = interval
-        
+        self.spd_filenames = spd_filenames
         self.unzip = unzip
 
         if self.nec_file:
@@ -158,6 +161,11 @@ class cloud_export(cloud_api):
             else:
                 self.export_filepath = os.path.normpath(self.filepath)
                 self.export_filename = self.zip_file
+
+            if self.spd_filenames:
+                rename_cloud_export_like_spd(self.export_filepath)
+                self.export_filename = create_spd_filename_from_cloud_export(self.export_filename)
+                self.export_filepath = os.path.join(os.path.dirname(self.export_filepath), self.export_filename)
 
             logger.info(f"export created for site_id {self.site_id}")
             logger.info(f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes")
