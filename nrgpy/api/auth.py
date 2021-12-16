@@ -1,3 +1,7 @@
+try:
+    from nrgpy import logger
+except ImportError:
+    pass
 import base64
 from datetime import datetime, timedelta
 import json
@@ -21,6 +25,7 @@ class nrg_api(object):
     """
 
     def __init__(self, client_id='', client_secret=''):
+        logger.debug(f"nrg legacy api base: {url_base}")
         self.client_id = client_id
         self.client_secret = client_secret
 
@@ -28,6 +33,7 @@ class nrg_api(object):
             self.maintain_session_token()
         else:
             print('[Access error] Valid credentials are required.\nPlease contact support@nrgsystems.com or visit \nhttps://services.nrgsystems.com for API access')
+            logger.error('[Access error] Valid credentials are required. Please  API credentials')
 
     def request_session_token(self):
         """generates a new session token for convert service api
@@ -49,6 +55,7 @@ class nrg_api(object):
         session_start_time : datetime
             start time of 24 hour countdown
         """
+        logger.debug("session token requested")
         print("{} | Requesting session token ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')), end="", flush=True)
 
         request_token_header = {'content-type': 'application/json'}
@@ -58,7 +65,10 @@ class nrg_api(object):
         self.session_start_time = datetime.now()
 
         if self.resp.status_code == 200:
+            logger.error("unable to get session token")
+            logger.debug(f"{self.resp.text}")
             print("[OK]")
+            logger.info("new session token OK")
             self.session_token = json.loads(self.resp.text)['access_token']
         else:
             print("[FAILED] | unable to get session token.")

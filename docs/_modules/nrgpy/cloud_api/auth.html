@@ -173,7 +173,12 @@
               <div>
                 
   <h1>Source code for nrgpy.cloud_api.auth</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">base64</span>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">nrgpy</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="kn">from</span> <span class="nn">nrgpy</span> <span class="kn">import</span> <span class="n">token_file</span>
+<span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
@@ -181,15 +186,11 @@
 
 <span class="n">url_base</span> <span class="o">=</span> <span class="s1">&#39;https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/&#39;</span>
 
-<span class="c1"># url_base = &#39;https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/&#39;</span>
-
 <span class="n">token_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s1">&#39;token&#39;</span>
 <span class="n">convert_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s1">&#39;data/convert&#39;</span>
 <span class="n">export_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s1">&#39;data/export&#39;</span>
 <span class="n">sites_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;sites&quot;</span>
 
-
-<span class="n">token_file</span> <span class="o">=</span> <span class="s1">&#39;.cloud_token&#39;</span>
 
 
 <div class="viewcode-block" id="cloud_api"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api">[docs]</a><span class="k">class</span> <span class="nc">cloud_api</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -198,6 +199,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cloud base: </span><span class="si">{</span><span class="n">url_base</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">=</span> <span class="n">client_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span> <span class="o">=</span> <span class="n">client_secret</span>
 
@@ -205,6 +207,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">maintain_session_token</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Access error] Valid credentials are required.</span><span class="se">\n\n</span><span class="s1">Please visit https://cloud.nrgsystems.com/data-manager/api-setup</span><span class="se">\n</span><span class="s1">to access your API credentials&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;[Access error] Valid credentials are required. Please visit https://cloud.nrgsystems.com/data-manager/api-setup to access your API credentials&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="cloud_api.request_session_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.request_session_token">[docs]</a>    <span class="k">def</span> <span class="nf">request_session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;generates a new session token for convert service api</span>
@@ -226,6 +229,7 @@
 <span class="sd">        session_start_time : datetime</span>
 <span class="sd">            start time of 24 hour countdown</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;session token requested&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> | Requesting session token ... &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">request_token_header</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
@@ -236,8 +240,11 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK]&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;new session token OK&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s1">&#39;apiToken&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;unable to get session token&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED] | unable to get session token.&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span> <span class="o">=</span> <span class="kc">False</span></div>
 
@@ -254,8 +261,9 @@
 <span class="sd">        status : bool</span>
 <span class="sd">            true if still valid, false if expired</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">18</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">22</span><span class="p">):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="c1"># logger.debug(f&quot;session token reused: expires {self.session_start_time + timedelta(hours=24)}&quot;)</span>
                 <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">return</span> <span class="kc">False</span></div>

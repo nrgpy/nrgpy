@@ -173,7 +173,11 @@
               <div>
                 
   <h1>Source code for nrgpy.cloud_api.sites</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.auth</span> <span class="kn">import</span> <span class="n">cloud_api</span><span class="p">,</span> <span class="n">sites_url</span>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">nrgpy</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="kn">from</span> <span class="nn">.auth</span> <span class="kn">import</span> <span class="n">cloud_api</span><span class="p">,</span> <span class="n">sites_url</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 
@@ -209,6 +213,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">sites_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">sites_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;sites&#39;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sites_list</span><span class="p">)</span><span class="si">}</span><span class="s2"> sites found&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sites_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sites_list</span><span class="p">)</span></div>
         
 <div class="viewcode-block" id="cloud_sites.get_siteid"><a class="viewcode-back" href="../../../nrgpy.cloud_api.sites.html#nrgpy.cloud_api.sites.cloud_sites.get_siteid">[docs]</a>    <span class="k">def</span> <span class="nf">get_siteid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site_number</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">logger_sn</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
@@ -220,6 +225,7 @@
                 <span class="k">return</span> <span class="n">matching_sites</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;siteId&#39;</span><span class="p">]</span>
             
             <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unable to get site matching site number </span><span class="si">{</span><span class="n">site_number</span><span class="si">}</span><span class="s2"> or logger serial </span><span class="si">{</span><span class="n">logger_sn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No site matches this site number and logger serial number. &quot;</span> <span class="o">+</span>
                       <span class="s2">&quot;Confirm that you have entered the values correctly &quot;</span> <span class="o">+</span>
                       <span class="s2">&quot;and that you have access to this site.&quot;</span><span class="p">)</span>
@@ -229,14 +235,17 @@
              <span class="n">site_dict</span><span class="p">[</span><span class="s1">&#39;siteNumber&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">site_number</span><span class="p">]</span>
             
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching_sites</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;more than 1 site matching site number </span><span class="si">{</span><span class="n">site_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There is more than one site with that site number. &quot;</span> <span class="o">+</span>
                       <span class="s2">&quot;Please use the logger serial number.&quot;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="kc">None</span>
             
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching_sites</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;found match for site number </span><span class="si">{</span><span class="n">site_number</span><span class="si">}</span><span class="s2">: siteId </span><span class="si">{</span><span class="n">matching_sites</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;siteId&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">matching_sites</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;siteId&#39;</span><span class="p">]</span>
 
             <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;no site matches site number </span><span class="si">{</span><span class="n">site_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No site matches this site number. &quot;</span> <span class="o">+</span>
                       <span class="s2">&quot;Confirm that you have entered the value correctly &quot;</span> <span class="o">+</span>
                       <span class="s2">&quot;and that you have access to this site.&quot;</span><span class="p">)</span>
@@ -246,14 +255,17 @@
              <span class="n">site_dict</span><span class="p">[</span><span class="s1">&#39;loggerSerialNumber&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">logger_sn</span><span class="p">]</span>
             
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching_sites</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;more than 1 site matching serial number </span><span class="si">{</span><span class="n">logger_sn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There is more than one site with that logger serial number. &quot;</span> <span class="o">+</span>
                       <span class="s2">&quot;Please use the site number.&quot;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="kc">None</span>
             
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching_sites</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;found match for serial number </span><span class="si">{</span><span class="n">logger_sn</span><span class="si">}</span><span class="s2">: siteId </span><span class="si">{</span><span class="n">matching_sites</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;siteId&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">matching_sites</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;siteId&#39;</span><span class="p">]</span>
 
             <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;no site matches serial number </span><span class="si">{</span><span class="n">logger_sn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No site matches this logger serial number. &quot;</span> <span class="o">+</span>
                       <span class="s2">&quot;Confirm that you have entered the value correctly &quot;</span> <span class="o">+</span>
                       <span class="s2">&quot;and that you have access to this site.&quot;</span><span class="p">)</span></div></div>

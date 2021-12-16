@@ -1,7 +1,12 @@
+try:
+    from nrgpy import logger
+except ImportError:
+    pass
 from datetime import datetime
 import os
 import subprocess
 import time
+import traceback
 from nrgpy.api.convert import nrg_api_convert
 from nrgpy.utils.utilities import check_platform, windows_folder_path, affirm_directory, count_files
 
@@ -130,6 +135,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
         try:
             rld_count = count_files(self.rld_dir, self.site_filter, 'rld')
             self.start_time = time.time()
+            logger.info('converting {0} files from {1}'.format(rld_count, self.rld_dir))
             print('\nConverting {0} files from {1}\n'.format(rld_count, self.rld_dir))
             print('Saving outputs to {0}'.format(self.out_dir))
 
@@ -154,6 +160,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             self.end = datetime.now()
             self.convert_time = str(self.end - self.start)
 
+            logger.info('TXT files saved in {0}'.format(self.out_dir))
             print('\nTXT files saved in {0}\n'.format(self.out_dir))
 
             txt_count = count_files(self.out_dir, self.site_filter, 'txt', start_time=self.start_time)
@@ -170,6 +177,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             print('----------------\nDifference : {}'.format(rld_count - (txt_count + log_count)))
 
         except FileNotFoundError:
+            logger.error('SymphoniePRO Desktop Application not found: {0}'.format(self.sympro_path))
             print("""
                   No instance of SymphoniePRO Desktop Application found.
 
@@ -178,6 +186,8 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
 
                   """)
         except:
+            logger.error("unable to process files in {0}".format(self.rld_dir))
+            logger.debug(traceback.format_exc())
             print('Unable to process files in directory')
 
     def convert(self):
@@ -206,12 +216,15 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
                     try:
                         subprocess.run(" ".join(rename_cmd), stdout=subprocess.PIPE)
                     except:
+                        logger.error("unable to rename {0}".format(f))
                         print("Unable to rename {0}".format(f))
                         pass
 
                 else:
                     pass
         except:
+            logger.error('Could not rename files')
+            logger.debug(traceback.format_exc())
             print('Could not rename files')
 
     def single_file(self, filepath=''):
@@ -268,9 +281,13 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             print("[DONE]")
 
         except:
+            logger.error("processing {0} FAILED".format(filepath))
+            logger.debug(traceback.format_exc())
             print("\n\t processing {0} [FAILED]".format(filepath))
             pass
 
+        logger.info("files in {0} processed OK".format(self.rld_dir))
+        logger.info("TXT files saved to {0}".format(self.out_dir))
         print("\nQueue processed\n")
 
 

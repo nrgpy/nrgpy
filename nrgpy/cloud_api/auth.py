@@ -1,3 +1,8 @@
+try:
+    from nrgpy import logger
+except ImportError:
+    pass
+from nrgpy import token_file
 import base64
 from datetime import datetime, timedelta
 import json
@@ -6,15 +11,11 @@ import requests
 
 url_base = 'https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/'
 
-# url_base = 'https://nrg-cloud-api-prod.azure-api.net/nrgcloudcustomerapi/'
-
 token_url = url_base + 'token'
 convert_url = url_base + 'data/convert'
 export_url = url_base + 'data/export'
 sites_url = url_base + "sites"
 
-
-token_file = '.cloud_token'
 
 
 class cloud_api(object):
@@ -23,6 +24,7 @@ class cloud_api(object):
     """
 
     def __init__(self, client_id='', client_secret=''):
+        logger.debug(f"cloud base: {url_base}")
         self.client_id = client_id
         self.client_secret = client_secret
 
@@ -30,6 +32,7 @@ class cloud_api(object):
             self.maintain_session_token()
         else:
             print('[Access error] Valid credentials are required.\n\nPlease visit https://cloud.nrgsystems.com/data-manager/api-setup\nto access your API credentials')
+            logger.error('[Access error] Valid credentials are required. Please visit https://cloud.nrgsystems.com/data-manager/api-setup to access your API credentials')
 
     def request_session_token(self):
         """generates a new session token for convert service api
@@ -51,6 +54,7 @@ class cloud_api(object):
         session_start_time : datetime
             start time of 24 hour countdown
         """
+        logger.debug("session token requested")
         print("{} | Requesting session token ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')), end="", flush=True)
 
         request_token_header = {'content-type': 'application/json'}
@@ -61,8 +65,11 @@ class cloud_api(object):
 
         if self.resp.status_code == 200:
             print("[OK]")
+            logger.info("new session token OK")
             self.session_token = json.loads(self.resp.text)['apiToken']
         else:
+            logger.error("unable to get session token")
+            logger.debug(f"{self.resp.text}")
             print("[FAILED] | unable to get session token.")
             self.session_token = False
 
@@ -79,8 +86,9 @@ class cloud_api(object):
         status : bool
             true if still valid, false if expired
         """
-        if datetime.now() < self.session_start_time + timedelta(hours=18):
+        if datetime.now() < self.session_start_time + timedelta(hours=22):
             if self.session_token is not False:
+                # logger.debug(f"session token reused: expires {self.session_start_time + timedelta(hours=24)}")
                 return True
 
         return False

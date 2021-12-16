@@ -1,3 +1,7 @@
+try:
+    from nrgpy import logger
+except ImportError:
+    pass
 from datetime import datetime
 from nrgpy.utils.utilities import affirm_directory
 from .auth import cloud_api, export_url
@@ -154,8 +158,14 @@ class cloud_export(cloud_api):
             else:
                 self.export_filepath = os.path.normpath(self.filepath)
                 self.export_filename = self.zip_file
+
+            logger.info(f"export created for site_id {self.site_id}")
+            logger.info(f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes")
         
         else:
+            logger.error(f"export not created")
+            logger.debug(f"{self.resp.status_code} | {self.resp.reason}")
+            logger.debug(self.resp.text.split(':')[1].split('"')[1])
             print(str(self.resp.status_code) + ' | ' + self.resp.reason)
             print(self.resp.text.split(':')[1].split('"')[1])
             return False
