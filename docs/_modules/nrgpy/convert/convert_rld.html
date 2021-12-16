@@ -173,10 +173,15 @@
               <div>
                 
   <h1>Source code for nrgpy.convert.convert_rld</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">nrgpy</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">from</span> <span class="nn">nrgpy.api.convert</span> <span class="kn">import</span> <span class="n">nrg_api_convert</span>
 <span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="n">check_platform</span><span class="p">,</span> <span class="n">windows_folder_path</span><span class="p">,</span> <span class="n">affirm_directory</span><span class="p">,</span> <span class="n">count_files</span>
 
@@ -305,13 +310,14 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">rld_count</span> <span class="o">=</span> <span class="n">count_files</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">,</span> <span class="s1">&#39;rld&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;converting </span><span class="si">{0}</span><span class="s1"> files from </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Converting </span><span class="si">{0}</span><span class="s1"> files from </span><span class="si">{1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saving outputs to </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span>
 
             <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">sympro_path</span><span class="p">,</span>
                 <span class="s2">&quot;/cmd&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_type</span><span class="p">,</span>
-                <span class="s2">&quot;/file&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">])</span><span class="o">+</span><span class="s1">&#39;*.rld&quot;&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;/file&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">])</span><span class="o">+</span><span class="s1">&#39;*.rld&quot;&#39;</span><span class="p">,</span>
                 <span class="n">encryption</span><span class="p">,</span>
                 <span class="n">encryption_key</span><span class="p">,</span>
                 <span class="n">nec</span><span class="p">,</span>
@@ -329,6 +335,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">convert_time</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
 
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;TXT files saved in </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">TXT files saved in </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span>
 
             <span class="n">txt_count</span> <span class="o">=</span> <span class="n">count_files</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">,</span> <span class="s1">&#39;txt&#39;</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
@@ -345,6 +352,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------</span><span class="se">\n</span><span class="s1">Difference : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld_count</span> <span class="o">-</span> <span class="p">(</span><span class="n">txt_count</span> <span class="o">+</span> <span class="n">log_count</span><span class="p">)))</span>
 
         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;SymphoniePRO Desktop Application not found: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sympro_path</span><span class="p">))</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">                  No instance of SymphoniePRO Desktop Application found.</span>
 
@@ -353,6 +361,8 @@
 
 <span class="s2">                  &quot;&quot;&quot;</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;unable to process files in </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Unable to process files in directory&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="local.convert"><a class="viewcode-back" href="../../../nrgpy.convert.convert_rld.html#nrgpy.convert.convert_rld.local.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -381,12 +391,15 @@
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rename_cmd</span><span class="p">),</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
                     <span class="k">except</span><span class="p">:</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;unable to rename </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
                         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to rename </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
                         <span class="k">pass</span>
 
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">pass</span>
         <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Could not rename files&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Could not rename files&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="local.single_file"><a class="viewcode-back" href="../../../nrgpy.convert.convert_rld.html#nrgpy.convert.convert_rld.local.single_file">[docs]</a>    <span class="k">def</span> <span class="nf">single_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
@@ -443,9 +456,13 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[DONE]&quot;</span><span class="p">)</span>
 
         <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;processing </span><span class="si">{0}</span><span class="s2"> FAILED&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2"> processing </span><span class="si">{0}</span><span class="s2"> [FAILED]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
             <span class="k">pass</span>
 
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;files in </span><span class="si">{0}</span><span class="s2"> processed OK&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;TXT files saved to </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Queue processed</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div></div>
 
 

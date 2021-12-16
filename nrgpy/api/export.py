@@ -1,3 +1,7 @@
+try:
+    from nrgpy import logger
+except ImportError:
+    pass
 from datetime import datetime
 from nrgpy.utils.utilities import affirm_directory
 from .auth import nrg_api, export_url
@@ -153,10 +157,15 @@ class nrg_api_export(nrg_api):
             del self.data['necfilebytes']
             self.data['nec_file'] = self.nec_file
             reader.post_json = self.data
+            logger.info(f"export created for site_id {self.site_id}")
+            logger.info(f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes")
 
             return reader
 
         else:
+            logger.error(f"export not created")
+            logger.debug(f"{self.resp.status_code} | {self.resp.reason}")
+            logger.debug(self.resp.text.split(':')[1].split('"')[1])
             print(self.resp.status_code)
             print(self.resp.reason)
             return False

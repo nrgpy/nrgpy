@@ -1,11 +1,12 @@
 from setuptools import setup
+from nrgpy.version import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
     name='nrgpy',
-    version='1.3.0',
+    version=__version__,
     description='library for handling NRG Systems data files',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -26,7 +27,7 @@ setup(
         'pandas>=1.0',
         'requests',
     ],
-    python_requires='>=3.0',
+    python_requires='>=3.6',
     zip_safe=False,
     classifiers=[
         'License :: OSI Approved :: MIT License'

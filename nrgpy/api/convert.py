@@ -189,6 +189,8 @@ class nrg_api_convert(nrg_api):
             except:
                 print("Could not convert Windows newline characters properly; file may be unstable")
 
+            logger.info(f"converted {os.path.basename(out_filename)} OK")
+
             if self.progress_bar is False:
                 print("[DONE]")
 
@@ -196,6 +198,8 @@ class nrg_api_convert(nrg_api):
             if self.progress_bar is False:
                 print("[FAILED]")
 
+            logger.error(f"unable to convert {os.path.basename(out_filename)}")
+            logger.debug(e)
             print('unable to process file: {0}'.format(rld))
             print(e)
             print(str(self.resp.status_code) + " " + self.resp.reason + "\n")

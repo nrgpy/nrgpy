@@ -1,3 +1,7 @@
+try:
+    from nrgpy import logger
+except ImportError:
+    pass
 from datetime import datetime
 import io
 from nrgpy.utils.utilities import affirm_directory, date_check, draw_progress_bar
@@ -131,6 +135,7 @@ class cloud_convert(cloud_api):
             self.single_file(os.path.join(self.rld_dir, rld))
             self.counter += 1
             if self.resp.status_code == 401:
+                logger.error(f"API access to site data restricted to Coordinator or Andministrator level")
                 print("\nAccess to site at Coordinator or Administrator level is required for data functions")
                 break
 
@@ -187,11 +192,14 @@ class cloud_convert(cloud_api):
                 
                 if self.progress_bar is False:
                     print("[DONE]")
+
+                logger.info(f"converted {os.path.basename(self.export_filepath)} OK")
             
             elif self.resp.status_code == 401:
                 pass
 
             else:
+                logger.error(f"unable to convert {os.path.basename(self.export_filepath)}: FAILED")
                 print('\nunable to process file: {0}'.format(rld))
                 print(str(self.resp.status_code) + ' | ' + self.resp.reason)
                 print(self.resp.text.split(':')[1].split('"')[1])    
@@ -201,6 +209,8 @@ class cloud_convert(cloud_api):
             if self.progress_bar is False:
                 print("[FAILED]")
 
+            logger.error(f"unable to convert {os.path.basename(self.export_filepath)}: FAILED")
+            logger.debug(e)
             print('unable to process file: {0}'.format(rld))
             print(e)
             pass
