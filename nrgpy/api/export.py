@@ -157,7 +157,7 @@ class nrg_api_export(nrg_api):
             del self.data['necfilebytes']
             self.data['nec_file'] = self.nec_file
             reader.post_json = self.data
-            logger.info(f"export created for site_id {self.site_id}")
+            logger.info(f"export created")
             logger.info(f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes")
 
             return reader
