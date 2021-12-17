@@ -21,6 +21,20 @@ It provides tools for:
 
     pip install nrgpy
 
+
+## Log and token files
+
+Log files and NRG Cloud token files will be generated when using the app. These files can be found
+in your '''home''' directory:
+
+### Windows
+
+```C:\Users\{username}\.nrgpy\```
+
+### Linux/Mac
+
+```/home/{username}/.nrgpy/```
+
 ## Examples
 
 ### RLD files
