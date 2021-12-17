@@ -63,4 +63,3 @@ from .utils.encodings import convert_utf16le_to_utf8
 from .utils.ipk2lgr import ipk2lgr
 from .utils.utilities import check_platform, windows_folder_path, linux_folder_path, \
     save, load, data_months, create_spd_filename_from_cloud_export, rename_cloud_export_like_spd
-from .version import __version__
