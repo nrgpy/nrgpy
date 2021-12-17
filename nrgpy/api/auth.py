@@ -25,7 +25,7 @@ class nrg_api(object):
     """
 
     def __init__(self, client_id='', client_secret=''):
-        logger.debug(f"nrg legacy api base: {url_base}")
+        logger.debug(f"nrg legacy api init ")
         self.client_id = client_id
         self.client_secret = client_secret
 
