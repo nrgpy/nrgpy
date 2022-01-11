@@ -31,7 +31,7 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="nrgpy.convert package" href="nrgpy.convert.html" />
@@ -166,7 +166,7 @@
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -184,7 +184,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -229,7 +229,55 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>nrgpy.cloud_api package</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#submodules">
+   Submodules
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.auth">
+   nrgpy.cloud_api.auth module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.convert">
+   nrgpy.cloud_api.convert module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.export">
+   nrgpy.cloud_api.export module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.sites">
+   nrgpy.cloud_api.sites module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api">
+   Module contents
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="section" id="nrgpy-cloud-api-package">
@@ -244,6 +292,10 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.auth.</span></span><span class="sig-name descname"><span class="pre">cloud_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Parent class for NRG Cloud API functionality</p>
+<p>nrgpy simplifies usage of the NRG Cloud APIs. See the documentation for the
+cloud_api.sites, .export, and .convert modules for more information.</p>
+<p>For non-nrgpy implementations, the following Usage information may be
+helpful.</p>
 <p class="rubric">Methods</p>
 <table class="longtable table autosummary">
 <colgroup>
@@ -258,7 +310,7 @@
 <td><p>maintain a current/valid session token for data service api</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.request_session_token" title="nrgpy.cloud_api.auth.cloud_api.request_session_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code></a>()</p></td>
-<td><p>generates a new session token for convert service api</p></td>
+<td><p>Generates a new session token for convert service api</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.save_token" title="nrgpy.cloud_api.auth.cloud_api.save_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code></a>([filename])</p></td>
 <td><p>save session token in token pickle file</p></td>
@@ -281,13 +333,13 @@
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.auth.cloud_api.load_token">
-<span class="sig-name descname"><span class="pre">load_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C:/Users/drc\\.nrgpy\\.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.load_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.load_token" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/blackcap/.nrgpy/.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.load_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.load_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>read session token from pickle file</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.auth.cloud_api.maintain_session_token">
-<span class="sig-name descname"><span class="pre">maintain_session_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C:/Users/drc\\.nrgpy\\.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.maintain_session_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.maintain_session_token" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">maintain_session_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/blackcap/.nrgpy/.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.maintain_session_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.maintain_session_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>maintain a current/valid session token for data service api</p>
 </dd></dl>
 
@@ -299,10 +351,12 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.auth.cloud_api.request_session_token">
 <span class="sig-name descname"><span class="pre">request_session_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.request_session_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.request_session_token" title="Permalink to this definition">¶</a></dt>
-<dd><p>generates a new session token for convert service api</p>
-<p>requires an active account with NRG Systems. to sign
-up for an account, go to:
-<a class="reference external" href="https://cloud.nrgsystems.com">https://cloud.nrgsystems.com</a></p>
+<dd><p>Generates a new session token for convert service api</p>
+<p>Requires an active account with NRG Cloud. To sign
+up for a free account, go to:</p>
+<p><a class="reference external" href="https://cloud.nrgsystems.com">https://cloud.nrgsystems.com</a></p>
+<p>Client ID and Secret can be accessed here:</p>
+<p><a class="reference external" href="https://cloud.nrgsystems.com/data-manager/api-setup">https://cloud.nrgsystems.com/data-manager/api-setup</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -324,7 +378,7 @@ up for an account, go to:
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.auth.cloud_api.save_token">
-<span class="sig-name descname"><span class="pre">save_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C:/Users/drc\\.nrgpy\\.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.save_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.save_token" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">save_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/blackcap/.nrgpy/.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.save_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.save_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>save session token in token pickle file</p>
 </dd></dl>
 
@@ -436,7 +490,7 @@ Contributor or Administrator level access to the site to use these features.</p>
 <td><p>maintain a current/valid session token for data service api</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
-<td><p>generates a new session token for convert service api</p></td>
+<td><p>Generates a new session token for convert service api</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
 <td><p>save session token in token pickle file</p></td>
@@ -570,7 +624,7 @@ must be a multiple of the logger’s statistical interval</p>
 <td><p>maintain a current/valid session token for data service api</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
-<td><p>generates a new session token for convert service api</p></td>
+<td><p>Generates a new session token for convert service api</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
 <td><p>save session token in token pickle file</p></td>
@@ -640,7 +694,7 @@ sites_df : pandas dataframe</p>
 <td><p>maintain a current/valid session token for data service api</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
-<td><p>generates a new session token for convert service api</p></td>
+<td><p>Generates a new session token for convert service api</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
 <td><p>save session token in token pickle file</p></td>
@@ -688,8 +742,8 @@ sites_df : pandas dataframe</p>
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="nrgpy.api.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -706,19 +760,17 @@ sites_df : pandas dataframe</p>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Author<br/>
-        
-            &copy; Copyright 2021, Author.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Author<br/>
+    
+        &copy; Copyright 2021, Author.<br/>
+  </p>
+</footer>
 </main>
 
 
