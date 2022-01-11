@@ -10,17 +10,53 @@ import pickle
 import requests
 
 url_base = 'https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/'
-
 token_url = url_base + 'token'
 convert_url = url_base + 'data/convert'
 export_url = url_base + 'data/export'
 sites_url = url_base + "sites"
 
 
-
 class cloud_api(object):
     """
     Parent class for NRG Cloud API functionality
+
+    Summary
+    -----
+
+    nrgpy simplifies usage of the NRG Cloud APIs. See the documentation for the
+    cloud_api.sites, .export, and .convert modules for more information.
+
+    For non-nrgpy implementations, the following Usage information may be
+    helpful.
+
+    Usage
+    -----
+
+    The base url for the NRG Cloud APIs is
+
+    https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/
+
+    Use client ID and secret to obtain a bearer token at the /token endpoint.
+    This token is good for 24 hours.
+
+    You will be limited to creating 10 tokens per day, though normally one
+    token should suffice, so please cache. nrgpy's cloud_api modules will
+    automatically manage bearer tokens, refreshing only when necessary.
+
+    Endpoints
+    ---------
+
+    base
+        https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/
+    /token
+        for accessing bearer token. Client ID and Secret required.
+    /sites
+        Get list of sites. Bearer token required
+    /convert
+        Convert RLD file to TXT. Bearer token required
+    /export
+        Export TXT or RLD files for a given date range. NEC files may be used
+        to format TXT outputs. Bearer  token required.
     """
 
     def __init__(self, client_id='', client_secret=''):
@@ -35,11 +71,17 @@ class cloud_api(object):
             logger.error('[Access error] Valid credentials are required. Please visit https://cloud.nrgsystems.com/data-manager/api-setup to access your API credentials')
 
     def request_session_token(self):
-        """generates a new session token for convert service api
+        """Generates a new session token for convert service api
 
-        requires an active account with NRG Systems. to sign
-        up for an account, go to:
+        Requires an active account with NRG Cloud. To sign
+        up for a free account, go to:
+
         https://cloud.nrgsystems.com
+
+        Client ID and Secret can be accessed here:
+
+        https://cloud.nrgsystems.com/data-manager/api-setup
+
 
         Parameters
         ----------

@@ -14,17 +14,6 @@ Subpackages
    nrgpy.read
    nrgpy.utils
 
-Submodules
-----------
-
-nrgpy.version module
---------------------
-
-.. automodule:: nrgpy.version
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 
