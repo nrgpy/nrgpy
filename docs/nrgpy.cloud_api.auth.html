@@ -220,6 +220,26 @@ This token is good for 24 hours.</p>
 <p>You will be limited to creating 10 tokens per day, though normally one
 token should suffice, so please cache. nrgpy’s cloud_api modules will
 automatically manage bearer tokens, refreshing only when necessary.</p>
+<p>Endpoints:</p>
+<dl class="simple">
+<dt>base</dt><dd><p><a class="reference external" href="https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/">https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/</a></p>
+</dd>
+</dl>
+<dl class="option-list">
+<dt><kbd><span class="option">/token</span></kbd></dt>
+<dd><p>for accessing bearer token. Client ID and Secret required.</p>
+</dd>
+<dt><kbd><span class="option">/sites</span></kbd></dt>
+<dd><p>Get list of sites. Bearer token required</p>
+</dd>
+<dt><kbd><span class="option">/convert</span></kbd></dt>
+<dd><p>Convert RLD file to TXT. Bearer token required</p>
+</dd>
+<dt><kbd><span class="option">/export</span></kbd></dt>
+<dd><p>Export TXT or RLD files for a given date range. NEC files may be used
+to format TXT outputs. Bearer  token required.</p>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table class="longtable table autosummary">
 <colgroup>
