@@ -213,6 +213,13 @@
 cloud_api.sites, .export, and .convert modules for more information.</p>
 <p>For non-nrgpy implementations, the following Usage information may be
 helpful.</p>
+<p>The base url for the NRG Cloud APIs is</p>
+<p><a class="reference external" href="https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/">https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/</a></p>
+<p>Use client ID and secret to obtain a bearer token at the /token endpoint.
+This token is good for 24 hours.</p>
+<p>You will be limited to creating 10 tokens per day, though normally one
+token should suffice, so please cache. nrgpy’s cloud_api modules will
+automatically manage bearer tokens, refreshing only when necessary.</p>
 <p class="rubric">Methods</p>
 <table class="longtable table autosummary">
 <colgroup>

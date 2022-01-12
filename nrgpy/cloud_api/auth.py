@@ -20,17 +20,11 @@ class cloud_api(object):
     """
     Parent class for NRG Cloud API functionality
 
-    Summary
-    -----
-
     nrgpy simplifies usage of the NRG Cloud APIs. See the documentation for the
     cloud_api.sites, .export, and .convert modules for more information.
 
     For non-nrgpy implementations, the following Usage information may be
     helpful.
-
-    Usage
-    -----
 
     The base url for the NRG Cloud APIs is
 
