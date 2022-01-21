@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'nrgpy'
-copyright = '2021, Author'
-author = 'Author'
+copyright = '2022, NRG Systems, Inc.'
+author = 'NRG Systems, Inc.'
 
 
 # -- General configuration ---------------------------------------------------

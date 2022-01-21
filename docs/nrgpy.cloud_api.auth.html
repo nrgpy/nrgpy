@@ -31,7 +31,7 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -164,7 +164,7 @@
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -182,24 +182,14 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+        <div class="d-none d-md-block col-md-2 bd-toc show">
             
         </div>
     </div>
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>nrgpy.cloud_api.auth module</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                    </div>
-                </div>
-            </div>
-            
+        
               <div>
                 
   <div class="section" id="module-nrgpy.cloud_api.auth">
@@ -220,26 +210,6 @@ This token is good for 24 hours.</p>
 <p>You will be limited to creating 10 tokens per day, though normally one
 token should suffice, so please cache. nrgpy’s cloud_api modules will
 automatically manage bearer tokens, refreshing only when necessary.</p>
-<p>Endpoints:</p>
-<dl class="simple">
-<dt>base</dt><dd><p><a class="reference external" href="https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/">https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/</a></p>
-</dd>
-</dl>
-<dl class="option-list">
-<dt><kbd><span class="option">/token</span></kbd></dt>
-<dd><p>for accessing bearer token. Client ID and Secret required.</p>
-</dd>
-<dt><kbd><span class="option">/sites</span></kbd></dt>
-<dd><p>Get list of sites. Bearer token required</p>
-</dd>
-<dt><kbd><span class="option">/convert</span></kbd></dt>
-<dd><p>Convert RLD file to TXT. Bearer token required</p>
-</dd>
-<dt><kbd><span class="option">/export</span></kbd></dt>
-<dd><p>Export TXT or RLD files for a given date range. NEC files may be used
-to format TXT outputs. Bearer  token required.</p>
-</dd>
-</dl>
 <p class="rubric">Methods</p>
 <table class="longtable table autosummary">
 <colgroup>
@@ -277,13 +247,13 @@ to format TXT outputs. Bearer  token required.</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.auth.cloud_api.load_token">
-<span class="sig-name descname"><span class="pre">load_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/blackcap/.nrgpy/.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.load_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.load_token" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C:/Users/drc\\.nrgpy\\.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.load_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.load_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>read session token from pickle file</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.auth.cloud_api.maintain_session_token">
-<span class="sig-name descname"><span class="pre">maintain_session_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/blackcap/.nrgpy/.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.maintain_session_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.maintain_session_token" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">maintain_session_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C:/Users/drc\\.nrgpy\\.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.maintain_session_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.maintain_session_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>maintain a current/valid session token for data service api</p>
 </dd></dl>
 
@@ -322,7 +292,7 @@ up for a free account, go to:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.auth.cloud_api.save_token">
-<span class="sig-name descname"><span class="pre">save_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/blackcap/.nrgpy/.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.save_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.save_token" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">save_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C:/Users/drc\\.nrgpy\\.cloud_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#cloud_api.save_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api.save_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>save session token in token pickle file</p>
 </dd></dl>
 
@@ -353,21 +323,23 @@ up for a free account, go to:</p>
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
+        
+            <!-- Previous / next buttons -->
 <div class='prev-next-area'>
 </div>
-            
+        
         </div>
     </div>
     <footer class="footer">
-  <p>
-    
-      By Author<br/>
-    
-        &copy; Copyright 2021, Author.<br/>
-  </p>
-</footer>
+    <div class="container">
+      <p>
+        
+          By NRG Systems, Inc.<br/>
+        
+            &copy; Copyright 2022, NRG Systems, Inc..<br/>
+      </p>
+    </div>
+  </footer>
 </main>
 
 
