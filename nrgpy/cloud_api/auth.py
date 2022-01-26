@@ -37,8 +37,7 @@ class cloud_api(object):
     token should suffice, so please cache. nrgpy's cloud_api modules will
     automatically manage bearer tokens, refreshing only when necessary.
 
-    Endpoints
-    ---------
+    Endpoints:
 
     base
         https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/

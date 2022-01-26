@@ -1,3 +1,7 @@
+try:
+    from nrgpy import logger
+except ImportError:
+    pass
 from datetime import datetime
 import io
 from nrgpy.utils.utilities import affirm_directory, date_check, draw_progress_bar
@@ -108,6 +112,7 @@ class nrg_api_convert(nrg_api):
         affirm_directory(self.out_dir)
 
         if filename:
+            self.filename = filename
             self.pad = 1
             self.counter = 1
             self.raw_count = 1
@@ -198,7 +203,7 @@ class nrg_api_convert(nrg_api):
             if self.progress_bar is False:
                 print("[FAILED]")
 
-            logger.error(f"unable to convert {os.path.basename(out_filename)}")
+            logger.error(f"unable to convert {os.path.basename(self.filename)}")
             logger.debug(e)
             print('unable to process file: {0}'.format(rld))
             print(e)
