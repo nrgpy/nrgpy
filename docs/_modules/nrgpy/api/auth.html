@@ -31,7 +31,7 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -165,14 +165,24 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
         </div>
     </div>
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <h1>Source code for nrgpy.api.auth</h1><div class="highlight"><pre>
@@ -203,13 +213,17 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;nrg legacy api init &quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">=</span> <span class="n">client_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span> <span class="o">=</span> <span class="n">client_secret</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">:</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">maintain_session_token</span><span class="p">()</span>
+
         <span class="k">else</span><span class="p">:</span>
+
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Access error] Valid credentials are required.</span><span class="se">\n</span><span class="s1">Please contact support@nrgsystems.com or visit </span><span class="se">\n</span><span class="s1">https://services.nrgsystems.com for API access&#39;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;[Access error] Valid credentials are required. Please  API credentials&#39;</span><span class="p">)</span>
 
@@ -243,13 +257,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;unable to get session token&quot;</span><span class="p">)</span>
+
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK]&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;new session token OK&quot;</span><span class="p">)</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;bearer token: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
         <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;unable to get session token&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED] | unable to get session token.&quot;</span><span class="p">)</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="nrg_api.token_valid"><a class="viewcode-back" href="../../../nrgpy.api.auth.html#nrgpy.api.auth.nrg_api.token_valid">[docs]</a>    <span class="k">def</span> <span class="nf">token_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -266,7 +286,9 @@
 <span class="sd">            true if still valid, false if expired</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">18</span><span class="p">):</span>
+
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+
                 <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">return</span> <span class="kc">False</span></div>
@@ -274,48 +296,54 @@
 <div class="viewcode-block" id="nrg_api.save_token"><a class="viewcode-back" href="../../../nrgpy.api.auth.html#nrgpy.api.auth.nrg_api.save_token">[docs]</a>    <span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;save session token in token pickle file&quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+
             <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span><span class="p">],</span> <span class="n">f</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="nrg_api.load_token"><a class="viewcode-back" href="../../../nrgpy.api.auth.html#nrgpy.api.auth.nrg_api.load_token">[docs]</a>    <span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;read session token from pickle file&quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="nrg_api.maintain_session_token"><a class="viewcode-back" href="../../../nrgpy.api.auth.html#nrgpy.api.auth.nrg_api.maintain_session_token">[docs]</a>    <span class="k">def</span> <span class="nf">maintain_session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;maintain a current/valid session token for data service api&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">load_token</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_valid</span><span class="p">():</span>
+
                 <span class="bp">self</span><span class="o">.</span><span class="n">request_session_token</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">save_token</span><span class="p">()</span>
+
         <span class="k">except</span><span class="p">:</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">request_session_token</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save_token</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="nrg_api.prepare_file_bytes"><a class="viewcode-back" href="../../../nrgpy.api.auth.html#nrgpy.api.auth.nrg_api.prepare_file_bytes">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_file_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="n">file_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">encodebytes</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
         <span class="k">return</span> <span class="n">file_bytes</span></div></div>
 </pre></div>
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By NRG Systems, Inc.<br/>
-        
-            &copy; Copyright 2022, NRG Systems, Inc..<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By NRG Systems, Inc.<br/>
+    
+        &copy; Copyright 2022, NRG Systems, Inc..<br/>
+  </p>
+</footer>
 </main>
 
 

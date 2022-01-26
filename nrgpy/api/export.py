@@ -7,6 +7,7 @@ from nrgpy.utils.utilities import affirm_directory
 from .auth import nrg_api, export_url
 import os
 import requests
+import traceback
 import zipfile
 
 
@@ -112,60 +113,76 @@ class nrg_api_export(nrg_api):
 
         self.data = {
             'serialnumber': self.serial_number,
-            # 'sitenumber': self.site_number,
             'startdate': self.start_date,
             'enddate': self.end_date,
             'exporttype': self.export_type,
             'necfilebytes': self.encoded_nec_bytes
         }
 
+        logger.debug(self.data)
+
         self.request_time = datetime.now()
         self.resp = requests.post(data=self.data, url=export_url, headers=self.headers)
         self.request_duration = datetime.now() - self.request_time
 
-        if self.resp.status_code == 200:
-            with open(self.filepath, 'wb') as f:
-                f.write(self.resp.content)
+        logger.debug(self.resp)
+        logger.debug(self.request_duration)
 
-            with zipfile.ZipFile(self.filepath, 'r') as z:
-                data_file = z.namelist()[0]
-                z.extractall(self.out_dir)
+        try:
 
-            reader = sympro_txt_read(
-                filename=os.path.join(self.out_dir, data_file),
-                text_timestamps=self.text_timestamps
-            )
-            reader.format_site_data()
+            if self.resp.status_code == 200:
 
-            try:
-                self.serial_number = reader.logger_sn
-                self.site_number = reader.site_number
-            except AttributeError:
-                pass
+                with open(self.filepath, 'wb') as f:
+                    f.write(self.resp.content)
 
-            os.remove(self.filepath)
-            os.remove(os.path.join(self.out_dir, data_file))
+                with zipfile.ZipFile(self.filepath, 'r') as z:
+                    data_file = z.namelist()[0]
+                    z.extractall(self.out_dir)
 
-            if self.save_file:
-                if not self.out_file:
-                    self.out_file = f'{self.site_number}_{self.start_date}_{self.end_date}.txt'.replace(':', '.').replace(' ', '')
+                reader = sympro_txt_read(
+                    filename=os.path.join(self.out_dir, data_file),
+                    text_timestamps=self.text_timestamps
+                )
+                reader.format_site_data()
 
-                else:
-                    self.out_file = os.path.join(self.out_dir, self.txt_file)
-                reader.output_txt_file(standard=True, out_file=self.out_file)
+                try:
 
-            del self.data['necfilebytes']
-            self.data['nec_file'] = self.nec_file
-            reader.post_json = self.data
-            logger.info(f"export created")
-            logger.info(f"export took {self.request_duration}")
+                    self.serial_number = reader.logger_sn
+                    self.site_number = reader.site_number
 
-            return reader
+                except AttributeError:
 
-        else:
-            logger.error(f"export not created")
-            logger.debug(f"{self.resp.status_code} | {self.resp.reason}")
-            logger.debug(self.resp.text.split(':')[1].split('"')[1])
-            print(self.resp.status_code)
-            print(self.resp.reason)
-            return False
+                    pass
+
+                os.remove(self.filepath)
+                os.remove(os.path.join(self.out_dir, data_file))
+
+                if self.save_file:
+
+                    if not self.out_file:
+
+                        self.out_file = f'{self.site_number}_{self.start_date}_{self.end_date}.txt'.replace(':', '.').replace(' ', '')
+
+                    else:
+                        self.out_file = os.path.join(self.out_dir, self.txt_file)
+
+                    reader.output_txt_file(standard=True, out_file=self.out_file)
+
+                del self.data['necfilebytes']
+                self.data['nec_file'] = self.nec_file
+                reader.post_json = self.data
+                logger.info(f"export created")
+                logger.info(f"export took {self.request_duration}")
+
+                return reader
+
+            else:
+
+                logger.error(f"export not created")
+                logger.debug(traceback.format_exc())
+
+                return False
+
+        except:
+
+            logger.debug(traceback.format_exc())

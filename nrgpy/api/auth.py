@@ -25,13 +25,17 @@ class nrg_api(object):
     """
 
     def __init__(self, client_id='', client_secret=''):
+
         logger.debug(f"nrg legacy api init ")
         self.client_id = client_id
         self.client_secret = client_secret
 
         if self.client_id and self.client_secret:
+
             self.maintain_session_token()
+
         else:
+
             print('[Access error] Valid credentials are required.\nPlease contact support@nrgsystems.com or visit \nhttps://services.nrgsystems.com for API access')
             logger.error('[Access error] Valid credentials are required. Please  API credentials')
 
@@ -65,13 +69,19 @@ class nrg_api(object):
         self.session_start_time = datetime.now()
 
         if self.resp.status_code == 200:
-            logger.error("unable to get session token")
+
             logger.debug(f"{self.resp.text}")
             print("[OK]")
             logger.info("new session token OK")
+
             self.session_token = json.loads(self.resp.text)['access_token']
+            logger.debug(f"bearer token: {self.session_token}")
+
         else:
+
+            logger.error("unable to get session token")
             print("[FAILED] | unable to get session token.")
+
             self.session_token = False
 
     def token_valid(self):
@@ -88,7 +98,9 @@ class nrg_api(object):
             true if still valid, false if expired
         """
         if datetime.now() < self.session_start_time + timedelta(hours=18):
+
             if self.session_token is not False:
+
                 return True
 
         return False
@@ -96,24 +108,32 @@ class nrg_api(object):
     def save_token(self, filename=token_file):
         """save session token in token pickle file"""
         with open(filename, 'wb') as f:
+
             pickle.dump([self.session_token, self.session_start_time], f)
 
     def load_token(self, filename=token_file):
         """read session token from pickle file"""
         with open(filename, 'rb') as f:
+
             self.session_token, self.session_start_time = pickle.load(f)
 
     def maintain_session_token(self, filename=token_file):
         """maintain a current/valid session token for data service api"""
         try:
+
             self.load_token(filename=token_file)
+
             if not self.token_valid():
+
                 self.request_session_token()
                 self.save_token()
+
         except:
+
             self.request_session_token()
             self.save_token()
 
     def prepare_file_bytes(self, filename=''):
         file_bytes = base64.encodebytes(open(filename, 'rb').read())
+
         return file_bytes
