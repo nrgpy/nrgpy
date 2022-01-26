@@ -24,13 +24,17 @@ def test_endpoints():
 
             resp = requests.get(url)
 
-            if resp.status_code > 404 or resp.status_code < 400:
+            if ( resp.status_code > 404 or resp.status_code < 400 ) and resp.status_code != 500:
 
                 print(f"Could not resolve {url}")
                 logger.error(f"test failed: could not resolve {url}")
                 logger.debug(f"resp.status_code = {resp.status_code}")
                 logger.debug(f"resp.text = {resp.text}")
                 return False
+
+            else:
+
+                logger.debug(f"{url} resolved ok")
 
         except:
 
