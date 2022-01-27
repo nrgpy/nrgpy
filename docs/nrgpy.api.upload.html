@@ -202,8 +202,65 @@
             
               <div>
                 
-  <div class="section" id="nrgpy-api-upload-module">
-<h1>nrgpy.api.upload module<a class="headerlink" href="#nrgpy-api-upload-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-nrgpy.api.upload">
+<span id="nrgpy-api-upload-module"></span><h1>nrgpy.api.upload module<a class="headerlink" href="#module-nrgpy.api.upload" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.api.upload.nrg_api_upload">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.api.upload.</span></span><span class="sig-name descname"><span class="pre">nrg_api_upload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rld_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/upload.html#nrg_api_upload"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.upload.nrg_api_upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nrgpy.api.auth.html#nrgpy.api.auth.nrg_api" title="nrgpy.api.auth.nrg_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.api.auth.nrg_api</span></code></a></p>
+<p class="rubric">Methods</p>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code>([filename])</p></td>
+<td><p>read session token from pickle file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code>([filename])</p></td>
+<td><p>maintain a current/valid session token for data service api</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
+<td><p>generates a new session token for convert service api</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
+<td><p>save session token in token pickle file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code>()</p></td>
+<td><p>check if token is still valid</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>prepare_file_bytes</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>upload_directory</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>upload_file</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.api.upload.nrg_api_upload.upload_directory">
+<span class="sig-name descname"><span class="pre">upload_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/upload.html#nrg_api_upload.upload_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.upload.nrg_api_upload.upload_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.api.upload.nrg_api_upload.upload_file">
+<span class="sig-name descname"><span class="pre">upload_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/upload.html#nrg_api_upload.upload_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.upload.nrg_api_upload.upload_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 
