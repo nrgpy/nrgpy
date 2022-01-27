@@ -202,8 +202,121 @@
             
               <div>
                 
-  <div class="section" id="nrgpy-api-export-module">
-<h1>nrgpy.api.export module<a class="headerlink" href="#nrgpy-api-export-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-nrgpy.api.export">
+<span id="nrgpy-api-export-module"></span><h1>nrgpy.api.export module<a class="headerlink" href="#module-nrgpy.api.export" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.api.export.nrg_api_export">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.api.export.</span></span><span class="sig-name descname"><span class="pre">nrg_api_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2014-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2023-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nec_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'meas'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_timestamps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/export.html#nrg_api_export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.export.nrg_api_export" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nrgpy.api.auth.html#nrgpy.api.auth.nrg_api" title="nrgpy.api.auth.nrg_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.api.auth.nrg_api</span></code></a></p>
+<p>Uses NRG hosted web-based API to download data in text format
+To sign up for the service, go to <a class="reference external" href="https://services.nrgsystems.com/">https://services.nrgsystems.com/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>out_dir</strong><span class="classifier">str</span></dt><dd><p>path to save exported data</p>
+</dd>
+<dt><strong>out_file</strong><span class="classifier">str</span></dt><dd><p>(optional) filename to save</p>
+</dd>
+<dt><strong>serial_number</strong><span class="classifier">str or int</span></dt><dd><p>serial number of data logger (like, 820612345)</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
+times are in logger local time</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
+times are in logger local time</p>
+</dd>
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>save_file</strong><span class="classifier">bool</span></dt><dd><p>(True) whether to save the result to file</p>
+</dd>
+<dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
+</dd>
+<dt><strong>text_timestamps</strong><span class="classifier">bool</span></dt><dd><p>get export data with text timestamps instead of datetime</p>
+</dd>
+<dt><strong>export_type</strong><span class="classifier">str</span></dt><dd><p>[meas], samples, diag, comm</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>object</dt><dd><p>export object that includes an nrgpy reader object</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Download 3 days of data with an NEC file applied</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exporter</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">nrg_api_export</span><span class="p">(</span>
+<span class="go">        client_id=client_id,</span>
+<span class="go">        client_secret=client_secret,</span>
+<span class="go">        out_dir=txt_dir,</span>
+<span class="go">        nec_file=&#39;12vbat.nec&#39;,</span>
+<span class="go">        serial_number=820600019,</span>
+<span class="go">        start_date=&quot;2020-05-01&quot;,</span>
+<span class="go">        end_date=&quot;2020-05-03&quot;,</span>
+<span class="go">        text_timestamps=False,</span>
+<span class="go">        save_file=False</span>
+<span class="go">    )</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">exporter</span><span class="o">.</span><span class="n">reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">format_site_data</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">reader</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Site number               : </span><span class="si">{</span><span class="n">reader</span><span class="o">.</span><span class="n">site_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Site description          : </span><span class="si">{</span><span class="n">reader</span><span class="o">.</span><span class="n">site_description</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">reader</span><span class="o">.</span><span class="n">interval_check</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">check_intervals</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">else</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unable to get reader&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Methods</p>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code>([filename])</p></td>
+<td><p>read session token from pickle file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code>([filename])</p></td>
+<td><p>maintain a current/valid session token for data service api</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code>()</p></td>
+<td><p>generates a new session token for convert service api</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code>([filename])</p></td>
+<td><p>save session token in token pickle file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code>()</p></td>
+<td><p>check if token is still valid</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>export</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>prepare_file_bytes</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.api.export.nrg_api_export.export">
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/export.html#nrg_api_export.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.export.nrg_api_export.export" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 
