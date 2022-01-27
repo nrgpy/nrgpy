@@ -4,11 +4,12 @@ except ImportError:
     pass
 from datetime import datetime
 import os
+import psutil
 import subprocess
 import time
 import traceback
 from nrgpy.api.convert import nrg_api_convert
-from nrgpy.utils.utilities import check_platform, windows_folder_path, affirm_directory, count_files
+from nrgpy.utils.utilities import check_platform, windows_folder_path, affirm_directory, count_files, is_sympro_running
 
 
 class local(object):
@@ -76,7 +77,11 @@ class local(object):
             self.site_filter = self.file_filter
 
         if check_platform() == 'win32':
-            if filename:
+            if is_sympro_running():
+                print("SymphoniePRO Desktop is already running. Please close it and try again.")
+                logger.error("SymphoniePRO Desktop is already running so it could not be run")
+
+            elif filename:
                 affirm_directory(self.out_dir)
                 self.single_file(filepath=filename)
         else:
@@ -166,6 +171,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             txt_count = count_files(self.out_dir, self.site_filter, 'txt', start_time=self.start_time)
             log_count, log_files = count_files(self.out_dir, self.site_filter, 'log', show_files=True, start_time=self.start_time)
 
+            logger.info(f"IN: {rld_count}, OUT: {txt_count}, FAILED: {log_count}")
             print('RLDs in    : {}'.format(rld_count))
             print('TXTs out   : {}'.format(txt_count))
             print('LOGs out   : {}'.format(log_count))
@@ -276,9 +282,17 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
         self.cmd = cmd
 
         try:
-            print("{0} ... \t\t".format(filepath), end="", flush=True)
-            subprocess.run(" ".join(cmd), stdout=subprocess.PIPE)
-            print("[DONE]")
+            print("{0} ... \t".format(filepath), end="", flush=True)
+            p = subprocess.run(" ".join(cmd), stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+
+            if "File does not" in p.stdout.decode() or "Decryption failed" in p.stdout.decode():
+                print("[FAILED]")
+                print(f"{p.stdout.decode()}")
+                logger.error(f"{p.stdout.decode()}")
+
+            else:
+                logger.info(f"{p.stdout.decode()}")
+                print("[DONE]")
 
         except:
             logger.error("processing {0} FAILED".format(filepath))
@@ -288,7 +302,6 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
 
         logger.info("files in {0} processed OK".format(self.rld_dir))
         logger.info("TXT files saved to {0}".format(self.out_dir))
-        print("\nQueue processed\n")
 
 
 nrg_convert_api = nrg_api_convert
