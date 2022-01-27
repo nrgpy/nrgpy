@@ -329,3 +329,17 @@ def rename_cloud_export_like_spd(filepath):
         logger.debug(traceback.format_exc())
         print(traceback.format_exc())
         return False
+
+
+def is_sympro_running():
+    """checks pid list for instance of sympro running"""
+
+    import psutil
+
+    if psutil.WINDOWS:
+        for pid in psutil.pids():
+            p = psutil.Process(pid)
+            if p.name() == "SymPRODesktop.exe":
+                return True
+
+    return False

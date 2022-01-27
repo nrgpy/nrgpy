@@ -517,6 +517,20 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
         <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="is_sympro_running"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.is_sympro_running">[docs]</a><span class="k">def</span> <span class="nf">is_sympro_running</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;checks pid list for instance of sympro running&quot;&quot;&quot;</span>
+
+    <span class="kn">import</span> <span class="nn">psutil</span>
+
+    <span class="k">if</span> <span class="n">psutil</span><span class="o">.</span><span class="n">WINDOWS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">pids</span><span class="p">():</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;SymPRODesktop.exe&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span></div>
 </pre></div>
 
               </div>
@@ -531,9 +545,9 @@
     <footer class="footer">
   <p>
     
-      By Author<br/>
+      By NRG Systems, Inc.<br/>
     
-        &copy; Copyright 2021, Author.<br/>
+        &copy; Copyright 2022, NRG Systems, Inc..<br/>
   </p>
 </footer>
 </main>
