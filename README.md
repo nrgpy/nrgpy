@@ -1,8 +1,8 @@
 # ![NRGPy](https://www.gravatar.com/avatar/6282094b092c756acc9f7552b164edfe?s=24) nrgpy
 
-**nrgpy** is the Python package for processing NRG Data Files
-
 ![pypi](https://img.shields.io/pypi/v/nrgpy)
+
+**nrgpy** is the Python package for processing NRG Data Files
 
 - Website and source: <https://github.com/nrgpy/nrgpy>
 - Documentation: <https://nrgpy.github.io/nrgpy/index.html>
