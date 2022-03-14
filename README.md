@@ -2,25 +2,27 @@
 
 **nrgpy** is the Python package for processing NRG Data Files
 
-- Website and source: https://github.com/nrgpy/nrgpy
-- Documentation: https://nrgpy.github.io/nrgpy/index.html
+![pypi](https://img.shields.io/pypi/v/nrgpy)
+
+- Website and source: <https://github.com/nrgpy/nrgpy>
+- Documentation: <https://nrgpy.github.io/nrgpy/index.html>
 - Support: support@nrgsystems.com
 
 It provides tools for:
 
 - Converting binary ".rld" and ".rwd files to text format
-    - using locally installed SymphoniePRO Desktop Software and Symphonie Data Retriever
-    - using NRG Cloud API (compatible with Linux!) *(SymphoniePRO only at this time)
+  - using locally installed SymphoniePRO Desktop Software and Symphonie Data Retriever
+  - using NRG Cloud API (compatible with Linux!) *(SymphoniePRO only at this time)
 - Reading Symphonie text exports into Pandas dataframes
 - Reading Spidar zip/csv files into Pandas dataframes
 - Timestamp adjustment (of text files)
 - Simple quality checks on data
 
 ***
+
 ## Installation
 
     pip install nrgpy
-
 
 ## Log and token files
 
@@ -36,6 +38,8 @@ in your '''home''' directory:
 ```/home/{username}/.nrgpy/```
 
 ## Examples
+
+For more examples see the Documentation:  <https://nrgpy.github.io/nrgpy/index.html>
 
 ### RLD files
 
@@ -69,6 +73,7 @@ converter.process()
 ```
 
 #### Convert a single RLD file to Text with NRG Cloud API
+
 ```python
 import nrgpy
 filename = "path/to/rld"
@@ -83,6 +88,7 @@ converter = nrgpy.cloud_convert(
 ```
 
 #### Read files
+
 ```python
 file_filter = "000110"
 import nrgpy
@@ -96,10 +102,10 @@ reader.concat_txt(
 )
 ```
 
-
 ### RWD files
 
 #### Convert a folder of RWD files to Text with Symphonie Data Retriever
+
 ```python
 import nrgpy
 
@@ -112,6 +118,7 @@ converter.convert()
 ```
 
 #### Convert a folder of RWD files to Text with Symphonie Data Retriever _on Linux_
+
 ```python
 import nrgpy
 
@@ -129,7 +136,6 @@ converter = nrgpy.local_rwd(
             )
 converter.convert()
 ```
-
 
 You can also convert a single file with SDR, and save it in the same directory:
 
@@ -160,16 +166,15 @@ reader = nrgpy.read_text_data(data_type=dt, txt_dir=txt_dir, file_filter=file_fi
 reader.concat()
 ```
 
-
 ### Spidar files
-Spidar Vertical Profiler remote sensors generate archived csv data files.
 
- CSV archived in a Zip format.
+Spidar Vertical Profiler remote sensors generate archived csv data files in a Zip format.
 
-These can be read directly into the spidar_txt_read method. See the docstring in 
+These can be read directly into the spidar_txt_read method. See the docstring in
 spidar_txt.py for more information.
 
 Eg.
+
 ``` python
 In [1]: import nrgpy
 
