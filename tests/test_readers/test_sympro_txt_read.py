@@ -13,6 +13,7 @@ def test_sympro_txt_read(directory="tests/test_readers/test_files"):
 
     except:
         print(f"Could not create reader from test_files")
+        print(traceback.format_exc())
         logger.error("test failed: could not create reader")
         logger.debug(traceback.format_exc())
         return False
@@ -32,6 +33,4 @@ def test_sympro_txt_read(directory="tests/test_readers/test_files"):
 
 if __name__ == "__main__":
 
-    # directory = os.path.dirname(os.path.realpath(__file__))
-    # assert test_sympro_txt_read(directory=os.path.join(directory, "test_files"))
     assert test_sympro_txt_read()
