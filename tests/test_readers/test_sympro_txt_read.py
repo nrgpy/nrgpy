@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1:
         print(f"directory is {sys.argv[1]}")
-        assert test_sympro_txt_read(sys.argv[1])
+        assert test_sympro_txt_read(os.path.join(os.getcwd(), sys.argv[1]))
     else:
         print(f"directory is not specified")
         assert test_sympro_txt_read()
