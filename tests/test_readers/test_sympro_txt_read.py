@@ -29,6 +29,9 @@ def test_sympro_txt_read(directory="tests/test_readers/test_files"):
         print(f"Dataframe length {len(reader.data)} is not 850")
         return False
 
+    logger.info("Tests pass")
+    print("Tests pass!")
+
     return True
 
 

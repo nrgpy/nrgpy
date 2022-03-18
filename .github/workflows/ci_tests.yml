@@ -8,7 +8,7 @@ on:
       - master
 
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,6 +20,7 @@ jobs:
         run: |
           pip install -e .
       - name: Endpoint Test
-        run: python tests/nrgcloud_tests/endpoint_check.py
+        run: |
+          python tests/nrgcloud_tests/endpoint_check.py
       - name: SymPRO TXT Reader Test
-        run: python tests/test_readers/test_sympro_txt_read.py tests/test_readers/test_files/
+        run: python ./tests/test_readers/test_sympro_txt_read.py ./tests/test_readers/test_files/
