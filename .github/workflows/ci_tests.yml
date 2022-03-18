@@ -22,5 +22,4 @@ jobs:
       - name: Endpoint Test
         run: python tests/nrgcloud_tests/endpoint_check.py
       - name: SymPRO TXT Reader Test
-        working-directory: ./nrgpy/
         run: python tests/test_readers/test_sympro_txt_read.py
