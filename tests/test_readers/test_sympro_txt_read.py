@@ -37,6 +37,9 @@ def test_sympro_txt_read(directory="tests/test_readers/test_files"):
 
 if __name__ == "__main__":
 
+    print(f"Script directory: {os.path.dirname(os.path.abspath(__file__))}")
+    print(f"Working directory: {os.getcwd()}")
+
     if len(sys.argv) > 1:
         print(f"directory is {sys.argv[1]}")
         assert test_sympro_txt_read(sys.argv[1])

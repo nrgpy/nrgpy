@@ -23,4 +23,4 @@ jobs:
         run: |
           python tests/nrgcloud_tests/endpoint_check.py
       - name: SymPRO TXT Reader Test
-        run: python ./tests/test_readers/test_sympro_txt_read.py /home/runner/work/nrgpy/nrgpy/tests/test_readers/test_files/
+        run: python tests/test_readers/test_sympro_txt_read.py tests/test_readers/test_files/
