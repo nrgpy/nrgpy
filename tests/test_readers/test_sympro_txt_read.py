@@ -1,6 +1,7 @@
 from nrgpy import logger
 from nrgpy import sympro_txt_read
 import os
+import sys
 import traceback
 
 
@@ -33,5 +34,7 @@ def test_sympro_txt_read(directory="tests/test_readers/test_files"):
 
 if __name__ == "__main__":
 
-    directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), "test_files")
-    assert test_sympro_txt_read(directory)
+    if len(sys.argv) > 1:
+        assert test_sympro_txt_read(sys.argv[1])
+    else:
+        assert test_sympro_txt_read()
