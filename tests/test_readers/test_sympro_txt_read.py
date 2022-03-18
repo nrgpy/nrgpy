@@ -4,7 +4,7 @@ import os
 import traceback
 
 
-def test_sympro_txt_read(directory="test_files"):
+def test_sympro_txt_read(directory="tests/test_readers/test_files"):
     """Check that SymPRO TXT exports are ingested by nrgpy.sympro_txt_read"""
 
     try:
@@ -32,5 +32,6 @@ def test_sympro_txt_read(directory="test_files"):
 
 if __name__ == "__main__":
 
-    directory = os.path.dirname(os.path.realpath(__file__))
-    assert test_sympro_txt_read(directory=os.path.join(directory, "test_files"))
+    # directory = os.path.dirname(os.path.realpath(__file__))
+    # assert test_sympro_txt_read(directory=os.path.join(directory, "test_files"))
+    assert test_sympro_txt_read()
