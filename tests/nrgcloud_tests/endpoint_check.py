@@ -54,7 +54,9 @@ def test_endpoints():
 
         except:
 
+            print(f"test failed: {traceback.format_exc()}")
             logger.error(f"test failed: {traceback.format_exc()}")
+            return False
 
     logger.info(f"test passed: test_endpoints")
     return True
