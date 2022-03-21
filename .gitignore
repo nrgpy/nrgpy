@@ -15,4 +15,5 @@ raw/
 venv/
 
 !.gitignore
+!tests/test_readers/test_files/*.txt
 # !SDR_on_Linux_example.ipynb

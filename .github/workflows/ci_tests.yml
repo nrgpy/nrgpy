@@ -8,16 +8,19 @@ on:
       - master
 
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.6
+      - name: Set up Python 3.9
         uses: actions/setup-python@v1
         with:
-          python-version: 3.6
+          python-version: 3.9
       - name: Install dependencies
         run: |
           pip install -e .
       - name: Endpoint Test
-        run: python tests/nrgcloud_tests/endpoint_check.py
+        run: |
+          python tests/nrgcloud_tests/endpoint_check.py
+      - name: SymPRO TXT Reader Test
+        run: python tests/test_readers/test_sympro_txt_read.py tests/test_readers/test_files/
