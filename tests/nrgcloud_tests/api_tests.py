@@ -12,13 +12,7 @@ def test_sites_api(client_id, client_secret):
     Test account has access to site 4310, associated with logger 820604310
     """
     try:
-        print(f"client_id = {client_id[:4]}...etc.")
         sites = nrgpy.cloud_sites(client_id, client_secret)
-        print(f"Sites API hit")
-        try:
-            print(sites.sites_df)
-        except:
-            print("Unable to print sites_df")
 
         if (
             sites.sites_df["siteId"].loc[
