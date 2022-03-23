@@ -18,9 +18,14 @@ def test_sites_api(client_id, client_secret):
         )
 
         if sites.sites_df['siteId'].loc[sites.sites_df['loggerSerialNumber'] == 820604310][0] != 95:
+            print(f"Site ID != 95: SiteIds = {sites.sites_df['siteId']}")
+            logger.error(f"Site ID != 95: SiteIds = {sites.sites_df['siteId']}")
             return False
 
     except:
+        print(traceback.format_exc())
+        logger.error(traceback.format_exc())
+
         return False
 
     print("Site API test passed!")
