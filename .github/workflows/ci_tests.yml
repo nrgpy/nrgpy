@@ -26,4 +26,4 @@ jobs:
           python tests/nrgcloud_tests/endpoint_check.py
       - name: NRG Cloud API tests
         run: |
-          python tests/nrgcloud_tests/api_tests ${{secrets.NRG_CLOUD_API_CLIENT_ID}} ${{secrets.NRG_CLOUD_API_CLIENT_SECRET}}
+          python tests/nrgcloud_tests/api_tests.py ${{secrets.NRG_CLOUD_API_CLIENT_ID}} ${{secrets.NRG_CLOUD_API_CLIENT_SECRET}}
