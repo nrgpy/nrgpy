@@ -29,4 +29,4 @@ jobs:
           CLIENT_ID: ${{ secrets.NRG_CLOUD_API_CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.NRG_CLOUD_API_CLIENT_SECRET }}
         run: |
-          python tests/nrgcloud_tests/api_tests.py '${CLIENT_ID}' '${CLIENT_SECRET}'
+          python tests/nrgcloud_tests/api_tests.py $CLIENT_ID $CLIENT_SECRET
