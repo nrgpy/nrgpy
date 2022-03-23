@@ -19,8 +19,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -e .
+      - name: SymPRO TXT Reader Test
+        run: python tests/test_readers/test_sympro_txt_read.py tests/test_readers/test_files/
       - name: Endpoint Test
         run: |
           python tests/nrgcloud_tests/endpoint_check.py
-      - name: SymPRO TXT Reader Test
-        run: python tests/test_readers/test_sympro_txt_read.py tests/test_readers/test_files/
+      - name: NRG Cloud API tests
+        run: |
+          python tests/nrgcloud_tests/api_tests ${{secrets.NRG_CLOUD_API_CLIENT_ID}} ${{secrets.NRG_CLOUD_API_CLIENT_SECRET}}
