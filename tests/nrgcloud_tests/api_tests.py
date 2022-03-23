@@ -65,5 +65,5 @@ if __name__ == "__main__":
     client_id = sys.argv[1]
     client_secret = sys.argv[2]
 
-    assert test_sites_api(client_id, client_id)
+    assert test_sites_api(client_id, client_secret)
     assert test_export_api(client_id, client_secret)        
