@@ -26,7 +26,7 @@ class sympro_txt_read(object):
         and instance of the class is created, and the concat_txt function may be called to
         combine all txt files in a directory.
 
-        filter may be used on any part of the filename, to combine a subset of text files in
+        Filters may be used on any part of the filename, to combine a subset of text files in
         a directory.
 
         Parameters
@@ -260,7 +260,7 @@ class sympro_txt_read(object):
             show bar on concat [True] or list of files [False]
 
         Returns
-        ---------
+        -------
         ch_info : obj
             pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
         ch_list : list
@@ -342,6 +342,7 @@ class sympro_txt_read(object):
             if f.endswith("txt")
             and self.file_filter in f
             and self.filter2 in f
+            and self.file_type in f
             and date_check(self.start_date, self.end_date, f)
         ]
 
@@ -372,7 +373,7 @@ class sympro_txt_read(object):
 
                 try:
                     base = sympro_txt_read(f, text_timestamps=self.text_timestamps)
-                    if progress_bar != True:
+                    if not progress_bar:
                         print("[OK]")
                     self.txt_file_names.append(os.path.basename(f))
                 except IndexError:

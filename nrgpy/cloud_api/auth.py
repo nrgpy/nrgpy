@@ -8,11 +8,14 @@ from datetime import datetime, timedelta
 import json
 import pickle
 import requests
+import traceback
 
-url_base = 'https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/'
-token_url = url_base + 'token'
-convert_url = url_base + 'data/convert'
-export_url = url_base + 'data/export'
+url_base = "https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/"
+token_url = url_base + "token"
+convert_url = url_base + "data/convert"
+export_url = url_base + "data/export"
+create_export_job_url = url_base + "data/createexportjob"
+export_job_url = url_base + "data/exportjob"
 sites_url = url_base + "sites"
 
 
@@ -52,7 +55,7 @@ class cloud_api(object):
         to format TXT outputs. Bearer  token required.
     """
 
-    def __init__(self, client_id='', client_secret=''):
+    def __init__(self, client_id="", client_secret=""):
         logger.debug(f"cloud base: {url_base}")
         self.client_id = client_id
         self.client_secret = client_secret
@@ -60,8 +63,12 @@ class cloud_api(object):
         if self.client_id and self.client_secret:
             self.maintain_session_token()
         else:
-            print('[Access error] Valid credentials are required.\n\nPlease visit https://cloud.nrgsystems.com/data-manager/api-setup\nto access your API credentials')
-            logger.error('[Access error] Valid credentials are required. Please visit https://cloud.nrgsystems.com/data-manager/api-setup to access your API credentials')
+            print(
+                "[Access error] Valid credentials are required.\n\nPlease visit https://cloud.nrgsystems.com/data-manager/api-setup\nto access your API credentials"
+            )
+            logger.error(
+                "[Access error] Valid credentials are required. Please visit https://cloud.nrgsystems.com/data-manager/api-setup to access your API credentials"
+            )
 
     def request_session_token(self):
         """Generates a new session token for convert service api
@@ -90,18 +97,31 @@ class cloud_api(object):
             start time of 24 hour countdown
         """
         logger.debug("session token requested")
-        print("{} | Requesting session token ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')), end="", flush=True)
+        print(
+            "{} | Requesting session token ... ".format(
+                datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            ),
+            end="",
+            flush=True,
+        )
 
-        request_token_header = {'content-type': 'application/json'}
-        request_payload = {'clientId': '{}'.format(self.client_id), 'clientSecret': '{}'.format(self.client_secret)}
+        request_token_header = {"content-type": "application/json"}
+        request_payload = {
+            "clientId": "{}".format(self.client_id),
+            "clientSecret": "{}".format(self.client_secret),
+        }
 
-        self.resp = requests.post(data=json.dumps(request_payload), headers=request_token_header, url=token_url)
+        self.resp = requests.post(
+            data=json.dumps(request_payload),
+            headers=request_token_header,
+            url=token_url,
+        )
         self.session_start_time = datetime.now()
 
         if self.resp.status_code == 200:
             print("[OK]")
             logger.info("new session token OK")
-            self.session_token = json.loads(self.resp.text)['apiToken']
+            self.session_token = json.loads(self.resp.text)["apiToken"]
         else:
             logger.error("unable to get session token")
             logger.debug(f"{self.resp.text}")
@@ -130,12 +150,12 @@ class cloud_api(object):
 
     def save_token(self, filename=token_file):
         """save session token in token pickle file"""
-        with open(filename, 'wb') as f:
+        with open(filename, "wb") as f:
             pickle.dump([self.session_token, self.session_start_time], f)
 
     def load_token(self, filename=token_file):
         """read session token from pickle file"""
-        with open(filename, 'rb') as f:
+        with open(filename, "rb") as f:
             self.session_token, self.session_start_time = pickle.load(f)
 
     def maintain_session_token(self, filename=token_file):
@@ -149,6 +169,20 @@ class cloud_api(object):
             self.request_session_token()
             self.save_token()
 
-    def prepare_file_bytes(self, filename=''):
-        file_bytes = base64.encodebytes(open(filename, 'rb').read())
+    def prepare_file_bytes(self, filename=""):
+        file_bytes = base64.encodebytes(open(filename, "rb").read())
         return file_bytes
+
+
+def is_authorized(resp):
+    if resp.status_code == 401 or resp.status_code == 400:
+        try:
+            logger.error(json.loads(resp.text)["apiResponseMessage"])
+            print(json.loads(resp.text)["apiResponseMessage"])
+        except:
+            logger.error("Unable to process request")
+            logger.debug(traceback.format_exc())
+            print("Unable to complete request.  Check nrpy log file for details")
+        return False
+
+    return True

@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nrgpy.utils.utilities &#8212; nrgpy  documentation</title>
     
-  <link href="../../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +19,17 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,7 +39,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -50,14 +62,10 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
       
@@ -126,57 +134,77 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <!-- Source interaction buttons -->
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
             
         </div>
     </div>
+    <div id="rtd-footer-container"></div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1></h1>
@@ -187,7 +215,8 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <h1>Source code for nrgpy.utils.utilities</h1><div class="highlight"><pre>
@@ -199,8 +228,11 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">site</span>
+<span class="kn">import</span> <span class="nn">psutil</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
 
 
 <div class="viewcode-block" id="affirm_directory"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.affirm_directory">[docs]</a><span class="k">def</span> <span class="nf">affirm_directory</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
@@ -222,8 +254,7 @@
 
 <div class="viewcode-block" id="check_platform"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.check_platform">[docs]</a><span class="k">def</span> <span class="nf">check_platform</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;determine which operating system python is running on&quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">platform</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">platform</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span></div>
 
 
 <div class="viewcode-block" id="count_files"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.count_files">[docs]</a><span class="k">def</span> <span class="nf">count_files</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">extension</span><span class="p">,</span> <span class="n">show_files</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -253,7 +284,7 @@
                 <span class="k">if</span> <span class="n">filters</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">extension</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
                         <span class="k">try</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span><span class="n">x</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">start_time</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">start_time</span><span class="p">:</span>
                                 <span class="n">file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
                                 <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
 
@@ -286,9 +317,8 @@
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">end</span>   <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">traceback</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">start_date</span>
         <span class="n">end</span> <span class="o">=</span> <span class="n">end_date</span>
@@ -310,56 +340,62 @@
             <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">traceback</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="draw_progress_bar"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.draw_progress_bar">[docs]</a><span class="k">def</span> <span class="nf">draw_progress_bar</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">barLen</span><span class="o">=</span><span class="mi">45</span><span class="p">):</span>
+<div class="viewcode-block" id="draw_progress_bar"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.draw_progress_bar">[docs]</a><span class="k">def</span> <span class="nf">draw_progress_bar</span><span class="p">(</span>
+    <span class="n">index</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">barLen</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s2">&quot;Time elapsed&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;simple text progress bar&quot;&quot;&quot;</span>
     <span class="n">percent</span> <span class="o">=</span> <span class="n">index</span> <span class="o">/</span> <span class="n">total</span>
     <span class="n">pad</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">total</span><span class="p">))</span>
 
     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-        <span class="s2">&quot;Time elapsed: </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> | </span><span class="si">{}</span><span class="s2"> / </span><span class="si">{}</span><span class="s2"> [{:&lt;</span><span class="si">{}</span><span class="s2">}] </span><span class="si">{:.0f}</span><span class="s2">%</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> | </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> / </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> [{:&lt;</span><span class="si">{}</span><span class="s2">}] </span><span class="si">{:.0f}</span><span class="s2">%</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">header</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="p">,</span>
+            <span class="s2">&quot;s&quot;</span><span class="p">,</span>
             <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">pad</span><span class="p">),</span>
+            <span class="n">label</span><span class="p">,</span>
             <span class="n">total</span><span class="p">,</span>
+            <span class="n">label</span><span class="p">,</span>
             <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">barLen</span> <span class="o">*</span> <span class="n">percent</span><span class="p">),</span>
             <span class="n">barLen</span><span class="p">,</span>
-            <span class="n">percent</span> <span class="o">*</span> <span class="mi">100</span>
+            <span class="n">percent</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="linux_folder_path"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.linux_folder_path">[docs]</a><span class="k">def</span> <span class="nf">linux_folder_path</span><span class="p">(</span><span class="n">folder_path</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;assert folder_path ending with &#39;/&#39; &quot;&quot;&quot;</span>
-    <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;\ &#39;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;assert folder_path ending with &#39;/&#39;&quot;&quot;&quot;</span>
+    <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;\ &quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
         <span class="k">pass</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+        <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
 
     <span class="k">return</span> <span class="n">folder_path</span></div>
 
 
 <div class="viewcode-block" id="windows_folder_path"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.windows_folder_path">[docs]</a><span class="k">def</span> <span class="nf">windows_folder_path</span><span class="p">(</span><span class="n">folder_path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;convert &#39;/&#39; to &#39;\\&#39; in folder_path and assert ending in &#39;\\&#39;&quot;&quot;&quot;</span>
-    <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">):</span>
         <span class="k">pass</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span>
+        <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span>
 
     <span class="k">return</span> <span class="n">folder_path</span></div>
 
 
-<div class="viewcode-block" id="renamer"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.renamer">[docs]</a><span class="k">class</span> <span class="nc">renamer</span><span class="p">():</span>
+<div class="viewcode-block" id="renamer"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.renamer">[docs]</a><span class="k">class</span> <span class="nc">renamer</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;for replacing duplicate column names after transpose&quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
@@ -382,7 +418,7 @@
         <span class="k">except</span><span class="p">:</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">reader</span><span class="o">.</span><span class="n">serial_number</span><span class="si">}</span><span class="s2">_reader.pkl&quot;</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pkl</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pkl</span><span class="p">:</span>
         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">pkl</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span></div>
 
 
@@ -405,7 +441,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">site_number</span><span class="si">}</span><span class="s2">_reader.pkl&quot;</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pkl</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pkl</span><span class="p">:</span>
         <span class="n">reader</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pkl</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">reader</span></div>
@@ -428,7 +464,9 @@
 <span class="sd">    list</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;^\d</span><span class="si">{4}</span><span class="s2">\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span>
+        <span class="s2">&quot;^\d</span><span class="si">{4}</span><span class="s2">\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])&quot;</span><span class="p">,</span> <span class="n">start_date</span>
+    <span class="p">):</span>
         <span class="n">start_year</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">start_month</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">start_day</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
@@ -448,7 +486,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unsupported date type: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="se">\n</span><span class="s2">use &#39;YYYY-mm-dd&#39; or datetime object&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
 
-    <span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">start_year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">end_year</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">start_year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">end_year</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
 
     <span class="n">months</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -464,7 +502,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_month12</span> <span class="o">=</span> <span class="mi">12</span>
 
-        <span class="k">for</span> <span class="n">_m</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">_month0</span><span class="p">,</span> <span class="n">_month12</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">_m</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">_month0</span><span class="p">,</span> <span class="n">_month12</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
 
             <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">:</span>
                 <span class="n">months</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">_m</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">-01&quot;</span><span class="p">)</span>
@@ -480,8 +518,6 @@
 
 
 <div class="viewcode-block" id="create_spd_filename_from_cloud_export"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.create_spd_filename_from_cloud_export">[docs]</a><span class="k">def</span> <span class="nf">create_spd_filename_from_cloud_export</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        
-    <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
     <span class="n">cld_fmt</span> <span class="o">=</span> <span class="s2">&quot;%m-</span><span class="si">%d</span><span class="s2">-%Y&quot;</span>
     <span class="n">spd_fmt</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
@@ -497,8 +533,6 @@
 
 <div class="viewcode-block" id="rename_cloud_export_like_spd"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.rename_cloud_export_like_spd">[docs]</a><span class="k">def</span> <span class="nf">rename_cloud_export_like_spd</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;rename nrg cloud export files with SPD formatting&quot;&quot;&quot;</span>
-
-    <span class="kn">import</span> <span class="nn">os</span>
 
     <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
     <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
@@ -519,15 +553,24 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;couldn&#39;t rename </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;couldn&#39;t rename </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="kn">import</span> <span class="nn">traceback</span>
+
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
+<div class="viewcode-block" id="fix_export_siteid_filename"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.fix_export_siteid_filename">[docs]</a><span class="k">def</span> <span class="nf">fix_export_siteid_filename</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">site_number</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Change out NRG Cloud site id with padded site number&quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;siteid&quot;</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">site_number</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">filepath</span></div>
+
+
 <div class="viewcode-block" id="is_sympro_running"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.is_sympro_running">[docs]</a><span class="k">def</span> <span class="nf">is_sympro_running</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;checks pid list for instance of sympro running&quot;&quot;&quot;</span>
-
-    <span class="kn">import</span> <span class="nn">psutil</span>
 
     <span class="k">if</span> <span class="n">psutil</span><span class="o">.</span><span class="n">WINDOWS</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">pids</span><span class="p">():</span>
@@ -540,28 +583,34 @@
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
 <div class='prev-next-area'>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By NRG Systems, Inc.<br/>
+  
+      &copy; Copyright 2022, NRG Systems, Inc..<br/>
+</p>
+        </footer>
+    </div>
     
-      By NRG Systems, Inc.<br/>
-    
-        &copy; Copyright 2022, NRG Systems, Inc..<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

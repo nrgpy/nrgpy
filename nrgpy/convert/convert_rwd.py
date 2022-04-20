@@ -1,8 +1,13 @@
+try:
+    from nrgpy import logger
+except ImportError:
+    pass
 import datetime
 import time
 import os
 import subprocess
 import shutil
+import traceback
 from nrgpy.utils.utilities import check_platform, windows_folder_path, linux_folder_path, affirm_directory, count_files, draw_progress_bar
 
 
@@ -107,6 +112,7 @@ class local(object):
         self.platform = check_platform()
         self.wine_folder = wine_folder
         self.check_sdr()
+        logger.info("conversion initialized")
 
         if self.platform == 'win32':
             self.out_dir = windows_folder_path(out_dir)
@@ -134,6 +140,7 @@ class local(object):
             except:
                 self.sdr_ok = False
                 print('SDR not installed. Please install SDR or check path.\nhttps://www.nrgsystems.com/support/product-support/software/symphonie-data-retriever-software')
+                logger.error("SDR not installed, aborting")
 
         else:
             # do the linux check
@@ -141,6 +148,7 @@ class local(object):
                 subprocess.check_output(['wine','--version'])
             except NotADirectoryError:
                 print('System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable.')
+                logger.error('System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable.')
 
             try:
                 subprocess.check_output(['wine',self.sdr_path,'/s','test.rwd'])
@@ -153,7 +161,6 @@ class local(object):
             except:
                 self.sdr_ok = False
                 print('SDR unable to start')
-                import traceback
                 print(traceback.format_exc())
 
     def convert(self):
