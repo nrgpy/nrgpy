@@ -393,23 +393,21 @@ class sympro_txt_read(object):
                         text_timestamps=self.text_timestamps,
                         site_details=False,
                     )
-                    # base.data = base.data.append(s.data)
                     base.data = pd.concat(
                         [base.data, s.data], ignore_index=True, axis=0, join="outer"
                     )
-                    # base.ch_info = base.ch_info.append(s.ch_info)
                     base.ch_info = pd.concat(
                         [base.ch_info, s.ch_info],
                         ignore_index=True,
                         axis=0,
                         join="outer",
                     )
-                    if progress_bar != True:
+                    if not progress_bar:
                         print("[OK]")
                     self.txt_file_names.append(os.path.basename(f))
 
                 except:
-                    if progress_bar != True:
+                    if not progress_bar:
                         print("[FAILED]")
                     print("could not concat {0}".format(os.path.basename(f)))
                     pass
