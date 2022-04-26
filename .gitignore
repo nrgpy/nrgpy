@@ -1,4 +1,5 @@
 .nrgpy_token
+*.dev
 *.exe
 *.ipynb
 *.log
