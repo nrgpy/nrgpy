@@ -20,7 +20,7 @@ jobs:
         run: |
           pip install -e .
       - name: SymPRO TXT Reader Test
-        run: python tests/test_readers/test_sympro_txt_read.py tests/test_readers/test_files/
+        run: python tests/readers/test_sympro_txt_read.py tests/readers/files/
       - name: Endpoint Test
         run: |
           python tests/nrgcloud/endpoint.py
