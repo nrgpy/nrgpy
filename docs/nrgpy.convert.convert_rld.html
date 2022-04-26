@@ -69,6 +69,11 @@
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/nrg_logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
@@ -315,38 +320,6 @@ would filter on site 123456 and only the month of September in 2018.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.convert.convert_rld.local.directory" title="nrgpy.convert.convert_rld.local.directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">directory</span></code></a>()</p></td>
-<td><p>processes all rld files in self.rld_dir, outputs to txt files to out_dir</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.convert.convert_rld.local.rename_rlds" title="nrgpy.convert.convert_rld.local.rename_rlds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rename_rlds</span></code></a>(**kwargs)</p></td>
-<td><p>uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number and logger serial number.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="table">
-<colgroup>
-<col style="width: 60%" />
-<col style="width: 40%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>convert</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>process</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><strong>single_file</strong></p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.convert.convert_rld.local.convert">
 <span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/convert/convert_rld.html#local.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.convert.convert_rld.local.convert" title="Permalink to this definition">#</a></dt>

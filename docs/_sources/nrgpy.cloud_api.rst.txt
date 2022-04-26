@@ -28,6 +28,14 @@ nrgpy.cloud\_api.export module
    :undoc-members:
    :show-inheritance:
 
+nrgpy.cloud\_api.jobs module
+----------------------------
+
+.. automodule:: nrgpy.cloud_api.jobs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 nrgpy.cloud\_api.sites module
 -----------------------------
 

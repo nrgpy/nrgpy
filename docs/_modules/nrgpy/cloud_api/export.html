@@ -225,8 +225,11 @@ title="Fullscreen mode"
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="k">pass</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="n">affirm_directory</span><span class="p">,</span> <span class="n">rename_cloud_export_like_spd</span><span class="p">,</span> \
-    <span class="n">create_spd_filename_from_cloud_export</span>
+<span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">affirm_directory</span><span class="p">,</span>
+    <span class="n">rename_cloud_export_like_spd</span><span class="p">,</span>
+    <span class="n">create_spd_filename_from_cloud_export</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.auth</span> <span class="kn">import</span> <span class="n">cloud_api</span><span class="p">,</span> <span class="n">export_url</span>
 <span class="kn">from</span> <span class="nn">.sites</span> <span class="kn">import</span> <span class="n">cloud_sites</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -237,10 +240,12 @@ title="Fullscreen mode"
 <div class="viewcode-block" id="cloud_export"><a class="viewcode-back" href="../../../nrgpy.cloud_api.export.html#nrgpy.cloud_api.export.cloud_export">[docs]</a><span class="k">class</span> <span class="nc">cloud_export</span><span class="p">(</span><span class="n">cloud_api</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Uses NRG hosted web-based API to download data in text format</span>
 <span class="sd">    To sign up for the service, go to https://cloud.nrgsystems.com</span>
-<span class="sd">    </span>
-<span class="sd">    Note that the site must exist in the NRG Cloud platform, and you must have </span>
+
+<span class="sd">    Note that the site must exist in the NRG Cloud platform, and you must have</span>
 <span class="sd">    Contributor or Administrator level access to the site to use these features.</span>
-<span class="sd">    </span>
+
+<span class="sd">    Use the Site Number or NRG Cloud Site ID to choose the site.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    out_dir : str</span>
@@ -257,6 +262,8 @@ title="Fullscreen mode"
 <span class="sd">    end_date : str</span>
 <span class="sd">        &quot;YYYY-MM-DD HH:MM:SS&quot; format, if just date it will return the whole day</span>
 <span class="sd">        times are in logger local time</span>
+<span class="sd">    file_format : str</span>
+<span class="sd">        [&#39;txt&#39;], &#39;rld&#39; - whether tab-delimited text or binary output</span>
 <span class="sd">    client_id : str</span>
 <span class="sd">        available in the NRG Cloud portal</span>
 <span class="sd">    client_secret : str</span>
@@ -267,7 +274,7 @@ title="Fullscreen mode"
 <span class="sd">        [&#39;measurements&#39;], &#39;diagnostic&#39;, &#39;events&#39;, &#39;communication&#39;</span>
 <span class="sd">    interval : str, optional</span>
 <span class="sd">        &#39;oneMinute&#39;, &#39;twoMinute&#39;, &#39;fiveMinute&#39;, &#39;tenMinute&#39;, &#39;fifteenMinute&#39;,</span>
-<span class="sd">        &#39;thirtyMinute&#39;, &#39;Hour&#39;, &#39;Day&#39; </span>
+<span class="sd">        &#39;thirtyMinute&#39;, &#39;Hour&#39;, &#39;Day&#39;</span>
 <span class="sd">        must be a multiple of the logger&#39;s statistical interval</span>
 <span class="sd">    spd_filenames : bool</span>
 <span class="sd">        (True) convert export filenames to match formatting of SymphoniePRO Desktop Software</span>
@@ -287,18 +294,19 @@ title="Fullscreen mode"
 <span class="sd">    &gt;&gt;&gt;</span>
 <span class="sd">    &gt;&gt;&gt; client_id = &quot;go to https://cloud.nrgsystems.com for access&quot;</span>
 <span class="sd">    &gt;&gt;&gt; client_secret = &quot;go to https://cloud.nrgsystems.com for access&quot;</span>
-<span class="sd">    &gt;&gt;&gt; txt_dir = &#39;\\path\\to\\exported\\data&#39;</span>
+<span class="sd">    &gt;&gt;&gt; save_dir = &#39;/path/to/exported/data&#39;</span>
 <span class="sd">    &gt;&gt;&gt;</span>
 <span class="sd">    &gt;&gt;&gt; exporter = nrgpy.cloud_export(</span>
 <span class="sd">            client_id=client_id,</span>
 <span class="sd">            client_secret=client_secret,</span>
-<span class="sd">            out_dir=txt_dir,</span>
+<span class="sd">            out_dir=save_dir,</span>
 <span class="sd">            nec_file=&#39;12vbat.nec&#39;,</span>
 <span class="sd">            site_id=245,</span>
 <span class="sd">            start_date=&quot;2021-05-01&quot;,</span>
 <span class="sd">            end_date=&quot;2021-05-15&quot;,</span>
 <span class="sd">        )</span>
-<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; exporter.export()</span>
+<span class="sd">    &gt;&gt;&gt; # read result</span>
 <span class="sd">    &gt;&gt;&gt; reader = nrgpy.sympro_txt_read(exporter.export_filepath)</span>
 <span class="sd">    &gt;&gt;&gt; reader.format_site_data()</span>
 <span class="sd">    &gt;&gt;&gt; if reader:</span>
@@ -309,28 +317,48 @@ title="Fullscreen mode"
 <span class="sd">    &gt;&gt;&gt;     print(&quot;unable to get reader&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">site_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">site_number</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">logger_sn</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                 <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2014-01-01&#39;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s1">&#39;2023-12-31&#39;</span><span class="p">,</span>
-                 <span class="n">client_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">nec_file</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                 <span class="n">export_type</span><span class="o">=</span><span class="s1">&#39;measurements&#39;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">spd_filenames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">unzip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">out_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">site_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">site_number</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">logger_sn</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2014-01-01&quot;</span><span class="p">,</span>
+        <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2030-12-31&quot;</span><span class="p">,</span>
+        <span class="n">file_format</span><span class="o">=</span><span class="s2">&quot;txt&quot;</span><span class="p">,</span>
+        <span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">client_secret</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">nec_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">export_type</span><span class="o">=</span><span class="s2">&quot;measurements&quot;</span><span class="p">,</span>
+        <span class="n">interval</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">spd_filenames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">unzip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;siteid</span><span class="si">{</span><span class="n">site_id</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">export_type</span><span class="si">}</span><span class="s1">.zip&#39;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;siteid</span><span class="si">{</span><span class="n">site_id</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">export_type</span><span class="si">}</span><span class="s2">.zip&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span>
         <span class="n">affirm_directory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">site_id</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">site_id</span>       
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">site_id</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">client_sites</span> <span class="o">=</span> <span class="n">cloud_sites</span><span class="p">(</span><span class="n">client_id</span><span class="o">=</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="n">client_secret</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">client_sites</span><span class="o">.</span><span class="n">get_siteid</span><span class="p">(</span><span class="n">site_number</span><span class="o">=</span><span class="n">site_number</span><span class="p">,</span> <span class="n">logger_sn</span><span class="o">=</span><span class="n">logger_sn</span><span class="p">)</span>       
-        
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">client_sites</span><span class="o">.</span><span class="n">get_siteid</span><span class="p">(</span>
+                <span class="n">site_number</span><span class="o">=</span><span class="n">site_number</span><span class="p">,</span> <span class="n">logger_sn</span><span class="o">=</span><span class="n">logger_sn</span>
+            <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">start_date</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_format</span> <span class="o">=</span> <span class="n">file_format</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span> <span class="o">=</span> <span class="n">nec_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span> <span class="o">=</span> <span class="n">export_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">interval</span>
@@ -339,12 +367,10 @@ title="Fullscreen mode"
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_file_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-       
-        <span class="bp">self</span><span class="o">.</span><span class="n">export</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <div class="viewcode-block" id="cloud_export.export"><a class="viewcode-back" href="../../../nrgpy.cloud_api.export.html#nrgpy.cloud_api.export.cloud_export.export">[docs]</a>    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
@@ -354,52 +380,62 @@ title="Fullscreen mode"
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;siteid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="p">,</span>
-            <span class="s1">&#39;fromdate&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span>
-            <span class="s1">&#39;todate&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span>
-            <span class="s1">&#39;NecFileBytes&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span><span class="p">,</span>
-            <span class="s1">&#39;exporttype&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span>           
+            <span class="s2">&quot;siteid&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="p">,</span>
+            <span class="s2">&quot;fromdate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span>
+            <span class="s2">&quot;todate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span>
+            <span class="s2">&quot;fileFormat&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_format</span><span class="p">,</span>
+            <span class="s2">&quot;NecFileBytes&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span><span class="p">,</span>
+            <span class="s2">&quot;exporttype&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;interval&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">request_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">export_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">request_duration</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_time</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unzip</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">namelist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span>
-                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span><span class="p">))</span>
-            
+                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span><span class="p">)</span>
+                <span class="p">)</span>
+
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spd_filenames</span><span class="p">:</span>
                 <span class="n">rename_cloud_export_like_spd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span> <span class="o">=</span> <span class="n">create_spd_filename_from_cloud_export</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span> <span class="o">=</span> <span class="n">create_spd_filename_from_cloud_export</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span>
+                <span class="p">)</span>
 
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;export created for site_id </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;export took </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">request_duration</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
-        
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;export took </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">request_duration</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes&quot;</span>
+            <span class="p">)</span>
+
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;export not created&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">reason</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; | &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; | &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
             <span class="k">return</span> <span class="kc">False</span></div></div>
-        
 </pre></div>
 
               </div>

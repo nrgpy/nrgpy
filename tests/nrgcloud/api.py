@@ -67,6 +67,58 @@ def test_export_api(client_id, client_secret):
     return True
 
 
+def test_export_jobs_api(client_id, client_secret):
+    """"""
+    try:
+        exporter = nrgpy.export_job(
+            client_id=client_id,
+            client_secret=client_secret,
+            site_id=95,
+            start_date="2022-02-22",
+            end_date="2022-02-24",
+            out_dir=".",
+        )
+        exporter.create_export_job()
+        exporter.monitor_export_job(download=True)
+        reader = nrgpy.sympro_txt_read(filename=exporter.export_filepath)
+        if int(reader.site_number) != 4310:
+            print(f"Export API test failed: site number failure: {reader.site_number}")
+            logger.error(
+                f"Export API test failed: site number failure: {reader.site_number}"
+            )
+            return False
+        return True
+
+    except:
+
+        print(traceback.format_exc())
+        logger.error(traceback.format_exc())
+    return False
+
+
+def test_export_jobs_api_unauthorized(client_id, client_secret):
+    """"""
+    try:
+        exporter = nrgpy.export_job(
+            client_id=client_id,
+            client_secret=client_secret,
+            site_id=20,
+            start_date="2022-04-12",
+            end_date="2022-04-22",
+            out_dir=".",
+        )
+        exporter.create_export_job()
+
+        if exporter.resp.status_code == 401:
+            return True
+
+    except:
+        print(traceback.format_exc())
+        logger.error(traceback.format_exc())
+
+    return False
+
+
 if __name__ == "__main__":
     import sys
 
@@ -75,3 +127,5 @@ if __name__ == "__main__":
 
     assert test_sites_api(client_id, client_secret)
     assert test_export_api(client_id, client_secret)
+    assert test_export_jobs_api(client_id, client_secret)
+    assert test_export_jobs_api_unauthorized(client_id, client_secret)

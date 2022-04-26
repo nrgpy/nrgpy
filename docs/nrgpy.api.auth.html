@@ -69,6 +69,11 @@
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/nrg_logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
@@ -273,41 +278,6 @@ title="Print to PDF"
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.api.auth.</span></span><span class="sig-name descname"><span class="pre">nrg_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/auth.html#nrg_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.auth.nrg_api" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Parent class for NRG API functionality</p>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.api.auth.nrg_api.load_token" title="nrgpy.api.auth.nrg_api.load_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_token</span></code></a>([filename])</p></td>
-<td><p>read session token from pickle file</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.api.auth.nrg_api.maintain_session_token" title="nrgpy.api.auth.nrg_api.maintain_session_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintain_session_token</span></code></a>([filename])</p></td>
-<td><p>maintain a current/valid session token for data service api</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.api.auth.nrg_api.request_session_token" title="nrgpy.api.auth.nrg_api.request_session_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_session_token</span></code></a>()</p></td>
-<td><p>generates a new session token for convert service api</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.api.auth.nrg_api.save_token" title="nrgpy.api.auth.nrg_api.save_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_token</span></code></a>([filename])</p></td>
-<td><p>save session token in token pickle file</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.api.auth.nrg_api.token_valid" title="nrgpy.api.auth.nrg_api.token_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">token_valid</span></code></a>()</p></td>
-<td><p>check if token is still valid</p></td>
-</tr>
-</tbody>
-</table>
-<table class="table">
-<colgroup>
-<col style="width: 69%" />
-<col style="width: 31%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>prepare_file_bytes</strong></p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.api.auth.nrg_api.load_token">
 <span class="sig-name descname"><span class="pre">load_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.nrgpy_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/auth.html#nrg_api.load_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.auth.nrg_api.load_token" title="Permalink to this definition">#</a></dt>

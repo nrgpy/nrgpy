@@ -6,8 +6,11 @@ from datetime import datetime
 import os
 import pathlib
 import pickle
+import site
+import psutil
 import re
 import sys
+import traceback
 
 
 def affirm_directory(directory):
@@ -29,8 +32,7 @@ def affirm_directory(directory):
 
 def check_platform():
     """determine which operating system python is running on"""
-    from sys import platform
-    return(platform)
+    return sys.platform
 
 
 def count_files(directory, filters, extension, show_files=False, **kwargs):
@@ -60,7 +62,7 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
                 if filters in x:
                     if extension.lower() in x.lower():
                         try:
-                            if os.path.getmtime(os.path.join(dirpath,x)) > start_time:
+                            if os.path.getmtime(os.path.join(dirpath, x)) > start_time:
                                 file_list.append(x)
                                 count = count + 1
 
@@ -93,9 +95,8 @@ def date_check(start_date, end_date, string):
 
     try:
         start = datetime.strptime(start_date, "%Y-%m-%d")
-        end   = datetime.strptime(end_date, "%Y-%m-%d")
+        end = datetime.strptime(end_date, "%Y-%m-%d")
     except TypeError as t:
-        import traceback
         print(traceback.format_exc())
         start = start_date
         end = end_date
@@ -117,56 +118,62 @@ def date_check(start_date, end_date, string):
             return False
 
     except Exception as e:
-        import traceback
         print(traceback.format_exc())
         return False
 
 
-def draw_progress_bar(index, total, start_time, barLen=45):
+def draw_progress_bar(
+    index, total, start_time, barLen=45, header="Time elapsed", label=""
+):
     """simple text progress bar"""
     percent = index / total
     pad = len(str(total))
 
     sys.stdout.write("\r")
     sys.stdout.write(
-        "Time elapsed: {} {} | {} / {} [{:<{}}] {:.0f}%\t".format(
-            (datetime.now() - start_time).seconds, "s",
+        "{}: {} {} | {} {} / {} {} [{:<{}}] {:.0f}%\t".format(
+            header,
+            (datetime.now() - start_time).seconds,
+            "s",
             str(index).rjust(pad),
+            label,
             total,
+            label,
             "=" * int(barLen * percent),
             barLen,
-            percent * 100
+            percent * 100,
         )
     )
     sys.stdout.flush()
 
 
 def linux_folder_path(folder_path):
-    """assert folder_path ending with '/' """
-    folder_path = folder_path.replace('\\', '/').replace(' ', '\ ')
+    """assert folder_path ending with '/'"""
+    folder_path = folder_path.replace("\\", "/").replace(" ", "\ ")
 
-    if folder_path.endswith('/'):
+    if folder_path.endswith("/"):
         pass
     else:
-        folder_path = folder_path + '/'
+        folder_path = folder_path + "/"
 
     return folder_path
 
 
 def windows_folder_path(folder_path):
     """convert '/' to '\\' in folder_path and assert ending in '\\'"""
-    folder_path = folder_path.replace('/', '\\')
+    folder_path = folder_path.replace("/", "\\")
 
-    if folder_path.endswith('\\'):
+    if folder_path.endswith("\\"):
         pass
     else:
-        folder_path = folder_path + '\\'
+        folder_path = folder_path + "\\"
 
     return folder_path
 
 
-class renamer():
+class renamer:
     """for replacing duplicate column names after transpose"""
+
     def __init__(self):
         self.d = dict()
 
@@ -189,7 +196,7 @@ def save(reader, filename=""):
         except:
             filename = f"{reader.serial_number}_reader.pkl"
 
-    with open(filename, 'wb') as pkl:
+    with open(filename, "wb") as pkl:
         pickle.dump(reader, pkl, protocol=pickle.HIGHEST_PROTOCOL)
 
 
@@ -212,7 +219,7 @@ def load(site_number="", filename=""):
     if not filename:
         filename = f"{site_number}_reader.pkl"
 
-    with open(filename, 'rb') as pkl:
+    with open(filename, "rb") as pkl:
         reader = pickle.load(pkl)
 
     return reader
@@ -235,7 +242,9 @@ def data_months(start_date, end_date, output="string"):
     list
     """
 
-    if isinstance(start_date, str) and re.match("^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])", start_date):
+    if isinstance(start_date, str) and re.match(
+        "^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])", start_date
+    ):
         start_year = start_date.split("-")[0]
         start_month = start_date.split("-")[1]
         start_day = start_date.split("-")[2]
@@ -255,7 +264,7 @@ def data_months(start_date, end_date, output="string"):
         print(f"unsupported date type: {output}\nuse 'YYYY-mm-dd' or datetime object")
         return False
 
-    years = list(range(int(start_year), int(end_year)+1))
+    years = list(range(int(start_year), int(end_year) + 1))
 
     months = []
 
@@ -271,7 +280,7 @@ def data_months(start_date, end_date, output="string"):
         else:
             _month12 = 12
 
-        for _m in list(range(_month0, _month12+1)):
+        for _m in list(range(_month0, _month12 + 1)):
 
             if output == "string":
                 months.append(f"{y}-{str(_m).zfill(2)}-01")
@@ -287,8 +296,6 @@ def data_months(start_date, end_date, output="string"):
 
 
 def create_spd_filename_from_cloud_export(filename):
-        
-    from datetime import datetime
 
     cld_fmt = "%m-%d-%Y"
     spd_fmt = "%Y-%m-%d"
@@ -304,8 +311,6 @@ def create_spd_filename_from_cloud_export(filename):
 
 def rename_cloud_export_like_spd(filepath):
     """rename nrg cloud export files with SPD formatting"""
-
-    import os
 
     filename = os.path.basename(filepath)
     directory = os.path.dirname(filepath)
@@ -326,15 +331,24 @@ def rename_cloud_export_like_spd(filepath):
         logger.error(f"couldn't rename {filename} to {new_filename}")
         print(f"couldn't rename {filename} to {new_filename}")
         import traceback
+
         logger.debug(traceback.format_exc())
         print(traceback.format_exc())
         return False
 
 
+def fix_export_siteid_filename(filepath, site_number):
+    """Change out NRG Cloud site id with padded site number"""
+    filename = os.path.basename(filepath)
+    if filename.startswith("siteid"):
+        filename = site_number + "_".join(filename.split("_")[1:])
+        filepath = os.path.join(os.path.dirname(filepath), filename)
+
+    return filepath
+
+
 def is_sympro_running():
     """checks pid list for instance of sympro running"""
-
-    import psutil
 
     if psutil.WINDOWS:
         for pid in psutil.pids():

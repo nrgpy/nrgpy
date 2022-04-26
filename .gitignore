@@ -1,18 +1,21 @@
 .nrgpy_token
 *.exe
 *.ipynb
+*.log
+*.swp
 *.txt
-.ipynb_checkpoints/
-*.wine/
 
 .vscode/
-*__pycache__/
 build/
 dist/
-*egg-info/
 evvv/
 raw/
+rld/
 venv/
+*__pycache__/
+*egg-info/
+*.ipynb_checkpoints/
+*.wine/
 
 !.gitignore
 !tests/test_readers/test_files/*.txt

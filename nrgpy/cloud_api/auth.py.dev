@@ -11,6 +11,9 @@ import requests
 import traceback
 
 url_base = "https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/"
+### REMOVE FOR PROD
+url_base = "https://nrgcloudapi.azure-api.net/customerapi/"
+###
 token_url = url_base + "token"
 convert_url = url_base + "data/convert"
 export_url = url_base + "data/export"

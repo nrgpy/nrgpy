@@ -7,7 +7,15 @@ from nrgpy.api.auth import (
     export_url as api_export_url,
     upload_url as api_upload_url,
 )
-from nrgpy.cloud_api.auth import url_base, token_url, export_url, convert_url, sites_url
+from nrgpy.cloud_api.auth import (
+    url_base,
+    token_url,
+    export_url,
+    convert_url,
+    sites_url,
+    create_export_job_url,
+    export_job_url,
+)
 import traceback
 
 
@@ -32,6 +40,8 @@ def test_endpoints():
         api_upload_url,
         retrieve_token_url,
         data_catalog_url,
+        create_export_job_url,
+        export_job_url,
     ]:
 
         try:

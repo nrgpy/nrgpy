@@ -68,6 +68,11 @@
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/nrg_logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
@@ -267,6 +272,8 @@ title="Fullscreen mode"
 </li>
       <li><a href="nrgpy.utils.html#nrgpy.utils.ipk2lgr.calltime">calltime() (in module nrgpy.utils.ipk2lgr)</a>, <a href="nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.calltime">[1]</a>
 </li>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.export_job.check_export_job">check_export_job() (nrgpy.cloud_api.jobs.export_job method)</a>
+</li>
       <li><a href="nrgpy.quality.html#nrgpy.quality.quality.check_for_missing_txt_files">check_for_missing_txt_files() (in module nrgpy.quality.quality)</a>, <a href="nrgpy.quality.quality.html#nrgpy.quality.quality.check_for_missing_txt_files">[1]</a>
 </li>
       <li><a href="nrgpy.quality.html#nrgpy.quality.quality.check_intervals">check_intervals() (in module nrgpy.quality.quality)</a>, <a href="nrgpy.quality.quality.html#nrgpy.quality.quality.check_intervals">[1]</a>
@@ -303,6 +310,8 @@ title="Fullscreen mode"
 </li>
       <li><a href="nrgpy.utils.html#nrgpy.utils.utilities.count_files">count_files() (in module nrgpy.utils.utilities)</a>, <a href="nrgpy.utils.utilities.html#nrgpy.utils.utilities.count_files">[1]</a>
 </li>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.export_job.create_export_job">create_export_job() (nrgpy.cloud_api.jobs.export_job method)</a>
+</li>
       <li><a href="nrgpy.utils.html#nrgpy.utils.utilities.create_spd_filename_from_cloud_export">create_spd_filename_from_cloud_export() (in module nrgpy.utils.utilities)</a>, <a href="nrgpy.utils.utilities.html#nrgpy.utils.utilities.create_spd_filename_from_cloud_export">[1]</a>
 </li>
   </ul></td>
@@ -315,11 +324,13 @@ title="Fullscreen mode"
 </li>
       <li><a href="nrgpy.utils.html#nrgpy.utils.utilities.data_months">data_months() (in module nrgpy.utils.utilities)</a>, <a href="nrgpy.utils.utilities.html#nrgpy.utils.utilities.data_months">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.utils.html#nrgpy.utils.utilities.date_check">date_check() (in module nrgpy.utils.utilities)</a>, <a href="nrgpy.utils.utilities.html#nrgpy.utils.utilities.date_check">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.convert.convert_rld.html#nrgpy.convert.convert_rld.local.directory">directory() (nrgpy.convert.convert_rld.local method)</a>, <a href="nrgpy.convert.html#nrgpy.convert.convert_rld.local.directory">[1]</a>
+</li>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.export_job.download_export">download_export() (nrgpy.cloud_api.jobs.export_job method)</a>
 </li>
       <li><a href="nrgpy.utils.html#nrgpy.utils.utilities.draw_progress_bar">draw_progress_bar() (in module nrgpy.utils.utilities)</a>, <a href="nrgpy.utils.utilities.html#nrgpy.utils.utilities.draw_progress_bar">[1]</a>
 </li>
@@ -336,12 +347,18 @@ title="Fullscreen mode"
 </li>
       </ul></li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.export_job">export_job (class in nrgpy.cloud_api.jobs)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.quality.html#nrgpy.quality.quality.find_missing_intervals">find_missing_intervals() (in module nrgpy.quality.quality)</a>, <a href="nrgpy.quality.quality.html#nrgpy.quality.quality.find_missing_intervals">[1]</a>
+</li>
+      <li><a href="nrgpy.utils.html#nrgpy.utils.utilities.fix_export_siteid_filename">fix_export_siteid_filename() (in module nrgpy.utils.utilities)</a>, <a href="nrgpy.utils.utilities.html#nrgpy.utils.utilities.fix_export_siteid_filename">[1]</a>
 </li>
       <li><a href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.format_data_for_epe">format_data_for_epe() (nrgpy.read.sympro_txt.sympro_txt_read method)</a>, <a href="nrgpy.read.sympro_txt.html#nrgpy.read.sympro_txt.sympro_txt_read.format_data_for_epe">[1]</a>
 </li>
@@ -383,11 +400,13 @@ title="Fullscreen mode"
 </li>
       <li><a href="nrgpy.utils.html#nrgpy.utils.ipk2lgr.ipackinfo">ipackinfo() (in module nrgpy.utils.ipk2lgr)</a>, <a href="nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipackinfo">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.utils.html#nrgpy.utils.ipk2lgr.ipackinfo_backup">ipackinfo_backup() (in module nrgpy.utils.ipk2lgr)</a>, <a href="nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipackinfo_backup">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nrgpy.utils.html#nrgpy.utils.ipk2lgr.ipk2lgr">ipk2lgr() (in module nrgpy.utils.ipk2lgr)</a>, <a href="nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipk2lgr">[1]</a>
+</li>
+      <li><a href="nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.is_authorized">is_authorized() (in module nrgpy.cloud_api.auth)</a>, <a href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.is_authorized">[1]</a>
 </li>
       <li><a href="nrgpy.utils.html#nrgpy.utils.utilities.is_sympro_running">is_sympro_running() (in module nrgpy.utils.utilities)</a>, <a href="nrgpy.utils.utilities.html#nrgpy.utils.utilities.is_sympro_running">[1]</a>
 </li>
@@ -455,6 +474,8 @@ title="Fullscreen mode"
 </li>
         <li><a href="nrgpy.cloud_api.export.html#module-nrgpy.cloud_api.export">nrgpy.cloud_api.export</a>, <a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.export">[1]</a>
 </li>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.jobs">nrgpy.cloud_api.jobs</a>
+</li>
         <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.sites">nrgpy.cloud_api.sites</a>, <a href="nrgpy.cloud_api.sites.html#module-nrgpy.cloud_api.sites">[1]</a>
 </li>
         <li><a href="nrgpy.convert.html#module-nrgpy.convert">nrgpy.convert</a>
@@ -486,6 +507,10 @@ title="Fullscreen mode"
         <li><a href="nrgpy.utils.html#module-nrgpy.utils.utilities">nrgpy.utils.utilities</a>, <a href="nrgpy.utils.utilities.html#module-nrgpy.utils.utilities">[1]</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.export_job.monitor_export_job">monitor_export_job() (nrgpy.cloud_api.jobs.export_job method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -580,14 +605,21 @@ title="Fullscreen mode"
 </li>
       </ul></li>
       <li>
+    nrgpy.cloud_api.jobs
+
+      <ul>
+        <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.jobs">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
     nrgpy.cloud_api.sites
 
       <ul>
         <li><a href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.sites">module</a>, <a href="nrgpy.cloud_api.sites.html#module-nrgpy.cloud_api.sites">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     nrgpy.convert
 

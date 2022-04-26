@@ -69,6 +69,11 @@
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/nrg_logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
@@ -297,33 +302,6 @@ title="Print to PDF"
 </dl>
 </dd>
 </dl>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info" title="nrgpy.read.txt_utils.read_text_data.arrange_ch_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arrange_ch_info</span></code></a>()</p></td>
-<td><p>generates list and dataframe of channel information</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.concat" title="nrgpy.read.txt_utils.read_text_data.concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat</span></code></a>([output_txt, out_file, file_filter, ...])</p></td>
-<td><p>combine exported rwd files (in txt format)</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data" title="nrgpy.read.txt_utils.read_text_data.format_rwd_site_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_rwd_site_data</span></code></a>()</p></td>
-<td><p>adds formatted site dataframe to reader object</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.get_data" title="nrgpy.read.txt_utils.read_text_data.get_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_data</span></code></a>(_file)</p></td>
-<td><p>create dataframe of tabulated data</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.get_head" title="nrgpy.read.txt_utils.read_text_data.get_head"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_head</span></code></a>(_file)</p></td>
-<td><p>get the first lines of the file</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nrgpy.read.txt_utils.read_text_data.get_site_info" title="nrgpy.read.txt_utils.read_text_data.get_site_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_site_info</span></code></a>(_file)</p></td>
-<td><p>create dataframe of site info</p></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.arrange_ch_info">
 <span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info" title="Permalink to this definition">#</a></dt>
