@@ -210,7 +210,7 @@ class logr_read(object):
 
         Parameters
         ----------
-        dat_dir : str
+        dat_dir : str (path-like)
             directory holding txt files
         file_type : str
             type of export (meas, event, comm, sample, etc...)
@@ -271,22 +271,22 @@ class logr_read(object):
         Time elapsed: 2 s | 33 / 33 [=============================================] 100%
         Queue processed
         >>> reader.logger_sn
-        '820600019'
+        '511'
         >>> reader.ch_info
-                Bearing: 	Channel: 	Description: 	Effective Date: 	Height: 	Offset: 	Scale Factor: 	Serial Number: 	Type: 	Units:
-        0 	50.00 	    1 	        NRG S1 	        2020-01-31 00:00:00 	33.00 	0.13900 	0.09350 	    94120000059 	Anemometer 	m/s
-        1 	230.00 	    2 	        NRG S1 	        2020-01-31 00:00:00 	0.00 	0.13900 	0.09350 	    94120000058 	Anemometer 	m/s
-        2 	50.00 	    3 	        NRG S1 	        2020-01-31 00:00:00 	22.00 	0.13900 	0.09350 	    94120000057 	Anemometer 	m/s
-        3 	230.00 	    4 	        NRG 40C Anem 	2020-01-31 00:00:00 	22.00 	0.35000 	0.76500 	    179500324860 	Anemometer 	m/s
-        4 	50.00 	    5 	        NRG 40C Anem 	2020-01-31 00:00:00 	12.00 	0.35000 	0.76500 	    179500324859 	Anemometer 	m/s
-        5 	230.00 	    6 	        NRG S1 	        2020-01-31 00:00:00 	12.00 	0.13900 	0.09350 	    94120000056 	Anemometer 	m/s
-        6 	320.00 	    13 	        NRG 200M Vane 	2020-01-31 00:00:00 	32.00 	-1.46020 	147.91100 	    10700000125 	Vane 	        Deg
-        7 	320.00 	    14 	        NRG 200M Vane 	2020-01-31 00:00:00 	21.00 	-1.46020 	147.91100 	    10700000124 	Vane 	        Deg
-        8 	0.00 	    15 	        NRG T60 Temp 	2020-01-31 00:00:00 	34.00 	-40.85550 	44.74360 	    9400000705          Analog          C
-        9 	0.00 	    16 	        NRG T60 Temp 	2020-01-31 00:00:00 	2.00 	-40.85550 	44.74360 	    9400000xxx          Analog          C
-        10 	0.00 	    17 	        NRG RH5X Humi 	2020-01-31 00:00:00 	0.00 	0.00000 	20.00000 	    NaN 	        Analog          %RH
-        11 	0.00 	    20 	        NRG BP60 Baro 	2020-01-31 00:00:00 	0.00 	495.27700 	243.91400 	    NaN 	        Analog          hPa
-        12 	0.00 	    21 	        NRG BP60 Baro 	2020-01-31 00:00:00 	2.00 	495.04400 	244.23900 	    9396FT1937          Analog  	hPa
+           	Channel: 	Description: 	Offset:	Scale Factor: 	Serial Number: 	Type: 	Units:
+        0 	1 	        NRG S1 	        0.13900 	0.09350 	94120000059 	Anemometer 	m/s
+        1 	2 	        NRG S1 	        0.13900 	0.09350 	94120000058 	Anemometer 	m/s
+        2 	3 	        NRG S1 	        0.13900 	0.09350 	94120000057 	Anemometer 	m/s
+        3 	4 	        NRG 40C Anem 	0.35000 	0.76500 	179500324860 	Anemometer 	m/s
+        4 	5 	        NRG 40C Anem 	0.35000 	0.76500 	179500324859 	Anemometer 	m/s
+        5 	6 	        NRG S1 	        0.13900 	0.09350 	94120000056 	Anemometer 	m/s
+        6 	13 	        NRG 200M Vane 	-1.46020 	147.91100 	10700000125 	Vane        Deg
+        7 	14 	        NRG 200M Vane 	-1.46020 	147.91100 	10700000124 	Vane        Deg
+        8 	5 	        NRG T60 Temp 	-40.85550 	44.74360 	9400000705      Analog      C
+        9 	6 	        NRG T60 Temp 	40.85550 	44.74360 	9400000xxx      Analog      C
+        10 	7 	        NRG RH5X Humi 	0.00000 	20.00000 	NaN 	        Analog      %RH
+        11 	0 	        NRG BP60 Baro 	95.27700 	243.91400 	NaN 	        Analog      hPa
+        12 	1 	        NRG BP60 Baro 	95.04400 	244.23900 	9396FT1937      Analog  	hPa
         """
 
         if "site_filter" in kwargs and file_filter == "":

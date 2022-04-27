@@ -32,7 +32,7 @@ class read_text_data(object):
     sep : str
         '\t'; csv separator
 
-    txt_dir : str
+    txt_dir : str (path-like)
         folder path of text files to read and concatenate
     file_filter : str, optional
         use when using txt_dir to filter on subset of files

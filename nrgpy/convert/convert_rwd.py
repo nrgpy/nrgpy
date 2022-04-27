@@ -25,9 +25,9 @@ class local(object):
         r'"C:/NRG/SymDR/SDR.exe"', may be any path
     file_filter : str
         filters files on text in filename
-    rwd_dir : str
+    rwd_dir : str (path-like)
         folder to check for RWD files
-    out_dir : str
+    out_dir : str (path-like)
         folder to save exported TXT files into
     wine_folder : str
         '~/.wine/drive_c/', for linux installations

@@ -30,7 +30,7 @@ class export_job(cloud_export):
 
     Parameters
     ----------
-    out_dir : str
+    out_dir : str (path-like)
         path to save exported data
     site_id : int
         NRG Cloud site identifier (NOT the site number)

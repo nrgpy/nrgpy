@@ -26,7 +26,7 @@ class cloud_export(cloud_api):
 
     Parameters
     ----------
-    out_dir : str
+    out_dir : str (path-like)
         path to save exported data
     site_id : int
         NRG Cloud site identifier (NOT the site number)

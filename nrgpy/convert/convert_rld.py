@@ -19,12 +19,12 @@ class local(object):
 
     Parameters
     ----------
-    rld_dir : str, optional
+    rld_dir : str, optional (path-like)
         specify directory. Note for unc values, you
         will need to escape all forward slashes, e.g.
         rld_dir = "\\\\sol\\techsupport\\data\\"
         or use the r'\\path\to\dir' approach
-    out_dir : str, optional
+    out_dir : str, optional (path-like)
         see note for rld_dir.
     encryption_pass : str
         specify data encryption password if logger is set up for that.

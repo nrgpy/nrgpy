@@ -242,7 +242,7 @@ class sympro_txt_read(object):
 
         Parameters
         ----------
-        txt_dir : str
+        txt_dir : str (path-like)
             directory holding txt files
         file_type : str
             type of export (meas, event, comm, sample, etc...)

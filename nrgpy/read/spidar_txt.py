@@ -103,7 +103,7 @@ class spidar_data_read(object):
 
         parameters
         ----------
-        txt_dir : str
+        txt_dir : str (path-like)
             path to csv or csv.zip files
         output_txt : boolean
             export concatenated data
