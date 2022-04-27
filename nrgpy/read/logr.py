@@ -26,7 +26,7 @@ class logr_read(object):
         an instance of the class is created, and the concat_txt function may be called to
         combine all txt files in a directory.
 
-        Filters may be used on any part of the filename, to combine a subset of text files in
+        Filters may be used on any part of the filename, to combine a subset of dat files in
         a directory.
 
         Parameters
@@ -41,7 +41,7 @@ class logr_read(object):
         Returns
         ---------
         ch_info : obj
-            pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
+            pandas dataframe of ch_list (below) pulled out of file with logr_read.arrange_ch_info()
         ch_list : list
             list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
         data : obj
@@ -234,7 +234,7 @@ class logr_read(object):
         Returns
         -------
         ch_info : obj
-            pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
+            pandas dataframe of ch_list (below) pulled out of file with logr_read.arrange_ch_info()
         ch_list : list
             list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
         data : obj
@@ -261,9 +261,9 @@ class logr_read(object):
         Read files into nrgpy reader object
 
         >>> import nrgpy
-        >>> reader = nrgpy.sympro_txt_read()
+        >>> reader = nrgpy.logr_read()
         >>> reader.concat_txt(
-                dat_dir='/path/to/txt/files/',
+                dat_dir='/path/to/dat/files/',
                 file_filter='123456', # site 123456
                 start_date='2020-01-01',
                 end_date='2020-01-31',
