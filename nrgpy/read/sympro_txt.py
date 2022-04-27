@@ -23,7 +23,7 @@ class sympro_txt_read(object):
         """Class of pandas dataframes created from SymPRO standard txt output.
 
         If a filename is passed when calling class, the file is read in alone. Otherwise,
-        and instance of the class is created, and the concat_txt function may be called to
+        an instance of the class is created, and the concat_txt function may be called to
         combine all txt files in a directory.
 
         Filters may be used on any part of the filename, to combine a subset of text files in
@@ -206,6 +206,10 @@ class sympro_txt_read(object):
             self.location = self._site_info["Location"].values[0]
             self.site_number = self._site_info["Site Number"].values[0]
             self.site_description = self._site_info["Site Description"].values[0]
+            self.project = self._site_info["Project"].values[0]
+            self.coordinate_system = self._site_info["Coordinate System"].values[0]
+            self.tower = self._site_info["Tower"].values[0]
+            self.site_description = self._site_info["Site Description"].values[0]
 
             self.logger_sn = self._site_info["Serial Number"].values[0]
             self.ipack_sn = self._site_info["Serial Number_1"].values[0]
@@ -287,7 +291,6 @@ class sympro_txt_read(object):
         Examples
         --------
         Read files into nrgpy reader object
-
         >>> import nrgpy
         >>> reader = nrgpy.sympro_txt_read()
         >>> reader.concat_txt(

@@ -1,7 +1,13 @@
 from datetime import datetime
 from glob import glob
 import os
-from nrgpy.utils.utilities import check_platform, windows_folder_path, linux_folder_path, date_check, draw_progress_bar
+from nrgpy.utils.utilities import (
+    check_platform,
+    windows_folder_path,
+    linux_folder_path,
+    date_check,
+    draw_progress_bar,
+)
 import pandas as pd
 
 
@@ -55,7 +61,8 @@ class spidar_data_read(object):
     >>> reader.serial_number
     '1922AG0070'
     """
-    def __init__(self, filename=''):
+
+    def __init__(self, filename=""):
         self.filename = filename
         self.reader_type = "SpidarV1"
 
@@ -64,22 +71,16 @@ class spidar_data_read(object):
             pass
 
     def __repr__(self):
-        return '<class {}: {} >'.format(self.__class__.__name__, self.filename)
+        return "<class {}: {} >".format(self.__class__.__name__, self.filename)
 
     def read_file(self, f):
         try:
             self.data = pd.read_csv(
-                f,
-                encoding='UTF_16_LE',
-                parse_dates=True,
-                index_col=[0]
+                f, encoding="UTF_16_LE", parse_dates=True, index_col=[0]
             )
         except UnicodeDecodeError:
             self.data = pd.read_csv(
-                f,
-                encoding='UTF_8',
-                parse_dates=True,
-                index_col=[0]
+                f, encoding="UTF_8", parse_dates=True, index_col=[0]
             )
 
         self.data.reset_index(drop=False, inplace=True)
@@ -87,10 +88,17 @@ class spidar_data_read(object):
         self.get_heights()
         self.serial_number = os.path.basename(f).split("_")[0]
 
-    def concat_txt(self, txt_dir='', output_txt=False, out_file='',
-                   file_filter='', file_filter2='',
-                   start_date='1970-01-01', end_date='2150-12-31',
-                   progress_bar=True):
+    def concat_txt(
+        self,
+        txt_dir="",
+        output_txt=False,
+        out_file="",
+        file_filter="",
+        file_filter2="",
+        start_date="1970-01-01",
+        end_date="2150-12-31",
+        progress_bar=True,
+    ):
         """concatenate files in a folder
 
         parameters
@@ -121,15 +129,17 @@ class spidar_data_read(object):
         self.start_date = start_date
         self.end_date = end_date
 
-        if check_platform() == 'win32':
+        if check_platform() == "win32":
             self.txt_dir = windows_folder_path(txt_dir)
         else:
             self.txt_dir = linux_folder_path(txt_dir)
 
         first_file = True
         files = [
-            f for f in sorted(glob(self.txt_dir + "*"))
-            if self.file_filter in f and self.file_filter2 in f
+            f
+            for f in sorted(glob(self.txt_dir + "*"))
+            if self.file_filter in f
+            and self.file_filter2 in f
             and date_check(self.start_date, self.end_date, f)
         ]
 
@@ -143,15 +153,24 @@ class spidar_data_read(object):
                 if progress_bar:
                     draw_progress_bar(self.counter, self.file_count, self.start_time)
                 else:
-                    print("Adding {0}/{1}  ...  {2} ".format(str(self.counter).rjust(self.pad), str(self.file_count).ljust(self.pad), f), end="", flush=True)
+                    print(
+                        "Adding {0}/{1}  ...  {2} ".format(
+                            str(self.counter).rjust(self.pad),
+                            str(self.file_count).ljust(self.pad),
+                            f,
+                        ),
+                        end="",
+                        flush=True,
+                    )
                 if first_file == True:
                     first_file = False
                     try:
                         base = spidar_data_read(f)
-                        if progress_bar == False: print("[OK]")
+                        if progress_bar == False:
+                            print("[OK]")
                         pass
                     except IndexError:
-                        print('Only standard Spidar headertypes accepted')
+                        print("Only standard Spidar headertypes accepted")
                         break
                 else:
                     file_path = f
@@ -173,13 +192,13 @@ class spidar_data_read(object):
         if out_file != "":
             self.out_file = out_file
         if output_txt:
-            base.data.to_csv(txt_dir + out_file, sep=',', index=False)
+            base.data.to_csv(txt_dir + out_file, sep=",", index=False)
 
         try:
             self.base = base
             self.heights = base.heights
             self.serial_number = base.serial_number
-            self.data = base.data.drop_duplicates(subset=['Timestamp'], keep='first')
+            self.data = base.data.drop_duplicates(subset=["Timestamp"], keep="first")
             self.data.reset_index(drop=True, inplace=True)
             self.data.reset_index(drop=True, inplace=True)
 
@@ -192,6 +211,5 @@ class spidar_data_read(object):
         self.heights = [
             int(col.split("_")[1])
             for col in self.columns
-            if "horz_mean" in col
-            and "m/s" in col
+            if "horz_mean" in col and "m/s" in col
         ]
