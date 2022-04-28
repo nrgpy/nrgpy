@@ -361,7 +361,11 @@ def is_sympro_running():
     return False
 
 
-def set_start_stop(reader):
+def set_start_stop(reader, with_time=False):
     """ """
     reader.start_date = reader.data["Timestamp"].loc[0]
     reader.end_date = reader.data["Timestamp"].loc[len(reader.data) - 1]
+
+    if not with_time:
+        reader.start_date = reader.start_date.date()
+        reader.end_date = reader.end_date.date()

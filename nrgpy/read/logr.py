@@ -182,7 +182,9 @@ class logr_read(object):
             self.site_description = self._site_info["Site"].values[0]
 
             self.logger_sn = self._site_info["Serial Number"].values[0]
+            self.site_number = self.logger_sn
             self.logger_type = self._site_info["Model Number"].values[0]
+            self.logger_model = self.logger_type
             self.time_zone = self._site_info["Time Zone"].values[0]
 
         except Exception as e:
