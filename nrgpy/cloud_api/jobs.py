@@ -5,8 +5,6 @@ except ImportError:
 from datetime import datetime
 import json
 from nrgpy.utils.utilities import (
-    rename_cloud_export_like_spd,
-    create_spd_filename_from_cloud_export,
     draw_progress_bar,
 )
 from .auth import create_export_job_url, export_job_url, is_authorized
@@ -59,8 +57,6 @@ class export_job(cloud_export):
         'thirtyMinute', 'Hour', 'Day'
         must be a multiple of the logger's statistical interval. if not specified, will use
         "native" interval (usually oneMinute for solar, tenMinute for wind)
-    spd_filenames : bool
-        (True) convert export filenames to match formatting of SymphoniePRO Desktop Software
     unzip : bool
         (True) whether to extract the .txt data file from the .zip file
 
@@ -118,7 +114,6 @@ class export_job(cloud_export):
         nec_file="",
         export_type="measurements",
         interval="",
-        spd_filenames=True,
         unzip=True,
         **kwargs,
     ):
@@ -136,7 +131,6 @@ class export_job(cloud_export):
             nec_file=nec_file,
             export_type=export_type,
             interval=interval,
-            spd_filenames=spd_filenames,
             unzip=unzip,
         )
         pass
@@ -283,15 +277,6 @@ class export_job(cloud_export):
             else:
                 self.export_filepath = os.path.normpath(self.filepath)
                 self.export_filename = self.zip_file
-
-            if self.spd_filenames:
-                rename_cloud_export_like_spd(self.export_filepath)
-                self.export_filename = create_spd_filename_from_cloud_export(
-                    self.export_filename
-                )
-                self.export_filepath = os.path.join(
-                    os.path.dirname(self.export_filepath), self.export_filename
-                )
 
             logger.info(f"job_id {self.job_id} for site_id {self.site_id}")
             logger.info(
