@@ -48,6 +48,8 @@ def test_export_api(client_id, client_secret):
             out_dir=".",
         )
 
+        exporter.export()
+        
         reader = nrgpy.sympro_txt_read(filename=exporter.export_filepath)
 
         if int(reader.site_number) != 4310:
