@@ -17,7 +17,7 @@ class nrg_api_export(nrg_api):
 
     Parameters
     ----------
-    out_dir : str
+    out_dir : str (path-like)
         path to save exported data
     out_file : str
         (optional) filename to save

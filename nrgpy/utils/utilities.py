@@ -87,11 +87,10 @@ def date_check(start_date, end_date, string):
     string : str
         string including date to check
     """
-    if string.lower().endswith("rld") or "_" in string:
-        date_format = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
-    elif string.lower().endswith("rwd"):
+    if string.endswith(("dat", "rwd")):
         date_format = "([0-9]{4}[0-9]{2}[0-9]{2})"
-        string = string[4:]
+    elif string.lower().endswith("rld") or "_" in string:
+        date_format = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
 
     try:
         start = datetime.strptime(start_date, "%Y-%m-%d")
@@ -200,7 +199,7 @@ def save(reader, filename=""):
         pickle.dump(reader, pkl, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-def load(site_number="", filename=""):
+def load(site_number="", serial_number="", filename=""):
     """recall a reader from a pickle file by site number or filename
 
     parameters
@@ -216,8 +215,11 @@ def load(site_number="", filename=""):
         contents of pickle file
 
     """
-    if not filename:
+    if not filename and not serial_number:
         filename = f"{site_number}_reader.pkl"
+
+    if serial_number and not filename:
+        filename = f"{serial_number}_reader.pkl"
 
     with open(filename, "rb") as pkl:
         reader = pickle.load(pkl)
@@ -357,3 +359,13 @@ def is_sympro_running():
                 return True
 
     return False
+
+
+def set_start_stop(reader, with_time=False):
+    """ """
+    reader.start_date = reader.data["Timestamp"].loc[0]
+    reader.end_date = reader.data["Timestamp"].loc[len(reader.data) - 1]
+
+    if not with_time:
+        reader.start_date = reader.start_date.date()
+        reader.end_date = reader.end_date.date()
