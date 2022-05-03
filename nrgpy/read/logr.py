@@ -19,7 +19,14 @@ import traceback
 
 
 class logr_read(object):
-    def __init__(self, filename="", out_file="", text_timestamps=False, **kwargs):
+    def __init__(
+        self,
+        filename="",
+        out_file="",
+        text_timestamps=False,
+        logger_local_time=True,
+        **kwargs,
+    ):
         """Class of Pandas dataframes created from LOGR dat file.
 
         If a filename is passed when calling class, the file is read in alone. Otherwise,
@@ -37,6 +44,8 @@ class logr_read(object):
             path to outputted file
         text_timestamps : boolean
             set to True for text timestamps
+        logger_local_time : boolean
+            (True) convert dat file UTC timestamps to logger local time
 
         Returns
         ---------
@@ -61,6 +70,7 @@ class logr_read(object):
         self.filename = filename
         self.text_timestamps = text_timestamps
         self.out_file = out_file
+        self.logger_local_time = logger_local_time
         self.reader_type = "LOGR"
 
         if out_file == "":
@@ -96,12 +106,27 @@ class logr_read(object):
             self.data = pd.read_csv(
                 self.filename, skiprows=header_len, sep="\t", encoding="iso-8859-1"
             )
+
             if not self.text_timestamps:
                 self.data["Timestamp"] = pd.to_datetime(self.data["Timestamp"])
-            self.first_timestamp = self.data.iloc[0]["Timestamp"]
             self.arrange_ch_info()
             if not hasattr(self, "site_details"):
                 self.format_site_data()
+
+            if self.logger_local_time and not self.text_timestamps:
+                self.data["TimestampUTC"] = self.data["Timestamp"]
+                self.data["Timestamp"] = self.data["TimestampUTC"] + timedelta(
+                    hours=int(self.time_zone)
+                )
+            elif self.logger_local_time and self.text_timestamps:
+                print(
+                    "Cannot convert timestamps to local if using text_timestamps==True"
+                )
+                logger.error(
+                    "Cannot convert timestamps to local if using text_timestamps==True"
+                )
+
+            self.first_timestamp = self.data.iloc[0]["Timestamp"]
 
     def __repr__(self):
         return "<class {}: {} >".format(self.__class__.__name__, self.filename)
@@ -110,9 +135,11 @@ class logr_read(object):
         """creates ch_info dataframe and ch_list array"""
         array = [
             "Channel:",
+            "Channel",       # <--- temp fix for missing colon in dat file Channel key
             "Sensor Type:",
             "Description:",
             "Serial Number:",
+            "Measurand:",
             # "Height:",
             # "Bearing:",
             "Scale Factor:",
@@ -128,12 +155,14 @@ class logr_read(object):
 
         for row in self.site_info.loc[self.site_info[0].isin(array)].iterrows():
 
-            if row[1][0] == array[0] and ch_details == 0:  # start channel data read
+            # if row[1][0] == array[0] and ch_details == 0:  # start channel data read
+            if row[1][0] in (array[0], array[1]) and ch_details == 0:  # start channel data read
                 ch_details = 1
                 ch_data[row[1][0]] = row[1][1]
 
             elif (
-                row[1][0] == array[0] and ch_details == 1
+                # row[1][0] == array[0] and ch_details == 1
+                row[1][0] in (array[0], array[1]) and ch_details == 1
             ):  # close channel, start new data read
                 ch_list.append(ch_data)
                 ch_data = {}
@@ -142,13 +171,23 @@ class logr_read(object):
             elif row[1][0] in str(array):
                 ch_data[row[1][0]] = row[1][1]
 
-        ch_list.append(ch_data)  # last channel's data
+        ch_list.append(ch_data)        # last channel's data
         ch_df = pd.DataFrame(ch_list)
 
         self.ch_list = ch_list
         self.ch_info = pd.concat(
             [self.ch_info, ch_df], ignore_index=True, axis=0, join="outer"
         )
+
+        # correction for calculated channel colon missing
+        def return_channel_number(x):
+            """temporary fix for missing colon on dat file Channel key"""
+            if pd.isnull(x['Channel:']):
+                return x['Channel']
+            else:
+                return x['Channel:']
+
+        self.ch_info["Channel:"] = self.ch_info.apply(lambda x: return_channel_number(x), axis=1)
 
         return self
 
@@ -186,6 +225,7 @@ class logr_read(object):
             self.logger_type = self._site_info["Model Number"].values[0]
             self.logger_model = self.logger_type
             self.time_zone = self._site_info["Time Zone"].values[0]
+            # self.ch_info.drop(columns=['Channel'], inplace=True)
 
         except Exception as e:
             self.e = e
@@ -275,7 +315,7 @@ class logr_read(object):
         >>> reader.logger_sn
         '511'
         >>> reader.ch_info
-           	Channel: 	Description: 	Offset:	Scale Factor: 	Serial Number: 	Type: 	Units:
+                Channel: 	Description: 	Offset:	Scale Factor: 	Serial Number: 	Type: 	Units:
         0 	1 	        NRG S1 	        0.13900 	0.09350 	94120000059 	Anemometer 	m/s
         1 	2 	        NRG S1 	        0.13900 	0.09350 	94120000058 	Anemometer 	m/s
         2 	3 	        NRG S1 	        0.13900 	0.09350 	94120000057 	Anemometer 	m/s
@@ -360,7 +400,8 @@ class logr_read(object):
                     if progress_bar != True:
                         print("[FAILED]")
                     print("could not concat {0}".format(os.path.basename(f)))
-                    pass
+                    logger.error("could not concat {0}".format(os.path.basename(f)))
+                    logger.debug(traceback.format_exc())
             else:
                 file_path = f
 
@@ -409,21 +450,11 @@ class logr_read(object):
                 base.ch_info.sort_values(by=["ch"])
                 .drop_duplicates(
                     subset=self.array,
-                    #      [
-                    #          "Serial Number:",
-                    #          "Channel:",
-                    #          "Sensor Type:",
-                    #          "Description:",
-                    #          "Height:",
-                    #          "Bearing:",
-                    #          "Scale Factor:",
-                    #          "Offset:",
-                    #          "Units:",
-                    #      ],
                     ignore_index=True,
                 )
                 .drop(columns=["ch"], axis=1)
             )
+            self.first_timestamp = base.first_timestamp
             self.head = s.head
             self.site_info = s.site_info
             self.format_site_data()
