@@ -68,6 +68,11 @@
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/nrg_logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
@@ -233,9 +238,6 @@ title="Fullscreen mode"
 <span class="kn">import</span> <span class="nn">traceback</span>
 
 <span class="n">url_base</span> <span class="o">=</span> <span class="s2">&quot;https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/&quot;</span>
-<span class="c1">### REMOVE FOR PROD</span>
-<span class="n">url_base</span> <span class="o">=</span> <span class="s2">&quot;https://nrgcloudapi.azure-api.net/customerapi/&quot;</span>
-<span class="c1">###</span>
 <span class="n">token_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;token&quot;</span>
 <span class="n">convert_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/convert&quot;</span>
 <span class="n">export_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/export&quot;</span>

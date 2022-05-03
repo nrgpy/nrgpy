@@ -68,6 +68,11 @@
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/nrg_logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
@@ -227,8 +232,6 @@ title="Fullscreen mode"
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">rename_cloud_export_like_spd</span><span class="p">,</span>
-    <span class="n">create_spd_filename_from_cloud_export</span><span class="p">,</span>
     <span class="n">draw_progress_bar</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.auth</span> <span class="kn">import</span> <span class="n">create_export_job_url</span><span class="p">,</span> <span class="n">export_job_url</span><span class="p">,</span> <span class="n">is_authorized</span>
@@ -281,8 +284,6 @@ title="Fullscreen mode"
 <span class="sd">        &#39;thirtyMinute&#39;, &#39;Hour&#39;, &#39;Day&#39;</span>
 <span class="sd">        must be a multiple of the logger&#39;s statistical interval. if not specified, will use</span>
 <span class="sd">        &quot;native&quot; interval (usually oneMinute for solar, tenMinute for wind)</span>
-<span class="sd">    spd_filenames : bool</span>
-<span class="sd">        (True) convert export filenames to match formatting of SymphoniePRO Desktop Software</span>
 <span class="sd">    unzip : bool</span>
 <span class="sd">        (True) whether to extract the .txt data file from the .zip file</span>
 
@@ -340,7 +341,6 @@ title="Fullscreen mode"
         <span class="n">nec_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">export_type</span><span class="o">=</span><span class="s2">&quot;measurements&quot;</span><span class="p">,</span>
         <span class="n">interval</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">spd_filenames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">unzip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
@@ -358,7 +358,6 @@ title="Fullscreen mode"
             <span class="n">nec_file</span><span class="o">=</span><span class="n">nec_file</span><span class="p">,</span>
             <span class="n">export_type</span><span class="o">=</span><span class="n">export_type</span><span class="p">,</span>
             <span class="n">interval</span><span class="o">=</span><span class="n">interval</span><span class="p">,</span>
-            <span class="n">spd_filenames</span><span class="o">=</span><span class="n">spd_filenames</span><span class="p">,</span>
             <span class="n">unzip</span><span class="o">=</span><span class="n">unzip</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">pass</span>
@@ -453,7 +452,7 @@ title="Fullscreen mode"
 
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="si">}</span><span class="s2"> job ID </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">job_id</span><span class="si">}</span><span class="s2"> | status: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">json_response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">                           &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;job ID </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">job_id</span><span class="si">}</span><span class="s2"> | time elapsed: </span><span class="si">{</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="si">}</span><span class="s2"> s | status: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">json_response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">                           &quot;</span>
                 <span class="p">)</span>
                 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">download</span><span class="p">:</span>
@@ -505,15 +504,6 @@ title="Fullscreen mode"
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span>
-
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spd_filenames</span><span class="p">:</span>
-                <span class="n">rename_cloud_export_like_spd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span> <span class="o">=</span> <span class="n">create_spd_filename_from_cloud_export</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span>
-                <span class="p">)</span>
 
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;job_id </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">job_id</span><span class="si">}</span><span class="s2"> for site_id </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
