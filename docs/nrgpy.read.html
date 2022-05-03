@@ -71,6 +71,11 @@
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/nrg_logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
@@ -439,32 +444,6 @@ title="Print to PDF"
 <span class="go">&#39;1922AG0070&#39;</span>
 </pre></div>
 </div>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="nrgpy.read.spidar_txt.html#nrgpy.read.spidar_txt.spidar_data_read.concat_txt" title="nrgpy.read.spidar_txt.spidar_data_read.concat_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat_txt</span></code></a>([txt_dir, output_txt, out_file, ...])</p></td>
-<td><p>concatenate files in a folder</p></td>
-</tr>
-</tbody>
-</table>
-<table class="table">
-<colgroup>
-<col style="width: 60%" />
-<col style="width: 40%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>get_heights</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>read_file</strong></p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.spidar_txt.spidar_data_read.concat_txt">
 <span class="sig-name descname"><span class="pre">concat_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#spidar_data_read.concat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.spidar_data_read.concat_txt" title="Permalink to this definition">#</a></dt>
@@ -546,50 +525,6 @@ timestamp.</p>
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.sympro_txt_read">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.sympro_txt.</span></span><span class="sig-name descname"><span class="pre">sympro_txt_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_timestamps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#sympro_txt_read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.sympro_txt_read" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="nrgpy.read.sympro_txt.html#nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info" title="nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arrange_ch_info</span></code></a>()</p></td>
-<td><p>creates ch_info dataframe and ch_list array</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="nrgpy.read.sympro_txt.html#nrgpy.read.sympro_txt.sympro_txt_read.concat_txt" title="nrgpy.read.sympro_txt.sympro_txt_read.concat_txt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat_txt</span></code></a>([txt_dir, file_type, ...])</p></td>
-<td><p>Will concatenate all text files in the txt_dir</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="nrgpy.read.sympro_txt.html#nrgpy.read.sympro_txt.sympro_txt_read.format_site_data" title="nrgpy.read.sympro_txt.sympro_txt_read.format_site_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_site_data</span></code></a>()</p></td>
-<td><p>take txt header to create oject data</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="nrgpy.read.sympro_txt.html#nrgpy.read.sympro_txt.sympro_txt_read.insert_blank_header_rows" title="nrgpy.read.sympro_txt.sympro_txt_read.insert_blank_header_rows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_blank_header_rows</span></code></a>(filename)</p></td>
-<td><p>insert blank rows when using shift_timestamps()</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="nrgpy.read.sympro_txt.html#nrgpy.read.sympro_txt.sympro_txt_read.select_channels_for_reformat" title="nrgpy.read.sympro_txt.sympro_txt_read.select_channels_for_reformat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_channels_for_reformat</span></code></a>([epe, soiling])</p></td>
-<td><p>determines which of the channel headers fit those required for post-processing for either</p></td>
-</tr>
-</tbody>
-</table>
-<table class="table">
-<colgroup>
-<col style="width: 73%" />
-<col style="width: 27%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>calculate_soiling_ratio</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>format_data_for_epe</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p><strong>make_header_for_epe</strong></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><strong>output_txt_file</strong></p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info">
 <span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#sympro_txt_read.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info" title="Permalink to this definition">#</a></dt>
@@ -768,33 +703,6 @@ Local export of text files, as of 0.1.8.</p>
 </dl>
 </dd>
 </dl>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.arrange_ch_info" title="nrgpy.read.txt_utils.read_text_data.arrange_ch_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arrange_ch_info</span></code></a>()</p></td>
-<td><p>generates list and dataframe of channel information</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.concat" title="nrgpy.read.txt_utils.read_text_data.concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat</span></code></a>([output_txt, out_file, file_filter, ...])</p></td>
-<td><p>combine exported rwd files (in txt format)</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data" title="nrgpy.read.txt_utils.read_text_data.format_rwd_site_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_rwd_site_data</span></code></a>()</p></td>
-<td><p>adds formatted site dataframe to reader object</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.get_data" title="nrgpy.read.txt_utils.read_text_data.get_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_data</span></code></a>(_file)</p></td>
-<td><p>create dataframe of tabulated data</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.get_head" title="nrgpy.read.txt_utils.read_text_data.get_head"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_head</span></code></a>(_file)</p></td>
-<td><p>get the first lines of the file</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.get_site_info" title="nrgpy.read.txt_utils.read_text_data.get_site_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_site_info</span></code></a>(_file)</p></td>
-<td><p>create dataframe of site info</p></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.arrange_ch_info">
 <span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info" title="Permalink to this definition">#</a></dt>

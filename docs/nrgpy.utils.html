@@ -71,6 +71,11 @@
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/nrg_logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
@@ -398,18 +403,6 @@ title="Print to PDF"
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nrgpy</span><span class="o">.</span><span class="n">convert_utf16le_to_utf8</span><span class="p">(</span><span class="n">input_directory</span><span class="o">=</span><span class="n">input_directory</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="rubric">Methods</p>
-<table class="table">
-<colgroup>
-<col style="width: 60%" />
-<col style="width: 40%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>single_file</strong></p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file">
 <span class="sig-name descname"><span class="pre">single_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/encodings.html#convert_utf16le_to_utf8.single_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file" title="Permalink to this definition">#</a></dt>
@@ -534,8 +527,14 @@ title="Print to PDF"
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.utils.utilities.draw_progress_bar">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">draw_progress_bar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">barLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">45</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#draw_progress_bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.draw_progress_bar" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">draw_progress_bar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">barLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">45</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Time</span> <span class="pre">elapsed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#draw_progress_bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.draw_progress_bar" title="Permalink to this definition">#</a></dt>
 <dd><p>simple text progress bar</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.fix_export_siteid_filename">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">fix_export_siteid_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#fix_export_siteid_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.fix_export_siteid_filename" title="Permalink to this definition">#</a></dt>
+<dd><p>Change out NRG Cloud site id with padded site number</p>
 </dd></dl>
 
 <dl class="py function">
@@ -583,18 +582,6 @@ title="Print to PDF"
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">renamer</span></span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#renamer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.renamer" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>for replacing duplicate column names after transpose</p>
-<p class="rubric">Methods</p>
-<table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code>(x)</p></td>
-<td><p>Call self as a function.</p></td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="py function">

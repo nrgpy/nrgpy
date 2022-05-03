@@ -30,9 +30,12 @@ author = 'NRG Systems, Inc.'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-#    'sphinx.ext.todo',
+    'sphinx.ext.todo',
     'sphinx.ext.autosummary',
-    'numpydoc'
+    'numpydoc',
+    'sphinx.ext.ifconfig',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.imgmath',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -61,11 +64,13 @@ html_theme = 'sphinx_book_theme'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = []
 html_logo = 'nrg_logo.png'
 
 
 # -- Extension configuration -------------------------------------------------
+
+numpydoc_show_class_members = False 
 
 # -- Options for todo extension ----------------------------------------------
 

@@ -248,7 +248,7 @@ title="Fullscreen mode"
 <span class="sd">        and instance of the class is created, and the concat_txt function may be called to</span>
 <span class="sd">        combine all txt files in a directory.</span>
 
-<span class="sd">        filter may be used on any part of the filename, to combine a subset of text files in</span>
+<span class="sd">        Filters may be used on any part of the filename, to combine a subset of text files in</span>
 <span class="sd">        a directory.</span>
 
 <span class="sd">        Parameters</span>
@@ -482,7 +482,7 @@ title="Fullscreen mode"
 <span class="sd">            show bar on concat [True] or list of files [False]</span>
 
 <span class="sd">        Returns</span>
-<span class="sd">        ---------</span>
+<span class="sd">        -------</span>
 <span class="sd">        ch_info : obj</span>
 <span class="sd">            pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()</span>
 <span class="sd">        ch_list : list</span>
@@ -564,6 +564,7 @@ title="Fullscreen mode"
             <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;txt&quot;</span><span class="p">)</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="ow">in</span> <span class="n">f</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="ow">in</span> <span class="n">f</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_type</span> <span class="ow">in</span> <span class="n">f</span>
             <span class="ow">and</span> <span class="n">date_check</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
         <span class="p">]</span>
 
@@ -594,7 +595,7 @@ title="Fullscreen mode"
 
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">base</span> <span class="o">=</span> <span class="n">sympro_txt_read</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">text_timestamps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">progress_bar</span> <span class="o">!=</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">progress_bar</span><span class="p">:</span>
                         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK]&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">txt_file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
                 <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>

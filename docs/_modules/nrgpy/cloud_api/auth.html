@@ -230,11 +230,17 @@ title="Fullscreen mode"
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
 
-<span class="n">url_base</span> <span class="o">=</span> <span class="s1">&#39;https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/&#39;</span>
-<span class="n">token_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s1">&#39;token&#39;</span>
-<span class="n">convert_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s1">&#39;data/convert&#39;</span>
-<span class="n">export_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s1">&#39;data/export&#39;</span>
+<span class="n">url_base</span> <span class="o">=</span> <span class="s2">&quot;https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/&quot;</span>
+<span class="c1">### REMOVE FOR PROD</span>
+<span class="n">url_base</span> <span class="o">=</span> <span class="s2">&quot;https://nrgcloudapi.azure-api.net/customerapi/&quot;</span>
+<span class="c1">###</span>
+<span class="n">token_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;token&quot;</span>
+<span class="n">convert_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/convert&quot;</span>
+<span class="n">export_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/export&quot;</span>
+<span class="n">create_export_job_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/createexportjob&quot;</span>
+<span class="n">export_job_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/exportjob&quot;</span>
 <span class="n">sites_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;sites&quot;</span>
 
 
@@ -274,7 +280,7 @@ title="Fullscreen mode"
 <span class="sd">        to format TXT outputs. Bearer  token required.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cloud base: </span><span class="si">{</span><span class="n">url_base</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">=</span> <span class="n">client_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span> <span class="o">=</span> <span class="n">client_secret</span>
@@ -282,8 +288,12 @@ title="Fullscreen mode"
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">maintain_session_token</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Access error] Valid credentials are required.</span><span class="se">\n\n</span><span class="s1">Please visit https://cloud.nrgsystems.com/data-manager/api-setup</span><span class="se">\n</span><span class="s1">to access your API credentials&#39;</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;[Access error] Valid credentials are required. Please visit https://cloud.nrgsystems.com/data-manager/api-setup to access your API credentials&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;[Access error] Valid credentials are required.</span><span class="se">\n\n</span><span class="s2">Please visit https://cloud.nrgsystems.com/data-manager/api-setup</span><span class="se">\n</span><span class="s2">to access your API credentials&quot;</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;[Access error] Valid credentials are required. Please visit https://cloud.nrgsystems.com/data-manager/api-setup to access your API credentials&quot;</span>
+            <span class="p">)</span>
 
 <div class="viewcode-block" id="cloud_api.request_session_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.request_session_token">[docs]</a>    <span class="k">def</span> <span class="nf">request_session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generates a new session token for convert service api</span>
@@ -312,18 +322,31 @@ title="Fullscreen mode"
 <span class="sd">            start time of 24 hour countdown</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;session token requested&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> | Requesting session token ... &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> | Requesting session token ... &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
 
-        <span class="n">request_token_header</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
-        <span class="n">request_payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;clientId&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">),</span> <span class="s1">&#39;clientSecret&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">)}</span>
+        <span class="n">request_token_header</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}</span>
+        <span class="n">request_payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;clientId&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">),</span>
+            <span class="s2">&quot;clientSecret&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">),</span>
+        <span class="p">}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">request_payload</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">request_token_header</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">token_url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">request_payload</span><span class="p">),</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">request_token_header</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">token_url</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK]&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;new session token OK&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s1">&#39;apiToken&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;apiToken&quot;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;unable to get session token&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -352,12 +375,12 @@ title="Fullscreen mode"
 
 <div class="viewcode-block" id="cloud_api.save_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.save_token">[docs]</a>    <span class="k">def</span> <span class="nf">save_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;save session token in token pickle file&quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span><span class="p">],</span> <span class="n">f</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="cloud_api.load_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.load_token">[docs]</a>    <span class="k">def</span> <span class="nf">load_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;read session token from pickle file&quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="cloud_api.maintain_session_token"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.maintain_session_token">[docs]</a>    <span class="k">def</span> <span class="nf">maintain_session_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">token_file</span><span class="p">):</span>
@@ -371,9 +394,23 @@ title="Fullscreen mode"
             <span class="bp">self</span><span class="o">.</span><span class="n">request_session_token</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save_token</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="cloud_api.prepare_file_bytes"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.prepare_file_bytes">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_file_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-        <span class="n">file_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">encodebytes</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<div class="viewcode-block" id="cloud_api.prepare_file_bytes"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api.prepare_file_bytes">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_file_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="n">file_bytes</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">encodebytes</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">file_bytes</span></div></div>
+
+
+<div class="viewcode-block" id="is_authorized"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.is_authorized">[docs]</a><span class="k">def</span> <span class="nf">is_authorized</span><span class="p">(</span><span class="n">resp</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span> <span class="ow">or</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;apiResponseMessage&quot;</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;apiResponseMessage&quot;</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to process request&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to complete request.  Check nrpy log file for details&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span></div>
 </pre></div>
 
               </div>

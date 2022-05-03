@@ -20,13 +20,13 @@ jobs:
         run: |
           pip install -e .
       - name: SymPRO TXT Reader Test
-        run: python tests/test_readers/test_sympro_txt_read.py tests/test_readers/test_files/
+        run: python tests/readers/test_sympro_txt_read.py tests/readers/files/
       - name: Endpoint Test
         run: |
-          python tests/nrgcloud_tests/endpoint_check.py
+          python tests/nrgcloud/endpoint.py
       - name: NRG Cloud API tests
         env:
           CLIENT_ID: ${{ secrets.NRG_CLOUD_API_CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.NRG_CLOUD_API_CLIENT_SECRET }}
         run: |
-          python tests/nrgcloud_tests/api_tests.py $CLIENT_ID $CLIENT_SECRET
+          python tests/nrgcloud/api.py $CLIENT_ID $CLIENT_SECRET
