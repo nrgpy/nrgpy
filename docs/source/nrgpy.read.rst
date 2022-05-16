@@ -12,6 +12,14 @@ nrgpy.read.channel\_info\_arrays module
    :undoc-members:
    :show-inheritance:
 
+nrgpy.read.logr module
+----------------------
+
+.. automodule:: nrgpy.read.logr
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 nrgpy.read.spidar\_txt module
 -----------------------------
 

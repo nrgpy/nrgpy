@@ -68,6 +68,11 @@
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/nrg_logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
@@ -223,23 +228,20 @@ title="Fullscreen mode"
 <div class="viewcode-block" id="return_array"><a class="viewcode-back" href="../../../nrgpy.read.channel_info_arrays.html#nrgpy.read.channel_info_arrays.return_array">[docs]</a><span></span><span class="k">def</span> <span class="nf">return_array</span><span class="p">(</span><span class="n">data_file_type</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;return data file header parameter array based on data_file_type&quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">data_file_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;rwd&quot;</span><span class="p">,</span>
-                                  <span class="s2">&quot;symplus3&quot;</span><span class="p">,</span>
-                                  <span class="s2">&quot;symphonieplus3&quot;</span><span class="p">,</span>
-                                  <span class="s2">&quot;sp3&quot;</span><span class="p">,</span>
-                                  <span class="s2">&quot;4941&quot;</span>
-                                  <span class="s2">&quot;symphonieplus&quot;</span><span class="p">,</span>
-                                  <span class="s2">&quot;sp&quot;</span><span class="p">,</span>
-                                  <span class="s2">&quot;4280&quot;</span><span class="p">,</span>
-                                  <span class="s2">&quot;3090&quot;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">data_file_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="s2">&quot;rwd&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;symplus3&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;symphonieplus3&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sp3&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;4941&quot;</span> <span class="s2">&quot;symphonieplus&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;4280&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;3090&quot;</span><span class="p">,</span>
+    <span class="p">]:</span>
         <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">return_sp3_ch_info</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span>
 
-    <span class="k">elif</span> <span class="n">data_file_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;rld&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;sympro&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;symphoniepro&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;spro&quot;</span><span class="p">,</span>
-                                    <span class="s2">&quot;8206&quot;</span><span class="p">]:</span>
+    <span class="k">elif</span> <span class="n">data_file_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;rld&quot;</span><span class="p">,</span> <span class="s2">&quot;sympro&quot;</span><span class="p">,</span> <span class="s2">&quot;symphoniepro&quot;</span><span class="p">,</span> <span class="s2">&quot;spro&quot;</span><span class="p">,</span> <span class="s2">&quot;8206&quot;</span><span class="p">]:</span>
         <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">return_spro_ch_info</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span>
 
@@ -252,23 +254,23 @@ title="Fullscreen mode"
     <span class="sd">&quot;&quot;&quot;returns array of sensor info parameters for Symphonie, PLUS, and PLUS3 txt export files&quot;&quot;&quot;</span>
 
     <span class="n">array</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;Channel #&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Type&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Description&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;Channel #&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Type&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
         <span class="c1"># &#39;Details&#39;,</span>
-        <span class="s1">&#39;Serial Number&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Height&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Scale Factor&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Offset&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Units&#39;</span>
+        <span class="s2">&quot;Serial Number&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Height&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Scale Factor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Offset&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Units&quot;</span><span class="p">,</span>
     <span class="p">]</span>
 
     <span class="n">header_sections</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;site_info_start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-----Site Information-----&quot;</span>
-    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;sensor_info_start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-----Sensor Information-----&quot;</span>
-    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;data_header&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Date &amp; Time Stamp&quot;</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s2">&quot;site_info_start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-----Site Information-----&quot;</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s2">&quot;sensor_info_start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-----Sensor Information-----&quot;</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s2">&quot;data_header&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Date &amp; Time Stamp&quot;</span>
     <span class="n">skip_rows</span> <span class="o">=</span> <span class="mi">6</span>
-    <span class="n">data_type</span> <span class="o">=</span> <span class="s1">&#39;symplus3&#39;</span>
+    <span class="n">data_type</span> <span class="o">=</span> <span class="s2">&quot;symplus3&quot;</span>
 
     <span class="k">return</span> <span class="n">array</span><span class="p">,</span> <span class="n">header_sections</span><span class="p">,</span> <span class="n">skip_rows</span><span class="p">,</span> <span class="n">data_type</span></div>
 
@@ -277,24 +279,24 @@ title="Fullscreen mode"
     <span class="sd">&quot;&quot;&quot;returns array of possible channel parameters for SymphoniePRO txt export files&quot;&quot;&quot;</span>
 
     <span class="n">array</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;Channel:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Export Channel:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Effective Date:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Type:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Description:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Serial Number:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Height:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Bearing:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Scale Factor:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Offset:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Units:&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;P-SCM Type:&#39;</span>
+        <span class="s2">&quot;Channel:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Export Channel:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Effective Date:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Type:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Description:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Serial Number:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Height:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Bearing:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Scale Factor:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Offset:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Units:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;P-SCM Type:&quot;</span><span class="p">,</span>
     <span class="p">]</span>
 
     <span class="n">header_sections</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;site_info_start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Export Parameters&quot;</span>
-    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;sensor_info_start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Sensor History&quot;</span>
-    <span class="n">header_sections</span><span class="p">[</span><span class="s1">&#39;data_header&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Data</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s2">&quot;site_info_start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Export Parameters&quot;</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s2">&quot;sensor_info_start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Sensor History&quot;</span>
+    <span class="n">header_sections</span><span class="p">[</span><span class="s2">&quot;data_header&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Data</span><span class="se">\n</span><span class="s2">&quot;</span>
     <span class="n">skip_rows</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="n">data_type</span> <span class="o">=</span> <span class="s2">&quot;sympro&quot;</span>
 

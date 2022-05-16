@@ -1,0 +1,1003 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nrgpy.read.logr &#8212; nrgpy  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/nrg_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../nrgpy.html">
+   nrgpy package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.api.html">
+     nrgpy.api package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.cloud_api.html">
+     nrgpy.cloud_api package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.convert.html">
+     nrgpy.convert package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.quality.html">
+     nrgpy.quality package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.read.html">
+     nrgpy.read package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../nrgpy.utils.html">
+     nrgpy.utils package
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../setup.html">
+   setup module
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for nrgpy.read.logr</h1><div class="highlight"><pre>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">nrgpy</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">check_platform</span><span class="p">,</span>
+    <span class="n">windows_folder_path</span><span class="p">,</span>
+    <span class="n">linux_folder_path</span><span class="p">,</span>
+    <span class="n">draw_progress_bar</span><span class="p">,</span>
+    <span class="n">date_check</span><span class="p">,</span>
+    <span class="n">renamer</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+
+
+<div class="viewcode-block" id="logr_read"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read">[docs]</a><span class="k">class</span> <span class="nc">logr_read</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">text_timestamps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">logger_local_time</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Class of Pandas dataframes created from LOGR dat file.</span>
+
+<span class="sd">        If a filename is passed when calling class, the file is read in alone. Otherwise,</span>
+<span class="sd">        an instance of the class is created, and the concat_txt function may be called to</span>
+<span class="sd">        combine all txt files in a directory.</span>
+
+<span class="sd">        Filters may be used on any part of the filename, to combine a subset of dat files in</span>
+<span class="sd">        a directory.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str, optional</span>
+<span class="sd">            path to filename</span>
+<span class="sd">        out_file : str, optional</span>
+<span class="sd">            path to outputted file</span>
+<span class="sd">        text_timestamps : boolean</span>
+<span class="sd">            set to True for text timestamps</span>
+<span class="sd">        logger_local_time : boolean</span>
+<span class="sd">            (True) convert dat file UTC timestamps to logger local time</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ---------</span>
+<span class="sd">        ch_info : obj</span>
+<span class="sd">            pandas dataframe of ch_list (below) pulled out of file with logr_read.arrange_ch_info()</span>
+<span class="sd">        ch_list : list</span>
+<span class="sd">            list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)</span>
+<span class="sd">        data : obj</span>
+<span class="sd">            pandas dataframe of all data</span>
+<span class="sd">        head : obj</span>
+<span class="sd">            lines at the top of the txt file..., used when rebuilding timeshifted files</span>
+<span class="sd">        site_info : obj</span>
+<span class="sd">            pandas dataframe of site information</span>
+<span class="sd">        logger_sn : str</span>
+<span class="sd">        logger_type : str</span>
+<span class="sd">        latitude : float</span>
+<span class="sd">        longitude : float</span>
+<span class="sd">        elevation : int</span>
+<span class="sd">        site_description : str</span>
+<span class="sd">        start_date : str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span> <span class="o">=</span> <span class="n">text_timestamps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_file</span> <span class="o">=</span> <span class="n">out_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger_local_time</span> <span class="o">=</span> <span class="n">logger_local_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reader_type</span> <span class="o">=</span> <span class="s2">&quot;LOGR&quot;</span>
+
+        <span class="k">if</span> <span class="n">out_file</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">out_file</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_LOGR.dat&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">infile</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;Data</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">next</span><span class="p">(</span><span class="n">myfile</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
+
+            <span class="n">header_len</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">read_len</span> <span class="o">=</span> <span class="n">header_len</span> <span class="o">-</span> <span class="mi">5</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span>
+                <span class="n">skiprows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">index_col</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">nrows</span><span class="o">=</span><span class="n">read_len</span><span class="p">,</span>
+                <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span>
+                <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">header_len</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;iso-8859-1&quot;</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arrange_ch_info</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;site_details&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">format_site_data</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger_local_time</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TimestampUTC&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TimestampUTC&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span>
+                    <span class="n">hours</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_zone</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger_local_time</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Cannot convert timestamps to local if using text_timestamps==True&quot;</span>
+                <span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">&quot;Cannot convert timestamps to local if using text_timestamps==True&quot;</span>
+                <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">first_timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;class </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2"> &gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+
+<div class="viewcode-block" id="logr_read.arrange_ch_info"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.arrange_ch_info">[docs]</a>    <span class="k">def</span> <span class="nf">arrange_ch_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;creates ch_info dataframe and ch_list array&quot;&quot;&quot;</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;Channel:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Channel&quot;</span><span class="p">,</span>  <span class="c1"># &lt;--- fix for missing colon in dat file Channel key</span>
+            <span class="s2">&quot;Sensor Type:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Description:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Serial Number:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Measurand:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Height:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Bearing:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Scale Factor:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Offset:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Units:&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="n">array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ch_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">ch_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">ch_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">ch_details</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">array</span><span class="p">)]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+
+            <span class="c1"># if row[1][0] == array[0] and ch_details == 0:  # start channel data read</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="n">ch_details</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="p">):</span>  <span class="c1"># start channel data read</span>
+                <span class="n">ch_details</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">ch_data</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="c1"># row[1][0] == array[0] and ch_details == 1</span>
+                <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="ow">and</span> <span class="n">ch_details</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="p">):</span>  <span class="c1"># close channel, start new data read</span>
+                <span class="n">ch_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch_data</span><span class="p">)</span>
+                <span class="n">ch_data</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">ch_data</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+                <span class="n">ch_data</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">ch_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch_data</span><span class="p">)</span>  <span class="c1"># last channel&#39;s data</span>
+        <span class="n">ch_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ch_list</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ch_list</span> <span class="o">=</span> <span class="n">ch_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ch_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ch_info</span><span class="p">,</span> <span class="n">ch_df</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># correction for calculated channel colon missing</span>
+        <span class="k">def</span> <span class="nf">return_channel_number</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;temporary fix for missing colon on dat file Channel key&quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;Channel:&quot;</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;Channel&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;Channel:&quot;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ch_info</span><span class="p">[</span><span class="s2">&quot;Channel:&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ch_info</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">return_channel_number</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="logr_read.format_site_data"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.format_site_data">[docs]</a>    <span class="k">def</span> <span class="nf">format_site_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;take dat header to create oject data&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Site_info</span><span class="o">.</span><span class="n">T</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+            <span class="n">width</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;Sensor History&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">renamer</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">width</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span><span class="p">)],</span>
+                <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span>
+            <span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">latitude</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Latitude&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">longitude</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Longitude&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">elevation</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Elevation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Location&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Project&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Site&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger_sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Serial Number&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger_sn</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Model Number&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger_type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">time_zone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Time Zone&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># self.ch_info.drop(columns=[&#39;Channel&#39;], inplace=True)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: error processing site_info: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot parse site info: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="logr_read.concat_txt"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.concat_txt">[docs]</a>    <span class="k">def</span> <span class="nf">concat_txt</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dat_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;statistical&quot;</span><span class="p">,</span>
+        <span class="n">file_filter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">filter2</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span>
+        <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2150-12-31&quot;</span><span class="p">,</span>
+        <span class="n">ch_details</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">output_txt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Will concatenate all text files in the dat_dir</span>
+
+<span class="sd">        files must match the site_filter argument. Note these are both blank by default.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dat_dir : str (path-like)</span>
+<span class="sd">            directory holding txt files</span>
+<span class="sd">        file_type : str</span>
+<span class="sd">            type of export (meas, event, comm, sample, etc...)</span>
+<span class="sd">        file_filter : str</span>
+<span class="sd">            text filter for txt files, like site number, etc.</span>
+<span class="sd">        filter2 : str</span>
+<span class="sd">            secondary text filter</span>
+<span class="sd">        start_date : str</span>
+<span class="sd">            for filtering files to concat based on date &quot;YYYY-mm-dd&quot;</span>
+<span class="sd">        end_date : str</span>
+<span class="sd">            for filtering files to concat based on date &quot;YYYY-mm-dd&quot;</span>
+<span class="sd">        ch_details : bool</span>
+<span class="sd">            show additional info in ch_info dataframe</span>
+<span class="sd">        output_txt : bool</span>
+<span class="sd">            create a txt output of data df</span>
+<span class="sd">        out_file : str</span>
+<span class="sd">            filename to write data dataframe too if output_txt = True</span>
+<span class="sd">        progress_bar : bool</span>
+<span class="sd">            show bar on concat [True] or list of files [False]</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ch_info : obj</span>
+<span class="sd">            pandas dataframe of ch_list (below) pulled out of file with logr_read.arrange_ch_info()</span>
+<span class="sd">        ch_list : list</span>
+<span class="sd">            list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)</span>
+<span class="sd">        data : obj</span>
+<span class="sd">            pandas dataframe of all data</span>
+<span class="sd">        head : obj</span>
+<span class="sd">            lines at the top of the txt file..., used when rebuilding timeshifted files</span>
+<span class="sd">        site_info : obj</span>
+<span class="sd">            pandas dataframe of site information</span>
+<span class="sd">        logger_sn : str</span>
+<span class="sd">        ipack_sn : str</span>
+<span class="sd">        logger_type : str</span>
+<span class="sd">        ipack_type : str</span>
+<span class="sd">        latitude : float</span>
+<span class="sd">        longitude : float</span>
+<span class="sd">        elevation : int</span>
+<span class="sd">        site_number : str</span>
+<span class="sd">        site_description : str</span>
+<span class="sd">        start_date : str</span>
+<span class="sd">        dat_file_names : list</span>
+<span class="sd">            list of files included in concatenation</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Read files into nrgpy reader object</span>
+
+<span class="sd">        &gt;&gt;&gt; import nrgpy</span>
+<span class="sd">        &gt;&gt;&gt; reader = nrgpy.logr_read()</span>
+<span class="sd">        &gt;&gt;&gt; reader.concat_txt(</span>
+<span class="sd">                dat_dir=&#39;/path/to/dat/files/&#39;,</span>
+<span class="sd">                file_filter=&#39;123456&#39;, # site 123456</span>
+<span class="sd">                start_date=&#39;2020-01-01&#39;,</span>
+<span class="sd">                end_date=&#39;2020-01-31&#39;,</span>
+<span class="sd">            )</span>
+<span class="sd">        Time elapsed: 2 s | 33 / 33 [=============================================] 100%</span>
+<span class="sd">        Queue processed</span>
+<span class="sd">        &gt;&gt;&gt; reader.logger_sn</span>
+<span class="sd">        &#39;511&#39;</span>
+<span class="sd">        &gt;&gt;&gt; reader.ch_info</span>
+<span class="sd">                Channel: 	Description: 	Offset:	Scale Factor: 	Serial Number: 	Type: 	Units:</span>
+<span class="sd">        0 	1 	        NRG S1 	        0.13900 	0.09350 	94120000059 	Anemometer 	m/s</span>
+<span class="sd">        1 	2 	        NRG S1 	        0.13900 	0.09350 	94120000058 	Anemometer 	m/s</span>
+<span class="sd">        2 	3 	        NRG S1 	        0.13900 	0.09350 	94120000057 	Anemometer 	m/s</span>
+<span class="sd">        3 	4 	        NRG 40C Anem 	0.35000 	0.76500 	179500324860 	Anemometer 	m/s</span>
+<span class="sd">        4 	5 	        NRG 40C Anem 	0.35000 	0.76500 	179500324859 	Anemometer 	m/s</span>
+<span class="sd">        5 	6 	        NRG S1 	        0.13900 	0.09350 	94120000056 	Anemometer 	m/s</span>
+<span class="sd">        6 	13 	        NRG 200M Vane 	-1.46020 	147.91100 	10700000125 	Vane        Deg</span>
+<span class="sd">        7 	14 	        NRG 200M Vane 	-1.46020 	147.91100 	10700000124 	Vane        Deg</span>
+<span class="sd">        8 	5 	        NRG T60 Temp 	-40.85550 	44.74360 	9400000705      Analog      C</span>
+<span class="sd">        9 	6 	        NRG T60 Temp 	40.85550 	44.74360 	9400000xxx      Analog      C</span>
+<span class="sd">        10 	7 	        NRG RH5X Humi 	0.00000 	20.00000 	NaN 	        Analog      %RH</span>
+<span class="sd">        11 	0 	        NRG BP60 Baro 	95.27700 	243.91400 	NaN 	        Analog      hPa</span>
+<span class="sd">        12 	1 	        NRG BP60 Baro 	95.04400 	244.23900 	9396FT1937      Analog  	hPa</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;site_filter&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">file_filter</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;site_filter&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="o">=</span> <span class="n">file_filter</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ch_details</span> <span class="o">=</span> <span class="n">ch_details</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">start_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="o">=</span> <span class="n">filter2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_type</span> <span class="o">=</span> <span class="n">file_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dat_file_names</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="s2">&quot;txt_dir&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">dat_dir</span><span class="p">:</span>
+            <span class="n">dat_dir</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;txt_dir&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">check_platform</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dat_dir</span> <span class="o">=</span> <span class="n">windows_folder_path</span><span class="p">(</span><span class="n">dat_dir</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dat_dir</span> <span class="o">=</span> <span class="n">linux_folder_path</span><span class="p">(</span><span class="n">dat_dir</span><span class="p">)</span>
+
+        <span class="n">first_file</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dat_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dat_dir</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;dat&quot;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="ow">in</span> <span class="n">f</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="ow">in</span> <span class="n">f</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_type</span> <span class="ow">in</span> <span class="n">f</span>
+            <span class="ow">and</span> <span class="n">date_check</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_count</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Concatenating </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">file_count</span><span class="si">}</span><span class="s2"> files...&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">progress_bar</span><span class="p">:</span>
+                <span class="n">draw_progress_bar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Adding </span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2"> ... </span><span class="si">{2}</span><span class="s2"> ... &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">),</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_count</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">),</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">),</span>
+                    <span class="p">),</span>
+                    <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">first_file</span><span class="p">:</span>
+                <span class="n">first_file</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">base</span> <span class="o">=</span> <span class="n">logr_read</span><span class="p">(</span>
+                        <span class="n">f</span><span class="p">,</span>
+                        <span class="n">text_timestamps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span><span class="p">,</span>
+                        <span class="n">logger_local_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger_local_time</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">progress_bar</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK]&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dat_file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Only standard SymPRO headertypes accepted&quot;</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">progress_bar</span> <span class="o">!=</span> <span class="kc">True</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED]&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not concat </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;could not concat </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">f</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">s</span> <span class="o">=</span> <span class="n">logr_read</span><span class="p">(</span>
+                        <span class="n">file_path</span><span class="p">,</span>
+                        <span class="n">ch_details</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ch_details</span><span class="p">,</span>
+                        <span class="n">text_timestamps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span><span class="p">,</span>
+                        <span class="n">site_details</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">base</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">base</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">data</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span>
+                    <span class="p">)</span>
+                    <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">ch_info</span><span class="p">],</span>
+                        <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">join</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">progress_bar</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK]&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dat_file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">progress_bar</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED]&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not concat </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
+                    <span class="k">pass</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">out_file</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out_file</span> <span class="o">=</span> <span class="n">out_file</span>
+
+        <span class="k">if</span> <span class="n">output_txt</span><span class="p">:</span>
+            <span class="n">base</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dat_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ch_info</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">ch_info</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ch_list</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">ch_list</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">array</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="p">[</span><span class="s2">&quot;ch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="p">[</span><span class="s2">&quot;Channel:&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ch_info</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ch&quot;</span><span class="p">])</span>
+                <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span>
+                    <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">array</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="o">.</span><span class="n">columns</span><span class="p">],</span>
+                    <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ch&quot;</span><span class="p">,</span> <span class="s2">&quot;Channel&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">first_timestamp</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">first_timestamp</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">head</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">site_info</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">format_site_data</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Concatenation of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows complete&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">UnboundLocalError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No files match to contatenate.&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No files in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dat_dir</span><span class="si">}</span><span class="s2"> match to contatenate.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="logr_read.output_txt_file"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.output_txt_file">[docs]</a>    <span class="k">def</span> <span class="nf">output_txt_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">standard</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">shift_timestamps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+
+        <span class="n">out_dir</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;out_dir&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">shift_timestamps</span><span class="p">:</span>
+
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">file_date</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">])</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">file_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">))</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span>
+            <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">_</span><span class="si">{1}</span><span class="s2">_</span><span class="si">{2}</span><span class="s2">_meas.txt&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">site_number</span><span class="p">,</span> <span class="n">file_date</span><span class="p">,</span> <span class="n">file_num</span>
+            <span class="p">)</span>
+            <span class="n">output_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_name</span> <span class="o">=</span> <span class="n">output_name</span>
+            <span class="n">output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_name</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="n">output_file</span><span class="o">.</span><span class="n">truncate</span><span class="p">()</span>
+            <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">)</span>
+            <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_name</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">first_timestamp</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">])</span>
+                    <span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="s2">&quot;couldn&#39;t rename &#39;Effective Date:&#39; info in </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">output_name</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                        <span class="s2">&quot;couldn&#39;t rename &#39;Effective Date:&#39; info in </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">output_name</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+                    <span class="n">f</span><span class="p">,</span>
+                    <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">index_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">line_terminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+
+            <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_name</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="k">while</span> <span class="s2">&quot;</span><span class="se">\t\n</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+                    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_name</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+                    <span class="n">f</span><span class="p">,</span>
+                    <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">index_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">line_terminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+
+            <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">insert_blank_header_rows</span><span class="p">(</span><span class="n">output_name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">standard</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">out_file</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">output_name</span> <span class="o">=</span> <span class="n">out_file</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">output_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_file</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_standard.txt&quot;</span>
+
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Outputting file: </span><span class="si">{0}</span><span class="s2">   ...   &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_name</span><span class="p">),</span>
+                <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Outputting file: </span><span class="si">{0}</span><span class="s2">   ...   &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_name</span><span class="p">))</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_name</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                <span class="n">output_file</span><span class="o">.</span><span class="n">truncate</span><span class="p">()</span>
+                <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">)</span>
+                <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+                <span class="c1"># write header</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_name</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+                        <span class="n">f</span><span class="p">,</span>
+                        <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">index_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">line_terminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+                <span class="c1"># write data</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_name</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+                        <span class="n">f</span><span class="p">,</span>
+                        <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">index_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">line_terminator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">insert_blank_header_rows</span><span class="p">(</span><span class="n">output_name</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK]&quot;</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED]&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Outputting </span><span class="si">{</span><span class="n">output_name</span><span class="si">}</span><span class="s2"> failed&quot;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="logr_read.insert_blank_header_rows"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.insert_blank_header_rows">[docs]</a>    <span class="k">def</span> <span class="nf">insert_blank_header_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;insert blank rows when using shift_timestamps()</span>
+
+<span class="sd">        ensures the resulting text file looks and feels like an</span>
+<span class="sd">        original LOGR  export</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">header_section_headings</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;Site Properties&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;File Properties&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Sensor History&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Data&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="n">blank_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;Site Properties&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="n">blank_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">site_properties_line</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;File Properties&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="n">blank_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">file_properties_line</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;Sensor History&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="n">blank_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">sensor_history_line</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span>
+
+        <span class="n">skip_first_channel</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;Channel:&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">skip_first_channel</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">skip_first_channel</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">blank_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;Data&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="n">blank_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">data_line</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span>
+
+        <span class="n">f_read</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="n">f_read</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="n">f_read</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="n">contents</span><span class="p">[</span><span class="n">site_properties_line</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_section_headings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">contents</span><span class="p">[</span><span class="n">file_properties_line</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_section_headings</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">contents</span><span class="p">[</span><span class="n">sensor_history_line</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_section_headings</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">contents</span><span class="p">[</span><span class="n">data_line</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_section_headings</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">blank_list</span><span class="p">))):</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">f_write</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+        <span class="n">f_write</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+        <span class="n">f_write</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="shift_timestamps"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.shift_timestamps">[docs]</a><span class="k">def</span> <span class="nf">shift_timestamps</span><span class="p">(</span>
+    <span class="n">txt_folder</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">out_folder</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">file_filter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span>
+    <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2150-12-31&quot;</span><span class="p">,</span>
+    <span class="n">seconds</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Takes as input a folder of exported standard text files and</span>
+<span class="sd">    time to shift in seconds.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    txt_folder : str</span>
+<span class="sd">        path to folder with txt files to shift</span>
+<span class="sd">    out_folder : str</span>
+<span class="sd">        where to put the shifted files (in subfolder by default)</span>
+<span class="sd">    file_filter : str</span>
+<span class="sd">        filter for restricting file set</span>
+<span class="sd">    start_date : str</span>
+<span class="sd">        date filter &quot;YYYY-mm-dd&quot;</span>
+<span class="sd">    end_date : str</span>
+<span class="sd">        date filter &quot;YYYY-mm-dd&quot;</span>
+<span class="sd">    seconds : int</span>
+<span class="sd">        time in seconds to shift timestamps (default 3600)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    obj</span>
+<span class="sd">        text files with shifted timestamps; new file names include shifted</span>
+<span class="sd">        timestamp.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">out_folder</span><span class="p">:</span>
+        <span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_folder</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">out_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">txt_folder</span><span class="p">,</span> <span class="s2">&quot;shifted_timestamps&quot;</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">f</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">txt_folder</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="s2">&quot;*.txt&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">file_filter</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="n">date_check</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="n">file_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">draw_progress_bar</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">file_count</span><span class="p">,</span> <span class="n">start_time</span><span class="p">)</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">txt_folder</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="n">fut</span> <span class="o">=</span> <span class="n">logr_read</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">fut</span><span class="o">.</span><span class="n">format_site_data</span><span class="p">()</span>
+            <span class="n">fut</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">fut</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span>
+                <span class="n">seconds</span><span class="o">=</span><span class="n">seconds</span>
+            <span class="p">)</span>
+            <span class="n">fut</span><span class="o">.</span><span class="n">output_txt_file</span><span class="p">(</span>
+                <span class="n">shift_timestamps</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">standard</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="n">f</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="n">pd</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">EmptyDataError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="k">pass</span>
+
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By NRG Systems, Inc.<br/>
+  
+      &copy; Copyright 2022, NRG Systems, Inc..<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

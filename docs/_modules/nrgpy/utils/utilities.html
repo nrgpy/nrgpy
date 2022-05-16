@@ -314,11 +314,10 @@ title="Fullscreen mode"
 <span class="sd">    string : str</span>
 <span class="sd">        string including date to check</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;rld&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span>
-        <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
-    <span class="k">elif</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;rwd&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">string</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s2">&quot;dat&quot;</span><span class="p">,</span> <span class="s2">&quot;rwd&quot;</span><span class="p">)):</span>
         <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">[0-9]</span><span class="si">{2}</span><span class="s2">[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
-        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+    <span class="k">elif</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;rld&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span>
+        <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -427,7 +426,7 @@ title="Fullscreen mode"
         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">pkl</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">site_number</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">site_number</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">serial_number</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;recall a reader from a pickle file by site number or filename</span>
 
 <span class="sd">    parameters</span>
@@ -443,8 +442,11 @@ title="Fullscreen mode"
 <span class="sd">        contents of pickle file</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">serial_number</span><span class="p">:</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">site_number</span><span class="si">}</span><span class="s2">_reader.pkl&quot;</span>
+
+    <span class="k">if</span> <span class="n">serial_number</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">serial_number</span><span class="si">}</span><span class="s2">_reader.pkl&quot;</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pkl</span><span class="p">:</span>
         <span class="n">reader</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pkl</span><span class="p">)</span>
@@ -584,6 +586,16 @@ title="Fullscreen mode"
                 <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="set_start_stop"><a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.utilities.set_start_stop">[docs]</a><span class="k">def</span> <span class="nf">set_start_stop</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">with_time</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+    <span class="n">reader</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">reader</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">with_time</span><span class="p">:</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">end_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span></div>
 </pre></div>
 
               </div>

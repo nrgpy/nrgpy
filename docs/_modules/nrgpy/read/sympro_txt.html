@@ -250,7 +250,7 @@ title="Fullscreen mode"
         <span class="sd">&quot;&quot;&quot;Class of pandas dataframes created from SymPRO standard txt output.</span>
 
 <span class="sd">        If a filename is passed when calling class, the file is read in alone. Otherwise,</span>
-<span class="sd">        and instance of the class is created, and the concat_txt function may be called to</span>
+<span class="sd">        an instance of the class is created, and the concat_txt function may be called to</span>
 <span class="sd">        combine all txt files in a directory.</span>
 
 <span class="sd">        Filters may be used on any part of the filename, to combine a subset of text files in</span>
@@ -433,6 +433,10 @@ title="Fullscreen mode"
             <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Location&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">site_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Site Number&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">site_description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Site Description&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Project&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_system</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Coordinate System&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tower</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Tower&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Site Description&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">logger_sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Serial Number&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ipack_sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Serial Number_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -465,7 +469,7 @@ title="Fullscreen mode"
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        txt_dir : str</span>
+<span class="sd">        txt_dir : str (path-like)</span>
 <span class="sd">            directory holding txt files</span>
 <span class="sd">        file_type : str</span>
 <span class="sd">            type of export (meas, event, comm, sample, etc...)</span>
@@ -514,7 +518,6 @@ title="Fullscreen mode"
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
 <span class="sd">        Read files into nrgpy reader object</span>
-
 <span class="sd">        &gt;&gt;&gt; import nrgpy</span>
 <span class="sd">        &gt;&gt;&gt; reader = nrgpy.sympro_txt_read()</span>
 <span class="sd">        &gt;&gt;&gt; reader.concat_txt(</span>

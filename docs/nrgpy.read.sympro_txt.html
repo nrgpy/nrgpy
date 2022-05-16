@@ -328,7 +328,7 @@ timestamp.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>txt_dir</strong><span class="classifier">str</span></dt><dd><p>directory holding txt files</p>
+<dt><strong>txt_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>directory holding txt files</p>
 </dd>
 <dt><strong>file_type</strong><span class="classifier">str</span></dt><dd><p>type of export (meas, event, comm, sample, etc…)</p>
 </dd>
@@ -378,36 +378,40 @@ timestamp.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>Read files into nrgpy reader object</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">sympro_txt_read</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">concat_txt</span><span class="p">(</span>
-<span class="go">        txt_dir=&#39;/path/to/txt/files/&#39;,</span>
-<span class="go">        file_filter=&#39;123456&#39;, # site 123456</span>
-<span class="go">        start_date=&#39;2020-01-01&#39;,</span>
-<span class="go">        end_date=&#39;2020-01-31&#39;,</span>
-<span class="go">    )</span>
-<span class="go">Time elapsed: 2 s | 33 / 33 [=============================================] 100%</span>
-<span class="go">Queue processed</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">logger_sn</span>
-<span class="go">&#39;820600019&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span><span class="o">.</span><span class="n">ch_info</span>
-<span class="go">        Bearing:        Channel:        Description:    Effective Date:         Height:         Offset:         Scale Factor:   Serial Number:  Type:   Units:</span>
-<span class="go">0       50.00       1           NRG S1          2020-01-31 00:00:00     33.00   0.13900         0.09350             94120000059         Anemometer      m/s</span>
-<span class="go">1       230.00      2           NRG S1          2020-01-31 00:00:00     0.00    0.13900         0.09350             94120000058         Anemometer      m/s</span>
-<span class="go">2       50.00       3           NRG S1          2020-01-31 00:00:00     22.00   0.13900         0.09350             94120000057         Anemometer      m/s</span>
-<span class="go">3       230.00      4           NRG 40C Anem    2020-01-31 00:00:00     22.00   0.35000         0.76500             179500324860        Anemometer      m/s</span>
-<span class="go">4       50.00       5           NRG 40C Anem    2020-01-31 00:00:00     12.00   0.35000         0.76500             179500324859        Anemometer      m/s</span>
-<span class="go">5       230.00      6           NRG S1          2020-01-31 00:00:00     12.00   0.13900         0.09350             94120000056         Anemometer      m/s</span>
-<span class="go">6       320.00      13          NRG 200M Vane   2020-01-31 00:00:00     32.00   -1.46020        147.91100           10700000125         Vane            Deg</span>
-<span class="go">7       320.00      14          NRG 200M Vane   2020-01-31 00:00:00     21.00   -1.46020        147.91100           10700000124         Vane            Deg</span>
-<span class="go">8       0.00        15          NRG T60 Temp    2020-01-31 00:00:00     34.00   -40.85550       44.74360            9400000705          Analog          C</span>
-<span class="go">9       0.00        16          NRG T60 Temp    2020-01-31 00:00:00     2.00    -40.85550       44.74360            9400000xxx          Analog          C</span>
-<span class="go">10      0.00        17          NRG RH5X Humi   2020-01-31 00:00:00     0.00    0.00000         20.00000            NaN                 Analog          %RH</span>
-<span class="go">11      0.00        20          NRG BP60 Baro   2020-01-31 00:00:00     0.00    495.27700       243.91400           NaN                 Analog          hPa</span>
-<span class="go">12      0.00        21          NRG BP60 Baro   2020-01-31 00:00:00     2.00    495.04400       244.23900           9396FT1937          Analog          hPa</span>
-</pre></div>
-</div>
+<p>Read files into nrgpy reader object
+&gt;&gt;&gt; import nrgpy
+&gt;&gt;&gt; reader = nrgpy.sympro_txt_read()
+&gt;&gt;&gt; reader.concat_txt(</p>
+<blockquote>
+<div><blockquote>
+<div><p>txt_dir=’/path/to/txt/files/’,
+file_filter=’123456’, # site 123456
+start_date=’2020-01-01’,
+end_date=’2020-01-31’,</p>
+</div></blockquote>
+<p>)</p>
+</div></blockquote>
+<p>Time elapsed: 2 s | 33 / 33 [=============================================] 100%
+Queue processed
+&gt;&gt;&gt; reader.logger_sn
+‘820600019’
+&gt;&gt;&gt; reader.ch_info</p>
+<blockquote>
+<div><p>Bearing:        Channel:        Description:    Effective Date:         Height:         Offset:         Scale Factor:   Serial Number:  Type:   Units:</p>
+</div></blockquote>
+<p>0       50.00       1           NRG S1          2020-01-31 00:00:00     33.00   0.13900         0.09350             94120000059         Anemometer      m/s
+1       230.00      2           NRG S1          2020-01-31 00:00:00     0.00    0.13900         0.09350             94120000058         Anemometer      m/s
+2       50.00       3           NRG S1          2020-01-31 00:00:00     22.00   0.13900         0.09350             94120000057         Anemometer      m/s
+3       230.00      4           NRG 40C Anem    2020-01-31 00:00:00     22.00   0.35000         0.76500             179500324860        Anemometer      m/s
+4       50.00       5           NRG 40C Anem    2020-01-31 00:00:00     12.00   0.35000         0.76500             179500324859        Anemometer      m/s
+5       230.00      6           NRG S1          2020-01-31 00:00:00     12.00   0.13900         0.09350             94120000056         Anemometer      m/s
+6       320.00      13          NRG 200M Vane   2020-01-31 00:00:00     32.00   -1.46020        147.91100           10700000125         Vane            Deg
+7       320.00      14          NRG 200M Vane   2020-01-31 00:00:00     21.00   -1.46020        147.91100           10700000124         Vane            Deg
+8       0.00        15          NRG T60 Temp    2020-01-31 00:00:00     34.00   -40.85550       44.74360            9400000705          Analog          C
+9       0.00        16          NRG T60 Temp    2020-01-31 00:00:00     2.00    -40.85550       44.74360            9400000xxx          Analog          C
+10      0.00        17          NRG RH5X Humi   2020-01-31 00:00:00     0.00    0.00000         20.00000            NaN                 Analog          %RH
+11      0.00        20          NRG BP60 Baro   2020-01-31 00:00:00     0.00    495.27700       243.91400           NaN                 Analog          hPa
+12      0.00        21          NRG BP60 Baro   2020-01-31 00:00:00     2.00    495.04400       244.23900           9396FT1937          Analog          hPa</p>
 </dd></dl>
 
 <dl class="py method">
