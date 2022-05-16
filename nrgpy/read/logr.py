@@ -24,7 +24,7 @@ class logr_read(object):
         filename="",
         out_file="",
         text_timestamps=False,
-        logger_local_time=True,
+        logger_local_time=False,
         **kwargs,
     ):
         """Class of Pandas dataframes created from LOGR dat file.
@@ -394,7 +394,11 @@ class logr_read(object):
                 first_file = False
 
                 try:
-                    base = logr_read(f, text_timestamps=self.text_timestamps)
+                    base = logr_read(
+                        f,
+                        text_timestamps=self.text_timestamps,
+                        logger_local_time=self.logger_local_time,
+                    )
                     if not progress_bar:
                         print("[OK]")
                     self.dat_file_names.append(os.path.basename(f))
