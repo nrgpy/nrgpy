@@ -59,6 +59,7 @@ from .cloud_api.export import cloud_export
 from .cloud_api.jobs import export_job
 from .cloud_api.sites import cloud_sites
 from .quality.quality import check_intervals, select_interval_length
+from .read.logr import logr_read
 from .read.spidar_txt import spidar_data_read
 from .read.sympro_txt import sympro_txt_read, shift_timestamps
 from .read.txt_utils import read_text_data
@@ -73,4 +74,5 @@ from .utils.utilities import (
     data_months,
     create_spd_filename_from_cloud_export,
     rename_cloud_export_like_spd,
+    set_start_stop,
 )

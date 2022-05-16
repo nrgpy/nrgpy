@@ -20,9 +20,9 @@ class cloud_convert(cloud_api):
 
     Parameters
     ----------
-    rld_dir : str
+    rld_dir : str (path-like)
         path to rld file directory
-    out_dir : str
+    out_dir : str (path-like)
         path to save text export files
     filename : str
         provide for single file conversion
