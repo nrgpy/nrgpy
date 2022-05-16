@@ -135,7 +135,7 @@ class logr_read(object):
         """creates ch_info dataframe and ch_list array"""
         array = [
             "Channel:",
-            "Channel",       # <--- fix for missing colon in dat file Channel key
+            "Channel",  # <--- fix for missing colon in dat file Channel key
             "Sensor Type:",
             "Description:",
             "Serial Number:",
@@ -156,13 +156,16 @@ class logr_read(object):
         for row in self.site_info.loc[self.site_info[0].isin(array)].iterrows():
 
             # if row[1][0] == array[0] and ch_details == 0:  # start channel data read
-            if row[1][0] in (array[0], array[1]) and ch_details == 0:  # start channel data read
+            if (
+                row[1][0] in (array[0], array[1]) and ch_details == 0
+            ):  # start channel data read
                 ch_details = 1
                 ch_data[row[1][0]] = row[1][1]
 
             elif (
                 # row[1][0] == array[0] and ch_details == 1
-                row[1][0] in (array[0], array[1]) and ch_details == 1
+                row[1][0] in (array[0], array[1])
+                and ch_details == 1
             ):  # close channel, start new data read
                 ch_list.append(ch_data)
                 ch_data = {}
@@ -171,7 +174,7 @@ class logr_read(object):
             elif row[1][0] in str(array):
                 ch_data[row[1][0]] = row[1][1]
 
-        ch_list.append(ch_data)        # last channel's data
+        ch_list.append(ch_data)  # last channel's data
         ch_df = pd.DataFrame(ch_list)
 
         self.ch_list = ch_list
@@ -182,12 +185,14 @@ class logr_read(object):
         # correction for calculated channel colon missing
         def return_channel_number(x):
             """temporary fix for missing colon on dat file Channel key"""
-            if pd.isnull(x['Channel:']):
-                return x['Channel']
+            if pd.isnull(x["Channel:"]):
+                return x["Channel"]
             else:
-                return x['Channel:']
+                return x["Channel:"]
 
-        self.ch_info["Channel:"] = self.ch_info.apply(lambda x: return_channel_number(x), axis=1)
+        self.ch_info["Channel:"] = self.ch_info.apply(
+            lambda x: return_channel_number(x), axis=1
+        )
 
         return self
 
