@@ -135,13 +135,13 @@ class logr_read(object):
         """creates ch_info dataframe and ch_list array"""
         array = [
             "Channel:",
-            "Channel",       # <--- temp fix for missing colon in dat file Channel key
+            "Channel",       # <--- fix for missing colon in dat file Channel key
             "Sensor Type:",
             "Description:",
             "Serial Number:",
             "Measurand:",
-            # "Height:",
-            # "Bearing:",
+            "Height:",
+            "Bearing:",
             "Scale Factor:",
             "Offset:",
             "Units:",
@@ -449,10 +449,10 @@ class logr_read(object):
             self.ch_info = (
                 base.ch_info.sort_values(by=["ch"])
                 .drop_duplicates(
-                    subset=self.array,
+                    subset=[col for col in self.array if col in base.ch_info.columns],
                     ignore_index=True,
                 )
-                .drop(columns=["ch"], axis=1)
+                .drop(columns=["ch", "Channel"], axis=1)
             )
             self.first_timestamp = base.first_timestamp
             self.head = s.head
