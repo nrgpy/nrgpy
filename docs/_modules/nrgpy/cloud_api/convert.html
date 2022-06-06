@@ -245,7 +245,7 @@ title="Fullscreen mode"
 <span class="sd">    Note that the site must exist in the NRG Cloud platform, and you must have</span>
 <span class="sd">    Contributor or Administrator level access to the site to use these features.</span>
 
-<span class="sd">    Parameters</span>
+<span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    rld_dir : str (path-like)</span>
 <span class="sd">        path to rld file directory</span>
@@ -269,6 +269,17 @@ title="Fullscreen mode"
 <span class="sd">        path to NEC file for custom export formatting</span>
 <span class="sd">    export_type : str</span>
 <span class="sd">        [measurements], diagnostic, events, communication</span>
+<span class="sd">    unzip : bool</span>
+<span class="sd">        whether to extract the .txt data file from the .zip file</span>
+<span class="sd">    session_token : str</span>
+<span class="sd">    headers : str</span>
+<span class="sd">        headers passed in API call</span>
+<span class="sd">    data : str</span>
+<span class="sd">        data passed in API call</span>
+<span class="sd">    resp : str</span>
+<span class="sd">        API response</span>
+<span class="sd">    export_filepath : str (path-like)</span>
+<span class="sd">        path of export file        </span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -323,6 +334,37 @@ title="Fullscreen mode"
         <span class="n">progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a cloud_export object.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        rld_dir : str (path-like)</span>
+<span class="sd">            path to rld file directory</span>
+<span class="sd">        out_dir : str (path-like)</span>
+<span class="sd">            path to save text export files</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            provide for single file conversion</span>
+<span class="sd">        site_filter : str, optional</span>
+<span class="sd">            text filter for limiting file set</span>
+<span class="sd">        filter2 : str, optional</span>
+<span class="sd">            another text filter...</span>
+<span class="sd">        start_date : str, optional</span>
+<span class="sd">            text start date to filter on &quot;YYYY-mm-dd&quot;</span>
+<span class="sd">        end_date : str, optional</span>
+<span class="sd">            text end date to filter on &quot;YYYY-mm-dd&quot;</span>
+<span class="sd">        client_id : str</span>
+<span class="sd">            available in the NRG Cloud portal</span>
+<span class="sd">        client_secret : str</span>
+<span class="sd">            available in the NRG Cloud portal</span>
+<span class="sd">        nec_file : str, optional</span>
+<span class="sd">            path to NEC file for custom export formatting</span>
+<span class="sd">        export_type : {&#39;measurements&#39;, &#39;diagnostic&#39;, &#39;events&#39;, &#39;communication&#39;}, default &#39;measurements&#39;</span>
+<span class="sd">            which type of data to export</span>
+<span class="sd">        unzip : bool, default True</span>
+<span class="sd">            whether to extract the .txt data file from the .zip file</span>
+<span class="sd">        progress_bar : bool, default True</span>
+<span class="sd">            whether to dispaly the progress bar</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">)</span>
 

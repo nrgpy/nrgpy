@@ -249,7 +249,7 @@ title="Fullscreen mode"
 
 <span class="sd">    Use the Site Number or NRG Cloud Site ID to choose the site.</span>
 
-<span class="sd">    Parameters</span>
+<span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    out_dir : str (path-like)</span>
 <span class="sd">        path to save exported data</span>
@@ -257,35 +257,37 @@ title="Fullscreen mode"
 <span class="sd">        NRG Cloud site identifier (NOT the site number)</span>
 <span class="sd">    site_number : int</span>
 <span class="sd">        site number</span>
-<span class="sd">    logger_sn : str or int</span>
-<span class="sd">        serial number of data logger (like, 820612345)</span>
-<span class="sd">    start_date : str</span>
-<span class="sd">        &quot;YYYY-MM-DD HH:MM:SS&quot; format, if just date it will return the whole day</span>
-<span class="sd">        times are in logger local time</span>
-<span class="sd">    end_date : str</span>
-<span class="sd">        &quot;YYYY-MM-DD HH:MM:SS&quot; format, if just date it will return the whole day</span>
-<span class="sd">        times are in logger local time</span>
-<span class="sd">    file_format : str</span>
-<span class="sd">        [&#39;txt&#39;], &#39;rld&#39; - whether tab-delimited text or binary output</span>
+<span class="sd">    logger_sn : int</span>
+<span class="sd">        serial number of data logger</span>
+<span class="sd">    start_date : str (&#39;YYYY-MM-DD HH:MM:SS&#39;)</span>
+<span class="sd">        start date/time of data export </span>
+<span class="sd">    end_date : str (&#39;YYYY-MM-DD HH:MM:SS&#39;)</span>
+<span class="sd">        end date/time of data export </span>
+<span class="sd">    file_format : {&#39;txt&#39;, &#39;rld&#39;}</span>
+<span class="sd">        whether tab-delimited text or binary output</span>
 <span class="sd">    client_id : str</span>
 <span class="sd">        available in the NRG Cloud portal</span>
 <span class="sd">    client_secret : str</span>
 <span class="sd">        available in the NRG Cloud portal</span>
 <span class="sd">    nec_file : str, optional</span>
 <span class="sd">        path to NEC file for custom export formatting</span>
-<span class="sd">    export_type : str</span>
-<span class="sd">        [&#39;measurements&#39;], &#39;diagnostic&#39;, &#39;events&#39;, &#39;communication&#39;</span>
-<span class="sd">    interval : str, optional</span>
-<span class="sd">        &#39;oneMinute&#39;, &#39;twoMinute&#39;, &#39;fiveMinute&#39;, &#39;tenMinute&#39;, &#39;fifteenMinute&#39;,</span>
-<span class="sd">        &#39;thirtyMinute&#39;, &#39;Hour&#39;, &#39;Day&#39;</span>
-<span class="sd">        must be a multiple of the logger&#39;s statistical interval</span>
+<span class="sd">    export_type : {&#39;measurements&#39;, &#39;diagnostic&#39;, &#39;events&#39;, &#39;communication&#39;}</span>
+<span class="sd">        which type of data to export</span>
+<span class="sd">    interval : {&#39;oneMinute&#39;, &#39;twoMinute&#39;, &#39;fiveMinute&#39;, &#39;tenMinute&#39;, &#39;fifteenMinute&#39;,</span>
+<span class="sd">        &#39;thirtyMinute&#39;, &#39;Hour&#39;, &#39;Day&#39;}, optional</span>
+<span class="sd">        averaging interval of exported data; must be a multiple of the logger&#39;s statistical interval</span>
 <span class="sd">    unzip : bool</span>
-<span class="sd">        (True) whether to extract the .txt data file from the .zip file</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    object</span>
-<span class="sd">        export object, including API response</span>
+<span class="sd">        whether to extract the .txt data file from the .zip file</span>
+<span class="sd">    session_token : str</span>
+<span class="sd">    headers : str</span>
+<span class="sd">        headers passed in API call</span>
+<span class="sd">    data : str</span>
+<span class="sd">        data passed in API call</span>
+<span class="sd">    resp : str</span>
+<span class="sd">        API response</span>
+<span class="sd">    export_filepath : str (path-like)</span>
+<span class="sd">        path of export file</span>
+<span class="sd">    </span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -335,6 +337,45 @@ title="Fullscreen mode"
         <span class="n">unzip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a cloud_export object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        out_dir : str (path-like)</span>
+<span class="sd">            path to save exported data</span>
+<span class="sd">        site_id : int</span>
+<span class="sd">            NRG Cloud site identifier (NOT the site number)</span>
+<span class="sd">            must pass site_id OR [site_number and/or logger_sn]</span>
+<span class="sd">        site_number : int</span>
+<span class="sd">            site number</span>
+<span class="sd">            must pass site_id OR [site_number and/or logger_sn]</span>
+<span class="sd">        logger_sn : int</span>
+<span class="sd">            serial number of data logger (like, 820612345)</span>
+<span class="sd">            must pass site_id OR [site_number and/or logger_sn]</span>
+<span class="sd">        start_date : str (&#39;YYYY-MM-DD HH:MM:SS&#39;), default&#39;2014-01-01&#39;</span>
+<span class="sd">            start date/time of data export </span>
+<span class="sd">            if just date, it will return the whole day</span>
+<span class="sd">            times are in logger local time</span>
+<span class="sd">        end_date : str (&#39;YYYY-MM-DD HH:MM:SS&#39;), default &#39;2030-12-31&#39;</span>
+<span class="sd">            start date/time of data export </span>
+<span class="sd">            if just date, it will return the whole day</span>
+<span class="sd">            times are in logger local time</span>
+<span class="sd">        file_format : {&#39;txt&#39;, &#39;rld&#39;}, default &#39;txt&#39;</span>
+<span class="sd">            whether tab-delimited text or binary output</span>
+<span class="sd">        client_id : str</span>
+<span class="sd">            available in the NRG Cloud portal</span>
+<span class="sd">        client_secret : str</span>
+<span class="sd">            available in the NRG Cloud portal</span>
+<span class="sd">        nec_file : str, optional</span>
+<span class="sd">            path to NEC file for custom export formatting</span>
+<span class="sd">        export_type : {&#39;measurements&#39;, &#39;diagnostic&#39;, &#39;events&#39;, &#39;communication&#39;}, default &#39;measurements&#39;</span>
+<span class="sd">            which type of data to export</span>
+<span class="sd">        interval : {&#39;oneMinute&#39;, &#39;twoMinute&#39;, &#39;fiveMinute&#39;, &#39;tenMinute&#39;, &#39;fifteenMinute&#39;,</span>
+<span class="sd">            &#39;thirtyMinute&#39;, &#39;Hour&#39;, &#39;Day&#39;}, optional</span>
+<span class="sd">            averaging interval of exported data; must be a multiple of the logger&#39;s statistical interval</span>
+<span class="sd">        unzip : bool, default True</span>
+<span class="sd">            whether to extract the .txt data file from the .zip file</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">)</span>
 
@@ -372,6 +413,7 @@ title="Fullscreen mode"
             <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <div class="viewcode-block" id="cloud_export.export"><a class="viewcode-back" href="../../../nrgpy.cloud_api.export.html#nrgpy.cloud_api.export.cloud_export.export">[docs]</a>    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Export data using the NRG Cloud API.&quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">}</span>

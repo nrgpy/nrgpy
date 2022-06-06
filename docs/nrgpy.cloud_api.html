@@ -502,34 +502,6 @@ up for a free account, go to:</p>
 To sign up for the service, go to <a class="reference external" href="https://cloud.nrgsystems.com/">https://cloud.nrgsystems.com/</a>.</p>
 <p>Note that the site must exist in the NRG Cloud platform, and you must have
 Contributor or Administrator level access to the site to use these features.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>rld_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to rld file directory</p>
-</dd>
-<dt><strong>out_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to save text export files</p>
-</dd>
-<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>provide for single file conversion</p>
-</dd>
-<dt><strong>site_filter</strong><span class="classifier">str, optional</span></dt><dd><p>text filter for limiting file set</p>
-</dd>
-<dt><strong>filter2</strong><span class="classifier">str, optional</span></dt><dd><p>another text filter…</p>
-</dd>
-<dt><strong>start_date</strong><span class="classifier">str, optional</span></dt><dd><p>text start date to filter on “YYYY-mm-dd”</p>
-</dd>
-<dt><strong>end_date</strong><span class="classifier">str, optional</span></dt><dd><p>text end date to filter on “YYYY-mm-dd”</p>
-</dd>
-<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
-</dd>
-<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
-</dd>
-<dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
-</dd>
-<dt><strong>export_type</strong><span class="classifier">str</span></dt><dd><p>[measurements], diagnostic, events, communication</p>
-</dd>
-</dl>
-</dd>
-</dl>
 <p class="rubric">Examples</p>
 <p>Convert a single raw data file to Text with NRG Convert API</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
@@ -563,6 +535,45 @@ Contributor or Administrator level access to the site to use these features.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rld_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to rld file directory</p>
+</dd>
+<dt><strong>out_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to save text export files</p>
+</dd>
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>provide for single file conversion</p>
+</dd>
+<dt><strong>site_filter</strong><span class="classifier">str, optional</span></dt><dd><p>text filter for limiting file set</p>
+</dd>
+<dt><strong>filter2</strong><span class="classifier">str, optional</span></dt><dd><p>another text filter…</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str, optional</span></dt><dd><p>text start date to filter on “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str, optional</span></dt><dd><p>text end date to filter on “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
+</dd>
+<dt><strong>export_type</strong><span class="classifier">str</span></dt><dd><p>[measurements], diagnostic, events, communication</p>
+</dd>
+<dt><strong>unzip</strong><span class="classifier">bool</span></dt><dd><p>whether to extract the .txt data file from the .zip file</p>
+</dd>
+<dt><strong>session_token</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>headers</strong><span class="classifier">str</span></dt><dd><p>headers passed in API call</p>
+</dd>
+<dt><strong>data</strong><span class="classifier">str</span></dt><dd><p>data passed in API call</p>
+</dd>
+<dt><strong>resp</strong><span class="classifier">str</span></dt><dd><p>API response</p>
+</dd>
+<dt><strong>export_filepath</strong><span class="classifier">str (path-like)</span></dt><dd><p>path of export file</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.convert.cloud_convert.process">
 <span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/convert.html#cloud_convert.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.convert.cloud_convert.process" title="Permalink to this definition">#</a></dt>
@@ -587,48 +598,6 @@ To sign up for the service, go to <a class="reference external" href="https://cl
 <p>Note that the site must exist in the NRG Cloud platform, and you must have
 Contributor or Administrator level access to the site to use these features.</p>
 <p>Use the Site Number or NRG Cloud Site ID to choose the site.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>out_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to save exported data</p>
-</dd>
-<dt><strong>site_id</strong><span class="classifier">int</span></dt><dd><p>NRG Cloud site identifier (NOT the site number)</p>
-</dd>
-<dt><strong>site_number</strong><span class="classifier">int</span></dt><dd><p>site number</p>
-</dd>
-<dt><strong>logger_sn</strong><span class="classifier">str or int</span></dt><dd><p>serial number of data logger (like, 820612345)</p>
-</dd>
-<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
-times are in logger local time</p>
-</dd>
-<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
-times are in logger local time</p>
-</dd>
-<dt><strong>file_format</strong><span class="classifier">str</span></dt><dd><p>[‘txt’], ‘rld’ - whether tab-delimited text or binary output</p>
-</dd>
-<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>available in the NRG Cloud portal</p>
-</dd>
-<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>available in the NRG Cloud portal</p>
-</dd>
-<dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
-</dd>
-<dt><strong>export_type</strong><span class="classifier">str</span></dt><dd><p>[‘measurements’], ‘diagnostic’, ‘events’, ‘communication’</p>
-</dd>
-<dt><strong>interval</strong><span class="classifier">str, optional</span></dt><dd><p>‘oneMinute’, ‘twoMinute’, ‘fiveMinute’, ‘tenMinute’, ‘fifteenMinute’,
-‘thirtyMinute’, ‘Hour’, ‘Day’
-must be a multiple of the logger’s statistical interval</p>
-</dd>
-<dt><strong>unzip</strong><span class="classifier">bool</span></dt><dd><p>(True) whether to extract the .txt data file from the .zip file</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>object</dt><dd><p>export object, including API response</p>
-</dd>
-</dl>
-</dd>
-</dl>
 <p class="rubric">Examples</p>
 <p>Download 15 days of data with an NEC file applied, and read data</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
@@ -658,10 +627,53 @@ must be a multiple of the logger’s statistical interval</p>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unable to get reader&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>out_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to save exported data</p>
+</dd>
+<dt><strong>site_id</strong><span class="classifier">int</span></dt><dd><p>NRG Cloud site identifier (NOT the site number)</p>
+</dd>
+<dt><strong>site_number</strong><span class="classifier">int</span></dt><dd><p>site number</p>
+</dd>
+<dt><strong>logger_sn</strong><span class="classifier">int</span></dt><dd><p>serial number of data logger</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str (‘YYYY-MM-DD HH:MM:SS’)</span></dt><dd><p>start date/time of data export</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str (‘YYYY-MM-DD HH:MM:SS’)</span></dt><dd><p>end date/time of data export</p>
+</dd>
+<dt><strong>file_format</strong><span class="classifier">{‘txt’, ‘rld’}</span></dt><dd><p>whether tab-delimited text or binary output</p>
+</dd>
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>available in the NRG Cloud portal</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>available in the NRG Cloud portal</p>
+</dd>
+<dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
+</dd>
+<dt><strong>export_type</strong><span class="classifier">{‘measurements’, ‘diagnostic’, ‘events’, ‘communication’}</span></dt><dd><p>which type of data to export</p>
+</dd>
+<dt><strong>interval</strong><span class="classifier">{‘oneMinute’, ‘twoMinute’, ‘fiveMinute’, ‘tenMinute’, ‘fifteenMinute’,</span></dt><dd><p>‘thirtyMinute’, ‘Hour’, ‘Day’}, optional
+averaging interval of exported data; must be a multiple of the logger’s statistical interval</p>
+</dd>
+<dt><strong>unzip</strong><span class="classifier">bool</span></dt><dd><p>whether to extract the .txt data file from the .zip file</p>
+</dd>
+<dt><strong>session_token</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>headers</strong><span class="classifier">str</span></dt><dd><p>headers passed in API call</p>
+</dd>
+<dt><strong>data</strong><span class="classifier">str</span></dt><dd><p>data passed in API call</p>
+</dd>
+<dt><strong>resp</strong><span class="classifier">str</span></dt><dd><p>API response</p>
+</dd>
+<dt><strong>export_filepath</strong><span class="classifier">str (path-like)</span></dt><dd><p>path of export file</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.export.cloud_export.export">
 <span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/export.html#cloud_export.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.export.cloud_export.export" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Export data using the NRG Cloud API.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -787,33 +799,59 @@ must be a multiple of the logger’s statistical interval. if not specified, wil
 <dt class="sig sig-object py" id="nrgpy.cloud_api.sites.cloud_sites">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.sites.</span></span><span class="sig-name descname"><span class="pre">cloud_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/sites.html#cloud_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.sites.cloud_sites" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#nrgpy.cloud_api.auth.cloud_api" title="nrgpy.cloud_api.auth.cloud_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.cloud_api.auth.cloud_api</span></code></a></p>
-<p>Returns sites that user has access to.</p>
+<p>Find NRG Cloud sites associated with a user.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s1">&#39;go to https://cloud.nrgsystems.com for access&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s1">&#39;go to https://cloud.nrgsystems.com for access&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sites</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">cloud_sites</span><span class="p">(</span><span class="n">client_id</span><span class="o">=</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="n">client_secret</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sites</span><span class="o">.</span><span class="n">sites_df</span>
+<span class="go">siteId  siteNumber    siteDescription               project  loggerSerialNumber</span>
+<span class="go">0      33        6716           SunnyDog              SunnyDog           820606716</span>
+<span class="go">1     213        1234    Suntastic South             Suntastic           820601234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sites</span><span class="o">.</span><span class="n">get_siteid</span><span class="p">(</span><span class="n">site_number</span><span class="o">=</span><span class="mi">6716</span><span class="p">)</span>
+<span class="go">33</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Attributes</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>available in the NRG Cloud portal</p>
 </dd>
 <dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>available in the NRG Cloud portal</p>
 </dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>object</dt><dd><p>sites_list : list
-sites_df : pandas dataframe</p>
-</dd>
+<dt><strong>sites_list</strong><span class="classifier">list of dict</span></dt><dd></dd>
+<dt><strong>sites_df</strong><span class="classifier">pandas dataframe</span></dt><dd></dd>
 </dl>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.sites.cloud_sites.get_siteid">
 <span class="sig-name descname"><span class="pre">get_siteid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_sn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/sites.html#cloud_sites.get_siteid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.sites.cloud_sites.get_siteid" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Get NRG Cloud site ID that corresponds to site number and/or logger SN</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>site_number</strong><span class="classifier">int</span></dt><dd><p>site number</p>
+</dd>
+<dt><strong>logger_sn</strong><span class="classifier">int</span></dt><dd><p>serial number of logger (beginning with 8206)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>corresponding site ID</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.sites.cloud_sites.get_sites">
 <span class="sig-name descname"><span class="pre">get_sites</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/sites.html#cloud_sites.get_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.sites.cloud_sites.get_sites" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Retrieve list of sites user has access to.</p>
+</dd></dl>
 
 </dd></dl>
 

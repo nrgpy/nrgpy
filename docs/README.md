@@ -1,6 +1,6 @@
 ## requirements
 
-use pip to install these packages or the above commands will fail:
+use pip to install these packages or the below commands will fail:
 
 - numpydoc
 - sphinx
