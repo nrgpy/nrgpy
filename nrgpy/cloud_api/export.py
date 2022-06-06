@@ -22,7 +22,7 @@ class cloud_export(cloud_api):
 
     Use the Site Number or NRG Cloud Site ID to choose the site.
 
-    Parameters
+    Attributes
     ----------
     out_dir : str (path-like)
         path to save exported data
@@ -30,35 +30,37 @@ class cloud_export(cloud_api):
         NRG Cloud site identifier (NOT the site number)
     site_number : int
         site number
-    logger_sn : str or int
-        serial number of data logger (like, 820612345)
-    start_date : str
-        "YYYY-MM-DD HH:MM:SS" format, if just date it will return the whole day
-        times are in logger local time
-    end_date : str
-        "YYYY-MM-DD HH:MM:SS" format, if just date it will return the whole day
-        times are in logger local time
-    file_format : str
-        ['txt'], 'rld' - whether tab-delimited text or binary output
+    logger_sn : int
+        serial number of data logger
+    start_date : str ('YYYY-MM-DD HH:MM:SS')
+        start date/time of data export 
+    end_date : str ('YYYY-MM-DD HH:MM:SS')
+        end date/time of data export 
+    file_format : {'txt', 'rld'}
+        whether tab-delimited text or binary output
     client_id : str
         available in the NRG Cloud portal
     client_secret : str
         available in the NRG Cloud portal
     nec_file : str, optional
         path to NEC file for custom export formatting
-    export_type : str
-        ['measurements'], 'diagnostic', 'events', 'communication'
-    interval : str, optional
-        'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
-        'thirtyMinute', 'Hour', 'Day'
-        must be a multiple of the logger's statistical interval
+    export_type : {'measurements', 'diagnostic', 'events', 'communication'}
+        which type of data to export
+    interval : {'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
+        'thirtyMinute', 'Hour', 'Day'}, optional
+        averaging interval of exported data; must be a multiple of the logger's statistical interval
     unzip : bool
-        (True) whether to extract the .txt data file from the .zip file
-
-    Returns
-    -------
-    object
-        export object, including API response
+        whether to extract the .txt data file from the .zip file
+    session_token : str
+    headers : str
+        headers passed in API call
+    data : str
+        data passed in API call
+    resp : str
+        API response
+    export_filepath : str (path-like)
+        path of export file
+    
 
     Examples
     --------
@@ -108,6 +110,45 @@ class cloud_export(cloud_api):
         unzip=True,
         **kwargs,
     ):
+        """Initialize a cloud_export object.
+
+        Parameters
+        ----------
+        out_dir : str (path-like)
+            path to save exported data
+        site_id : int
+            NRG Cloud site identifier (NOT the site number)
+            must pass site_id OR [site_number and/or logger_sn]
+        site_number : int
+            site number
+            must pass site_id OR [site_number and/or logger_sn]
+        logger_sn : int
+            serial number of data logger (like, 820612345)
+            must pass site_id OR [site_number and/or logger_sn]
+        start_date : str ('YYYY-MM-DD HH:MM:SS'), default'2014-01-01'
+            start date/time of data export 
+            if just date, it will return the whole day
+            times are in logger local time
+        end_date : str ('YYYY-MM-DD HH:MM:SS'), default '2030-12-31'
+            start date/time of data export 
+            if just date, it will return the whole day
+            times are in logger local time
+        file_format : {'txt', 'rld'}, default 'txt'
+            whether tab-delimited text or binary output
+        client_id : str
+            available in the NRG Cloud portal
+        client_secret : str
+            available in the NRG Cloud portal
+        nec_file : str, optional
+            path to NEC file for custom export formatting
+        export_type : {'measurements', 'diagnostic', 'events', 'communication'}, default 'measurements'
+            which type of data to export
+        interval : {'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
+            'thirtyMinute', 'Hour', 'Day'}, optional
+            averaging interval of exported data; must be a multiple of the logger's statistical interval
+        unzip : bool, default True
+            whether to extract the .txt data file from the .zip file
+        """        
 
         super().__init__(client_id, client_secret)
 
@@ -145,6 +186,7 @@ class cloud_export(cloud_api):
             self.encoded_nec_string = ""
 
     def export(self):
+        """Export data using the NRG Cloud API."""
 
         try:
             self.headers = {"Authorization": "Bearer " + self.session_token}

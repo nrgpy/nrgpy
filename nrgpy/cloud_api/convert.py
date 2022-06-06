@@ -18,7 +18,7 @@ class cloud_convert(cloud_api):
     Note that the site must exist in the NRG Cloud platform, and you must have
     Contributor or Administrator level access to the site to use these features.
 
-    Parameters
+    Attributes
     ----------
     rld_dir : str (path-like)
         path to rld file directory
@@ -42,6 +42,17 @@ class cloud_convert(cloud_api):
         path to NEC file for custom export formatting
     export_type : str
         [measurements], diagnostic, events, communication
+    unzip : bool
+        whether to extract the .txt data file from the .zip file
+    session_token : str
+    headers : str
+        headers passed in API call
+    data : str
+        data passed in API call
+    resp : str
+        API response
+    export_filepath : str (path-like)
+        path of export file        
 
     Examples
     --------
@@ -96,6 +107,37 @@ class cloud_convert(cloud_api):
         progress_bar=True,
         **kwargs,
     ):
+        """Initialize a cloud_export object.
+        
+        Parameters
+        ----------
+        rld_dir : str (path-like)
+            path to rld file directory
+        out_dir : str (path-like)
+            path to save text export files
+        filename : str
+            provide for single file conversion
+        site_filter : str, optional
+            text filter for limiting file set
+        filter2 : str, optional
+            another text filter...
+        start_date : str, optional
+            text start date to filter on "YYYY-mm-dd"
+        end_date : str, optional
+            text end date to filter on "YYYY-mm-dd"
+        client_id : str
+            available in the NRG Cloud portal
+        client_secret : str
+            available in the NRG Cloud portal
+        nec_file : str, optional
+            path to NEC file for custom export formatting
+        export_type : {'measurements', 'diagnostic', 'events', 'communication'}, default 'measurements'
+            which type of data to export
+        unzip : bool, default True
+            whether to extract the .txt data file from the .zip file
+        progress_bar : bool, default True
+            whether to dispaly the progress bar
+        """
 
         super().__init__(client_id, client_secret)
 
