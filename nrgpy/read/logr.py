@@ -372,6 +372,7 @@ class logr_read(object):
         self.pad = len(str(self.file_count))
         self.counter = 1
         self.start_time = datetime.now()
+        self.failed_files = []
 
         logger.info(f"Concatenating {self.file_count} files...")
 
@@ -403,7 +404,7 @@ class logr_read(object):
                         print("[OK]")
                     self.dat_file_names.append(os.path.basename(f))
                 except IndexError:
-                    print("Only standard SymPRO headertypes accepted")
+                    print("Only standard LOGR headertypes accepted")
                     break
                 except:
                     if progress_bar != True:
@@ -434,7 +435,12 @@ class logr_read(object):
                         print("[OK]")
                     self.dat_file_names.append(os.path.basename(f))
 
+                except IndexError:
+                    logger.debug(traceback.format_exc())
+                    self.failed_files.append(f)
+
                 except:
+                    logger.debug(traceback.format_exc())
                     if not progress_bar:
                         print("[FAILED]")
                     print("could not concat {0}".format(os.path.basename(f)))
@@ -455,14 +461,21 @@ class logr_read(object):
             self.data = base.data.drop_duplicates(subset=["Timestamp"], keep="first")
             self.data.reset_index(drop=True, inplace=True)
             base.ch_info["ch"] = base.ch_info["Channel:"].astype(int)
-            self.ch_info = (
-                base.ch_info.sort_values(by=["ch"])
-                .drop_duplicates(
-                    subset=[col for col in self.array if col in base.ch_info.columns],
-                    ignore_index=True,
+
+            try:
+                self.ch_info = (
+                    base.ch_info.sort_values(by=["ch"])
+                    .drop_duplicates(
+                        subset=[
+                            col for col in self.array if col in base.ch_info.columns
+                        ],
+                        ignore_index=True,
+                    )
+                    .drop(columns=["ch", "Channel"], axis=1)
                 )
-                .drop(columns=["ch", "Channel"], axis=1)
-            )
+            except KeyError as e:
+                logger.debug(e)
+
             self.first_timestamp = base.first_timestamp
             self.head = s.head
             self.site_info = s.site_info
@@ -474,6 +487,9 @@ class logr_read(object):
             print("No files match to contatenate.")
             logger.error(f"No files in {self.dat_dir} match to contatenate.")
             return None
+
+        if len(self.failed_files) > 0:
+            print(f"{len(self.failed_files)} files unable to be concatenated. See failed_files list")
 
     def output_txt_file(
         self,
