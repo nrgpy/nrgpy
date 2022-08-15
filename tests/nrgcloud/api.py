@@ -6,22 +6,30 @@ import nrgpy
 import traceback
 
 
+site_id = 175
+logger_sn = 820600087
+site_number = 353002
+start_date = "2021-01-01"
+end_date = "2021-01-05"
+unauth_site_id = 9
+
+
 def test_sites_api(client_id, client_secret):
     """Ensure NRG Cloud Sites API is working properly with test account
 
-    Test account has access to site 4310, associated with logger 820604310
+    Test account has access to site 353002, associated with logger 820600087
     """
     try:
         sites = nrgpy.cloud_sites(client_id, client_secret)
 
         if (
             sites.sites_df["siteId"].loc[
-                sites.sites_df["loggerSerialNumber"] == 820604310
-            ][0]
-            != 95
+                sites.sites_df["loggerSerialNumber"] == logger_sn
+            ].values[0]
+            != site_id
         ):
-            print(f"Site ID != 95: SiteIds = {sites.sites_df['siteId']}")
-            logger.error(f"Site ID != 95: SiteIds = {sites.sites_df['siteId']}")
+            print(f"Site ID != {site_id}: SiteIds = {sites.sites_df['siteId']}")
+            logger.error(f"Site ID != {site_id}: SiteIds = {sites.sites_df['siteId']}")
             return False
 
     except:
@@ -42,9 +50,9 @@ def test_export_api(client_id, client_secret):
         exporter = nrgpy.cloud_export(
             client_id=client_id,
             client_secret=client_secret,
-            site_id=95,
-            start_date="2022-02-22",
-            end_date="2022-02-24",
+            site_id=site_id,
+            start_date=start_date,
+            end_date=end_date,
             out_dir=".",
         )
 
@@ -52,7 +60,7 @@ def test_export_api(client_id, client_secret):
         
         reader = nrgpy.sympro_txt_read(filename=exporter.export_filepath)
 
-        if int(reader.site_number) != 4310:
+        if int(reader.site_number) != site_number:
             print(f"Export API test failed: site number failure: {reader.site_number}")
             logger.error(
                 f"Export API test failed: site number failure: {reader.site_number}"
@@ -75,15 +83,15 @@ def test_export_jobs_api(client_id, client_secret):
         exporter = nrgpy.export_job(
             client_id=client_id,
             client_secret=client_secret,
-            site_id=95,
-            start_date="2022-02-22",
-            end_date="2022-02-24",
+            site_id=site_id,
+            start_date=start_date,
+            end_date=end_date,
             out_dir=".",
         )
         exporter.create_export_job()
         exporter.monitor_export_job(download=True)
         reader = nrgpy.sympro_txt_read(filename=exporter.export_filepath)
-        if int(reader.site_number) != 4310:
+        if int(reader.site_number) != site_number:
             print(f"Export API test failed: site number failure: {reader.site_number}")
             logger.error(
                 f"Export API test failed: site number failure: {reader.site_number}"
@@ -104,9 +112,9 @@ def test_export_jobs_api_unauthorized(client_id, client_secret):
         exporter = nrgpy.export_job(
             client_id=client_id,
             client_secret=client_secret,
-            site_id=20,
-            start_date="2022-04-12",
-            end_date="2022-04-22",
+            site_id=unauth_site_id,
+            start_date="2022-01-01",
+            end_date="2022-01-10",
             out_dir=".",
         )
         exporter.create_export_job()
