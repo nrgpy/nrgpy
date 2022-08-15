@@ -35,6 +35,10 @@ def test_sites_api(client_id, client_secret):
     except:
         print(traceback.format_exc())
         logger.error(traceback.format_exc())
+        try:
+            print(sites.sites_df)
+        except:
+            print("no sites_df exists")
 
         return False
 
