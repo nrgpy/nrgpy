@@ -52,7 +52,7 @@ class cloud_convert(cloud_api):
     resp : str
         API response
     export_filepath : str (path-like)
-        path of export file        
+        path of export file
 
     Examples
     --------
@@ -108,7 +108,7 @@ class cloud_convert(cloud_api):
         **kwargs,
     ):
         """Initialize a cloud_export object.
-        
+
         Parameters
         ----------
         rld_dir : str (path-like)
