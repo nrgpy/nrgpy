@@ -16,6 +16,7 @@ convert_url = url_base + "data/convert"
 export_url = url_base + "data/export"
 create_export_job_url = url_base + "data/createexportjob"
 export_job_url = url_base + "data/exportjob"
+import_url = url_base + "data/import"
 sites_url = url_base + "sites"
 
 

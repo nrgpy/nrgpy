@@ -124,6 +124,7 @@ class cloud_import(cloud_api):
             self.site_filter = self.file_filter
 
         self.filter2 = filter2
+        self.in_dir = in_dir
         self.start_date = start_date
         self.end_date = end_date
         self.progress_bar = progress_bar
@@ -145,7 +146,9 @@ class cloud_import(cloud_api):
         self.files = [
             f
             for f in sorted(os.listdir(self.in_dir))
-            if self.site_filter in f and self.filter2 in f and f.lower().endswith("rld|csv|csv.zip")
+            if self.site_filter in f
+            and self.filter2 in f
+            and f.lower().endswith(tuple(["rld", "csv", "csv.zip"]))
             and date_check(self.start_date, self.end_date, f)
         ]
 
@@ -154,12 +157,13 @@ class cloud_import(cloud_api):
         self.counter = 1
 
         for filename in self.files:
-            self.single_file(os.path.join(self.in_dir, filename))
-            self.counter += 1
-            if not is_authorized(self.resp):
-                break
-
-        print("\n")
+            try:
+                self.single_file(os.path.join(self.in_dir, filename))
+                self.counter += 1
+                if not is_authorized(self.resp):
+                    break
+            except:
+                pass
 
     def single_file(self, filename=""):
         try:
@@ -189,6 +193,7 @@ class cloud_import(cloud_api):
 
             self.data = {
                 "FileBytes64BitEncoded": self.encoded_filename_string,
+                "FileName": os.path.basename(filename),
             }
 
             self.resp = requests.post(json=self.data, url=import_url, headers=headers)
@@ -199,14 +204,13 @@ class cloud_import(cloud_api):
                     print("[DONE]")
 
                 logger.info(f"imported {os.path.basename(filename)} OK")
+                logger.debug(f"{self.resp.status_code} {self.resp.text}")
 
-            elif self.resp.status_code == 401:
+            elif self.resp.status_code == 401 or self.resp.status_code == 400:
                 pass
 
             else:
-                logger.error(
-                    f"unable to import {os.path.basename(filename)}: FAILED"
-                )
+                logger.error(f"unable to import {os.path.basename(filename)}: FAILED")
                 print(f"\nunable to process file: {filename}")
                 print(f"{str(self.resp.status_code)} | {self.resp.reason}")
                 print(self.resp.text.split(":")[1].split('"')[1])
@@ -215,10 +219,6 @@ class cloud_import(cloud_api):
             if self.progress_bar is False:
                 print("[FAILED]")
 
-            logger.error(
-                f"unable to import {os.path.basename(filename)}: FAILED"
-            )
+            logger.error(f"unable to import {os.path.basename(filename)}: FAILED")
             logger.debug(e)
             print(f"unable to process file: {filename}")
-            print(e)
-            pass

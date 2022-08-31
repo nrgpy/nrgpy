@@ -33,9 +33,9 @@ class cloud_export(cloud_api):
     logger_sn : int
         serial number of data logger
     start_date : str ('YYYY-MM-DD HH:MM:SS')
-        start date/time of data export 
+        start date/time of data export
     end_date : str ('YYYY-MM-DD HH:MM:SS')
-        end date/time of data export 
+        end date/time of data export
     file_format : {'txt', 'rld'}
         whether tab-delimited text or binary output
     client_id : str
@@ -60,7 +60,7 @@ class cloud_export(cloud_api):
         API response
     export_filepath : str (path-like)
         path of export file
-    
+
 
     Examples
     --------
@@ -126,11 +126,11 @@ class cloud_export(cloud_api):
             serial number of data logger (like, 820612345)
             must pass site_id OR [site_number and/or logger_sn]
         start_date : str ('YYYY-MM-DD HH:MM:SS'), default'2014-01-01'
-            start date/time of data export 
+            start date/time of data export
             if just date, it will return the whole day
             times are in logger local time
         end_date : str ('YYYY-MM-DD HH:MM:SS'), default '2030-12-31'
-            start date/time of data export 
+            start date/time of data export
             if just date, it will return the whole day
             times are in logger local time
         file_format : {'txt', 'rld'}, default 'txt'
@@ -148,7 +148,7 @@ class cloud_export(cloud_api):
             averaging interval of exported data; must be a multiple of the logger's statistical interval
         unzip : bool, default True
             whether to extract the .txt data file from the .zip file
-        """        
+        """
 
         super().__init__(client_id, client_secret)
 
