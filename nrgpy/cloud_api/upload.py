@@ -4,6 +4,7 @@ except ImportError:
     pass
 from datetime import datetime
 import io
+import json
 from nrgpy.utils.utilities import affirm_directory, date_check, draw_progress_bar
 from .auth import cloud_api, import_url, is_authorized
 import os
@@ -44,6 +45,8 @@ class cloud_import(cloud_api):
         data passed in API call
     resp : str
         API response
+    job_ids : dict
+        dictionary of filenames and job ids
 
     Examples
     --------
@@ -128,6 +131,7 @@ class cloud_import(cloud_api):
         self.start_date = start_date
         self.end_date = end_date
         self.progress_bar = progress_bar
+        self.job_ids = {}
 
         if filename:
             self.pad = 1
@@ -203,6 +207,7 @@ class cloud_import(cloud_api):
                 if self.progress_bar is False:
                     print("[DONE]")
 
+                self.job_ids[os.path.basename(filename)] = json.loads(self.resp.text)['jobId']
                 logger.info(f"imported {os.path.basename(filename)} OK")
                 logger.debug(f"{self.resp.status_code} {self.resp.text}")
 
