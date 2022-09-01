@@ -15,6 +15,7 @@ from nrgpy.cloud_api.auth import (
     sites_url,
     create_export_job_url,
     export_job_url,
+    import_url,
 )
 import traceback
 
@@ -42,6 +43,7 @@ def test_endpoints():
         data_catalog_url,
         create_export_job_url,
         export_job_url,
+        # import_url,
     ]:
 
         try:
