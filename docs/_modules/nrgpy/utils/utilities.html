@@ -314,10 +314,21 @@ title="Fullscreen mode"
 <span class="sd">    string : str</span>
 <span class="sd">        string including date to check</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># LOGR &amp; SymphonieClassic</span>
     <span class="k">if</span> <span class="n">string</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s2">&quot;dat&quot;</span><span class="p">,</span> <span class="s2">&quot;rwd&quot;</span><span class="p">)):</span>
         <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">[0-9]</span><span class="si">{2}</span><span class="s2">[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+        <span class="n">strp_format</span> <span class="o">=</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span>
+    <span class="c1"># ZX datafile</span>
+    <span class="k">elif</span> <span class="s2">&quot;@Y20&quot;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span>
+        <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;(Y[0-9]</span><span class="si">{4}</span><span class="s2">_M[0-9]</span><span class="si">{2}</span><span class="s2">_D[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+        <span class="n">strp_format</span> <span class="o">=</span> <span class="s2">&quot;Y%Y_M%m_D</span><span class="si">%d</span><span class="s2">&quot;</span>
+    <span class="c1"># SymphoniePRO</span>
     <span class="k">elif</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;rld&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span>
         <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+        <span class="n">strp_format</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">string</span><span class="si">}</span><span class="s2"> is an unknown file format&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">string</span><span class="si">}</span><span class="s2"> is an unknown file format&quot;</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -329,15 +340,7 @@ title="Fullscreen mode"
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">date_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
-        <span class="n">file_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_text</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">file_date</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">file_date</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
-
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-        <span class="n">date_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
-        <span class="n">file_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_text</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">file_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_text</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">strp_format</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">file_date</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">file_date</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>

@@ -246,7 +246,7 @@ title="Fullscreen mode"
 <span class="sd">    sites_list : list of dict</span>
 <span class="sd">    sites_df : pandas dataframe</span>
 
-<span class="sd">    </span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import nrgpy</span>
@@ -264,13 +264,13 @@ title="Fullscreen mode"
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialize a cloud_sites object.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        client_id : str</span>
 <span class="sd">            available in the NRG Cloud portal</span>
 <span class="sd">        client_secret : str</span>
-<span class="sd">            available in the NRG Cloud portal        </span>
+<span class="sd">            available in the NRG Cloud portal</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">)</span>
@@ -282,7 +282,7 @@ title="Fullscreen mode"
 
 <div class="viewcode-block" id="cloud_sites.get_sites"><a class="viewcode-back" href="../../../nrgpy.cloud_api.sites.html#nrgpy.cloud_api.sites.cloud_sites.get_sites">[docs]</a>    <span class="k">def</span> <span class="nf">get_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve list of sites user has access to.&quot;&quot;&quot;</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span>
         <span class="p">}</span>
@@ -295,7 +295,7 @@ title="Fullscreen mode"
 
 <div class="viewcode-block" id="cloud_sites.get_siteid"><a class="viewcode-back" href="../../../nrgpy.cloud_api.sites.html#nrgpy.cloud_api.sites.cloud_sites.get_siteid">[docs]</a>    <span class="k">def</span> <span class="nf">get_siteid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">site_number</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">logger_sn</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get NRG Cloud site ID that corresponds to site number and/or logger SN</span>
-<span class="sd">        </span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        site_number : int</span>
@@ -306,7 +306,7 @@ title="Fullscreen mode"
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        int</span>
-<span class="sd">            corresponding site ID        </span>
+<span class="sd">            corresponding site ID</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">site_number</span> <span class="ow">and</span> <span class="n">logger_sn</span><span class="p">:</span>
             <span class="n">matching_sites</span> <span class="o">=</span> <span class="p">[</span>

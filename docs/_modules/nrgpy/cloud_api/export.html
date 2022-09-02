@@ -260,9 +260,9 @@ title="Fullscreen mode"
 <span class="sd">    logger_sn : int</span>
 <span class="sd">        serial number of data logger</span>
 <span class="sd">    start_date : str (&#39;YYYY-MM-DD HH:MM:SS&#39;)</span>
-<span class="sd">        start date/time of data export </span>
+<span class="sd">        start date/time of data export</span>
 <span class="sd">    end_date : str (&#39;YYYY-MM-DD HH:MM:SS&#39;)</span>
-<span class="sd">        end date/time of data export </span>
+<span class="sd">        end date/time of data export</span>
 <span class="sd">    file_format : {&#39;txt&#39;, &#39;rld&#39;}</span>
 <span class="sd">        whether tab-delimited text or binary output</span>
 <span class="sd">    client_id : str</span>
@@ -287,7 +287,7 @@ title="Fullscreen mode"
 <span class="sd">        API response</span>
 <span class="sd">    export_filepath : str (path-like)</span>
 <span class="sd">        path of export file</span>
-<span class="sd">    </span>
+
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -353,11 +353,11 @@ title="Fullscreen mode"
 <span class="sd">            serial number of data logger (like, 820612345)</span>
 <span class="sd">            must pass site_id OR [site_number and/or logger_sn]</span>
 <span class="sd">        start_date : str (&#39;YYYY-MM-DD HH:MM:SS&#39;), default&#39;2014-01-01&#39;</span>
-<span class="sd">            start date/time of data export </span>
+<span class="sd">            start date/time of data export</span>
 <span class="sd">            if just date, it will return the whole day</span>
 <span class="sd">            times are in logger local time</span>
 <span class="sd">        end_date : str (&#39;YYYY-MM-DD HH:MM:SS&#39;), default &#39;2030-12-31&#39;</span>
-<span class="sd">            start date/time of data export </span>
+<span class="sd">            start date/time of data export</span>
 <span class="sd">            if just date, it will return the whole day</span>
 <span class="sd">            times are in logger local time</span>
 <span class="sd">        file_format : {&#39;txt&#39;, &#39;rld&#39;}, default &#39;txt&#39;</span>
@@ -375,7 +375,7 @@ title="Fullscreen mode"
 <span class="sd">            averaging interval of exported data; must be a multiple of the logger&#39;s statistical interval</span>
 <span class="sd">        unzip : bool, default True</span>
 <span class="sd">            whether to extract the .txt data file from the .zip file</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">)</span>
 

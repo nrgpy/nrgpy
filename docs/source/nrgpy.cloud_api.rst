@@ -44,6 +44,14 @@ nrgpy.cloud\_api.sites module
    :undoc-members:
    :show-inheritance:
 
+nrgpy.cloud\_api.upload module
+------------------------------
+
+.. automodule:: nrgpy.cloud_api.upload
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
