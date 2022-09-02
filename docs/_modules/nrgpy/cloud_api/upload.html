@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nrgpy.cloud_api.convert &#8212; nrgpy  documentation</title>
+    <title>nrgpy.cloud_api.upload &#8212; nrgpy  documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -224,22 +224,24 @@ title="Fullscreen mode"
                 
               <div>
                 
-  <h1>Source code for nrgpy.cloud_api.convert</h1><div class="highlight"><pre>
+  <h1>Source code for nrgpy.cloud_api.upload</h1><div class="highlight"><pre>
 <span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">nrgpy</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="k">pass</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="n">affirm_directory</span><span class="p">,</span> <span class="n">date_check</span><span class="p">,</span> <span class="n">draw_progress_bar</span>
-<span class="kn">from</span> <span class="nn">.auth</span> <span class="kn">import</span> <span class="n">cloud_api</span><span class="p">,</span> <span class="n">convert_url</span><span class="p">,</span> <span class="n">is_authorized</span>
+<span class="kn">from</span> <span class="nn">.auth</span> <span class="kn">import</span> <span class="n">cloud_api</span><span class="p">,</span> <span class="n">import_url</span><span class="p">,</span> <span class="n">is_authorized</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">zipfile</span>
 
 
-<div class="viewcode-block" id="cloud_convert"><a class="viewcode-back" href="../../../nrgpy.cloud_api.convert.html#nrgpy.cloud_api.convert.cloud_convert">[docs]</a><span class="k">class</span> <span class="nc">cloud_convert</span><span class="p">(</span><span class="n">cloud_api</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Uses NRG hosted web-based API to convert RLD and RWD files to text format</span>
+<div class="viewcode-block" id="cloud_import"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.upload.cloud_import">[docs]</a><span class="k">class</span> <span class="nc">cloud_import</span><span class="p">(</span><span class="n">cloud_api</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Uses NRG hosted web-based API to import RLD and CSV/CSV.zip files to</span>
+<span class="sd">    existing sites in NRG Cloud.</span>
 <span class="sd">    To sign up for the service, go to https://cloud.nrgsystems.com/.</span>
 
 <span class="sd">    Note that the site must exist in the NRG Cloud platform, and you must have</span>
@@ -247,12 +249,10 @@ title="Fullscreen mode"
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
-<span class="sd">    rld_dir : str (path-like)</span>
-<span class="sd">        path to rld file directory</span>
-<span class="sd">    out_dir : str (path-like)</span>
-<span class="sd">        path to save text export files</span>
+<span class="sd">    in_dir : str (path-like)</span>
+<span class="sd">        path to data file directory</span>
 <span class="sd">    filename : str</span>
-<span class="sd">        provide for single file conversion</span>
+<span class="sd">        provide for single file import</span>
 <span class="sd">    site_filter : str, optional</span>
 <span class="sd">        text filter for limiting file set</span>
 <span class="sd">    filter2 : str, optional</span>
@@ -265,12 +265,6 @@ title="Fullscreen mode"
 <span class="sd">        provided by NRG Systems</span>
 <span class="sd">    client_secret : str</span>
 <span class="sd">        provided by NRG Systems</span>
-<span class="sd">    nec_file : str, optional</span>
-<span class="sd">        path to NEC file for custom export formatting</span>
-<span class="sd">    export_type : str</span>
-<span class="sd">        [measurements], diagnostic, events, communication</span>
-<span class="sd">    unzip : bool</span>
-<span class="sd">        whether to extract the .txt data file from the .zip file</span>
 <span class="sd">    session_token : str</span>
 <span class="sd">    headers : str</span>
 <span class="sd">        headers passed in API call</span>
@@ -278,49 +272,45 @@ title="Fullscreen mode"
 <span class="sd">        data passed in API call</span>
 <span class="sd">    resp : str</span>
 <span class="sd">        API response</span>
-<span class="sd">    export_filepath : str (path-like)</span>
-<span class="sd">        path of export file</span>
+<span class="sd">    job_ids : dict</span>
+<span class="sd">        dictionary of filenames and job ids</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    Convert a single raw data file to Text with NRG Convert API</span>
+<span class="sd">    Import a single raw data file with NRG Import API</span>
 
 <span class="sd">    &gt;&gt;&gt; import nrgpy</span>
-<span class="sd">    &gt;&gt;&gt; filename = &quot;/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld</span>
+<span class="sd">    &gt;&gt;&gt; filename = &quot;/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.filename</span>
 <span class="sd">    &gt;&gt;&gt; client_id = &quot;go to https://cloud.nrgsystems.com/data-manager/api-setup for access&quot;</span>
 <span class="sd">    &gt;&gt;&gt; client_secret = &quot;go to https://cloud.nrgsystems.com/data-manager/api-setup for access&quot;</span>
-<span class="sd">    &gt;&gt;&gt; converter = nrgpy.cloud_convert(</span>
-<span class="sd">            file_filter=file_filter,</span>
+<span class="sd">    &gt;&gt;&gt; importer = nrgpy.cloud_import(</span>
 <span class="sd">            filename=filename,</span>
 <span class="sd">            client_id=client_id,</span>
 <span class="sd">            client_secret=client_secret,</span>
 <span class="sd">        )</span>
 
-<span class="sd">    Convert a folder of raw data files to Text with NRG Convert API</span>
+<span class="sd">    Import a folder of data files with NRG Import API</span>
 
 <span class="sd">    &gt;&gt;&gt; import nrgpy</span>
 <span class="sd">    &gt;&gt;&gt; file_filter = &quot;000175&quot;</span>
-<span class="sd">    &gt;&gt;&gt; rld_directory = &quot;rlds&quot;</span>
-<span class="sd">    &gt;&gt;&gt; txt_dir = &quot;/home/user/data/sympro/000123/txt/&quot;</span>
+<span class="sd">    &gt;&gt;&gt; in_directory = &quot;filenames&quot;</span>
 <span class="sd">    &gt;&gt;&gt; client_id = &quot;go to https://cloud.nrgsystems.com/data-manager/api-setup for access&quot;</span>
 <span class="sd">    &gt;&gt;&gt; client_secret = &quot;go to https://cloud.nrgsystems.com/data-manager/api-setup for access&quot;</span>
-<span class="sd">    &gt;&gt;&gt; converter = nrgpy.cloud_convert(</span>
+<span class="sd">    &gt;&gt;&gt; importer = nrgpy.cloud_import(</span>
 <span class="sd">            file_filter=file_filter,</span>
-<span class="sd">            rld_dir=rld_directory,</span>
-<span class="sd">            out_dir=txt_dir,</span>
+<span class="sd">            in_dir=in_directory,</span>
 <span class="sd">            client_id=client_id,</span>
 <span class="sd">            client_secret=client_secret,</span>
 <span class="sd">            start_date=&quot;2020-01-01&quot;,</span>
 <span class="sd">            end_date=&quot;2020-01-31&quot;,</span>
 <span class="sd">        )</span>
-<span class="sd">    &gt;&gt;&gt; converter.process()</span>
+<span class="sd">    &gt;&gt;&gt; importer.process()</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">rld_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">out_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">in_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">site_filter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">filter2</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -328,9 +318,6 @@ title="Fullscreen mode"
         <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2150-12-31&quot;</span><span class="p">,</span>
         <span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">client_secret</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">export_type</span><span class="o">=</span><span class="s2">&quot;measurements&quot;</span><span class="p">,</span>
-        <span class="n">nec_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">unzip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
@@ -338,12 +325,10 @@ title="Fullscreen mode"
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        rld_dir : str (path-like)</span>
-<span class="sd">            path to rld file directory</span>
-<span class="sd">        out_dir : str (path-like)</span>
-<span class="sd">            path to save text export files</span>
+<span class="sd">        in_dir : str (path-like)</span>
+<span class="sd">            path to data file directory</span>
 <span class="sd">        filename : str</span>
-<span class="sd">            provide for single file conversion</span>
+<span class="sd">            provide for single file import</span>
 <span class="sd">        site_filter : str, optional</span>
 <span class="sd">            text filter for limiting file set</span>
 <span class="sd">        filter2 : str, optional</span>
@@ -356,19 +341,12 @@ title="Fullscreen mode"
 <span class="sd">            available in the NRG Cloud portal</span>
 <span class="sd">        client_secret : str</span>
 <span class="sd">            available in the NRG Cloud portal</span>
-<span class="sd">        nec_file : str, optional</span>
-<span class="sd">            path to NEC file for custom export formatting</span>
-<span class="sd">        export_type : {&#39;measurements&#39;, &#39;diagnostic&#39;, &#39;events&#39;, &#39;communication&#39;}, default &#39;measurements&#39;</span>
-<span class="sd">            which type of data to export</span>
-<span class="sd">        unzip : bool, default True</span>
-<span class="sd">            whether to extract the .txt data file from the .zip file</span>
 <span class="sd">        progress_bar : bool, default True</span>
-<span class="sd">            whether to dispaly the progress bar</span>
+<span class="sd">            whether to display the progress bar</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span> <span class="o">=</span> <span class="n">export_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="o">=</span> <span class="n">site_filter</span>
 
         <span class="k">if</span> <span class="s2">&quot;file_filter&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">site_filter</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
@@ -376,15 +354,11 @@ title="Fullscreen mode"
             <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="o">=</span> <span class="n">filter2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_dir</span> <span class="o">=</span> <span class="n">in_dir</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">start_date</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span> <span class="o">=</span> <span class="n">nec_file</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span> <span class="o">=</span> <span class="n">rld_dir</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span> <span class="o">=</span> <span class="n">progress_bar</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unzip</span> <span class="o">=</span> <span class="n">unzip</span>
-
-        <span class="n">affirm_directory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">job_ids</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="mi">1</span>
@@ -394,17 +368,18 @@ title="Fullscreen mode"
             <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">single_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">rld_dir</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">in_dir</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
 
-<div class="viewcode-block" id="cloud_convert.process"><a class="viewcode-back" href="../../../nrgpy.cloud_api.convert.html#nrgpy.cloud_api.convert.cloud_convert.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="cloud_import.process"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.upload.cloud_import.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">f</span>
-            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;rld&quot;</span><span class="p">)</span>
-            <span class="c1"># and f.lower().endswith((&#39;rwd&#39;, &#39;rld&#39;))    ## Uncomment when RWD convert is supported</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_dir</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="ow">in</span> <span class="n">f</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="ow">in</span> <span class="n">f</span>
+            <span class="ow">and</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="s2">&quot;rld&quot;</span><span class="p">,</span> <span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="s2">&quot;csv.zip&quot;</span><span class="p">]))</span>
             <span class="ow">and</span> <span class="n">date_check</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
         <span class="p">]</span>
 
@@ -412,15 +387,16 @@ title="Fullscreen mode"
         <span class="bp">self</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
 
-        <span class="k">for</span> <span class="n">rld</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">single_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">,</span> <span class="n">rld</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_authorized</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="p">):</span>
-                <span class="k">break</span>
+        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">single_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_authorized</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="p">):</span>
+                    <span class="k">break</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span></div>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="cloud_convert.single_file"><a class="viewcode-back" href="../../../nrgpy.cloud_api.convert.html#nrgpy.cloud_api.convert.cloud_convert.single_file">[docs]</a>    <span class="k">def</span> <span class="nf">single_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rld</span><span class="p">):</span>
+<div class="viewcode-block" id="cloud_import.single_file"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.upload.cloud_import.single_file">[docs]</a>    <span class="k">def</span> <span class="nf">single_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="p">:</span>
                 <span class="n">draw_progress_bar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
@@ -429,21 +405,14 @@ title="Fullscreen mode"
                     <span class="s2">&quot;Processing </span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2"> ... </span><span class="si">{2}</span><span class="s2"> ... &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">),</span>
                         <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">),</span>
-                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">rld</span><span class="p">),</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span>
                     <span class="p">),</span>
                     <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                     <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_rld_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_file_bytes</span><span class="p">(</span><span class="n">rld</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_rld_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_rld_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_file_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_filename_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_file_bytes</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_filename_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_filename_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_valid</span><span class="p">():</span>
                 <span class="p">(</span>
@@ -454,60 +423,37 @@ title="Fullscreen mode"
             <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">)}</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;FileBytes64BitEncoded&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_rld_string</span><span class="p">,</span>
-                <span class="s2">&quot;NecFile64BitEncoded&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span><span class="p">,</span>
-                <span class="s2">&quot;exportType&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span><span class="p">,</span>  <span class="c1"># measurements (default) | samples</span>
+                <span class="s2">&quot;FileBytes64BitEncoded&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_filename_string</span><span class="p">,</span>
+                <span class="s2">&quot;FileName&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span>
             <span class="p">}</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">convert_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">rld</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;zip&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">import_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unzip</span><span class="p">:</span>
-                    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">namelist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-                        <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
-                    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span>
-                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span><span class="p">)</span>
-                    <span class="p">)</span>
-
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[DONE]&quot;</span><span class="p">)</span>
 
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;converted </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">)</span><span class="si">}</span><span class="s2"> OK&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">job_ids</span><span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s1">&#39;jobId&#39;</span><span class="p">]</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;imported </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="si">}</span><span class="s2"> OK&quot;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span><span class="p">:</span>
                 <span class="k">pass</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;unable to convert </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">)</span><span class="si">}</span><span class="s2">: FAILED&quot;</span>
-                <span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">unable to process file: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld</span><span class="p">))</span>
-                <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; | &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unable to import </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="si">}</span><span class="s2">: FAILED&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">unable to process file: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">reason</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED]&quot;</span><span class="p">)</span>
 
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;unable to convert </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">)</span><span class="si">}</span><span class="s2">: FAILED&quot;</span>
-            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unable to import </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="si">}</span><span class="s2">: FAILED&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unable to process file: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="k">pass</span></div></div>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unable to process file: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div></div>
 </pre></div>
 
               </div>

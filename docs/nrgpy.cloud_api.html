@@ -302,6 +302,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.upload">
+   nrgpy.cloud_api.upload module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#module-nrgpy.cloud_api">
    Module contents
   </a>
@@ -353,6 +358,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.sites">
    nrgpy.cloud_api.sites module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-nrgpy.cloud_api.upload">
+   nrgpy.cloud_api.upload module
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -497,7 +507,7 @@ up for a free account, go to:</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.convert.cloud_convert">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.convert.</span></span><span class="sig-name descname"><span class="pre">cloud_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rld_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'measurements'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nec_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/convert.html#cloud_convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.convert.cloud_convert" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#nrgpy.cloud_api.auth.cloud_api" title="nrgpy.cloud_api.auth.cloud_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.cloud_api.auth.cloud_api</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api" title="nrgpy.cloud_api.auth.cloud_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.cloud_api.auth.cloud_api</span></code></a></p>
 <p>Uses NRG hosted web-based API to convert RLD and RWD files to text format
 To sign up for the service, go to <a class="reference external" href="https://cloud.nrgsystems.com/">https://cloud.nrgsystems.com/</a>.</p>
 <p>Note that the site must exist in the NRG Cloud platform, and you must have
@@ -592,7 +602,7 @@ Contributor or Administrator level access to the site to use these features.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.export.cloud_export">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.export.</span></span><span class="sig-name descname"><span class="pre">cloud_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_sn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2014-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2030-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'txt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nec_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'measurements'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/export.html#cloud_export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.export.cloud_export" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#nrgpy.cloud_api.auth.cloud_api" title="nrgpy.cloud_api.auth.cloud_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.cloud_api.auth.cloud_api</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api" title="nrgpy.cloud_api.auth.cloud_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.cloud_api.auth.cloud_api</span></code></a></p>
 <p>Uses NRG hosted web-based API to download data in text format
 To sign up for the service, go to <a class="reference external" href="https://cloud.nrgsystems.com">https://cloud.nrgsystems.com</a></p>
 <p>Note that the site must exist in the NRG Cloud platform, and you must have
@@ -798,7 +808,7 @@ must be a multiple of the logger’s statistical interval. if not specified, wil
 <dl class="py class">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.sites.cloud_sites">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.sites.</span></span><span class="sig-name descname"><span class="pre">cloud_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/sites.html#cloud_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.sites.cloud_sites" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#nrgpy.cloud_api.auth.cloud_api" title="nrgpy.cloud_api.auth.cloud_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.cloud_api.auth.cloud_api</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api" title="nrgpy.cloud_api.auth.cloud_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.cloud_api.auth.cloud_api</span></code></a></p>
 <p>Find NRG Cloud sites associated with a user.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
@@ -852,6 +862,91 @@ must be a multiple of the logger’s statistical interval. if not specified, wil
 <span class="sig-name descname"><span class="pre">get_sites</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/sites.html#cloud_sites.get_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.sites.cloud_sites.get_sites" title="Permalink to this definition">#</a></dt>
 <dd><p>Retrieve list of sites user has access to.</p>
 </dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-nrgpy.cloud_api.upload">
+<span id="nrgpy-cloud-api-upload-module"></span><h2>nrgpy.cloud_api.upload module<a class="headerlink" href="#module-nrgpy.cloud_api.upload" title="Permalink to this headline">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.upload.cloud_import">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.upload.</span></span><span class="sig-name descname"><span class="pre">cloud_import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/upload.html#cloud_import"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.upload.cloud_import" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api" title="nrgpy.cloud_api.auth.cloud_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrgpy.cloud_api.auth.cloud_api</span></code></a></p>
+<p>Uses NRG hosted web-based API to import RLD and CSV/CSV.zip files to
+existing sites in NRG Cloud.
+To sign up for the service, go to <a class="reference external" href="https://cloud.nrgsystems.com/">https://cloud.nrgsystems.com/</a>.</p>
+<p>Note that the site must exist in the NRG Cloud platform, and you must have
+Contributor or Administrator level access to the site to use these features.</p>
+<p class="rubric">Examples</p>
+<p>Import a single raw data file with NRG Import API</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.filename</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;go to https://cloud.nrgsystems.com/data-manager/api-setup for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;go to https://cloud.nrgsystems.com/data-manager/api-setup for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">importer</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">cloud_import</span><span class="p">(</span>
+<span class="go">        filename=filename,</span>
+<span class="go">        client_id=client_id,</span>
+<span class="go">        client_secret=client_secret,</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<p>Import a folder of data files with NRG Import API</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_filter</span> <span class="o">=</span> <span class="s2">&quot;000175&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">in_directory</span> <span class="o">=</span> <span class="s2">&quot;filenames&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;go to https://cloud.nrgsystems.com/data-manager/api-setup for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;go to https://cloud.nrgsystems.com/data-manager/api-setup for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">importer</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">cloud_import</span><span class="p">(</span>
+<span class="go">        file_filter=file_filter,</span>
+<span class="go">        in_dir=in_directory,</span>
+<span class="go">        client_id=client_id,</span>
+<span class="go">        client_secret=client_secret,</span>
+<span class="go">        start_date=&quot;2020-01-01&quot;,</span>
+<span class="go">        end_date=&quot;2020-01-31&quot;,</span>
+<span class="go">    )</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">importer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>in_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to data file directory</p>
+</dd>
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>provide for single file import</p>
+</dd>
+<dt><strong>site_filter</strong><span class="classifier">str, optional</span></dt><dd><p>text filter for limiting file set</p>
+</dd>
+<dt><strong>filter2</strong><span class="classifier">str, optional</span></dt><dd><p>another text filter…</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str, optional</span></dt><dd><p>text start date to filter on “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str, optional</span></dt><dd><p>text end date to filter on “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>session_token</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>headers</strong><span class="classifier">str</span></dt><dd><p>headers passed in API call</p>
+</dd>
+<dt><strong>data</strong><span class="classifier">str</span></dt><dd><p>data passed in API call</p>
+</dd>
+<dt><strong>resp</strong><span class="classifier">str</span></dt><dd><p>API response</p>
+</dd>
+<dt><strong>job_ids</strong><span class="classifier">dict</span></dt><dd><p>dictionary of filenames and job ids</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.upload.cloud_import.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/upload.html#cloud_import.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.upload.cloud_import.process" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.upload.cloud_import.single_file">
+<span class="sig-name descname"><span class="pre">single_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/upload.html#cloud_import.single_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.upload.cloud_import.single_file" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

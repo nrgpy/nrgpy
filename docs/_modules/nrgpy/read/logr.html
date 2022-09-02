@@ -599,6 +599,7 @@ title="Fullscreen mode"
         <span class="bp">self</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_count</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failed_files</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Concatenating </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">file_count</span><span class="si">}</span><span class="s2"> files...&quot;</span><span class="p">)</span>
 
@@ -630,7 +631,7 @@ title="Fullscreen mode"
                         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK]&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dat_file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
                 <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Only standard SymPRO headertypes accepted&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Only standard LOGR headertypes accepted&quot;</span><span class="p">)</span>
                     <span class="k">break</span>
                 <span class="k">except</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">progress_bar</span> <span class="o">!=</span> <span class="kc">True</span><span class="p">:</span>
@@ -661,7 +662,12 @@ title="Fullscreen mode"
                         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK]&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dat_file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
 
+                <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">failed_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
                 <span class="k">except</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">progress_bar</span><span class="p">:</span>
                         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED]&quot;</span><span class="p">)</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not concat </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
@@ -682,14 +688,21 @@ title="Fullscreen mode"
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="p">[</span><span class="s2">&quot;ch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="p">[</span><span class="s2">&quot;Channel:&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ch_info</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ch&quot;</span><span class="p">])</span>
-                <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span>
-                    <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">array</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="o">.</span><span class="n">columns</span><span class="p">],</span>
-                    <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ch_info</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ch&quot;</span><span class="p">])</span>
+                    <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span>
+                        <span class="n">subset</span><span class="o">=</span><span class="p">[</span>
+                            <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">array</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">base</span><span class="o">.</span><span class="n">ch_info</span><span class="o">.</span><span class="n">columns</span>
+                        <span class="p">],</span>
+                        <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ch&quot;</span><span class="p">,</span> <span class="s2">&quot;Channel&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 <span class="p">)</span>
-                <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ch&quot;</span><span class="p">,</span> <span class="s2">&quot;Channel&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">first_timestamp</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">first_timestamp</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">head</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">site_info</span>
@@ -700,7 +713,10 @@ title="Fullscreen mode"
         <span class="k">except</span> <span class="ne">UnboundLocalError</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No files match to contatenate.&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No files in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dat_dir</span><span class="si">}</span><span class="s2"> match to contatenate.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">None</span></div>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">failed_files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">failed_files</span><span class="p">)</span><span class="si">}</span><span class="s2"> files unable to be concatenated. See failed_files list&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="logr_read.output_txt_file"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.output_txt_file">[docs]</a>    <span class="k">def</span> <span class="nf">output_txt_file</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
