@@ -87,10 +87,21 @@ def date_check(start_date, end_date, string):
     string : str
         string including date to check
     """
+    # LOGR & SymphonieClassic
     if string.endswith(("dat", "rwd")):
         date_format = "([0-9]{4}[0-9]{2}[0-9]{2})"
+        strp_format = "%Y%m%d"
+    # ZX datafile
+    elif "@Y20" in string:
+        date_format = "(Y[0-9]{4}_M[0-9]{2}_D[0-9]{2})"
+        strp_format = "Y%Y_M%m_D%d"
+    # SymphoniePRO
     elif string.lower().endswith("rld") or "_" in string:
         date_format = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
+        strp_format = "%Y-%m-%d"
+    else:
+        logger.error(f"{string} is an unknown file format")
+        print(f"{string} is an unknown file format")
 
     try:
         start = datetime.strptime(start_date, "%Y-%m-%d")
@@ -102,15 +113,7 @@ def date_check(start_date, end_date, string):
 
     try:
         date_text = re.search(date_format, string)
-        file_date = datetime.strptime(date_text[0], "%Y-%m-%d")
-        if (file_date >= start) and (file_date <= end):
-            return True
-        else:
-            return False
-
-    except ValueError:
-        date_text = re.search(date_format, string)
-        file_date = datetime.strptime(date_text[0], "%Y%m%d")
+        file_date = datetime.strptime(date_text[0], strp_format)
         if (file_date >= start) and (file_date <= end):
             return True
         else:

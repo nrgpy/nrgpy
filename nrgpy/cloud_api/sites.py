@@ -19,7 +19,7 @@ class cloud_sites(cloud_api):
     sites_list : list of dict
     sites_df : pandas dataframe
 
-    
+
     Examples
     --------
     >>> import nrgpy
@@ -37,13 +37,13 @@ class cloud_sites(cloud_api):
 
     def __init__(self, client_id, client_secret):
         """Initialize a cloud_sites object.
-        
+
         Parameters
         ----------
         client_id : str
             available in the NRG Cloud portal
         client_secret : str
-            available in the NRG Cloud portal        
+            available in the NRG Cloud portal
         """
 
         super().__init__(client_id, client_secret)
@@ -55,7 +55,7 @@ class cloud_sites(cloud_api):
 
     def get_sites(self):
         """Retrieve list of sites user has access to."""
-        
+
         self.headers = {
             "Authorization": "Bearer " + self.session_token,
         }
@@ -68,7 +68,7 @@ class cloud_sites(cloud_api):
 
     def get_siteid(self, site_number="", logger_sn=""):
         """Get NRG Cloud site ID that corresponds to site number and/or logger SN
-        
+
         Parameters
         ----------
         site_number : int
@@ -79,7 +79,7 @@ class cloud_sites(cloud_api):
         Returns
         -------
         int
-            corresponding site ID        
+            corresponding site ID
         """
         if site_number and logger_sn:
             matching_sites = [
