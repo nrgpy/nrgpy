@@ -36,7 +36,7 @@ class cloud_export(cloud_api):
         start date/time of data export
     end_date : str ('YYYY-MM-DD HH:MM:SS')
         end date/time of data export
-    file_format : {'txt', 'rld'}
+    file_format : {'txt', 'rld', 'zx'}
         whether tab-delimited text or binary output
     client_id : str
         available in the NRG Cloud portal
@@ -91,6 +91,26 @@ class cloud_export(cloud_api):
     >>>     reader.interval_check = nrgpy.check_intervals(reader.data)
     >>> else:
     >>>     print("unable to get reader")
+
+    Download 15 days of data files from ZX 300 site
+
+    >>> import nrgpy
+    >>>
+    >>> client_id = "go to https://cloud.nrgsystems.com for access"
+    >>> client_secret = "go to https://cloud.nrgsystems.com for access"
+    >>> save_dir = '/path/to/exported/data'
+    >>> file_format = 'zx'
+    >>>
+    >>> exporter = nrgpy.cloud_export(
+            client_id=client_id,
+            client_secret=client_secret,
+            out_dir=save_dir,
+            file_format='zx',
+            site_id=57,
+            start_date="2022-05-01",
+            end_date="2022-05-15",
+        )
+    >>> exporter.export()
     """
 
     def __init__(

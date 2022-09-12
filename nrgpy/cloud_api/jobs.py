@@ -51,7 +51,7 @@ class export_job(cloud_export):
     export_type : str
         ['measurements'], 'diagnostic', 'events', 'communication'
     file_format : str
-        ['txt'], 'rld' - whether tab-delimited text or binary output
+        ['txt'], 'rld', 'zx' - whether tab-delimited text or binary output
     interval : str, optional
         'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
         'thirtyMinute', 'Hour', 'Day'
@@ -67,7 +67,7 @@ class export_job(cloud_export):
 
     Examples
     --------
-    Download 15 days of data with an NEC file applied, and read data
+    Download one year of data with an NEC file applied, and read data
 
     >>> import nrgpy
     >>>
@@ -83,7 +83,7 @@ class export_job(cloud_export):
             site_number=3456,
             start_date="2021-04-01",
             end_date="2022-03-31",
-            file_format="txt",     # <--- can be "rld" for raw data files
+            file_format="txt",     # <--- can be "rld" for raw SymPRO data files, or "zx" for ZX 300
             unzip=True,
         )
     >>>
@@ -98,6 +98,29 @@ class export_job(cloud_export):
     >>>     reader.interval_check = nrgpy.check_intervals(reader.data)
     >>> else:
     >>>     print("unable to get reader")
+
+
+    Download 15 days of data files from ZX 300 lidar site
+
+    >>> import nrgpy
+    >>>
+    >>> client_id = "go to https://cloud.nrgsystems.com for access"
+    >>> client_secret = "go to https://cloud.nrgsystems.com for access"
+    >>> save_dir = '/path/to/exported/data'
+    >>>
+    >>> exporter = nrgpy.export_job(
+            client_id=client_id,
+            client_secret=client_secret,
+            out_dir=save_dir,
+            site_number=567,
+            start_date="2022-09-01",
+            end_date="2022-09-15",
+            file_format="zx",
+            unzip=True,
+        )
+    >>>
+    >>> exporter.create_export_job()
+    >>> exporter.monitor_export_job(download=True)
     """
 
     def __init__(
