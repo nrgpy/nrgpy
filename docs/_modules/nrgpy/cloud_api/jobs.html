@@ -278,7 +278,7 @@ title="Fullscreen mode"
 <span class="sd">    export_type : str</span>
 <span class="sd">        [&#39;measurements&#39;], &#39;diagnostic&#39;, &#39;events&#39;, &#39;communication&#39;</span>
 <span class="sd">    file_format : str</span>
-<span class="sd">        [&#39;txt&#39;], &#39;rld&#39; - whether tab-delimited text or binary output</span>
+<span class="sd">        [&#39;txt&#39;], &#39;rld&#39;, &#39;zx&#39; - whether tab-delimited text or binary output</span>
 <span class="sd">    interval : str, optional</span>
 <span class="sd">        &#39;oneMinute&#39;, &#39;twoMinute&#39;, &#39;fiveMinute&#39;, &#39;tenMinute&#39;, &#39;fifteenMinute&#39;,</span>
 <span class="sd">        &#39;thirtyMinute&#39;, &#39;Hour&#39;, &#39;Day&#39;</span>
@@ -294,7 +294,7 @@ title="Fullscreen mode"
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    Download 15 days of data with an NEC file applied, and read data</span>
+<span class="sd">    Download one year of data with an NEC file applied, and read data</span>
 
 <span class="sd">    &gt;&gt;&gt; import nrgpy</span>
 <span class="sd">    &gt;&gt;&gt;</span>
@@ -310,7 +310,7 @@ title="Fullscreen mode"
 <span class="sd">            site_number=3456,</span>
 <span class="sd">            start_date=&quot;2021-04-01&quot;,</span>
 <span class="sd">            end_date=&quot;2022-03-31&quot;,</span>
-<span class="sd">            file_format=&quot;txt&quot;,     # &lt;--- can be &quot;rld&quot; for raw data files</span>
+<span class="sd">            file_format=&quot;txt&quot;,     # &lt;--- can be &quot;rld&quot; for raw SymPRO data files, or &quot;zx&quot; for ZX 300</span>
 <span class="sd">            unzip=True,</span>
 <span class="sd">        )</span>
 <span class="sd">    &gt;&gt;&gt;</span>
@@ -325,6 +325,29 @@ title="Fullscreen mode"
 <span class="sd">    &gt;&gt;&gt;     reader.interval_check = nrgpy.check_intervals(reader.data)</span>
 <span class="sd">    &gt;&gt;&gt; else:</span>
 <span class="sd">    &gt;&gt;&gt;     print(&quot;unable to get reader&quot;)</span>
+
+
+<span class="sd">    Download 15 days of data files from ZX 300 lidar site</span>
+
+<span class="sd">    &gt;&gt;&gt; import nrgpy</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; client_id = &quot;go to https://cloud.nrgsystems.com for access&quot;</span>
+<span class="sd">    &gt;&gt;&gt; client_secret = &quot;go to https://cloud.nrgsystems.com for access&quot;</span>
+<span class="sd">    &gt;&gt;&gt; save_dir = &#39;/path/to/exported/data&#39;</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; exporter = nrgpy.export_job(</span>
+<span class="sd">            client_id=client_id,</span>
+<span class="sd">            client_secret=client_secret,</span>
+<span class="sd">            out_dir=save_dir,</span>
+<span class="sd">            site_number=567,</span>
+<span class="sd">            start_date=&quot;2022-09-01&quot;,</span>
+<span class="sd">            end_date=&quot;2022-09-15&quot;,</span>
+<span class="sd">            file_format=&quot;zx&quot;,</span>
+<span class="sd">            unzip=True,</span>
+<span class="sd">        )</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; exporter.create_export_job()</span>
+<span class="sd">    &gt;&gt;&gt; exporter.monitor_export_job(download=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
