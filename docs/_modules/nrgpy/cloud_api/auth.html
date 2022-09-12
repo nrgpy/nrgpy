@@ -238,6 +238,10 @@ title="Fullscreen mode"
 <span class="kn">import</span> <span class="nn">traceback</span>
 
 <span class="n">url_base</span> <span class="o">=</span> <span class="s2">&quot;https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/&quot;</span>
+<span class="c1">### REMOVE FOR PROD</span>
+<span class="n">url_base</span> <span class="o">=</span> <span class="s2">&quot;https://nrgcloudapi.azure-api.net/customerapi/&quot;</span>
+<span class="c1">###</span>
+<span class="c1"># url_base = &quot;http://localhost:7071/api/&quot;</span>
 <span class="n">token_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;token&quot;</span>
 <span class="n">convert_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/convert&quot;</span>
 <span class="n">export_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/export&quot;</span>
@@ -371,7 +375,6 @@ title="Fullscreen mode"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">22</span><span class="p">):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
-                <span class="c1"># logger.debug(f&quot;session token reused: expires {self.session_start_time + timedelta(hours=24)}&quot;)</span>
                 <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">return</span> <span class="kc">False</span></div>
@@ -403,14 +406,14 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="is_authorized"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.is_authorized">[docs]</a><span class="k">def</span> <span class="nf">is_authorized</span><span class="p">(</span><span class="n">resp</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span> <span class="ow">or</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;apiResponseMessage&quot;</span><span class="p">])</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;apiResponseMessage&quot;</span><span class="p">])</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to process request&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to complete request.  Check nrpy log file for details&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to complete request.  Check nrgpy log file for details&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">return</span> <span class="kc">True</span></div>

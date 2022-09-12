@@ -311,6 +311,26 @@ Contributor or Administrator level access to the site to use these features.</p>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unable to get reader&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Download 15 days of data files from ZX 300 site</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;go to https://cloud.nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;go to https://cloud.nrgsystems.com for access&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">save_dir</span> <span class="o">=</span> <span class="s1">&#39;/path/to/exported/data&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;zx&#39;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exporter</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">cloud_export</span><span class="p">(</span>
+<span class="go">        client_id=client_id,</span>
+<span class="go">        client_secret=client_secret,</span>
+<span class="go">        out_dir=save_dir,</span>
+<span class="go">        file_format=&#39;zx&#39;,</span>
+<span class="go">        site_id=57,</span>
+<span class="go">        start_date=&quot;2022-05-01&quot;,</span>
+<span class="go">        end_date=&quot;2022-05-15&quot;,</span>
+<span class="go">    )</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exporter</span><span class="o">.</span><span class="n">export</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Attributes</dt>
 <dd class="field-odd"><dl class="simple">
@@ -326,7 +346,7 @@ Contributor or Administrator level access to the site to use these features.</p>
 </dd>
 <dt><strong>end_date</strong><span class="classifier">str (‘YYYY-MM-DD HH:MM:SS’)</span></dt><dd><p>end date/time of data export</p>
 </dd>
-<dt><strong>file_format</strong><span class="classifier">{‘txt’, ‘rld’}</span></dt><dd><p>whether tab-delimited text or binary output</p>
+<dt><strong>file_format</strong><span class="classifier">{‘txt’, ‘rld’, ‘zx’}</span></dt><dd><p>whether tab-delimited text or binary output</p>
 </dd>
 <dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>available in the NRG Cloud portal</p>
 </dd>
