@@ -207,7 +207,9 @@ class cloud_import(cloud_api):
                 if self.progress_bar is False:
                     print("[DONE]")
 
-                self.job_ids[os.path.basename(filename)] = json.loads(self.resp.text)['jobId']
+                self.job_ids[os.path.basename(filename)] = json.loads(self.resp.text)[
+                    "jobId"
+                ]
                 logger.info(f"imported {os.path.basename(filename)} OK")
                 logger.debug(f"{self.resp.status_code} {self.resp.text}")
 

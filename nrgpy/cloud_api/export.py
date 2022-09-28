@@ -127,7 +127,7 @@ class cloud_export(cloud_api):
         nec_file="",
         export_type="measurements",
         interval="",
-        separate_txt_files=False,
+        concatenate=True,
         unzip=True,
         **kwargs,
     ):
@@ -167,8 +167,8 @@ class cloud_export(cloud_api):
         interval : {'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
             'thirtyMinute', 'Hour', 'Day'}, optional
             averaging interval of exported data; must be a multiple of the logger's statistical interval
-        separate_txt_files : bool
-            (False) set to True to return original CSV files in export (ZX only)
+        concatenate : bool
+            (True) set to False to return original CSV files in export (ZX only)
         unzip : bool, default True
             whether to extract the .txt data file from the .zip file
         """
@@ -199,7 +199,7 @@ class cloud_export(cloud_api):
         self.nec_file = nec_file
         self.export_type = export_type
         self.interval = interval
-        self.separate_txt_files = separate_txt_files
+        self.concatenate = concatenate
         self.unzip = unzip
 
         if self.nec_file:
@@ -224,6 +224,7 @@ class cloud_export(cloud_api):
             "fileFormat": self.file_format,
             "NecFileBytes": self.encoded_nec_string,
             "exporttype": self.export_type,
+            "isOldZxExport": not self.concatenate,
         }
 
         if self.interval:

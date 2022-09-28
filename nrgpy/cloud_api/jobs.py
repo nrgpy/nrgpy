@@ -57,7 +57,7 @@ class export_job(cloud_export):
         'thirtyMinute', 'Hour', 'Day'
         must be a multiple of the logger's statistical interval. if not specified, will use
         "native" interval (usually oneMinute for solar, tenMinute for wind)
-    separate_txt_files : bool
+    concatenate : bool
             (False) set to True to return original CSV files in export (ZX only)
     unzip : bool
         (True) whether to extract the .txt data file from the .zip file
@@ -118,7 +118,7 @@ class export_job(cloud_export):
             start_date="2022-09-01",
             end_date="2022-09-15",
             file_format="zx",
-            separate_txt_files=False,
+            concatenate=False,
             unzip=True,
         )
     >>>
@@ -139,7 +139,7 @@ class export_job(cloud_export):
         client_secret="",
         nec_file="",
         export_type="measurements",
-        separate_txt_files=False,
+        concatenate=False,
         interval="",
         unzip=True,
         **kwargs,
@@ -158,7 +158,7 @@ class export_job(cloud_export):
             nec_file=nec_file,
             export_type=export_type,
             interval=interval,
-            separate_txt_files=separate_txt_files,
+            concatenate=concatenate,
             unzip=unzip,
         )
         pass
@@ -177,7 +177,7 @@ class export_job(cloud_export):
             "fileFormat": self.file_format,
             "NecFileBytes": self.encoded_nec_string,
             "exporttype": self.export_type,
-            "isOldZxExport": self.separate_txt_files,
+            "isOldZxExport": not self.concatenate,
         }
 
         if self.interval:

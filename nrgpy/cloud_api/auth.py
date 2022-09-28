@@ -183,7 +183,12 @@ def is_authorized(resp):
         except:
             logger.error("Unable to process request")
             logger.debug(traceback.format_exc())
-            print("Unable to complete request.  Check nrpy log file for details")
+            print("Unable to complete request.  Check nrgpy log file for details")
+        return False
+
+    if resp.status_code != 200:
+        logger.error(json.loads(resp.text)["apiResponseMessage"])
+        print(json.loads(resp.text)["apiResponseMessage"])
         return False
 
     return True
