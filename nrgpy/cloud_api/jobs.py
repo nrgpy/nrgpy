@@ -58,7 +58,7 @@ class export_job(cloud_export):
         must be a multiple of the logger's statistical interval. if not specified, will use
         "native" interval (usually oneMinute for solar, tenMinute for wind)
     concatenate : bool
-            (False) set to True to return original CSV files in export (ZX only)
+        (True) set to False to return original CSV files in export (ZX only)
     unzip : bool
         (True) whether to extract the .txt data file from the .zip file
 
