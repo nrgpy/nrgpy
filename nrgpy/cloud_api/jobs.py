@@ -118,7 +118,7 @@ class export_job(cloud_export):
             start_date="2022-09-01",
             end_date="2022-09-15",
             file_format="zx",
-            concatenate=False,
+            concatenate=True,
             unzip=True,
         )
     >>>
@@ -139,7 +139,7 @@ class export_job(cloud_export):
         client_secret="",
         nec_file="",
         export_type="measurements",
-        concatenate=False,
+        concatenate=True,
         interval="",
         unzip=True,
         **kwargs,
