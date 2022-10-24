@@ -32,11 +32,19 @@ class cloud_export(cloud_api):
         site number
     logger_sn : int
         serial number of data logger
+<<<<<<< HEAD
     start_date : str ('YYYY-MM-DD HH:MM:SS')
         start date/time of data export
     end_date : str ('YYYY-MM-DD HH:MM:SS')
         end date/time of data export
     file_format : {'txt', 'rld', 'zx'}
+=======
+    start_date : str ('{YYYY}-{MM}-{DD}T{HH}:{MM}:{SS}')
+        start date/time of data export 
+    end_date : str ('{YYYY}-{MM}-{DD}T{HH}:{MM}:{SS}')
+        end date/time of data export 
+    file_format : {'txt', 'rld'}
+>>>>>>> api_class_docstrings
         whether tab-delimited text or binary output
     client_id : str
         available in the NRG Cloud portal
