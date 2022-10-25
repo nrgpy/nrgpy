@@ -32,12 +32,12 @@ class cloud_export(cloud_api):
         site number
     logger_sn : int
         serial number of data logger
-    start_date : str ('YYYY-MM-DD HH:MM:SS')
-        start date/time of data export
-    end_date : str ('YYYY-MM-DD HH:MM:SS')
-        end date/time of data export
+    start_date : str ('{YYYY}-{MM}-{DD}T{HH}:{MM}:{SS}')
+        start date/time of data export 
+    end_date : str ('{YYYY}-{MM}-{DD}T{HH}:{MM}:{SS}')
+        end date/time of data export 
     file_format : {'txt', 'rld', 'zx'}
-        whether tab-delimited text or binary output
+        whether SymPRO tab-delimited text or binary output or ZX
     client_id : str
         available in the NRG Cloud portal
     client_secret : str

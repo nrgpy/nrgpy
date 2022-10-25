@@ -187,15 +187,13 @@ class sympro_txt_read(object):
             self._site_info.columns = self._site_info.iloc[0]
             self._site_info = self._site_info[1:]
 
-            width = list(self._site_info.columns.values).index("Sensor History")
-
+            try:
+                width = list(self._site_info.columns.values).index("Sensor History")
+                self._site_info = self._site_info.iloc[:,:width]
+            except ValueError:  # allows for parsing site info in diagnostic & events export, which don't have sensor history
+                pass
+            
             self._site_info.rename(columns=renamer(), inplace=True)
-            self._site_info.drop(
-                self._site_info.iloc[:, width : len(self._site_info.columns)],
-                axis=1,
-                inplace=True,
-                errors="ignore",
-            )
             self._site_info.columns = [
                 str(col).replace(":", "").strip() for col in self._site_info.columns
             ]
