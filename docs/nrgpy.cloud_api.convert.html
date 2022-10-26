@@ -281,6 +281,34 @@ title="Print to PDF"
 To sign up for the service, go to <a class="reference external" href="https://cloud.nrgsystems.com/">https://cloud.nrgsystems.com/</a>.</p>
 <p>Note that the site must exist in the NRG Cloud platform, and you must have
 Contributor or Administrator level access to the site to use these features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rld_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to rld file directory</p>
+</dd>
+<dt><strong>out_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to save text export files</p>
+</dd>
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>provide for single file conversion</p>
+</dd>
+<dt><strong>site_filter</strong><span class="classifier">str, optional</span></dt><dd><p>text filter for limiting file set</p>
+</dd>
+<dt><strong>filter2</strong><span class="classifier">str, optional</span></dt><dd><p>another text filter…</p>
+</dd>
+<dt><strong>start_date</strong><span class="classifier">str, optional</span></dt><dd><p>text start date to filter on “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str, optional</span></dt><dd><p>text end date to filter on “YYYY-mm-dd”</p>
+</dd>
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
+</dd>
+<dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
+</dd>
+<dt><strong>export_type</strong><span class="classifier">str</span></dt><dd><p>[measurements], diagnostic, events, communication</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <p>Convert a single raw data file to Text with NRG Convert API</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
@@ -314,45 +342,6 @@ Contributor or Administrator level access to the site to use these features.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
 </pre></div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>rld_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to rld file directory</p>
-</dd>
-<dt><strong>out_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to save text export files</p>
-</dd>
-<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>provide for single file conversion</p>
-</dd>
-<dt><strong>site_filter</strong><span class="classifier">str, optional</span></dt><dd><p>text filter for limiting file set</p>
-</dd>
-<dt><strong>filter2</strong><span class="classifier">str, optional</span></dt><dd><p>another text filter…</p>
-</dd>
-<dt><strong>start_date</strong><span class="classifier">str, optional</span></dt><dd><p>text start date to filter on “YYYY-mm-dd”</p>
-</dd>
-<dt><strong>end_date</strong><span class="classifier">str, optional</span></dt><dd><p>text end date to filter on “YYYY-mm-dd”</p>
-</dd>
-<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
-</dd>
-<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
-</dd>
-<dt><strong>nec_file</strong><span class="classifier">str, optional</span></dt><dd><p>path to NEC file for custom export formatting</p>
-</dd>
-<dt><strong>export_type</strong><span class="classifier">str</span></dt><dd><p>[measurements], diagnostic, events, communication</p>
-</dd>
-<dt><strong>unzip</strong><span class="classifier">bool</span></dt><dd><p>whether to extract the .txt data file from the .zip file</p>
-</dd>
-<dt><strong>session_token</strong><span class="classifier">str</span></dt><dd></dd>
-<dt><strong>headers</strong><span class="classifier">str</span></dt><dd><p>headers passed in API call</p>
-</dd>
-<dt><strong>data</strong><span class="classifier">str</span></dt><dd><p>data passed in API call</p>
-</dd>
-<dt><strong>resp</strong><span class="classifier">str</span></dt><dd><p>API response</p>
-</dd>
-<dt><strong>export_filepath</strong><span class="classifier">str (path-like)</span></dt><dd><p>path of export file</p>
-</dd>
-</dl>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.cloud_api.convert.cloud_convert.process">
 <span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/convert.html#cloud_convert.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.convert.cloud_convert.process" title="Permalink to this definition">#</a></dt>
