@@ -177,8 +177,10 @@ class export_job(cloud_export):
             "fileFormat": self.file_format,
             "NecFileBytes": self.encoded_nec_string,
             "exporttype": self.export_type,
-            "isOldZxExport": not self.concatenate,
         }
+
+        if self.file_format.lower() == "zx":
+            self.data["isOldZxExport"] = not self.concatenate
 
         if self.interval:
             self.data["interval"] = self.interval
@@ -186,9 +188,13 @@ class export_job(cloud_export):
         self.request_time = datetime.now()
         self.export_request_time = datetime.now()
         logger.debug(f"creating export job for site {self.site_id}")
-        self.resp = requests.post(
-            json=self.data, url=create_export_job_url, headers=self.headers
-        )
+        try:
+            self.resp = requests.post(
+                json=self.data, url=create_export_job_url, headers=self.headers
+            )
+        except:
+            logger.debug(f"{traceback.format_exc()}")
+            return False
         self.request_duration = datetime.now() - self.request_time
         if not is_authorized(self.resp):
             return False
