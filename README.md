@@ -12,7 +12,7 @@
 
 It provides tools for:
 
-- Converting binary ".rld" and ".rwd files to text format
+- Converting binary ".rld" and ".rwd" files to text format
   - using locally installed SymphoniePRO Desktop Software and Symphonie Data Retriever
   - using NRG Cloud API (compatible with Linux!) *(SymphoniePRO only at this time)
 - Reading Symphonie text exports into Pandas dataframes
