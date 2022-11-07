@@ -38,7 +38,7 @@ class sympro_txt_read(object):
         text_timestamps : boolean
             set to True for text timestamps
 
-        Returns
+        Attributes
         ---------
         ch_info : obj
             pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
@@ -51,8 +51,9 @@ class sympro_txt_read(object):
         site_info : obj
             pandas dataframe of site information
         logger_sn : str
-        ipack_sn : str
         logger_type : str
+        logger_firmware : str
+        ipack_sn : str
         ipack_type : str
         latitude : float
         longitude : float
@@ -128,6 +129,7 @@ class sympro_txt_read(object):
             "Serial Number:",
             "Height:",
             "Bearing:",
+            "Vane Mounting Angle:",
             "Scale Factor:",
             "Offset:",
             "Units:",
@@ -210,8 +212,9 @@ class sympro_txt_read(object):
             self.site_description = self._site_info["Site Description"].values[0]
 
             self.logger_sn = self._site_info["Serial Number"].values[0]
-            self.ipack_sn = self._site_info["Serial Number_1"].values[0]
             self.logger_type = self._site_info["Model"].values[0]
+            self.logger_firmware = self._site_info["Firmware"].values[0]
+            self.ipack_sn = self._site_info["Serial Number_1"].values[0]
             self.ipack_type = self._site_info["Model_1"].values[0]
             self.time_zone = self._site_info["Time Zone"].values[0]
 
