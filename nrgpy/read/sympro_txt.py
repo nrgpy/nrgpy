@@ -55,6 +55,7 @@ class sympro_txt_read(object):
         logger_firmware : str
         ipack_sn : str
         ipack_type : str
+        ipack_firmware : str
         latitude : float
         longitude : float
         elevation : int
