@@ -216,6 +216,7 @@ class sympro_txt_read(object):
             self.logger_firmware = self._site_info["Firmware"].values[0]
             self.ipack_sn = self._site_info["Serial Number_1"].values[0]
             self.ipack_type = self._site_info["Model_1"].values[0]
+            self.ipack_firmware = self._site_info["Firmware_1"].values[0]
             self.time_zone = self._site_info["Time Zone"].values[0]
 
         except Exception as e:
