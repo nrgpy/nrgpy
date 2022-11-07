@@ -4,14 +4,6 @@ nrgpy.quality package
 Submodules
 ----------
 
-nrgpy.quality.dewpoint module
------------------------------
-
-.. automodule:: nrgpy.quality.dewpoint
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 nrgpy.quality.quality module
 ----------------------------
 

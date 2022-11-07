@@ -20,7 +20,7 @@
     href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
@@ -29,7 +29,7 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -265,7 +265,7 @@ title="Fullscreen mode"
 <span class="sd">        text_timestamps : boolean</span>
 <span class="sd">            set to True for text timestamps</span>
 
-<span class="sd">        Returns</span>
+<span class="sd">        Attributes</span>
 <span class="sd">        ---------</span>
 <span class="sd">        ch_info : obj</span>
 <span class="sd">            pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()</span>
@@ -278,9 +278,11 @@ title="Fullscreen mode"
 <span class="sd">        site_info : obj</span>
 <span class="sd">            pandas dataframe of site information</span>
 <span class="sd">        logger_sn : str</span>
-<span class="sd">        ipack_sn : str</span>
 <span class="sd">        logger_type : str</span>
+<span class="sd">        logger_firmware : str</span>
+<span class="sd">        ipack_sn : str</span>
 <span class="sd">        ipack_type : str</span>
+<span class="sd">        ipack_firmware : str</span>
 <span class="sd">        latitude : float</span>
 <span class="sd">        longitude : float</span>
 <span class="sd">        elevation : int</span>
@@ -355,6 +357,7 @@ title="Fullscreen mode"
             <span class="s2">&quot;Serial Number:&quot;</span><span class="p">,</span>
             <span class="s2">&quot;Height:&quot;</span><span class="p">,</span>
             <span class="s2">&quot;Bearing:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Vane Mounting Angle:&quot;</span><span class="p">,</span>
             <span class="s2">&quot;Scale Factor:&quot;</span><span class="p">,</span>
             <span class="s2">&quot;Offset:&quot;</span><span class="p">,</span>
             <span class="s2">&quot;Units:&quot;</span><span class="p">,</span>
@@ -414,15 +417,13 @@ title="Fullscreen mode"
             <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
 
-            <span class="n">width</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;Sensor History&quot;</span><span class="p">)</span>
-
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">width</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;Sensor History&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="n">width</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>  <span class="c1"># allows for parsing site info in diagnostic &amp; events export, which don&#39;t have sensor history</span>
+                <span class="k">pass</span>
+            
             <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">renamer</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">width</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span><span class="p">)],</span>
-                <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span>
-            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="o">.</span><span class="n">columns</span>
             <span class="p">]</span>
@@ -439,9 +440,11 @@ title="Fullscreen mode"
             <span class="bp">self</span><span class="o">.</span><span class="n">site_description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Site Description&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">logger_sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Serial Number&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ipack_sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Serial Number_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Model&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger_firmware</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Firmware&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ipack_sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Serial Number_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ipack_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Model_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ipack_firmware</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Firmware_1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time_zone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span><span class="p">[</span><span class="s2">&quot;Time Zone&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
