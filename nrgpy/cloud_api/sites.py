@@ -2,7 +2,7 @@ try:
     from nrgpy import logger
 except ImportError:
     pass
-from .auth import cloud_api, sites_url
+from .auth import cloud_api, cloud_url_base
 import json
 import pandas as pd
 import requests
@@ -36,7 +36,7 @@ class cloud_sites(cloud_api):
 
     """
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self, client_id, client_secret, url_base=cloud_url_base):
         """Initialize a cloud_sites object.
 
         Parameters
@@ -47,10 +47,7 @@ class cloud_sites(cloud_api):
             available in the NRG Cloud portal
         """
 
-        super().__init__(client_id, client_secret)
-
-        self.client_id = client_id
-        self.client_secret = client_secret
+        super().__init__(client_id, client_secret, url_base)
 
         self.get_sites()
 
@@ -61,7 +58,7 @@ class cloud_sites(cloud_api):
             "Authorization": "Bearer " + self.session_token,
         }
 
-        self.resp = requests.get(url=sites_url, headers=self.headers)
+        self.resp = requests.get(url=self.sites_url, headers=self.headers)
 
         self.sites_list = self.resp.json()["sites"]
         logger.info(f"{len(self.sites_list)} sites found")

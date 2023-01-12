@@ -8,7 +8,7 @@ from nrgpy.api.auth import (
     upload_url as api_upload_url,
 )
 from nrgpy.cloud_api.auth import (
-    url_base,
+    cloud_url_base,
     token_url,
     export_url,
     convert_url,
@@ -31,19 +31,19 @@ def test_endpoints():
     """
 
     for url in [
-        url_base,
-        token_url,
-        export_url,
-        convert_url,
-        sites_url,
-        api_convert_url,
-        api_export_url,
-        api_upload_url,
-        retrieve_token_url,
-        data_catalog_url,
-        create_export_job_url,
-        export_job_url,
-        # import_url,
+        cloud_url_base,
+        cloud_url_base + token_url,
+        cloud_url_base + export_url,
+        cloud_url_base + convert_url,
+        cloud_url_base + sites_url,
+        cloud_url_base + api_convert_url,
+        cloud_url_base + api_export_url,
+        cloud_url_base + api_upload_url,
+        cloud_url_base + retrieve_token_url,
+        cloud_url_base + data_catalog_url,
+        cloud_url_base + create_export_job_url,
+        cloud_url_base + export_job_url,
+        cloud_url_base + import_url,
     ]:
 
         try:

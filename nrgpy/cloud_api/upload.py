@@ -3,13 +3,11 @@ try:
 except ImportError:
     pass
 from datetime import datetime
-import io
 import json
-from nrgpy.utils.utilities import affirm_directory, date_check, draw_progress_bar
-from .auth import cloud_api, import_url, is_authorized
+from nrgpy.utils.utilities import date_check, draw_progress_bar
+from .auth import cloud_api, cloud_url_base, is_authorized
 import os
 import requests
-import zipfile
 
 
 class cloud_import(cloud_api):
@@ -200,20 +198,30 @@ class cloud_import(cloud_api):
                 "FileName": os.path.basename(filename),
             }
 
-            self.resp = requests.post(json=self.data, url=import_url, headers=headers)
+            self.resp = requests.post(
+                json=self.data, url=self.import_url, headers=headers
+            )
 
-            if self.resp.status_code == 200:
+            if self.resp.status_code == 200: 
 
                 if self.progress_bar is False:
-                    print("[DONE]")
+                        print("[DONE]")
 
                 self.job_ids[os.path.basename(filename)] = json.loads(self.resp.text)[
                     "jobId"
                 ]
-                logger.info(f"imported {os.path.basename(filename)} OK")
+                logger.info(f"imported {os.path.basename(filename)} OK")                
                 logger.debug(f"{self.resp.status_code} {self.resp.text}")
-
+                
             elif self.resp.status_code == 401 or self.resp.status_code == 400:
+                if ("has already been imported" in json.loads(self.resp.text)["apiResponseMessage"]):
+                    logger.info(self.resp.text)
+                    if self.progress_bar is False:
+                        print("[ALREADY IMPORTED]")
+                else:
+                    logger.info(f"{os.path.basename(filename)}: {self.resp.text} ")
+                    if self.progress_bar is False:
+                        print("[PASSED]")
                 pass
 
             else:

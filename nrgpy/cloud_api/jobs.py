@@ -7,7 +7,7 @@ import json
 from nrgpy.utils.utilities import (
     draw_progress_bar,
 )
-from .auth import create_export_job_url, export_job_url, is_authorized
+from .auth import cloud_url_base, is_authorized
 from .export import cloud_export
 import os
 import requests
@@ -137,6 +137,7 @@ class export_job(cloud_export):
         file_format="txt",
         client_id="",
         client_secret="",
+        url_base=cloud_url_base,
         nec_file="",
         export_type="measurements",
         concatenate=True,
@@ -148,6 +149,7 @@ class export_job(cloud_export):
         super().__init__(
             client_id=client_id,
             client_secret=client_secret,
+            url_base=url_base,
             out_dir=out_dir,
             site_id=site_id,
             site_number=site_number,
@@ -190,7 +192,7 @@ class export_job(cloud_export):
         logger.debug(f"creating export job for site {self.site_id}")
         try:
             self.resp = requests.post(
-                json=self.data, url=create_export_job_url, headers=self.headers
+                json=self.data, url=self.create_export_job_url, headers=self.headers
             )
         except:
             logger.debug(f"{traceback.format_exc()}")
@@ -217,12 +219,14 @@ class export_job(cloud_export):
         Uses self.job_id as reference
         """
         try:
-            self.headers = {"Authorization": "Bearer " + self.session_token}
+            self.headers = {
+                "Authorization": "Bearer " + self.session_token,
+            }
         except TypeError:
             return False
         self.request_time = datetime.now()
         self.resp = requests.get(
-            url=f"{export_job_url}?jobId={self.job_id}&download=false",
+            url=f"{self.export_job_url}?jobId={self.job_id}&download=false",
             headers=self.headers,
         )
         if self.resp.status_code == 200:
@@ -277,12 +281,15 @@ class export_job(cloud_export):
 
     def download_export(self):
         try:
-            self.headers = {"Authorization": "Bearer " + self.session_token}
+            self.headers = {
+                "Authorization": "Bearer " + self.session_token,
+                "content-type": "application/zip",
+            }
         except TypeError:
             return False
         self.request_time = datetime.now()
         self.resp = requests.get(
-            url=f"{export_job_url}?jobId={self.job_id}&download=true",
+            url=f"{self.export_job_url}?jobId={self.job_id}&download=true",
             headers=self.headers,
             stream=True,
         )

@@ -10,14 +10,14 @@ import pickle
 import requests
 import traceback
 
-url_base = "https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/"
-token_url = url_base + "token"
-convert_url = url_base + "data/convert"
-export_url = url_base + "data/export"
-create_export_job_url = url_base + "data/createexportjob"
-export_job_url = url_base + "data/exportjob"
-import_url = url_base + "data/import"
-sites_url = url_base + "sites"
+cloud_url_base = "https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/"
+token_url = "token"
+convert_url = "data/convert"
+export_url = "data/export"
+create_export_job_url = "data/createexportjob"
+export_job_url = "data/exportjob"
+import_url = "data/import"
+sites_url = "sites"
 
 
 class cloud_api(object):
@@ -56,10 +56,18 @@ class cloud_api(object):
         to format TXT outputs. Bearer  token required.
     """
 
-    def __init__(self, client_id="", client_secret=""):
+    def __init__(self, client_id="", client_secret="", url_base=cloud_url_base):
         logger.debug(f"cloud base: {url_base}")
         self.client_id = client_id
         self.client_secret = client_secret
+        self.url_base = url_base
+        self.token_url = url_base + token_url
+        self.convert_url = url_base + convert_url
+        self.export_url = url_base + export_url
+        self.create_export_job_url = url_base + create_export_job_url
+        self.export_job_url = url_base + export_job_url
+        self.import_url = url_base + import_url
+        self.sites_url = url_base + sites_url
 
         if self.client_id and self.client_secret:
             self.maintain_session_token()
@@ -115,7 +123,7 @@ class cloud_api(object):
         self.resp = requests.post(
             data=json.dumps(request_payload),
             headers=request_token_header,
-            url=token_url,
+            url=self.token_url,
         )
         self.session_start_time = datetime.now()
 
@@ -176,19 +184,14 @@ class cloud_api(object):
 
 
 def is_authorized(resp):
-    if resp.status_code == 401 or resp.status_code == 400:
+    if resp.status_code == 401 or resp.status_code == 400 and "has already been imported" not in resp.text:
         try:
             logger.error(json.loads(resp.text)["apiResponseMessage"])
             print(json.loads(resp.text)["apiResponseMessage"])
         except:
             logger.error("Unable to process request")
             logger.debug(traceback.format_exc())
-            print("Unable to complete request.  Check nrgpy log file for details")
-        return False
-
-    if resp.status_code != 200:
-        logger.error(json.loads(resp.text)["apiResponseMessage"])
-        print(json.loads(resp.text)["apiResponseMessage"])
+            print("Unable to complete request.  Check nrpy log file for details")
         return False
 
     return True
