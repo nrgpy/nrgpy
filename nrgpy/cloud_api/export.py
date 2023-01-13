@@ -6,7 +6,7 @@ from datetime import datetime
 from nrgpy.utils.utilities import (
     affirm_directory,
 )
-from .auth import cloud_api, export_url
+from .auth import cloud_api, cloud_url_base
 from .sites import cloud_sites
 import os
 import requests
@@ -33,9 +33,9 @@ class cloud_export(cloud_api):
     logger_sn : int
         serial number of data logger
     start_date : str ('{YYYY}-{MM}-{DD}T{HH}:{MM}:{SS}')
-        start date/time of data export 
+        start date/time of data export
     end_date : str ('{YYYY}-{MM}-{DD}T{HH}:{MM}:{SS}')
-        end date/time of data export 
+        end date/time of data export
     file_format : {'txt', 'rld', 'zx'}
         whether SymPRO tab-delimited text or binary output or ZX
     client_id : str
@@ -124,6 +124,7 @@ class cloud_export(cloud_api):
         file_format="txt",
         client_id="",
         client_secret="",
+        url_base=cloud_url_base,
         nec_file="",
         export_type="measurements",
         interval="",
@@ -173,7 +174,7 @@ class cloud_export(cloud_api):
             whether to extract the .txt data file from the .zip file
         """
 
-        super().__init__(client_id, client_secret)
+        super().__init__(client_id, client_secret, url_base)
 
         self.zip_file = (
             f"siteid{site_id}_{start_date}_{end_date}_{export_type}.zip".replace(
@@ -231,7 +232,9 @@ class cloud_export(cloud_api):
             self.data["interval"] = self.interval
 
         self.request_time = datetime.now()
-        self.resp = requests.post(json=self.data, url=export_url, headers=self.headers)
+        self.resp = requests.post(
+            json=self.data, url=self.export_url, headers=self.headers
+        )
         self.request_duration = datetime.now() - self.request_time
 
         if self.resp.status_code == 200:

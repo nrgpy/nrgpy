@@ -5,7 +5,7 @@ except ImportError:
 from datetime import datetime
 import io
 from nrgpy.utils.utilities import affirm_directory, date_check, draw_progress_bar
-from .auth import cloud_api, convert_url, is_authorized
+from .auth import cloud_api, cloud_url_base, is_authorized
 import os
 import requests
 import zipfile
@@ -101,6 +101,7 @@ class cloud_convert(cloud_api):
         end_date="2150-12-31",
         client_id="",
         client_secret="",
+        url_base=cloud_url_base,
         export_type="measurements",
         nec_file="",
         unzip=True,
@@ -139,7 +140,7 @@ class cloud_convert(cloud_api):
             whether to dispaly the progress bar
         """
 
-        super().__init__(client_id, client_secret)
+        super().__init__(client_id, client_secret, url_base)
 
         self.export_type = export_type
         self.site_filter = site_filter
@@ -232,7 +233,9 @@ class cloud_convert(cloud_api):
                 "exportType": self.export_type,  # measurements (default) | samples
             }
 
-            self.resp = requests.post(json=self.data, url=convert_url, headers=headers)
+            self.resp = requests.post(
+                json=self.data, url=self.convert_url, headers=headers
+            )
 
             self.zip_file = os.path.basename(rld)[:-3] + "zip"
             self.filepath = os.path.join(self.out_dir, self.zip_file)
