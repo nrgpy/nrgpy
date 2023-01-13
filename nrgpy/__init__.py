@@ -2,18 +2,15 @@ import getpass
 import logging
 from logging.handlers import RotatingFileHandler
 import os
-from socket import gethostname
 from sys import platform
 import traceback
 
 
 token_file_name = ".cloud_token"
 logfile_name = "nrgpy.log"
-stream_file_name = "progress.txt"
 
 try:
     username = getpass.getuser()
-    hostname = gethostname()
 
     if platform == "win32":
         home_dir = f"C:/Users/{username}"
@@ -24,7 +21,6 @@ try:
 
     logfile = os.path.join(home_dir, ".nrgpy", logfile_name)
     token_file = os.path.join(home_dir, ".nrgpy", token_file_name)
-    stream_file = os.path.join(home_dir, ".nrgpy", stream_file_name)
 
 except:
     print(traceback.format_exc())
