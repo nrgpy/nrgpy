@@ -237,14 +237,14 @@ title="Fullscreen mode"
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 
-<span class="n">url_base</span> <span class="o">=</span> <span class="s2">&quot;https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/&quot;</span>
-<span class="n">token_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;token&quot;</span>
-<span class="n">convert_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/convert&quot;</span>
-<span class="n">export_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/export&quot;</span>
-<span class="n">create_export_job_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/createexportjob&quot;</span>
-<span class="n">export_job_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/exportjob&quot;</span>
-<span class="n">import_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;data/import&quot;</span>
-<span class="n">sites_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="s2">&quot;sites&quot;</span>
+<span class="n">cloud_url_base</span> <span class="o">=</span> <span class="s2">&quot;https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/&quot;</span>
+<span class="n">token_url</span> <span class="o">=</span> <span class="s2">&quot;token&quot;</span>
+<span class="n">convert_url</span> <span class="o">=</span> <span class="s2">&quot;data/convert&quot;</span>
+<span class="n">export_url</span> <span class="o">=</span> <span class="s2">&quot;data/export&quot;</span>
+<span class="n">create_export_job_url</span> <span class="o">=</span> <span class="s2">&quot;data/createexportjob&quot;</span>
+<span class="n">export_job_url</span> <span class="o">=</span> <span class="s2">&quot;data/exportjob&quot;</span>
+<span class="n">import_url</span> <span class="o">=</span> <span class="s2">&quot;data/import&quot;</span>
+<span class="n">sites_url</span> <span class="o">=</span> <span class="s2">&quot;sites&quot;</span>
 
 
 <div class="viewcode-block" id="cloud_api"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.cloud_api">[docs]</a><span class="k">class</span> <span class="nc">cloud_api</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -283,10 +283,18 @@ title="Fullscreen mode"
 <span class="sd">        to format TXT outputs. Bearer  token required.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">url_base</span><span class="o">=</span><span class="n">cloud_url_base</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cloud base: </span><span class="si">{</span><span class="n">url_base</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">=</span> <span class="n">client_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span> <span class="o">=</span> <span class="n">client_secret</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url_base</span> <span class="o">=</span> <span class="n">url_base</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="n">token_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="n">convert_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="n">export_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_export_job_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="n">create_export_job_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_job_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="n">export_job_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">import_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="n">import_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sites_url</span> <span class="o">=</span> <span class="n">url_base</span> <span class="o">+</span> <span class="n">sites_url</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">maintain_session_token</span><span class="p">()</span>
@@ -342,7 +350,7 @@ title="Fullscreen mode"
         <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
             <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">request_payload</span><span class="p">),</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">request_token_header</span><span class="p">,</span>
-            <span class="n">url</span><span class="o">=</span><span class="n">token_url</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">token_url</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
@@ -403,19 +411,14 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="is_authorized"><a class="viewcode-back" href="../../../nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.is_authorized">[docs]</a><span class="k">def</span> <span class="nf">is_authorized</span><span class="p">(</span><span class="n">resp</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span> <span class="ow">or</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span> <span class="ow">or</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">400</span> <span class="ow">and</span> <span class="s2">&quot;has already been imported&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;apiResponseMessage&quot;</span><span class="p">])</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;apiResponseMessage&quot;</span><span class="p">])</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to process request&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to complete request.  Check nrgpy log file for details&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span>
-
-    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;apiResponseMessage&quot;</span><span class="p">])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s2">&quot;apiResponseMessage&quot;</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to complete request.  Check nrpy log file for details&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">return</span> <span class="kc">True</span></div>
