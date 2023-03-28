@@ -1208,6 +1208,38 @@ class sympro_txt_read(object):
         ].index:
             blank_list.remove(i)
 
+        try:
+            for i in self.site_info[
+                self.site_info[0].str.contains("Math Function:") == True
+            ].index:
+                blank_list.remove(i)
+        except:
+            pass
+
+        try:
+            for i in self.site_info[
+                self.site_info[0].str.contains("GHI Channel:") == True
+            ].index:
+                blank_list.remove(i)
+        except:
+            pass
+
+        try:
+            for i in self.site_info[
+                self.site_info[0].str.contains("RHI Channel:") == True
+            ].index:
+                blank_list.remove(i)
+        except:
+            pass
+
+        try:
+            for i in self.site_info[
+                self.site_info[0].str.contains("DIF Channel:") == True
+            ].index:
+                blank_list.remove(i)
+        except:
+            pass
+
         f_read = open(filename, "r")
         contents = f_read.readlines()
         f_read.close()
