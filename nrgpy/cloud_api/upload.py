@@ -89,6 +89,7 @@ class cloud_import(cloud_api):
         end_date="2150-12-31",
         client_id="",
         client_secret="",
+        url_base=cloud_url_base,
         progress_bar=True,
         **kwargs,
     ):
@@ -116,7 +117,7 @@ class cloud_import(cloud_api):
             whether to display the progress bar
         """
 
-        super().__init__(client_id, client_secret)
+        super().__init__(client_id, client_secret, url_base)
 
         self.site_filter = site_filter
 
