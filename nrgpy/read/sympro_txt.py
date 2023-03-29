@@ -940,9 +940,9 @@ class sympro_txt_read(object):
 
         if epe == True:
             if out_file != "":
-                output_name = out_file
+                output_name = os.path.join(out_dir, out_file)
             else:
-                output_name = self.out_file[:-4] + "_EPE.txt"
+                output_name = os.path.join(out_dir, self.out_file[:-4]) + "_EPE.txt"
             print(
                 "\nOutputting file: {0}   ...   ".format(output_name),
                 end="",
@@ -979,7 +979,7 @@ class sympro_txt_read(object):
                         index=False,
                         index_label=False,
                         decimal=",",
-                        line_terminator="|\n",
+                        lineterminator="|\n",
                         float_format="%.2f",
                     )
 
@@ -993,9 +993,9 @@ class sympro_txt_read(object):
         else:
             if soiling == True:
                 if out_file != "":
-                    output_name = out_file
+                    output_name = os.path.join(out_dir, out_file)
                 else:
-                    output_name = self.out_file[:-4] + "_soiling.txt"
+                    output_name = os.path.join(out_dir, self.out_file[:-4]) + "_soiling.txt"
 
                 output_file = open(output_name, "w+", encoding="utf-8")
                 output_file.truncate()
@@ -1010,7 +1010,7 @@ class sympro_txt_read(object):
                         sep="\t",
                         index=False,
                         index_label=False,
-                        line_terminator="\n",
+                        lineterminator="\n",
                     )
 
                 output_file.close()
@@ -1023,7 +1023,7 @@ class sympro_txt_read(object):
                         sep="\t",
                         index=False,
                         index_label=False,
-                        line_terminator="\n",
+                        lineterminator="\n",
                     )
                 output_file.close()
 
@@ -1065,7 +1065,7 @@ class sympro_txt_read(object):
                         sep="\t",
                         index=False,
                         index_label=False,
-                        line_terminator="\n",
+                        lineterminator="\n",
                     )
 
                 output_file.close()
@@ -1085,7 +1085,7 @@ class sympro_txt_read(object):
                         sep="\t",
                         index=False,
                         index_label=False,
-                        line_terminator="\n",
+                        lineterminator="\n",
                     )
 
                 output_file.close()
@@ -1093,9 +1093,9 @@ class sympro_txt_read(object):
 
             if standard == True:
                 if out_file != "":
-                    output_name = out_file
+                    output_name = os.path.join(out_dir, out_file)
                 else:
-                    output_name = self.out_file[:-4] + "_standard.txt"
+                    output_name = os.path.join(out_dir, self.out_file[:-4]) + "_standard.txt"
 
                 print(
                     "\nOutputting file: {0}   ...   ".format(output_name),
@@ -1117,7 +1117,7 @@ class sympro_txt_read(object):
                             sep="\t",
                             index=False,
                             index_label=False,
-                            line_terminator="\n",
+                            lineterminator="\n",
                         )
                     output_file.close()
 
@@ -1129,7 +1129,7 @@ class sympro_txt_read(object):
                             sep="\t",
                             index=False,
                             index_label=False,
-                            line_terminator="\n",
+                            lineterminator="\n",
                         )
                     output_file.close()
                     self.insert_blank_header_rows(output_name)
