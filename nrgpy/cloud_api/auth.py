@@ -60,7 +60,7 @@ class cloud_api(object):
         logger.debug(f"cloud base: {url_base}")
         self.client_id = client_id
         self.client_secret = client_secret
-        self.token_file_name = token_file + "_" + self.client_id
+        self.token_file_name = token_file + "_" + self.client_id[:10]
         self.url_base = url_base
         self.token_url = url_base + token_url
         self.convert_url = url_base + convert_url
