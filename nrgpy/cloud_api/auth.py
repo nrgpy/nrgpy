@@ -158,20 +158,20 @@ class cloud_api(object):
 
         return False
 
-    def save_token(self, filename=self.token_file_name):
+    def save_token(self):
         """save session token in token pickle file"""
-        with open(filename, "wb") as f:
+        with open(self.token_file_name, "wb") as f:
             pickle.dump([self.session_token, self.session_start_time], f)
 
-    def load_token(self, filename=self.token_file_name):
+    def load_token(self):
         """read session token from pickle file"""
-        with open(filename, "rb") as f:
+        with open(self.token_file_name, "wb") as f:
             self.session_token, self.session_start_time = pickle.load(f)
 
-    def maintain_session_token(self, filename=self.token_file_name):
+    def maintain_session_token(self):
         """maintain a current/valid session token for data service api"""
         try:
-            self.load_token(filename=self.token_file_name)
+            self.load_token()
             if not self.token_valid():
                 self.request_session_token()
                 self.save_token()
