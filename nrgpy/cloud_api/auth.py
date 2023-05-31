@@ -165,7 +165,7 @@ class cloud_api(object):
 
     def load_token(self):
         """read session token from pickle file"""
-        with open(self.token_file_name, "wb") as f:
+        with open(self.token_file_name, "rb") as f:
             self.session_token, self.session_start_time = pickle.load(f)
 
     def maintain_session_token(self):
@@ -175,7 +175,7 @@ class cloud_api(object):
             if not self.token_valid():
                 self.request_session_token()
                 self.save_token()
-        except:
+        except FileNotFoundError:
             self.request_session_token()
             self.save_token()
 
