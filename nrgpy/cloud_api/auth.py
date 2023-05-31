@@ -60,6 +60,7 @@ class cloud_api(object):
         logger.debug(f"cloud base: {url_base}")
         self.client_id = client_id
         self.client_secret = client_secret
+        self.token_file_name = token_file + "_" + self.client_id[:10]
         self.url_base = url_base
         self.token_url = url_base + token_url
         self.convert_url = url_base + convert_url
@@ -157,20 +158,20 @@ class cloud_api(object):
 
         return False
 
-    def save_token(self, filename=token_file):
+    def save_token(self):
         """save session token in token pickle file"""
-        with open(filename, "wb") as f:
+        with open(self.token_file_name, "wb") as f:
             pickle.dump([self.session_token, self.session_start_time], f)
 
-    def load_token(self, filename=token_file):
+    def load_token(self):
         """read session token from pickle file"""
-        with open(filename, "rb") as f:
+        with open(self.token_file_name, "wb") as f:
             self.session_token, self.session_start_time = pickle.load(f)
 
-    def maintain_session_token(self, filename=token_file):
+    def maintain_session_token(self):
         """maintain a current/valid session token for data service api"""
         try:
-            self.load_token(filename=token_file)
+            self.load_token()
             if not self.token_valid():
                 self.request_session_token()
                 self.save_token()
