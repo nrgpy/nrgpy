@@ -85,7 +85,7 @@ class logr_read(object):
                     else:
                         i = i + 1
             with open(self.filename) as myfile:
-                self.head = "".join([next(myfile) for x in range(2)])
+                self.head = "".join([myfile.readline() for _ in range(2)])
 
             header_len = i + 1
             read_len = header_len - 5
