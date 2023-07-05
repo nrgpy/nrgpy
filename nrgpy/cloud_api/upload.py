@@ -4,7 +4,7 @@ except ImportError:
     pass
 from datetime import datetime
 import json
-from nrgpy.utils.utilities import date_check, draw_progress_bar
+from nrgpy.utils.utilities import string_date_check, draw_progress_bar
 from .auth import cloud_api, cloud_url_base, is_authorized
 import os
 import requests
@@ -152,7 +152,7 @@ class cloud_import(cloud_api):
             if self.site_filter in f
             and self.filter2 in f
             and f.lower().endswith(tuple(["rld", "csv", "csv.zip"]))
-            and date_check(self.start_date, self.end_date, f)
+            and string_date_check(self.start_date, self.end_date, f)
         ]
 
         self.raw_count = len(self.files)
@@ -203,19 +203,22 @@ class cloud_import(cloud_api):
                 json=self.data, url=self.import_url, headers=headers
             )
 
-            if self.resp.status_code == 200: 
+            if self.resp.status_code == 200:
 
                 if self.progress_bar is False:
-                        print("[DONE]")
+                    print("[DONE]")
 
                 self.job_ids[os.path.basename(filename)] = json.loads(self.resp.text)[
                     "jobId"
                 ]
-                logger.info(f"imported {os.path.basename(filename)} OK")                
+                logger.info(f"imported {os.path.basename(filename)} OK")
                 logger.debug(f"{self.resp.status_code} {self.resp.text}")
-                
+
             elif self.resp.status_code == 401 or self.resp.status_code == 400:
-                if ("has already been imported" in json.loads(self.resp.text)["apiResponseMessage"]):
+                if (
+                    "has already been imported"
+                    in json.loads(self.resp.text)["apiResponseMessage"]
+                ):
                     logger.info(self.resp.text)
                     if self.progress_bar is False:
                         print("[ALREADY IMPORTED]")

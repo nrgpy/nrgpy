@@ -4,7 +4,7 @@ except ImportError:
     pass
 from datetime import datetime
 import io
-from nrgpy.utils.utilities import affirm_directory, date_check, draw_progress_bar
+from nrgpy.utils.utilities import affirm_directory, string_date_check, draw_progress_bar
 from .auth import nrg_api, convert_url
 import os
 import requests
@@ -81,13 +81,26 @@ class nrg_api_convert(nrg_api):
     >>> converter.process()
 
     """
-    def __init__(self, rld_dir='', out_dir='', filename='',
-                 site_filter='', filter2='',
-                 start_date='1970-01-01', end_date='2150-12-31',
-                 client_id='', client_secret='',
-                 encryption_pass='', header_type='standard', nec_file='',
-                 export_type='meas', export_format='csv_zipped',
-                 progress_bar=True, **kwargs):
+
+    def __init__(
+        self,
+        rld_dir="",
+        out_dir="",
+        filename="",
+        site_filter="",
+        filter2="",
+        start_date="1970-01-01",
+        end_date="2150-12-31",
+        client_id="",
+        client_secret="",
+        encryption_pass="",
+        header_type="standard",
+        nec_file="",
+        export_type="meas",
+        export_format="csv_zipped",
+        progress_bar=True,
+        **kwargs,
+    ):
 
         super().__init__(client_id, client_secret)
 
@@ -96,8 +109,8 @@ class nrg_api_convert(nrg_api):
         self.export_type = export_type
         self.site_filter = site_filter
 
-        if 'file_filter' in kwargs and site_filter == '':
-            self.file_filter = kwargs.get('file_filter')
+        if "file_filter" in kwargs and site_filter == "":
+            self.file_filter = kwargs.get("file_filter")
             self.site_filter = self.file_filter
 
         self.filter2 = filter2
@@ -127,11 +140,11 @@ class nrg_api_convert(nrg_api):
         self.start_time = datetime.now()
 
         self.files = [
-            f for f in sorted(os.listdir(self.rld_dir))
-            if self.site_filter in f and self.filter2 in f
-            and f.lower().endswith('rld')
+            f
+            for f in sorted(os.listdir(self.rld_dir))
+            if self.site_filter in f and self.filter2 in f and f.lower().endswith("rld")
             # and f.lower().endswith(('rwd', 'rld'))    ## Uncomment when RWD convert is supported
-            and date_check(self.start_date, self.end_date, f)
+            and string_date_check(self.start_date, self.end_date, f)
         ]
 
         self.raw_count = len(self.files)
@@ -142,46 +155,57 @@ class nrg_api_convert(nrg_api):
             self.single_file(os.path.join(self.rld_dir, rld))
             self.counter += 1
 
-        print('\n')
+        print("\n")
 
     def single_file(self, rld):
         try:
             if self.progress_bar:
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
             else:
-                print("Processing {0}/{1} ... {2} ... ".format(str(self.counter).rjust(self.pad), str(self.raw_count).ljust(self.pad), os.path.basename(rld)), end="", flush=True)
+                print(
+                    "Processing {0}/{1} ... {2} ... ".format(
+                        str(self.counter).rjust(self.pad),
+                        str(self.raw_count).ljust(self.pad),
+                        os.path.basename(rld),
+                    ),
+                    end="",
+                    flush=True,
+                )
 
             self.encoded_rld_bytes = self.prepare_file_bytes(rld)
 
             if self.nec_file:
                 self.encoded_nec_bytes = self.prepare_file_bytes(self.nec_file)
             else:
-                self.encoded_nec_bytes = ''
+                self.encoded_nec_bytes = ""
 
             if not self.token_valid():
-                self.session_token, self.session_start_time = self.request_session_token()
+                (
+                    self.session_token,
+                    self.session_start_time,
+                ) = self.request_session_token()
 
             headers = {"Authorization": "Bearer {}".format(self.session_token)}
 
             self.data = {
-                        'type': rld[-3:].upper(),
-                        'filebytes': self.encoded_rld_bytes,
-                        'necfilebytes': self.encoded_nec_bytes,
-                        'headertype': self.header_type,      # standard | columnonly  | none
-                        'exporttype': self.export_type,      # measurements (default) | samples
-                        'exportformat': self.export_format,  # csv_zipped (default)   | parquet
-                        'encryptionkey': self.encryption_pass,
-                        'columnheaderformat': '',            # not implemented yet
-                    }
+                "type": rld[-3:].upper(),
+                "filebytes": self.encoded_rld_bytes,
+                "necfilebytes": self.encoded_nec_bytes,
+                "headertype": self.header_type,  # standard | columnonly  | none
+                "exporttype": self.export_type,  # measurements (default) | samples
+                "exportformat": self.export_format,  # csv_zipped (default)   | parquet
+                "encryptionkey": self.encryption_pass,
+                "columnheaderformat": "",  # not implemented yet
+            }
 
             self.resp = requests.post(data=self.data, url=convert_url, headers=headers)
 
             zipped_data_file = zipfile.ZipFile(io.BytesIO(self.resp.content))
             reg_data_file = self.resp.content
             name = zipped_data_file.infolist().pop()
-            out_filename = os.path.basename(rld)[:-3] + 'txt'
+            out_filename = os.path.basename(rld)[:-3] + "txt"
 
-            with open(os.path.join(self.out_dir, out_filename), 'wb') as outputfile:
+            with open(os.path.join(self.out_dir, out_filename), "wb") as outputfile:
                 outputfile.write(zipped_data_file.read(name))
 
             try:
@@ -192,7 +216,9 @@ class nrg_api_convert(nrg_api):
                 f.close()
 
             except:
-                print("Could not convert Windows newline characters properly; file may be unstable")
+                print(
+                    "Could not convert Windows newline characters properly; file may be unstable"
+                )
 
             logger.info(f"converted {os.path.basename(out_filename)} OK")
 
@@ -205,7 +231,7 @@ class nrg_api_convert(nrg_api):
 
             logger.error(f"unable to convert {os.path.basename(self.filename)}")
             logger.debug(e)
-            print('unable to process file: {0}'.format(rld))
+            print("unable to process file: {0}".format(rld))
             print(e)
             print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
             pass

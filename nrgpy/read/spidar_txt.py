@@ -5,7 +5,7 @@ from nrgpy.utils.utilities import (
     check_platform,
     windows_folder_path,
     linux_folder_path,
-    date_check,
+    string_date_check,
     draw_progress_bar,
 )
 import pandas as pd
@@ -140,7 +140,7 @@ class spidar_data_read(object):
             for f in sorted(glob(self.txt_dir + "*"))
             if self.file_filter in f
             and self.file_filter2 in f
-            and date_check(self.start_date, self.end_date, f)
+            and string_date_check(self.start_date, self.end_date, f)
         ]
 
         self.file_count = len(files)

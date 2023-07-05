@@ -6,7 +6,6 @@ from datetime import datetime
 import os
 import pathlib
 import pickle
-import site
 import psutil
 import re
 import sys
@@ -70,12 +69,12 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
                             file_list.append(x)
                             count = count + 1
 
-    if show_files == True:
+    if show_files:
         return count, file_list
     return count
 
 
-def date_check(start_date, end_date, string):
+def string_date_check(start_date, end_date, string):
     """returns true if string date is between dates
 
     Parameters
@@ -88,20 +87,14 @@ def date_check(start_date, end_date, string):
         string including date to check
     """
     # LOGR & SymphonieClassic
-    if string.endswith(("dat", "rwd")):
-        date_format = "([0-9]{4}[0-9]{2}[0-9]{2})"
-        strp_format = "%Y%m%d"
+    date_format_no_underscore = "([0-9]{4}[0-9]{2}[0-9]{2})"
+    strp_format_no_underscore = "%Y%m%d"
     # ZX datafile
-    elif "@Y20" in string:
-        date_format = "(Y[0-9]{4}_M[0-9]{2}_D[0-9]{2})"
-        strp_format = "Y%Y_M%m_D%d"
+    date_format_zx = "(Y[0-9]{4}_M[0-9]{2}_D[0-9]{2})"
+    strp_format_zx = "Y%Y_M%m_D%d"
     # SymphoniePRO
-    elif string.lower().endswith("rld") or "_" in string:
-        date_format = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
-        strp_format = "%Y-%m-%d"
-    else:
-        logger.error(f"{string} is an unknown file format")
-        print(f"{string} is an unknown file format")
+    date_format_with_underscore = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
+    strp_format_with_underscore = "%Y-%m-%d"
 
     try:
         start = datetime.strptime(start_date, "%Y-%m-%d")
@@ -111,17 +104,42 @@ def date_check(start_date, end_date, string):
         start = start_date
         end = end_date
 
-    try:
-        date_text = re.search(date_format, string)
-        file_date = datetime.strptime(date_text[0], strp_format)
+    if re.search(date_format_no_underscore, string):
+        date_text = re.search(date_format_no_underscore, string)
+        try:
+            file_date = datetime.strptime(date_text[0], strp_format_no_underscore)
+            if (file_date >= start) and (file_date <= end):
+                return True
+            else:
+                return False
+        except ValueError:
+            ext_date_format_no_underscore = "([0-9]{6}[0-9]{4}[0-9]{2}[0-9]{2})"
+            date_text = re.search(ext_date_format_no_underscore, string)
+            file_date = datetime.strptime(date_text[0][6:], strp_format_no_underscore)
+            if (file_date >= start) and (file_date <= end):
+                return True
+            else:
+                return False
+
+    elif re.search(date_format_with_underscore, string):
+        date_text = re.search(date_format_with_underscore, string)
+        file_date = datetime.strptime(date_text[0], strp_format_with_underscore)
         if (file_date >= start) and (file_date <= end):
             return True
         else:
             return False
+    elif re.search(date_format_zx, string):
+        date_text = re.search(date_format_zx, string)
+        file_date = datetime.strptime(date_text[0], strp_format_zx)
+        if (file_date >= start) and (file_date <= end):
+            return True
+        else:
+            return False
+    return False
 
-    except Exception as e:
-        print(traceback.format_exc())
-        return False
+
+# in case anyone is using this directly
+date_check = string_date_check
 
 
 def draw_progress_bar(

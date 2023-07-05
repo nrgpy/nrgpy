@@ -69,7 +69,7 @@ from .utils.utilities import (
     save,
     load,
     data_months,
-    date_check,
+    string_date_check,
     create_spd_filename_from_cloud_export,
     rename_cloud_export_like_spd,
     set_start_stop,
