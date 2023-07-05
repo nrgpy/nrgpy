@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -e . && pip install pytest
+      - name: Utilities pytests
+        run: |
+          pytest tests/utilities/test_utilities.py
       - name: SymPRO TXT Reader Test
         run: python tests/readers/test_sympro_txt_read.py tests/readers/files/
       - name: Endpoint Test
@@ -33,6 +36,3 @@ jobs:
           CLIENT_SECRET: ${{ secrets.NRG_CLOUD_API_CLIENT_SECRET }}
         run: |
           python tests/nrgcloud/api.py $CLIENT_ID $CLIENT_SECRET
-      - name: Utilities pytests
-        run: |
-          pytest tests/utilities/test_utilities.py
