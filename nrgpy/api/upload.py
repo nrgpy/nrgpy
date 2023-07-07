@@ -3,16 +3,24 @@ try:
 except ImportError:
     pass
 from datetime import datetime
-from nrgpy.utils.utilities import date_check, draw_progress_bar
+from nrgpy.utils.utilities import string_date_check, draw_progress_bar
 from .auth import nrg_api, upload_url
 import os
 import requests
 
 
 class nrg_api_upload(nrg_api):
-
-    def __init__(self, client_id='', client_secret='', filename='', rld_dir='', site_filter='', site_filter2='',
-                 start_date='1970-01-01', end_date='2150-12-31'):
+    def __init__(
+        self,
+        client_id="",
+        client_secret="",
+        filename="",
+        rld_dir="",
+        site_filter="",
+        site_filter2="",
+        start_date="1970-01-01",
+        end_date="2150-12-31",
+    ):
 
         super().__init__(client_id, client_secret)
 
@@ -39,18 +47,33 @@ class nrg_api_upload(nrg_api):
         if self.progress_bar:
             draw_progress_bar(self.counter, self.raw_count, self.start_time)
         elif self.raw_count == 1:
-            print("{0} | API | uploading {1} ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), os.path.basename(self.filename)), end="", flush=True)
+            print(
+                "{0} | API | uploading {1} ... ".format(
+                    datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    os.path.basename(self.filename),
+                ),
+                end="",
+                flush=True,
+            )
         else:
-            print("{0} | API | uploading {1}/{2} ... {3} ... ".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), str(self.counter).rjust(self.pad), str(self.raw_count).ljust(self.pad), os.path.basename(self.filename)), end="", flush=True)
+            print(
+                "{0} | API | uploading {1}/{2} ... {3} ... ".format(
+                    datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    str(self.counter).rjust(self.pad),
+                    str(self.raw_count).ljust(self.pad),
+                    os.path.basename(self.filename),
+                ),
+                end="",
+                flush=True,
+            )
 
         self.encoded_rld_bytes = self.prepare_file_bytes(self.filename)
 
-        data = {
-            'type': self.filename[-3:].upper(),
-            'filebytes': self.encoded_rld_bytes
-        }
+        data = {"type": self.filename[-3:].upper(), "filebytes": self.encoded_rld_bytes}
 
-        self.response = requests.request("POST", upload_url, headers=self.headers, data=data)
+        self.response = requests.request(
+            "POST", upload_url, headers=self.headers, data=data
+        )
 
         if self.progress_bar is False:
             if int(self.response.status_code) < 300:
@@ -63,10 +86,12 @@ class nrg_api_upload(nrg_api):
         self.start_time = datetime.now()
 
         self.files = [
-            f for f in sorted(os.listdir(self.rld_dir))
-            if self.site_filter in f and self.site_filter2 in f
-            and f.lower().endswith(('rwd', 'rld'))
-            and date_check(self.start_date, self.end_date, f)
+            f
+            for f in sorted(os.listdir(self.rld_dir))
+            if self.site_filter in f
+            and self.site_filter2 in f
+            and f.lower().endswith(("rwd", "rld"))
+            and string_date_check(self.start_date, self.end_date, f)
         ]
 
         self.raw_count = len(self.files)

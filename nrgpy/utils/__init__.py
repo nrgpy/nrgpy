@@ -8,7 +8,7 @@ from .utilities import (
     save,
     load,
     data_months,
-    date_check,
+    string_date_check,
     rename_cloud_export_like_spd,
     create_spd_filename_from_cloud_export,
     set_start_stop,

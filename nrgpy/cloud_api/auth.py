@@ -185,7 +185,11 @@ class cloud_api(object):
 
 
 def is_authorized(resp):
-    if resp.status_code == 401 or resp.status_code == 400 and "has already been imported" not in resp.text:
+    if (
+        resp.status_code == 401
+        or resp.status_code == 400
+        and "has already been imported" not in resp.text
+    ):
         try:
             logger.error(json.loads(resp.text)["apiResponseMessage"])
             print(json.loads(resp.text)["apiResponseMessage"])

@@ -53,11 +53,16 @@ class nrg_api_catalog(nrg_api):
 
     """
 
-    def __init__(self,
-                 serial_number='', site_number='',
-                 start_date='2014-01-01', end_date='2023-12-31',
-                 client_id='', client_secret='',
-                 **kwargs):
+    def __init__(
+        self,
+        serial_number="",
+        site_number="",
+        start_date="2014-01-01",
+        end_date="2023-12-31",
+        client_id="",
+        client_secret="",
+        **kwargs
+    ):
         super().__init__(client_id, client_secret)
         self.site_number = str(site_number).zfill(6)
         self.serial_number = str(serial_number)[-5:]
@@ -72,14 +77,16 @@ class nrg_api_catalog(nrg_api):
         self.headers = {"Authorization": "Bearer " + self.session_token}
 
         self.data = {
-            'loggerserialnumber': self.serial_number,
-            'sitenumber': self.site_number,
-            'startdate': self.start_date,
-            'enddate': self.end_date,
-         }
+            "loggerserialnumber": self.serial_number,
+            "sitenumber": self.site_number,
+            "startdate": self.start_date,
+            "enddate": self.end_date,
+        }
 
         self.request_time = datetime.now()
-        self.resp = requests.post(data=self.data, url=data_catalog_url, headers=self.headers)
+        self.resp = requests.post(
+            data=self.data, url=data_catalog_url, headers=self.headers
+        )
         self.request_duration = datetime.now() - self.request_time
 
         if self.resp.status_code == 200:
