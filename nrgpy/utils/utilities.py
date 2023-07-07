@@ -87,14 +87,14 @@ def string_date_check(start_date, end_date, string):
         string including date to check
     """
     # LOGR & SymphonieClassic
-    date_format_no_underscore = "([0-9]{4}[0-9]{2}[0-9]{2})"
-    strp_format_no_underscore = "%Y%m%d"
+    date_format_no_dash = "([0-9]{4}[0-9]{2}[0-9]{2})"
+    strp_format_no_dash = "%Y%m%d"
     # ZX datafile
     date_format_zx = "(Y[0-9]{4}_M[0-9]{2}_D[0-9]{2})"
     strp_format_zx = "Y%Y_M%m_D%d"
     # SymphoniePRO
-    date_format_with_underscore = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
-    strp_format_with_underscore = "%Y-%m-%d"
+    date_format_with_dash = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
+    strp_format_with_dash = "%Y-%m-%d"
 
     try:
         start = datetime.strptime(start_date, "%Y-%m-%d")
@@ -104,26 +104,26 @@ def string_date_check(start_date, end_date, string):
         start = start_date
         end = end_date
 
-    if re.search(date_format_no_underscore, string):
-        date_text = re.search(date_format_no_underscore, string)
+    if re.search(date_format_no_dash, string):
+        date_text = re.search(date_format_no_dash, string)
         try:
-            file_date = datetime.strptime(date_text[0], strp_format_no_underscore)
+            file_date = datetime.strptime(date_text[0], strp_format_no_dash)
             if (file_date >= start) and (file_date <= end):
                 return True
             else:
                 return False
         except ValueError:
-            ext_date_format_no_underscore = "([0-9]{6}[0-9]{4}[0-9]{2}[0-9]{2})"
-            date_text = re.search(ext_date_format_no_underscore, string)
-            file_date = datetime.strptime(date_text[0][6:], strp_format_no_underscore)
+            ext_date_format_no_dash = "([0-9]{6}[0-9]{4}[0-9]{2}[0-9]{2})"
+            date_text = re.search(ext_date_format_no_dash, string)
+            file_date = datetime.strptime(date_text[0][6:], strp_format_no_dash)
             if (file_date >= start) and (file_date <= end):
                 return True
             else:
                 return False
 
-    elif re.search(date_format_with_underscore, string):
-        date_text = re.search(date_format_with_underscore, string)
-        file_date = datetime.strptime(date_text[0], strp_format_with_underscore)
+    elif re.search(date_format_with_dash, string):
+        date_text = re.search(date_format_with_dash, string)
+        file_date = datetime.strptime(date_text[0], strp_format_with_dash)
         if (file_date >= start) and (file_date <= end):
             return True
         else:
