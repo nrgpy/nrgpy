@@ -108,18 +108,15 @@ def string_date_check(start_date, end_date, string):
         date_text = re.search(date_format_no_dash, string)
         try:
             file_date = datetime.strptime(date_text[0], strp_format_no_dash)
-            if (file_date >= start) and (file_date <= end):
-                return True
-            else:
-                return False
         except ValueError:
             ext_date_format_no_dash = "([0-9]{6}[0-9]{4}[0-9]{2}[0-9]{2})"
             date_text = re.search(ext_date_format_no_dash, string)
             file_date = datetime.strptime(date_text[0][6:], strp_format_no_dash)
-            if (file_date >= start) and (file_date <= end):
-                return True
-            else:
-                return False
+
+        if (file_date >= start) and (file_date <= end):
+            return True
+        else:
+            return False
 
     elif re.search(date_format_with_dash, string):
         date_text = re.search(date_format_with_dash, string)
