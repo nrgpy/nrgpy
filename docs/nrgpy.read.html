@@ -1,382 +1,366 @@
 
+
 <!DOCTYPE html>
 
-<html lang="en">
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>nrgpy.read package &#8212; nrgpy  documentation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nrgpy.read';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="nrgpy.utils package" href="nrgpy.utils.html" />
     <link rel="prev" title="nrgpy.quality package" href="nrgpy.quality.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/nrg_logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Contents:
- </span>
-</p>
+    
+    
+    <img src="_static/nrg_logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/nrg_logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="nrgpy.html">
-   nrgpy package
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.api.html">
-     nrgpy.api package
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.cloud_api.html">
-     nrgpy.cloud_api package
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.convert.html">
-     nrgpy.convert package
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.quality.html">
-     nrgpy.quality package
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     nrgpy.read package
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.utils.html">
-     nrgpy.utils package
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="setup.html">
-   setup module
-  </a>
- </li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="nrgpy.html">nrgpy package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">nrgpy.read package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/nrgpy.read.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
 
-          
 
 
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/nrgpy.read.rst.txt"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.rst</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#submodules">
-   Submodules
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read.channel_info_arrays">
-   nrgpy.read.channel_info_arrays module
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read.logr">
-   nrgpy.read.logr module
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read.spidar_txt">
-   nrgpy.read.spidar_txt module
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read.sympro_txt">
-   nrgpy.read.sympro_txt module
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read.txt_utils">
-   nrgpy.read.txt_utils module
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read">
-   Module contents
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>nrgpy.read package</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#submodules">
-   Submodules
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read.channel_info_arrays">
-   nrgpy.read.channel_info_arrays module
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read.logr">
-   nrgpy.read.logr module
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read.spidar_txt">
-   nrgpy.read.spidar_txt module
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read.sympro_txt">
-   nrgpy.read.sympro_txt module
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read.txt_utils">
-   nrgpy.read.txt_utils module
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy.read">
-   Module contents
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>nrgpy.read package</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read.channel_info_arrays">nrgpy.read.channel_info_arrays module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.channel_info_arrays.return_array"><code class="docutils literal notranslate"><span class="pre">return_array()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.channel_info_arrays.return_sp3_ch_info"><code class="docutils literal notranslate"><span class="pre">return_sp3_ch_info()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.channel_info_arrays.return_spro_ch_info"><code class="docutils literal notranslate"><span class="pre">return_spro_ch_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read.logr">nrgpy.read.logr module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read"><code class="docutils literal notranslate"><span class="pre">logr_read</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">logr_read.arrange_ch_info()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read.concat_txt"><code class="docutils literal notranslate"><span class="pre">logr_read.concat_txt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read.format_site_data"><code class="docutils literal notranslate"><span class="pre">logr_read.format_site_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read.insert_blank_header_rows"><code class="docutils literal notranslate"><span class="pre">logr_read.insert_blank_header_rows()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read.output_txt_file"><code class="docutils literal notranslate"><span class="pre">logr_read.output_txt_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.shift_timestamps"><code class="docutils literal notranslate"><span class="pre">shift_timestamps()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read.spidar_txt">nrgpy.read.spidar_txt module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.spidar_txt.spidar_data_read"><code class="docutils literal notranslate"><span class="pre">spidar_data_read</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.spidar_txt.spidar_data_read.concat_txt"><code class="docutils literal notranslate"><span class="pre">spidar_data_read.concat_txt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.spidar_txt.spidar_data_read.get_heights"><code class="docutils literal notranslate"><span class="pre">spidar_data_read.get_heights()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.spidar_txt.spidar_data_read.read_file"><code class="docutils literal notranslate"><span class="pre">spidar_data_read.read_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read.sympro_txt">nrgpy.read.sympro_txt module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.shift_timestamps"><code class="docutils literal notranslate"><span class="pre">shift_timestamps()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.arrange_ch_info()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.calculate_soiling_ratio"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.calculate_soiling_ratio()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.concat_txt"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.concat_txt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.format_data_for_epe"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.format_data_for_epe()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.format_site_data"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.format_site_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.insert_blank_header_rows"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.insert_blank_header_rows()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.make_header_for_epe"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.make_header_for_epe()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.output_txt_file"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.output_txt_file()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.select_channels_for_reformat"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.select_channels_for_reformat()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read.txt_utils">nrgpy.read.txt_utils module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.format_sympro_site_data"><code class="docutils literal notranslate"><span class="pre">format_sympro_site_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data"><code class="docutils literal notranslate"><span class="pre">read_text_data</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">read_text_data.arrange_ch_info()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.concat"><code class="docutils literal notranslate"><span class="pre">read_text_data.concat()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data"><code class="docutils literal notranslate"><span class="pre">read_text_data.format_rwd_site_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_data"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_head"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_head()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_site_info"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_site_info()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read">Module contents</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section id="nrgpy-read-package">
-<h1>nrgpy.read package<a class="headerlink" href="#nrgpy-read-package" title="Permalink to this headline">#</a></h1>
+<h1>nrgpy.read package<a class="headerlink" href="#nrgpy-read-package" title="Permalink to this heading">#</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">#</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="module-nrgpy.read.channel_info_arrays">
-<span id="nrgpy-read-channel-info-arrays-module"></span><h2>nrgpy.read.channel_info_arrays module<a class="headerlink" href="#module-nrgpy.read.channel_info_arrays" title="Permalink to this headline">#</a></h2>
+<span id="nrgpy-read-channel-info-arrays-module"></span><h2>nrgpy.read.channel_info_arrays module<a class="headerlink" href="#module-nrgpy.read.channel_info_arrays" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.read.channel_info_arrays.return_array">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.read.channel_info_arrays.</span></span><span class="sig-name descname"><span class="pre">return_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_file_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/channel_info_arrays.html#return_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.channel_info_arrays.return_array" title="Permalink to this definition">#</a></dt>
@@ -397,7 +381,7 @@ title="Print to PDF"
 
 </section>
 <section id="module-nrgpy.read.logr">
-<span id="nrgpy-read-logr-module"></span><h2>nrgpy.read.logr module<a class="headerlink" href="#module-nrgpy.read.logr" title="Permalink to this headline">#</a></h2>
+<span id="nrgpy-read-logr-module"></span><h2>nrgpy.read.logr module<a class="headerlink" href="#module-nrgpy.read.logr" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="nrgpy.read.logr.logr_read">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.logr.</span></span><span class="sig-name descname"><span class="pre">logr_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_timestamps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_local_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#logr_read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.logr_read" title="Permalink to this definition">#</a></dt>
@@ -414,7 +398,7 @@ title="Print to PDF"
 <dd><p>Will concatenate all text files in the dat_dir</p>
 <p>files must match the site_filter argument. Note these are both blank by default.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>dat_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>directory holding txt files</p>
 </dd>
@@ -438,7 +422,7 @@ title="Print to PDF"
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><strong>ch_info</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of ch_list (below) pulled out of file with logr_read.arrange_ch_info()</p>
 </dd>
@@ -525,7 +509,7 @@ original LOGR  export</p>
 <dd><p>Takes as input a folder of exported standard text files and
 time to shift in seconds.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>txt_folder</strong><span class="classifier">str</span></dt><dd><p>path to folder with txt files to shift</p>
 </dd>
@@ -541,7 +525,7 @@ time to shift in seconds.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt>obj</dt><dd><p>text files with shifted timestamps; new file names include shifted
 timestamp.</p>
@@ -553,20 +537,20 @@ timestamp.</p>
 
 </section>
 <section id="module-nrgpy.read.spidar_txt">
-<span id="nrgpy-read-spidar-txt-module"></span><h2>nrgpy.read.spidar_txt module<a class="headerlink" href="#module-nrgpy.read.spidar_txt" title="Permalink to this headline">#</a></h2>
+<span id="nrgpy-read-spidar-txt-module"></span><h2>nrgpy.read.spidar_txt module<a class="headerlink" href="#module-nrgpy.read.spidar_txt" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="nrgpy.read.spidar_txt.spidar_data_read">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.spidar_txt.</span></span><span class="sig-name descname"><span class="pre">spidar_data_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#spidar_data_read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.spidar_data_read" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>reads in CSV file(s) using pandas and creates</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>data_file</strong><span class="classifier">str</span></dt><dd><p>path to single CSV or ZIP to be read</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><strong>data</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of all available data</p>
 </dd>
@@ -615,7 +599,7 @@ timestamp.</p>
 <span class="sig-name descname"><span class="pre">concat_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#spidar_data_read.concat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.spidar_data_read.concat_txt" title="Permalink to this definition">#</a></dt>
 <dd><p>concatenate files in a folder</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>txt_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>path to csv or csv.zip files</p>
 </dd>
@@ -631,7 +615,7 @@ timestamp.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt>None</dt><dd><p>adds data dataframe to reader object</p>
 </dd>
@@ -654,14 +638,14 @@ timestamp.</p>
 
 </section>
 <section id="module-nrgpy.read.sympro_txt">
-<span id="nrgpy-read-sympro-txt-module"></span><h2>nrgpy.read.sympro_txt module<a class="headerlink" href="#module-nrgpy.read.sympro_txt" title="Permalink to this headline">#</a></h2>
+<span id="nrgpy-read-sympro-txt-module"></span><h2>nrgpy.read.sympro_txt module<a class="headerlink" href="#module-nrgpy.read.sympro_txt" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.shift_timestamps">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.read.sympro_txt.</span></span><span class="sig-name descname"><span class="pre">shift_timestamps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3600</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#shift_timestamps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.shift_timestamps" title="Permalink to this definition">#</a></dt>
 <dd><p>Takes as input a folder of exported standard text files and
 time to shift in seconds.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>txt_folder</strong><span class="classifier">str</span></dt><dd><p>path to folder with txt files to shift</p>
 </dd>
@@ -677,7 +661,7 @@ time to shift in seconds.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt>obj</dt><dd><p>text files with shifted timestamps; new file names include shifted
 timestamp.</p>
@@ -708,7 +692,7 @@ timestamp.</p>
 <dd><p>Will concatenate all text files in the txt_dir</p>
 <p>files must match the site_filter argument. Note these are both blank by default.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>txt_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>directory holding txt files</p>
 </dd>
@@ -732,7 +716,7 @@ timestamp.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><strong>ch_info</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()</p>
 </dd>
@@ -843,7 +827,7 @@ Local export of text files, as of 0.1.8.</p>
 
 </section>
 <section id="module-nrgpy.read.txt_utils">
-<span id="nrgpy-read-txt-utils-module"></span><h2>nrgpy.read.txt_utils module<a class="headerlink" href="#module-nrgpy.read.txt_utils" title="Permalink to this headline">#</a></h2>
+<span id="nrgpy-read-txt-utils-module"></span><h2>nrgpy.read.txt_utils module<a class="headerlink" href="#module-nrgpy.read.txt_utils" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.format_sympro_site_data">
 <span class="sig-prename descclassname"><span class="pre">nrgpy.read.txt_utils.</span></span><span class="sig-name descname"><span class="pre">format_sympro_site_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#format_sympro_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.format_sympro_site_data" title="Permalink to this definition">#</a></dt>
@@ -856,7 +840,7 @@ Local export of text files, as of 0.1.8.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>class for handling known csv-style text data files with header information</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>filename</strong><span class="classifier">str, optional</span></dt><dd><p>perform a single file read (takes precedence over txt_dir)</p>
 </dd>
@@ -884,7 +868,7 @@ Local export of text files, as of 0.1.8.</p>
 <span class="sig-name descname"><span class="pre">concat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.concat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.concat" title="Permalink to this definition">#</a></dt>
 <dd><p>combine exported rwd files (in txt format)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>output_txt</strong><span class="classifier">bool</span></dt><dd><p>set to True to save a concatenated text file</p>
 </dd>
@@ -927,55 +911,167 @@ Local export of text files, as of 0.1.8.</p>
 
 </section>
 <section id="module-nrgpy.read">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nrgpy.read" title="Permalink to this headline">#</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nrgpy.read" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="nrgpy.quality.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">nrgpy.quality package</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="nrgpy.quality.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">nrgpy.quality package</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="nrgpy.utils.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="nrgpy.utils.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">nrgpy.utils package</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By NRG Systems, Inc.<br/>
-  
-      &copy; Copyright 2022, NRG Systems, Inc..<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read.channel_info_arrays">nrgpy.read.channel_info_arrays module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.channel_info_arrays.return_array"><code class="docutils literal notranslate"><span class="pre">return_array()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.channel_info_arrays.return_sp3_ch_info"><code class="docutils literal notranslate"><span class="pre">return_sp3_ch_info()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.channel_info_arrays.return_spro_ch_info"><code class="docutils literal notranslate"><span class="pre">return_spro_ch_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read.logr">nrgpy.read.logr module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read"><code class="docutils literal notranslate"><span class="pre">logr_read</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">logr_read.arrange_ch_info()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read.concat_txt"><code class="docutils literal notranslate"><span class="pre">logr_read.concat_txt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read.format_site_data"><code class="docutils literal notranslate"><span class="pre">logr_read.format_site_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read.insert_blank_header_rows"><code class="docutils literal notranslate"><span class="pre">logr_read.insert_blank_header_rows()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read.output_txt_file"><code class="docutils literal notranslate"><span class="pre">logr_read.output_txt_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.shift_timestamps"><code class="docutils literal notranslate"><span class="pre">shift_timestamps()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read.spidar_txt">nrgpy.read.spidar_txt module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.spidar_txt.spidar_data_read"><code class="docutils literal notranslate"><span class="pre">spidar_data_read</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.spidar_txt.spidar_data_read.concat_txt"><code class="docutils literal notranslate"><span class="pre">spidar_data_read.concat_txt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.spidar_txt.spidar_data_read.get_heights"><code class="docutils literal notranslate"><span class="pre">spidar_data_read.get_heights()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.spidar_txt.spidar_data_read.read_file"><code class="docutils literal notranslate"><span class="pre">spidar_data_read.read_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read.sympro_txt">nrgpy.read.sympro_txt module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.shift_timestamps"><code class="docutils literal notranslate"><span class="pre">shift_timestamps()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.arrange_ch_info()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.calculate_soiling_ratio"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.calculate_soiling_ratio()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.concat_txt"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.concat_txt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.format_data_for_epe"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.format_data_for_epe()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.format_site_data"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.format_site_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.insert_blank_header_rows"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.insert_blank_header_rows()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.make_header_for_epe"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.make_header_for_epe()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.output_txt_file"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.output_txt_file()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.sympro_txt.sympro_txt_read.select_channels_for_reformat"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.select_channels_for_reformat()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read.txt_utils">nrgpy.read.txt_utils module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.format_sympro_site_data"><code class="docutils literal notranslate"><span class="pre">format_sympro_site_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data"><code class="docutils literal notranslate"><span class="pre">read_text_data</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">read_text_data.arrange_ch_info()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.concat"><code class="docutils literal notranslate"><span class="pre">read_text_data.concat()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data"><code class="docutils literal notranslate"><span class="pre">read_text_data.format_rwd_site_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_data"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_head"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_head()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_site_info"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_site_info()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy.read">Module contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NRG Systems, Inc.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022, NRG Systems, Inc..
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

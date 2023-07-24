@@ -12,7 +12,7 @@ from nrgpy.utils.utilities import (
     windows_folder_path,
     linux_folder_path,
     draw_progress_bar,
-    date_check,
+    string_date_check,
     renamer,
 )
 import traceback
@@ -192,10 +192,10 @@ class sympro_txt_read(object):
 
             try:
                 width = list(self._site_info.columns.values).index("Sensor History")
-                self._site_info = self._site_info.iloc[:,:width]
+                self._site_info = self._site_info.iloc[:, :width]
             except ValueError:  # allows for parsing site info in diagnostic & events export, which don't have sensor history
                 pass
-            
+
             self._site_info.rename(columns=renamer(), inplace=True)
             self._site_info.columns = [
                 str(col).replace(":", "").strip() for col in self._site_info.columns
@@ -349,7 +349,7 @@ class sympro_txt_read(object):
             and self.file_filter in f
             and self.filter2 in f
             and self.file_type in f
-            and date_check(self.start_date, self.end_date, f)
+            and string_date_check(self.start_date, self.end_date, f)
         ]
 
         self.file_count = len(files)
@@ -995,7 +995,9 @@ class sympro_txt_read(object):
                 if out_file != "":
                     output_name = os.path.join(out_dir, out_file)
                 else:
-                    output_name = os.path.join(out_dir, self.out_file[:-4]) + "_soiling.txt"
+                    output_name = (
+                        os.path.join(out_dir, self.out_file[:-4]) + "_soiling.txt"
+                    )
 
                 output_file = open(output_name, "w+", encoding="utf-8")
                 output_file.truncate()
@@ -1095,7 +1097,9 @@ class sympro_txt_read(object):
                 if out_file != "":
                     output_name = os.path.join(out_dir, out_file)
                 else:
-                    output_name = os.path.join(out_dir, self.out_file[:-4]) + "_standard.txt"
+                    output_name = (
+                        os.path.join(out_dir, self.out_file[:-4]) + "_standard.txt"
+                    )
 
                 print(
                     "\nOutputting file: {0}   ...   ".format(output_name),
@@ -1303,7 +1307,7 @@ def shift_timestamps(
     files = [
         f
         for f in sorted(glob(txt_folder + "/" + "*.txt"))
-        if file_filter in f and date_check(start_date, end_date, f)
+        if file_filter in f and string_date_check(start_date, end_date, f)
     ]
 
     file_count = len(files)

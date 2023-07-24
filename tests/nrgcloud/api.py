@@ -23,9 +23,9 @@ def test_sites_api(client_id, client_secret):
         sites = nrgpy.cloud_sites(client_id, client_secret)
 
         if (
-            sites.sites_df["siteId"].loc[
-                sites.sites_df["loggerSerialNumber"] == logger_sn
-            ].values[0]
+            sites.sites_df["siteId"]
+            .loc[sites.sites_df["loggerSerialNumber"] == logger_sn]
+            .values[0]
             != site_id
         ):
             print(f"Site ID != {site_id}: SiteIds = {sites.sites_df['siteId']}")
@@ -61,7 +61,7 @@ def test_export_api(client_id, client_secret):
         )
 
         exporter.export()
-        
+
         reader = nrgpy.sympro_txt_read(filename=exporter.export_filepath)
 
         if int(reader.site_number) != site_number:

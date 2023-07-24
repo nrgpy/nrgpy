@@ -3,8 +3,7 @@ try:
 except ImportError:
     pass
 from datetime import datetime
-import io
-from nrgpy.utils.utilities import affirm_directory, date_check, draw_progress_bar
+from nrgpy.utils.utilities import affirm_directory, string_date_check, draw_progress_bar
 from .auth import cloud_api, cloud_url_base, is_authorized
 import os
 import requests
@@ -179,7 +178,7 @@ class cloud_convert(cloud_api):
             for f in sorted(os.listdir(self.rld_dir))
             if self.site_filter in f and self.filter2 in f and f.lower().endswith("rld")
             # and f.lower().endswith(('rwd', 'rld'))    ## Uncomment when RWD convert is supported
-            and date_check(self.start_date, self.end_date, f)
+            and string_date_check(self.start_date, self.end_date, f)
         ]
 
         self.raw_count = len(self.files)

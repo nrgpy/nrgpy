@@ -12,7 +12,7 @@ from nrgpy.utils.utilities import (
     windows_folder_path,
     linux_folder_path,
     draw_progress_bar,
-    date_check,
+    string_date_check,
     renamer,
 )
 import traceback
@@ -85,7 +85,7 @@ class logr_read(object):
                     else:
                         i = i + 1
             with open(self.filename) as myfile:
-                self.head = "".join([next(myfile) for x in range(2)])
+                self.head = "".join([myfile.readline() for _ in range(2)])
 
             header_len = i + 1
             read_len = header_len - 5
@@ -365,7 +365,7 @@ class logr_read(object):
             and self.file_filter in f
             and self.filter2 in f
             and self.file_type in f
-            and date_check(self.start_date, self.end_date, f)
+            and string_date_check(self.start_date, self.end_date, f)
         ]
 
         self.file_count = len(files)
@@ -489,7 +489,9 @@ class logr_read(object):
             return None
 
         if len(self.failed_files) > 0:
-            print(f"{len(self.failed_files)} files unable to be concatenated. See failed_files list")
+            print(
+                f"{len(self.failed_files)} files unable to be concatenated. See failed_files list"
+            )
 
     def output_txt_file(
         self,
@@ -727,7 +729,7 @@ def shift_timestamps(
     files = [
         f
         for f in sorted(glob(txt_folder + "/" + "*.txt"))
-        if file_filter in f and date_check(start_date, end_date, f)
+        if file_filter in f and string_date_check(start_date, end_date, f)
     ]
 
     file_count = len(files)

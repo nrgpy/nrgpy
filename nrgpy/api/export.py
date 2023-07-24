@@ -75,17 +75,29 @@ class nrg_api_export(nrg_api):
     >>>     print("unable to get reader")
     """
 
-    def __init__(self, out_dir='', serial_number='', out_file='',
-                 start_date='2014-01-01', end_date='2023-12-31',
-                 client_id='', client_secret='', nec_file='',
-                 export_type='meas', text_timestamps=False, 
-                 save_file=True,  **kwargs):
+    def __init__(
+        self,
+        out_dir="",
+        serial_number="",
+        out_file="",
+        start_date="2014-01-01",
+        end_date="2023-12-31",
+        client_id="",
+        client_secret="",
+        nec_file="",
+        export_type="meas",
+        text_timestamps=False,
+        save_file=True,
+        **kwargs,
+    ):
 
         super().__init__(client_id, client_secret)
 
-        self.txt_file = f'{serial_number}_{start_date}_{end_date}.txt'.replace(':', '-').replace(' ', '_')
+        self.txt_file = f"{serial_number}_{start_date}_{end_date}.txt".replace(
+            ":", "-"
+        ).replace(" ", "_")
 
-        self.filepath = os.path.join(out_dir, self.txt_file.replace('txt', 'zip'))
+        self.filepath = os.path.join(out_dir, self.txt_file.replace("txt", "zip"))
         self.out_dir = out_dir
         self.out_file = out_file
         affirm_directory(self.out_dir)
@@ -101,7 +113,7 @@ class nrg_api_export(nrg_api):
         if self.nec_file:
             self.encoded_nec_bytes = self.prepare_file_bytes(self.nec_file)
         else:
-            self.encoded_nec_bytes = ''
+            self.encoded_nec_bytes = ""
 
         self.save_file = save_file
         self.reader = self.export()
@@ -112,11 +124,11 @@ class nrg_api_export(nrg_api):
         self.headers = {"Authorization": "Bearer " + self.session_token}
 
         self.data = {
-            'serialnumber': self.serial_number,
-            'startdate': self.start_date,
-            'enddate': self.end_date,
-            'exporttype': self.export_type,
-            'necfilebytes': self.encoded_nec_bytes
+            "serialnumber": self.serial_number,
+            "startdate": self.start_date,
+            "enddate": self.end_date,
+            "exporttype": self.export_type,
+            "necfilebytes": self.encoded_nec_bytes,
         }
 
         logger.debug(self.data)
@@ -132,16 +144,16 @@ class nrg_api_export(nrg_api):
 
             if self.resp.status_code == 200:
 
-                with open(self.filepath, 'wb') as f:
+                with open(self.filepath, "wb") as f:
                     f.write(self.resp.content)
 
-                with zipfile.ZipFile(self.filepath, 'r') as z:
+                with zipfile.ZipFile(self.filepath, "r") as z:
                     data_file = z.namelist()[0]
                     z.extractall(self.out_dir)
 
                 reader = sympro_txt_read(
                     filename=os.path.join(self.out_dir, data_file),
-                    text_timestamps=self.text_timestamps
+                    text_timestamps=self.text_timestamps,
                 )
                 reader.format_site_data()
 
@@ -161,15 +173,19 @@ class nrg_api_export(nrg_api):
 
                     if not self.out_file:
 
-                        self.out_file = f'{self.site_number}_{self.start_date}_{self.end_date}.txt'.replace(':', '.').replace(' ', '')
+                        self.out_file = f"{self.site_number}_{self.start_date}_{self.end_date}.txt".replace(
+                            ":", "."
+                        ).replace(
+                            " ", ""
+                        )
 
                     else:
                         self.out_file = os.path.join(self.out_dir, self.txt_file)
 
                     reader.output_txt_file(standard=True, out_file=self.out_file)
 
-                del self.data['necfilebytes']
-                self.data['nec_file'] = self.nec_file
+                del self.data["necfilebytes"]
+                self.data["nec_file"] = self.nec_file
                 reader.post_json = self.data
                 logger.info(f"export created")
                 logger.info(f"export took {self.request_duration}")

@@ -1,381 +1,551 @@
 
+
 <!DOCTYPE html>
 
-<html lang="en">
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>nrgpy package &#8212; nrgpy  documentation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nrgpy';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="nrgpy.api package" href="nrgpy.api.html" />
     <link rel="prev" title="Welcome to nrgpy’s documentation!" href="index.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/nrg_logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">nrgpy  documentation</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Contents:
- </span>
-</p>
+    
+    
+    <img src="_static/nrg_logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/nrg_logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
-   nrgpy package
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.api.html">
-     nrgpy.api package
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.cloud_api.html">
-     nrgpy.cloud_api package
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.convert.html">
-     nrgpy.convert package
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.quality.html">
-     nrgpy.quality package
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.read.html">
-     nrgpy.read package
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nrgpy.utils.html">
-     nrgpy.utils package
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="setup.html">
-   setup module
-  </a>
- </li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">nrgpy package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/nrgpy.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
 
-          
 
 
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/nrgpy.rst.txt"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.rst</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#subpackages">
-   Subpackages
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy">
-   Module contents
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>nrgpy package</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#subpackages">
-   Subpackages
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-nrgpy">
-   Module contents
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>nrgpy package</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy">Module contents</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section id="nrgpy-package">
-<h1>nrgpy package<a class="headerlink" href="#nrgpy-package" title="Permalink to this headline">#</a></h1>
+<h1>nrgpy package<a class="headerlink" href="#nrgpy-package" title="Permalink to this heading">#</a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">#</a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="nrgpy.api.html">nrgpy.api package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api.auth">nrgpy.api.auth module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api.catalog">nrgpy.api.catalog module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api.convert">nrgpy.api.convert module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api.export">nrgpy.api.export module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api.upload">nrgpy.api.upload module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api.auth">nrgpy.api.auth module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.auth.nrg_api"><code class="docutils literal notranslate"><span class="pre">nrg_api</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.auth.nrg_api.load_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.load_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.auth.nrg_api.maintain_session_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.maintain_session_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.auth.nrg_api.prepare_file_bytes"><code class="docutils literal notranslate"><span class="pre">nrg_api.prepare_file_bytes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.auth.nrg_api.request_session_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.request_session_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.auth.nrg_api.save_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.save_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.auth.nrg_api.token_valid"><code class="docutils literal notranslate"><span class="pre">nrg_api.token_valid()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api.catalog">nrgpy.api.catalog module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.catalog.nrg_api_catalog"><code class="docutils literal notranslate"><span class="pre">nrg_api_catalog</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.catalog.nrg_api_catalog.data_catalog"><code class="docutils literal notranslate"><span class="pre">nrg_api_catalog.data_catalog()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api.convert">nrgpy.api.convert module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.convert.nrg_api_convert"><code class="docutils literal notranslate"><span class="pre">nrg_api_convert</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.convert.nrg_api_convert.process"><code class="docutils literal notranslate"><span class="pre">nrg_api_convert.process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.convert.nrg_api_convert.single_file"><code class="docutils literal notranslate"><span class="pre">nrg_api_convert.single_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api.export">nrgpy.api.export module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.export.nrg_api_export"><code class="docutils literal notranslate"><span class="pre">nrg_api_export</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.export.nrg_api_export.export"><code class="docutils literal notranslate"><span class="pre">nrg_api_export.export()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api.upload">nrgpy.api.upload module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.upload.nrg_api_upload"><code class="docutils literal notranslate"><span class="pre">nrg_api_upload</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.upload.nrg_api_upload.upload_directory"><code class="docutils literal notranslate"><span class="pre">nrg_api_upload.upload_directory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.api.html#nrgpy.api.upload.nrg_api_upload.upload_file"><code class="docutils literal notranslate"><span class="pre">nrg_api_upload.upload_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.api.html#module-nrgpy.api">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="nrgpy.cloud_api.html">nrgpy.cloud_api package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.auth">nrgpy.cloud_api.auth module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.convert">nrgpy.cloud_api.convert module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.export">nrgpy.cloud_api.export module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.jobs">nrgpy.cloud_api.jobs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.sites">nrgpy.cloud_api.sites module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.upload">nrgpy.cloud_api.upload module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.auth">nrgpy.cloud_api.auth module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api"><code class="docutils literal notranslate"><span class="pre">cloud_api</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.load_token"><code class="docutils literal notranslate"><span class="pre">cloud_api.load_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.maintain_session_token"><code class="docutils literal notranslate"><span class="pre">cloud_api.maintain_session_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.prepare_file_bytes"><code class="docutils literal notranslate"><span class="pre">cloud_api.prepare_file_bytes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.request_session_token"><code class="docutils literal notranslate"><span class="pre">cloud_api.request_session_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.save_token"><code class="docutils literal notranslate"><span class="pre">cloud_api.save_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.cloud_api.token_valid"><code class="docutils literal notranslate"><span class="pre">cloud_api.token_valid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.auth.is_authorized"><code class="docutils literal notranslate"><span class="pre">is_authorized()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.convert">nrgpy.cloud_api.convert module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.convert.cloud_convert"><code class="docutils literal notranslate"><span class="pre">cloud_convert</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.convert.cloud_convert.process"><code class="docutils literal notranslate"><span class="pre">cloud_convert.process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.convert.cloud_convert.single_file"><code class="docutils literal notranslate"><span class="pre">cloud_convert.single_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.export">nrgpy.cloud_api.export module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.export.cloud_export"><code class="docutils literal notranslate"><span class="pre">cloud_export</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.export.cloud_export.export"><code class="docutils literal notranslate"><span class="pre">cloud_export.export()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.jobs">nrgpy.cloud_api.jobs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.export_job"><code class="docutils literal notranslate"><span class="pre">export_job</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.export_job.check_export_job"><code class="docutils literal notranslate"><span class="pre">export_job.check_export_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.export_job.create_export_job"><code class="docutils literal notranslate"><span class="pre">export_job.create_export_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.export_job.download_export"><code class="docutils literal notranslate"><span class="pre">export_job.download_export()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.export_job.monitor_export_job"><code class="docutils literal notranslate"><span class="pre">export_job.monitor_export_job()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.sites">nrgpy.cloud_api.sites module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.sites.cloud_sites"><code class="docutils literal notranslate"><span class="pre">cloud_sites</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.sites.cloud_sites.get_siteid"><code class="docutils literal notranslate"><span class="pre">cloud_sites.get_siteid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.sites.cloud_sites.get_sites"><code class="docutils literal notranslate"><span class="pre">cloud_sites.get_sites()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy-cloud-api-test-download-module">nrgpy.cloud_api.test_download module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api.upload">nrgpy.cloud_api.upload module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.upload.cloud_import"><code class="docutils literal notranslate"><span class="pre">cloud_import</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.upload.cloud_import.process"><code class="docutils literal notranslate"><span class="pre">cloud_import.process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.cloud_api.html#nrgpy.cloud_api.upload.cloud_import.single_file"><code class="docutils literal notranslate"><span class="pre">cloud_import.single_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.cloud_api.html#module-nrgpy.cloud_api">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="nrgpy.convert.html">nrgpy.convert package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.convert.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.convert.html#module-nrgpy.convert.convert_rld">nrgpy.convert.convert_rld module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.convert.html#module-nrgpy.convert.convert_rwd">nrgpy.convert.convert_rwd module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.convert.html#module-nrgpy.convert.convert_rld">nrgpy.convert.convert_rld module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html#nrgpy.convert.convert_rld.local"><code class="docutils literal notranslate"><span class="pre">local</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.convert.html#nrgpy.convert.convert_rld.local.convert"><code class="docutils literal notranslate"><span class="pre">local.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.convert.html#nrgpy.convert.convert_rld.local.directory"><code class="docutils literal notranslate"><span class="pre">local.directory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.convert.html#nrgpy.convert.convert_rld.local.process"><code class="docutils literal notranslate"><span class="pre">local.process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.convert.html#nrgpy.convert.convert_rld.local.rename_rlds"><code class="docutils literal notranslate"><span class="pre">local.rename_rlds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.convert.html#nrgpy.convert.convert_rld.local.single_file"><code class="docutils literal notranslate"><span class="pre">local.single_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.convert.html#module-nrgpy.convert.convert_rwd">nrgpy.convert.convert_rwd module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.convert.html#nrgpy.convert.convert_rwd.local"><code class="docutils literal notranslate"><span class="pre">local</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.convert.html#nrgpy.convert.convert_rwd.local.check_sdr"><code class="docutils literal notranslate"><span class="pre">local.check_sdr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.convert.html#nrgpy.convert.convert_rwd.local.convert"><code class="docutils literal notranslate"><span class="pre">local.convert()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.convert.html#module-nrgpy.convert">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="nrgpy.quality.html">nrgpy.quality package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.quality.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.quality.html#module-nrgpy.quality.quality">nrgpy.quality.quality module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.quality.html#module-nrgpy.quality.quality">nrgpy.quality.quality module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html#nrgpy.quality.quality.check_for_missing_txt_files"><code class="docutils literal notranslate"><span class="pre">check_for_missing_txt_files()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html#nrgpy.quality.quality.check_intervals"><code class="docutils literal notranslate"><span class="pre">check_intervals()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html#nrgpy.quality.quality.find_missing_intervals"><code class="docutils literal notranslate"><span class="pre">find_missing_intervals()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html#nrgpy.quality.quality.select_interval_length"><code class="docutils literal notranslate"><span class="pre">select_interval_length()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.quality.html#nrgpy.quality.quality.select_mode_from_list"><code class="docutils literal notranslate"><span class="pre">select_mode_from_list()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.quality.html#module-nrgpy.quality">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="nrgpy.read.html">nrgpy.read package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read.channel_info_arrays">nrgpy.read.channel_info_arrays module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read.logr">nrgpy.read.logr module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read.spidar_txt">nrgpy.read.spidar_txt module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read.sympro_txt">nrgpy.read.sympro_txt module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read.txt_utils">nrgpy.read.txt_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read.channel_info_arrays">nrgpy.read.channel_info_arrays module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.channel_info_arrays.return_array"><code class="docutils literal notranslate"><span class="pre">return_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.channel_info_arrays.return_sp3_ch_info"><code class="docutils literal notranslate"><span class="pre">return_sp3_ch_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.channel_info_arrays.return_spro_ch_info"><code class="docutils literal notranslate"><span class="pre">return_spro_ch_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read.logr">nrgpy.read.logr module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.logr.logr_read"><code class="docutils literal notranslate"><span class="pre">logr_read</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.logr.logr_read.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">logr_read.arrange_ch_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.logr.logr_read.concat_txt"><code class="docutils literal notranslate"><span class="pre">logr_read.concat_txt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.logr.logr_read.format_site_data"><code class="docutils literal notranslate"><span class="pre">logr_read.format_site_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.logr.logr_read.insert_blank_header_rows"><code class="docutils literal notranslate"><span class="pre">logr_read.insert_blank_header_rows()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.logr.logr_read.output_txt_file"><code class="docutils literal notranslate"><span class="pre">logr_read.output_txt_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.logr.shift_timestamps"><code class="docutils literal notranslate"><span class="pre">shift_timestamps()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read.spidar_txt">nrgpy.read.spidar_txt module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.spidar_txt.spidar_data_read"><code class="docutils literal notranslate"><span class="pre">spidar_data_read</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.spidar_txt.spidar_data_read.concat_txt"><code class="docutils literal notranslate"><span class="pre">spidar_data_read.concat_txt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.spidar_txt.spidar_data_read.get_heights"><code class="docutils literal notranslate"><span class="pre">spidar_data_read.get_heights()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.spidar_txt.spidar_data_read.read_file"><code class="docutils literal notranslate"><span class="pre">spidar_data_read.read_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read.sympro_txt">nrgpy.read.sympro_txt module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.shift_timestamps"><code class="docutils literal notranslate"><span class="pre">shift_timestamps()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.arrange_ch_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.calculate_soiling_ratio"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.calculate_soiling_ratio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.concat_txt"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.concat_txt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.format_data_for_epe"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.format_data_for_epe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.format_site_data"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.format_site_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.insert_blank_header_rows"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.insert_blank_header_rows()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.make_header_for_epe"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.make_header_for_epe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.output_txt_file"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.output_txt_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.sympro_txt.sympro_txt_read.select_channels_for_reformat"><code class="docutils literal notranslate"><span class="pre">sympro_txt_read.select_channels_for_reformat()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read.txt_utils">nrgpy.read.txt_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.txt_utils.format_sympro_site_data"><code class="docutils literal notranslate"><span class="pre">format_sympro_site_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.txt_utils.read_text_data"><code class="docutils literal notranslate"><span class="pre">read_text_data</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.txt_utils.read_text_data.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">read_text_data.arrange_ch_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.txt_utils.read_text_data.concat"><code class="docutils literal notranslate"><span class="pre">read_text_data.concat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data"><code class="docutils literal notranslate"><span class="pre">read_text_data.format_rwd_site_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.txt_utils.read_text_data.get_data"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.txt_utils.read_text_data.get_head"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_head()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.read.html#nrgpy.read.txt_utils.read_text_data.get_site_info"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_site_info()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.read.html#module-nrgpy.read">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="nrgpy.utils.html">nrgpy.utils package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html#module-nrgpy.utils.encodings">nrgpy.utils.encodings module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html#module-nrgpy.utils.ipk2lgr">nrgpy.utils.ipk2lgr module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html#module-nrgpy.utils.encodings">nrgpy.utils.encodings module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.encodings.convert_utf16le_to_utf8"><code class="docutils literal notranslate"><span class="pre">convert_utf16le_to_utf8</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file"><code class="docutils literal notranslate"><span class="pre">convert_utf16le_to_utf8.single_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html#module-nrgpy.utils.ipk2lgr">nrgpy.utils.ipk2lgr module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.ipk2lgr.callinterval"><code class="docutils literal notranslate"><span class="pre">callinterval()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.ipk2lgr.calltime"><code class="docutils literal notranslate"><span class="pre">calltime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.ipk2lgr.ipackinfo"><code class="docutils literal notranslate"><span class="pre">ipackinfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.ipk2lgr.ipackinfo_backup"><code class="docutils literal notranslate"><span class="pre">ipackinfo_backup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.ipk2lgr.ipk2lgr"><code class="docutils literal notranslate"><span class="pre">ipk2lgr()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html#nrgpy-utils-nsd-functions-module">nrgpy.utils.nsd_functions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html#module-nrgpy.utils.utilities">nrgpy.utils.utilities module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html#module-nrgpy.utils.utilities">nrgpy.utils.utilities module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.affirm_directory"><code class="docutils literal notranslate"><span class="pre">affirm_directory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.check_platform"><code class="docutils literal notranslate"><span class="pre">check_platform()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.count_files"><code class="docutils literal notranslate"><span class="pre">count_files()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.create_spd_filename_from_cloud_export"><code class="docutils literal notranslate"><span class="pre">create_spd_filename_from_cloud_export()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.data_months"><code class="docutils literal notranslate"><span class="pre">data_months()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.date_check"><code class="docutils literal notranslate"><span class="pre">date_check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.draw_progress_bar"><code class="docutils literal notranslate"><span class="pre">draw_progress_bar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.fix_export_siteid_filename"><code class="docutils literal notranslate"><span class="pre">fix_export_siteid_filename()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.is_sympro_running"><code class="docutils literal notranslate"><span class="pre">is_sympro_running()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.linux_folder_path"><code class="docutils literal notranslate"><span class="pre">linux_folder_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.rename_cloud_export_like_spd"><code class="docutils literal notranslate"><span class="pre">rename_cloud_export_like_spd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.renamer"><code class="docutils literal notranslate"><span class="pre">renamer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.set_start_stop"><code class="docutils literal notranslate"><span class="pre">set_start_stop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="nrgpy.utils.html#nrgpy.utils.utilities.windows_folder_path"><code class="docutils literal notranslate"><span class="pre">windows_folder_path()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="nrgpy.utils.html#module-nrgpy.utils">Module contents</a></li>
 </ul>
 </li>
@@ -383,55 +553,111 @@ title="Print to PDF"
 </div>
 </section>
 <section id="module-nrgpy">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nrgpy" title="Permalink to this headline">#</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nrgpy" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="index.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Welcome to nrgpy’s documentation!</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to nrgpy’s documentation!</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="nrgpy.api.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="nrgpy.api.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">nrgpy.api package</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By NRG Systems, Inc.<br/>
-  
-      &copy; Copyright 2022, NRG Systems, Inc..<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-nrgpy">Module contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NRG Systems, Inc.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022, NRG Systems, Inc..
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
