@@ -8,6 +8,7 @@
 | ------------------ | ------------------------------------------ |
 | Website and source | <https://github.com/nrgpy/nrgpy>           |
 | Documentation      | <https://nrgpy.github.io/nrgpy/index.html> |
+| IEA Task 43 Parser | <https://github.com/nrgpy/nrg-parser>      |
 | Support            |  support@nrgsystems.com                    |
 
 It provides tools for:
