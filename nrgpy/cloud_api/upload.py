@@ -81,16 +81,16 @@ class cloud_import(cloud_api):
 
     def __init__(
         self,
-        in_dir="",
-        filename="",
-        site_filter="",
-        filter2="",
-        start_date="1970-01-01",
-        end_date="2150-12-31",
-        client_id="",
-        client_secret="",
-        url_base=cloud_url_base,
-        progress_bar=True,
+        in_dir: str = "",
+        filename: str = "",
+        site_filter: str = "",
+        filter2: str = "",
+        start_date: str = "1970-01-01",
+        end_date: str = "2150-12-31",
+        client_id: str = "",
+        client_secret: str = "",
+        url_base: str = cloud_url_base,
+        progress_bar: bool = True,
         **kwargs,
     ):
         """Initialize a cloud_export object.
@@ -151,7 +151,9 @@ class cloud_import(cloud_api):
             for f in sorted(os.listdir(self.in_dir))
             if self.site_filter in f
             and self.filter2 in f
-            and f.lower().endswith(tuple(["rld", "csv", "csv.zip"]))
+            and f.lower().endswith(
+                tuple(["rld", "csv", "csv.zip", "diag", "statistical.dat"])
+            )
             and string_date_check(self.start_date, self.end_date, f)
         ]
 
@@ -204,7 +206,6 @@ class cloud_import(cloud_api):
             )
 
             if self.resp.status_code == 200:
-
                 if self.progress_bar is False:
                     print("[DONE]")
 
