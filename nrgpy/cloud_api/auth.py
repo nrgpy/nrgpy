@@ -20,7 +20,7 @@ import_url = "data/import"
 sites_url = "sites"
 
 
-class cloud_api(object):
+class CloudApi(object):
     """
     Parent class for NRG Cloud API functionality
 
@@ -188,7 +188,7 @@ class cloud_api(object):
         return file_bytes
 
 
-def is_authorized(resp):
+def is_authorized(resp) -> bool:
     if (
         resp.status_code == 401
         or resp.status_code == 400
@@ -204,3 +204,5 @@ def is_authorized(resp):
         return False
 
     return True
+
+cloud_api = CloudApi

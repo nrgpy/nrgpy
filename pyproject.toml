@@ -27,6 +27,8 @@ dependencies = [
     'psutil',
     'requests',
 ]
+[tool.setuptools.packages]
+find = {}
 
 [project.urls]
 Repository = "https://github.com/nrgpy/nrgpy"

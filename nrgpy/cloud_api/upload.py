@@ -10,7 +10,7 @@ import os
 import requests
 
 
-class cloud_import(cloud_api):
+class CloudImport(cloud_api):
     """Uses NRG hosted web-based API to import RLD and CSV/CSV.zip files to
     existing sites in NRG Cloud.
     To sign up for the service, go to https://cloud.nrgsystems.com/.
@@ -54,7 +54,7 @@ class cloud_import(cloud_api):
     >>> filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.filename
     >>> client_id = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
     >>> client_secret = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
-    >>> importer = nrgpy.cloud_import(
+    >>> importer = nrgpy.CloudImport(
             filename=filename,
             client_id=client_id,
             client_secret=client_secret,
@@ -67,7 +67,7 @@ class cloud_import(cloud_api):
     >>> in_directory = "filenames"
     >>> client_id = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
     >>> client_secret = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
-    >>> importer = nrgpy.cloud_import(
+    >>> importer = nrgpy.CloudImport(
             file_filter=file_filter,
             in_dir=in_directory,
             client_id=client_id,
@@ -167,10 +167,10 @@ class cloud_import(cloud_api):
                 self.counter += 1
                 if not is_authorized(self.resp):
                     break
-            except:
+            except Exception:
                 pass
 
-    def single_file(self, filename=""):
+    def single_file(self, filename: str = ""):
         try:
             if self.progress_bar:
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
@@ -242,3 +242,6 @@ class cloud_import(cloud_api):
             logger.error(f"unable to import {os.path.basename(filename)}: FAILED")
             logger.debug(e)
             print(f"unable to process file: {filename}")
+
+
+cloud_import = CloudImport

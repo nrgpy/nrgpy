@@ -95,7 +95,6 @@ class read_text_data(object):
         ch_details = 0
 
         for row in self.site_info.iterrows():
-
             if (
                 row[1][0] == self.ch_info_array[0] and ch_details == 0
             ):  # start channel data read
@@ -161,9 +160,7 @@ class read_text_data(object):
         self.start_time = datetime.now()
 
         for f in files:
-
             if self.file_filter in f and self.filter2 in f:
-
                 if progress_bar:
                     draw_progress_bar(self.counter, self.file_count, self.start_time)
                 else:
@@ -227,7 +224,6 @@ class read_text_data(object):
             self.counter += 1
 
         if output_txt:
-
             if out_file == "":
                 out_file = (
                     f"{self.data_type}_"

@@ -17,7 +17,7 @@ import traceback
 import zipfile
 
 
-class export_job(cloud_export):
+class CloudExportJob(cloud_export):
     """Uses NRG hosted web-based API to download data in text format as an export job
     To sign up for the service, go to https://cloud.nrgsystems.com
 
@@ -77,7 +77,7 @@ class export_job(cloud_export):
     >>> client_secret = "go to https://cloud.nrgsystems.com for access"
     >>> save_dir = '/path/to/exported/data'
     >>>
-    >>> exporter = nrgpy.export_job(
+    >>> exporter = nrgpy.CloudExportJob(
             client_id=client_id,
             client_secret=client_secret,
             out_dir=save_dir,
@@ -110,7 +110,7 @@ class export_job(cloud_export):
     >>> client_secret = "go to https://cloud.nrgsystems.com for access"
     >>> save_dir = '/path/to/exported/data'
     >>>
-    >>> exporter = nrgpy.export_job(
+    >>> exporter = nrgpy.CloudExportJob(
             client_id=client_id,
             client_secret=client_secret,
             out_dir=save_dir,
@@ -128,24 +128,23 @@ class export_job(cloud_export):
 
     def __init__(
         self,
-        out_dir="",
-        site_id="",
-        site_number="",
-        logger_sn="",
-        start_date="2014-01-01",
-        end_date="2023-12-31",
-        file_format="txt",
-        client_id="",
-        client_secret="",
-        url_base=cloud_url_base,
-        nec_file="",
-        export_type="measurements",
-        concatenate=True,
-        interval="",
-        unzip=True,
+        out_dir: str = "",
+        site_id: str = "",
+        site_number: str = "",
+        logger_sn: str = "",
+        start_date: str = "2014-01-01",
+        end_date: str = "2023-12-31",
+        file_format: str = "txt",
+        client_id: str = "",
+        client_secret: str = "",
+        url_base: str = cloud_url_base,
+        nec_file: str = "",
+        export_type: str = "measurements",
+        concatenate: bool = True,
+        interval: str = "",
+        unzip: bool = True,
         **kwargs,
     ):
-
         super().__init__(
             client_id=client_id,
             client_secret=client_secret,
@@ -194,7 +193,7 @@ class export_job(cloud_export):
             self.resp = requests.post(
                 json=self.data, url=self.create_export_job_url, headers=self.headers
             )
-        except:
+        except Exception:
             logger.debug(f"{traceback.format_exc()}")
             return False
         self.request_duration = datetime.now() - self.request_time
@@ -206,7 +205,7 @@ class export_job(cloud_export):
             self.job_id = self.json_response["jobId"]
             logger.info(f"created export job {self.job_id} for site {self.site_id}")
             print(f"created export job {self.job_id} for site {self.site_id}")
-        except:
+        except Exception:
             logger.error(
                 f"unable to create export job for {self.site_id}, {self.start_date}, {self.end_date}"
             )
@@ -243,7 +242,7 @@ class export_job(cloud_export):
             print(self.resp.text.split(":")[1].split('"')[1])
             return False
 
-    def monitor_export_job(self, download=False):
+    def monitor_export_job(self, download: bool = False):
         """Monitor the status of an export job
 
         Uses self.job_id as reference
@@ -333,3 +332,6 @@ class export_job(cloud_export):
             print(str(self.resp.status_code) + " | " + self.resp.reason)
             print(self.resp.text.split(":")[1].split('"')[1])
             return False
+
+
+export_job = CloudExportJob

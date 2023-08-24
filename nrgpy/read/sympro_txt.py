@@ -18,16 +18,22 @@ from nrgpy.utils.utilities import (
 import traceback
 
 
-class sympro_txt_read(object):
-    def __init__(self, filename="", out_file="", text_timestamps=False, **kwargs):
+class SymProTextRead:
+    def __init__(
+        self,
+        filename: str = "",
+        out_file: str = "",
+        text_timestamps: bool = False,
+        **kwargs,
+    ):
         """Class of pandas dataframes created from SymPRO standard txt output.
 
-        If a filename is passed when calling class, the file is read in alone. Otherwise,
-        an instance of the class is created, and the concat_txt function may be called to
-        combine all txt files in a directory.
+        If a filename is passed when calling class, the file is read in alone. 
+        Otherwise, an instance of the class is created, and the concat_txt function may 
+        be called to combine all txt files in a directory.
 
-        Filters may be used on any part of the filename, to combine a subset of text files in
-        a directory.
+        Filters may be used on any part of the filename, to combine a subset of text 
+        files in a directory.
 
         Parameters
         ----------
@@ -41,9 +47,11 @@ class sympro_txt_read(object):
         Attributes
         ---------
         ch_info : obj
-            pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
+            pandas dataframe of ch_list (below) pulled out of file with 
+            sympro_txt_read.arrange_ch_info()
         ch_list : list
-            list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
+            list of channel info; can be converted to json w/ import json ... 
+            json.dumps(fut.ch_info)
         data : obj
             pandas dataframe of all data
         head : obj
@@ -156,7 +164,6 @@ class sympro_txt_read(object):
         ch_details = 0
 
         for row in self.site_info.loc[self.site_info[0].isin(array)].iterrows():
-
             if row[1][0] == array[0] and ch_details == 0:  # start channel data read
                 ch_details = 1
                 ch_data[row[1][0]] = row[1][1]
@@ -193,7 +200,9 @@ class sympro_txt_read(object):
             try:
                 width = list(self._site_info.columns.values).index("Sensor History")
                 self._site_info = self._site_info.iloc[:, :width]
-            except ValueError:  # allows for parsing site info in diagnostic & events export, which don't have sensor history
+            except (
+                ValueError
+            ):  # allows for parsing site info in diagnostic & events export, which don't have sensor history
                 pass
 
             self._site_info.rename(columns=renamer(), inplace=True)
@@ -269,9 +278,11 @@ class sympro_txt_read(object):
         Returns
         -------
         ch_info : obj
-            pandas dataframe of ch_list (below) pulled out of file with sympro_txt_read.arrange_ch_info()
+            pandas dataframe of ch_list (below) pulled out of file with 
+            sympro_txt_read.arrange_ch_info()
         ch_list : list
-            list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
+            list of channel info; can be converted to json w/ import json ... 
+            json.dumps(fut.ch_info)
         data : obj
             pandas dataframe of all data
         head : obj
@@ -295,7 +306,7 @@ class sympro_txt_read(object):
         --------
         Read files into nrgpy reader object
         >>> import nrgpy
-        >>> reader = nrgpy.sympro_txt_read()
+        >>> reader = nrgpy.SymProTextRead()
         >>> reader.concat_txt(
                 txt_dir='/path/to/txt/files/',
                 file_filter='123456', # site 123456
@@ -360,7 +371,6 @@ class sympro_txt_read(object):
         logger.info(f"Concatenating {self.file_count} files...")
 
         for f in files:
-
             if progress_bar:
                 draw_progress_bar(self.counter, self.file_count, self.start_time)
             else:
@@ -385,8 +395,8 @@ class sympro_txt_read(object):
                 except IndexError:
                     print("Only standard SymPRO headertypes accepted")
                     break
-                except:
-                    if progress_bar != True:
+                except Exception:
+                    if not progress_bar:
                         print("[FAILED]")
                     print("could not concat {0}".format(os.path.basename(f)))
                     pass
@@ -413,7 +423,7 @@ class sympro_txt_read(object):
                         print("[OK]")
                     self.txt_file_names.append(os.path.basename(f))
 
-                except:
+                except Exception:
                     if not progress_bar:
                         print("[FAILED]")
                     print("could not concat {0}".format(os.path.basename(f)))
@@ -464,7 +474,8 @@ class sympro_txt_read(object):
             return None
 
     def select_channels_for_reformat(self, epe=False, soiling=False):
-        """determines which of the channel headers fit those required for post-processing for either
+        """determines which of the channel headers fit those required for 
+        post-processing for either
 
             a. EPE formatting
             b. soiling ratio calculation
@@ -503,7 +514,7 @@ class sympro_txt_read(object):
         ch_soiled_desc = ["soil", "soiled", "dirty"]
         ch_PV_temp = ["pv", "panel"]
 
-        if epe == True:
+        if epe:
             self.anem1 = (
                 self.ch_info.loc[self.ch_info["Type:"].isin(ch_anem)]
                 .sort_values(["Height:"], ascending=False)
@@ -537,7 +548,7 @@ class sympro_txt_read(object):
                     .sort_values(["Height:"], ascending=False)
                     .iloc[[0]]
                 )
-            except:
+            except Exception:
                 self.baro = None
             try:
                 self.relh = (
@@ -545,7 +556,7 @@ class sympro_txt_read(object):
                     .sort_values(["Height:"], ascending=False)
                     .iloc[[0]]
                 )
-            except:
+            except Exception:
                 self.relh = None
             try:
                 self.temp = (
@@ -553,12 +564,12 @@ class sympro_txt_read(object):
                     .sort_values(["Height:"], ascending=False)
                     .iloc[[0]]
                 )
-            except:
+            except Exception:
                 self.temp = None
             self.make_header_for_epe()
 
         # select channels needed for soiling calculation
-        if soiling == True:
+        if soiling:
             try:
                 self.isc_clean = self.ch_info.loc[
                     (
@@ -608,7 +619,7 @@ class sympro_txt_read(object):
                         )
                     )
                 ]
-            except:
+            except Exception:
                 print("SC and PV Temp fields unavailable for calculation")
 
     def format_data_for_epe(self):
@@ -632,19 +643,19 @@ class sympro_txt_read(object):
             self.data["CH04"] = self.data[
                 [col for col in self.data.columns if (baro_ch in col and "Avg" in col)]
             ]
-        except:
+        except Exception:
             self.data["CH04"] = "000"
         try:
             self.data["CH05"] = self.data[
                 [col for col in self.data.columns if (temp_ch in col and "Avg" in col)]
             ]
-        except:
+        except Exception:
             self.data["CH05"] = "000"
         try:
             self.data["CH06"] = self.data[
                 [col for col in self.data.columns if (relh_ch in col and "Avg" in col)]
             ]
-        except:
+        except Exception:
             self.data["CH06"] = "000"
         try:
             self.data["CH07"] = self.data[
@@ -659,7 +670,7 @@ class sympro_txt_read(object):
             self.data["CH10"] = self.data[
                 [col for col in self.data.columns if (anem1_ch in col and "SD" in col)]
             ]
-        except:
+        except Exception:
             (
                 self.data["CH07"],
                 self.data["CH08"],
@@ -673,7 +684,7 @@ class sympro_txt_read(object):
             self.data["CH12"] = self.data[
                 [col for col in self.data.columns if (vane1_ch in col and "SD" in col)]
             ]
-        except:
+        except Exception:
             self.data["CH11"], self.data["CH12"] = "000"
         try:
             self.data["CH13"] = self.data[
@@ -688,7 +699,7 @@ class sympro_txt_read(object):
             self.data["CH16"] = self.data[
                 [col for col in self.data.columns if (anem2_ch in col and "SD" in col)]
             ]
-        except:
+        except Exception:
             (
                 self.data["CH13"],
                 self.data["CH14"],
@@ -702,7 +713,7 @@ class sympro_txt_read(object):
             self.data["CH18"] = self.data[
                 [col for col in self.data.columns if (vane2_ch in col and "SD" in col)]
             ]
-        except:
+        except Exception:
             self.data["CH17"], self.data["CH18"] = "000"
         try:
             self.data["CH19"] = self.data[
@@ -717,7 +728,7 @@ class sympro_txt_read(object):
             self.data["CH22"] = self.data[
                 [col for col in self.data.columns if (anem3_ch in col and "SD" in col)]
             ]
-        except:
+        except Exception:
             (
                 self.data["CH19"],
                 self.data["CH20"],
@@ -900,7 +911,7 @@ class sympro_txt_read(object):
                 ]
             ]
 
-        except:
+        except Exception:
             print("error replicating ISC or PV data")
 
         if method == "IEC":
@@ -914,7 +925,7 @@ class sympro_txt_read(object):
                     )
                     / I_clean_SC_0
                 )
-            except:
+            except Exception:
                 print("could not calculate G column")
             try:
                 # calculate SR
@@ -923,7 +934,7 @@ class sympro_txt_read(object):
                     * (1 + (alpha * (self.data["T_soiled"] - T0)))
                     * (self.data["G"] / G0)
                 )
-            except:
+            except Exception:
                 print("could not calculate SR column")
 
     def output_txt_file(
@@ -935,10 +946,9 @@ class sympro_txt_read(object):
         out_file="",
         **kwargs,
     ):
-
         out_dir = kwargs.get("out_dir", "")
 
-        if epe == True:
+        if epe:
             if out_file != "":
                 output_name = os.path.join(out_dir, out_file)
             else:
@@ -958,7 +968,7 @@ class sympro_txt_read(object):
                 for line in self.header:
                     try:
                         output_file.write(line + "\n")
-                    except:
+                    except Exception:
                         pass
                 output_file.close()
 
@@ -991,7 +1001,7 @@ class sympro_txt_read(object):
                 print(e)
 
         else:
-            if soiling == True:
+            if soiling:
                 if out_file != "":
                     output_name = os.path.join(out_dir, out_file)
                 else:
@@ -1029,8 +1039,7 @@ class sympro_txt_read(object):
                     )
                 output_file.close()
 
-            if shift_timestamps == True:
-
+            if shift_timestamps:
                 os.makedirs(out_dir, exist_ok=True)
                 file_date = (
                     str(self.data.iloc[0]["Timestamp"])
@@ -1054,7 +1063,7 @@ class sympro_txt_read(object):
                         self.site_info = self.site_info.replace(
                             self.first_timestamp, str(self.data.iloc[0]["Timestamp"])
                         )
-                    except:
+                    except Exception:
                         print(
                             "couldn't rename 'Effective Date:' info in {0}".format(
                                 output_name
@@ -1093,7 +1102,7 @@ class sympro_txt_read(object):
                 output_file.close()
                 self.insert_blank_header_rows(output_name)
 
-            if standard == True:
+            if standard:
                 if out_file != "":
                     output_name = os.path.join(out_dir, out_file)
                 else:
@@ -1193,7 +1202,7 @@ class sympro_txt_read(object):
         for i in self.site_info[
             self.site_info[0].str.contains("Channel:") == True
         ].index:
-            if skip_first_channel == True:
+            if skip_first_channel:
                 skip_first_channel = False
             else:
                 blank_list.append(i)
@@ -1217,7 +1226,7 @@ class sympro_txt_read(object):
                 self.site_info[0].str.contains("Math Function:") == True
             ].index:
                 blank_list.remove(i)
-        except:
+        except Exception:
             pass
 
         try:
@@ -1225,7 +1234,7 @@ class sympro_txt_read(object):
                 self.site_info[0].str.contains("GHI Channel:") == True
             ].index:
                 blank_list.remove(i)
-        except:
+        except Exception:
             pass
 
         try:
@@ -1233,7 +1242,7 @@ class sympro_txt_read(object):
                 self.site_info[0].str.contains("RHI Channel:") == True
             ].index:
                 blank_list.remove(i)
-        except:
+        except Exception:
             pass
 
         try:
@@ -1241,7 +1250,7 @@ class sympro_txt_read(object):
                 self.site_info[0].str.contains("DIF Channel:") == True
             ].index:
                 blank_list.remove(i)
-        except:
+        except Exception:
             pass
 
         f_read = open(filename, "r")
@@ -1265,12 +1274,12 @@ class sympro_txt_read(object):
 
 
 def shift_timestamps(
-    txt_folder="",
-    out_folder="",
-    file_filter="",
-    start_date="1970-01-01",
-    end_date="2150-12-31",
-    seconds=3600,
+    txt_folder: str = "",
+    out_folder: str = "",
+    file_filter: str = "",
+    start_date: str = "1970-01-01",
+    end_date: str = "2150-12-31",
+    seconds: int = 3600,
 ):
     """Takes as input a folder of exported standard text files and
     time to shift in seconds.
@@ -1315,7 +1324,6 @@ def shift_timestamps(
     start_time = datetime.now()
 
     for f in files:
-
         try:
             draw_progress_bar(counter, file_count, start_time)
             f = os.path.join(txt_folder, f)
@@ -1330,8 +1338,11 @@ def shift_timestamps(
         except pd.errors.EmptyDataError:
             pass
 
-        except Exception as e:
+        except Exception:
             print(traceback.format_exc())
             pass
 
         counter += 1
+
+
+sympro_txt_read = SymProTextRead
