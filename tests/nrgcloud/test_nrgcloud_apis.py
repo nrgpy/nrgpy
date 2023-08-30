@@ -36,11 +36,13 @@ class TestCloudApis:
         # Arrange
         files = ["test.rld", "test.csv", "test.csv.zip", "test.diag", "test.statistical.dat"]
         TestCloudApis.monkeypatch.setattr(
-            "nrgpy.CloudImport.single_file", 
+            "nrgpy.CloudImport.single_file", mock_single_file
         )
         # Act
-        # Assert
-        pass
+        for f in files:
+            # Assert
+            pass
+            
 
     def test_cloud_import_filetypes_not_ok(self):
         # Arrange
