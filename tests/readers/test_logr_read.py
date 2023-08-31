@@ -1,10 +1,13 @@
 from nrgpy import logger
 from nrgpy import logr_read
 import os
+import pytest
 import sys
 import traceback
 
 
+# TODO: convert to pytest
+@pytest.mark.skip(reason="this is not set up as a pytest yet")
 def test_logr_read(directory="tests/test_readers/test_files"):
     """Check that LOGR dat files are ingested by nrgpy.logr_read"""
 
@@ -35,6 +38,8 @@ def test_logr_read(directory="tests/test_readers/test_files"):
     return True
 
 
+# TODO: convert to pytest
+@pytest.mark.skip(reason="this is not set up as a pytest yet")
 def test_logr_write(directory="tests/test_readers/test_files"):
     """Confirm output_txt working"""
     try:

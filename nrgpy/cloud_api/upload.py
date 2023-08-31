@@ -145,8 +145,27 @@ class CloudImport(cloud_api):
 
     def process(self):
         self.start_time = datetime.now()
+        self.files = self.get_valid_files_from_in_dir()
 
-        self.files = [
+        self.raw_count = len(self.files)
+        self.pad = len(str(self.raw_count)) + 1
+        self.counter = 1
+
+        if len(self.files) == 0:
+            logger.debug(f"no files to process in {self.in_dir}")
+            raise FileNotFoundError(f"no files to process in {self.in_dir}")
+
+        for filename in self.files:
+            try:
+                self.single_file(os.path.join(self.in_dir, filename))
+                self.counter += 1
+                if not is_authorized(self.resp):
+                    break
+            except Exception:
+                pass
+
+    def get_valid_files_from_in_dir(self) -> list:
+        return [
             f
             for f in sorted(os.listdir(self.in_dir))
             if self.site_filter in f
@@ -157,18 +176,6 @@ class CloudImport(cloud_api):
             and string_date_check(self.start_date, self.end_date, f)
         ]
 
-        self.raw_count = len(self.files)
-        self.pad = len(str(self.raw_count)) + 1
-        self.counter = 1
-
-        for filename in self.files:
-            try:
-                self.single_file(os.path.join(self.in_dir, filename))
-                self.counter += 1
-                if not is_authorized(self.resp):
-                    break
-            except Exception:
-                pass
 
     def single_file(self, filename: str = ""):
         try:
