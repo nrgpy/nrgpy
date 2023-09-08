@@ -260,7 +260,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -276,6 +278,19 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.sites.CloudSites"><code class="docutils literal notranslate"><span class="pre">CloudSites</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.sites.CloudSites.get_siteid"><code class="docutils literal notranslate"><span class="pre">CloudSites.get_siteid()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.sites.CloudSites.get_sites"><code class="docutils literal notranslate"><span class="pre">CloudSites.get_sites()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.sites.cloud_sites"><code class="docutils literal notranslate"><span class="pre">cloud_sites</span></code></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -285,8 +300,74 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="nrgpy-cloud-api-sites-module">
-<h1>nrgpy.cloud_api.sites module<a class="headerlink" href="#nrgpy-cloud-api-sites-module" title="Permalink to this heading">#</a></h1>
+  <section id="module-nrgpy.cloud_api.sites">
+<span id="nrgpy-cloud-api-sites-module"></span><h1>nrgpy.cloud_api.sites module<a class="headerlink" href="#module-nrgpy.cloud_api.sites" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.sites.CloudSites">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.sites.</span></span><span class="sig-name descname"><span class="pre">CloudSites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_base</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/sites.html#CloudSites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.sites.CloudSites" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nrgpy.cloud_api.auth.html#nrgpy.cloud_api.auth.CloudApi" title="nrgpy.cloud_api.auth.CloudApi"><code class="xref py py-class docutils literal notranslate"><span class="pre">CloudApi</span></code></a></p>
+<p>Find NRG Cloud sites associated with a user.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s1">&#39;go to https://cloud.nrgsystems.com for access&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s1">&#39;go to https://cloud.nrgsystems.com for access&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sites</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">CloudSites</span><span class="p">(</span><span class="n">client_id</span><span class="o">=</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="n">client_secret</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sites</span><span class="o">.</span><span class="n">sites_df</span>
+<span class="go">siteId  siteNumber    siteDescription               project  loggerSerialNumber</span>
+<span class="go">0      33        6716           SunnyDog              SunnyDog           820606716</span>
+<span class="go">1     213        1234    Suntastic South             Suntastic           820601234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sites</span><span class="o">.</span><span class="n">get_siteid</span><span class="p">(</span><span class="n">site_number</span><span class="o">=</span><span class="mi">6716</span><span class="p">)</span>
+<span class="go">33</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>available in the NRG Cloud portal</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>available in the NRG Cloud portal</p>
+</dd>
+<dt><strong>sites_list</strong><span class="classifier">list of dict</span></dt><dd></dd>
+<dt><strong>sites_df</strong><span class="classifier">pandas dataframe</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.sites.CloudSites.get_siteid">
+<span class="sig-name descname"><span class="pre">get_siteid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_sn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/sites.html#CloudSites.get_siteid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.sites.CloudSites.get_siteid" title="Permalink to this definition">#</a></dt>
+<dd><p>Get NRG Cloud site ID that corresponds to site number and/or logger SN</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>site_number</strong><span class="classifier">int</span></dt><dd><p>site number</p>
+</dd>
+<dt><strong>logger_sn</strong><span class="classifier">int</span></dt><dd><p>serial number of logger (beginning with 8206)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>corresponding site ID</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.sites.CloudSites.get_sites">
+<span class="sig-name descname"><span class="pre">get_sites</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/sites.html#CloudSites.get_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.sites.CloudSites.get_sites" title="Permalink to this definition">#</a></dt>
+<dd><p>Retrieve list of sites user has access to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.sites.cloud_sites">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.sites.</span></span><span class="sig-name descname"><span class="pre">cloud_sites</span></span><a class="headerlink" href="#nrgpy.cloud_api.sites.cloud_sites" title="Permalink to this definition">#</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nrgpy.cloud_api.sites.CloudSites" title="nrgpy.cloud_api.sites.CloudSites"><code class="xref py py-class docutils literal notranslate"><span class="pre">CloudSites</span></code></a></p>
+</dd></dl>
+
 </section>
 
 
@@ -310,6 +391,25 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.sites.CloudSites"><code class="docutils literal notranslate"><span class="pre">CloudSites</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.sites.CloudSites.get_siteid"><code class="docutils literal notranslate"><span class="pre">CloudSites.get_siteid()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.sites.CloudSites.get_sites"><code class="docutils literal notranslate"><span class="pre">CloudSites.get_sites()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.sites.cloud_sites"><code class="docutils literal notranslate"><span class="pre">cloud_sites</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -32,8 +32,8 @@
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -251,7 +251,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="nrg_api_export"><a class="viewcode-back" href="../../../nrgpy.api.export.html#nrgpy.api.export.nrg_api_export">[docs]</a><span class="k">class</span> <span class="nc">nrg_api_export</span><span class="p">(</span><span class="n">nrg_api</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Uses NRG hosted web-based API to download data in text format</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Uses NRG hosted web-based API to download data in text format</span>
 <span class="sd">    To sign up for the service, go to https://services.nrgsystems.com/</span>
 
 <span class="sd">    Parameters</span>
@@ -314,17 +314,29 @@ document.write(`
 <span class="sd">    &gt;&gt;&gt;     print(&quot;unable to get reader&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">serial_number</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                 <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2014-01-01&#39;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s1">&#39;2023-12-31&#39;</span><span class="p">,</span>
-                 <span class="n">client_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">nec_file</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                 <span class="n">export_type</span><span class="o">=</span><span class="s1">&#39;meas&#39;</span><span class="p">,</span> <span class="n">text_timestamps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
-                 <span class="n">save_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">out_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">serial_number</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2014-01-01&quot;</span><span class="p">,</span>
+        <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2023-12-31&quot;</span><span class="p">,</span>
+        <span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">client_secret</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">nec_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">export_type</span><span class="o">=</span><span class="s2">&quot;meas&quot;</span><span class="p">,</span>
+        <span class="n">text_timestamps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">save_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">txt_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">serial_number</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s1">.txt&#39;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txt_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">serial_number</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+            <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;txt&#39;</span><span class="p">,</span> <span class="s1">&#39;zip&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;txt&quot;</span><span class="p">,</span> <span class="s2">&quot;zip&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_file</span> <span class="o">=</span> <span class="n">out_file</span>
         <span class="n">affirm_directory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
@@ -340,7 +352,7 @@ document.write(`
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_file_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">save_file</span> <span class="o">=</span> <span class="n">save_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reader</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">export</span><span class="p">()</span>
@@ -351,11 +363,11 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;serialnumber&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">serial_number</span><span class="p">,</span>
-            <span class="s1">&#39;startdate&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span>
-            <span class="s1">&#39;enddate&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span>
-            <span class="s1">&#39;exporttype&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span><span class="p">,</span>
-            <span class="s1">&#39;necfilebytes&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span>
+            <span class="s2">&quot;serialnumber&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">serial_number</span><span class="p">,</span>
+            <span class="s2">&quot;startdate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span>
+            <span class="s2">&quot;enddate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span>
+            <span class="s2">&quot;exporttype&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span><span class="p">,</span>
+            <span class="s2">&quot;necfilebytes&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
@@ -371,16 +383,16 @@ document.write(`
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
 
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 
-                <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
                     <span class="n">data_file</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">namelist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
 
                 <span class="n">reader</span> <span class="o">=</span> <span class="n">sympro_txt_read</span><span class="p">(</span>
                     <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">data_file</span><span class="p">),</span>
-                    <span class="n">text_timestamps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span>
+                    <span class="n">text_timestamps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_timestamps</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="n">reader</span><span class="o">.</span><span class="n">format_site_data</span><span class="p">()</span>
 
@@ -400,15 +412,19 @@ document.write(`
 
                     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_file</span><span class="p">:</span>
 
-                        <span class="bp">self</span><span class="o">.</span><span class="n">out_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_number</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="si">}</span><span class="s1">.txt&#39;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">out_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_number</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                            <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span>
+                        <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                            <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
+                        <span class="p">)</span>
 
                     <span class="k">else</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">out_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt_file</span><span class="p">)</span>
 
                     <span class="n">reader</span><span class="o">.</span><span class="n">output_txt_file</span><span class="p">(</span><span class="n">standard</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">out_file</span><span class="p">)</span>
 
-                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;necfilebytes&#39;</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;nec_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;necfilebytes&quot;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;nec_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span>
                 <span class="n">reader</span><span class="o">.</span><span class="n">post_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;export created&quot;</span><span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;export took </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">request_duration</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -433,9 +449,15 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -445,7 +467,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -460,7 +482,7 @@ By NRG Systems, Inc.
     
   <p class="copyright">
     
-      © Copyright 2022, NRG Systems, Inc..
+      © Copyright 2023, NRG Systems, Inc..
       <br/>
     
   </p>
@@ -475,7 +497,7 @@ By NRG Systems, Inc.
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -484,8 +506,8 @@ By NRG Systems, Inc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

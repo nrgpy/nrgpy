@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -32,8 +32,8 @@
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -237,54 +237,37 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for nrgpy.utils.ipk2lgr</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/python</span>
-<span class="c1">#</span>
-<span class="c1"># 2017/11/21 - ipk2lgr.py .............. d.carlson</span>
-<span class="c1">#                                       edited 2018/09/26</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#            - takes IPK file as input and converts to LGR file</span>
-<span class="c1">#</span>
-<span class="c1">#               usage:  import ipk2lgr</span>
-<span class="c1">#                      ipk2lgr.ipk2lgr(&quot;path/to/ipkfile&quot;)</span>
-<span class="c1">#               output: ipkfile.lgr # includes network and email settings</span>
-<span class="c1">#             ...............................................</span>
-
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span> 
-
-<span class="c1">#logfile = &#39;ipklog.log&#39;</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
 
-<div class="viewcode-block" id="ipk2lgr"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipk2lgr">[docs]</a><span class="k">def</span> <span class="nf">ipk2lgr</span><span class="p">(</span><span class="n">ipkfile</span><span class="p">):</span> 
-    <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="ipk2lgr"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipk2lgr">[docs]</a><span class="k">def</span> <span class="nf">ipk2lgr</span><span class="p">(</span><span class="n">ipkfile</span><span class="p">):</span>
+    <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># handle the old and new filenames, abort if filename bad</span>
-    <span class="n">filenameroot</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="n">filename</span>     <span class="o">=</span> <span class="n">filenameroot</span> <span class="o">+</span> <span class="n">ipkfile</span>
-    <span class="n">lgrfilename</span>  <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;lgr&#39;</span>
+    <span class="n">filenameroot</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">filenameroot</span> <span class="o">+</span> <span class="n">ipkfile</span>
+    <span class="n">lgrfilename</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;lgr&quot;</span>
 
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;file doesn&#39;t exist&quot;</span>
 
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">lgrfilename</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> <span class="c1">#replace existing lgr file</span>
-        <span class="n">lgrfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">lgrfilename</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">lgrfilename</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># replace existing lgr file</span>
+        <span class="n">lgrfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">lgrfilename</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">)</span>
         <span class="n">lgrfile</span><span class="o">.</span><span class="n">truncate</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">lgrfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">lgrfilename</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
-
-
+        <span class="n">lgrfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">lgrfilename</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">)</span>
 
     <span class="c1"># read the ipk file into array, map included in comments below</span>
-    <span class="n">ipkfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">ipkfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
     <span class="n">ipkline</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">ipkfile</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
             <span class="n">ipkline</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">)))</span>
-        <span class="k">except</span><span class="p">:</span>        
+        <span class="k">except</span><span class="p">:</span>
             <span class="n">ipkline</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
 
     <span class="c1"># assign smtp port if older IPK file</span>
@@ -302,43 +285,45 @@ document.write(`
     <span class="c1"># write the settings into a new lgr file</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">writearray</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;;Renewable NRG Systems SymphoniePRO &amp; iPack Configuration File&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">&quot;;Renewable NRG Systems SymphoniePRO &amp; iPack Configuration File&quot;</span>
+        <span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;;Software Version: x.x.x.x (converted with Python)&quot;</span><span class="p">)</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;;Generated: &quot;</span><span class="o">+</span><span class="n">today</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;;Generated: &quot;</span> <span class="o">+</span> <span class="n">today</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[FileHeader]&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;FormatVersion=1&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[EmailSchedule]&quot;</span><span class="p">)</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Frequency=&quot;</span><span class="o">+</span><span class="n">callinterval</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">17</span><span class="p">])))</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Time(UTC)=&quot;</span><span class="o">+</span><span class="n">calltime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">16</span><span class="p">])))</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SmtpServer=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SmtpPort=&quot;</span><span class="o">+</span><span class="n">smtpport</span><span class="p">)</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SmtpUserName=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">28</span><span class="p">])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Password=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">29</span><span class="p">])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SendersEmail=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Frequency=&quot;</span> <span class="o">+</span> <span class="n">callinterval</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">17</span><span class="p">])))</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Time(UTC)=&quot;</span> <span class="o">+</span> <span class="n">calltime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">16</span><span class="p">])))</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SmtpServer=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SmtpPort=&quot;</span> <span class="o">+</span> <span class="n">smtpport</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SmtpUserName=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">28</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Password=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">29</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SendersEmail=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SendersName=&quot;</span><span class="p">)</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;RecipientsEmail=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;RecipientsName=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;CCEmail1=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">25</span><span class="p">])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;CCEmail2=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">26</span><span class="p">])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Subject=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;RecipientsEmail=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;RecipientsName=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;CCEmail1=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">25</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;CCEmail2=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">26</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Subject=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[TimeService]&quot;</span><span class="p">)</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SntpServer=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SntpServer=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;UseSntp=On&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;UseGps=On&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[iPackNetwork]&quot;</span><span class="p">)</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;iPackModel=&quot;</span><span class="o">+</span><span class="n">ipacktype</span><span class="p">)</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;IspUserName=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;IspPassword=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;iPackModel=&quot;</span> <span class="o">+</span> <span class="n">ipacktype</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;IspUserName=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;IspPassword=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">apn</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;GsmApn=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">30</span><span class="p">])</span>
-            <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Pin=&quot;</span><span class="p">)</span>                <span class="c1">#+ipkline[19])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;DialString=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;PrimaryDNS=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SecondaryDNS=&quot;</span><span class="o">+</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;GsmApn=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">30</span><span class="p">])</span>
+            <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Pin=&quot;</span><span class="p">)</span>  <span class="c1"># +ipkline[19])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;DialString=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;PrimaryDNS=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SecondaryDNS=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[LoggerInitiatedSchedule]&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Frequency=Disabled&quot;</span><span class="p">)</span>
@@ -347,10 +332,10 @@ document.write(`
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;PrimaryPort=30406&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SecondaryHost=&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SecondaryPort=30406&quot;</span><span class="p">)</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Backup=On&quot;</span><span class="p">)</span> <span class="c1"># enable connections to listener server</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Backup=On&quot;</span><span class="p">)</span>  <span class="c1"># enable connections to listener server</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[LoggerListeningSchedule]&quot;</span><span class="p">)</span>
-        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Frequency=&quot;</span><span class="o">+</span><span class="n">callinterval</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">17</span><span class="p">])))</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Frequency=&quot;</span> <span class="o">+</span> <span class="n">callinterval</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">17</span><span class="p">])))</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Time(UTC)=12:00&quot;</span><span class="p">)</span>
         <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Duration=1 Hour&quot;</span><span class="p">)</span>
         <span class="c1"># write array to file</span>
@@ -360,12 +345,10 @@ document.write(`
 
         <span class="n">lgrfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[DONE]&quot;</span><span class="p">)</span>
-       
-    <span class="k">except</span><span class="p">:</span> 
+
+    <span class="k">except</span><span class="p">:</span>
         <span class="n">lgrfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to convert file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipkfile</span><span class="p">))</span></div>
-
-
 
 
 <div class="viewcode-block" id="callinterval"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.callinterval">[docs]</a><span class="k">def</span> <span class="nf">callinterval</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>
@@ -380,21 +363,22 @@ document.write(`
     <span class="k">elif</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">520000</span><span class="p">:</span>
         <span class="n">callint</span> <span class="o">=</span> <span class="s2">&quot;Weekly&quot;</span>
     <span class="k">return</span> <span class="n">callint</span></div>
- 
+
 
 <div class="viewcode-block" id="calltime"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.calltime">[docs]</a><span class="k">def</span> <span class="nf">calltime</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M&#39;</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ipackinfo"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipackinfo">[docs]</a><span class="k">def</span> <span class="nf">ipackinfo</span><span class="p">(</span><span class="n">typeint</span><span class="p">):</span>
-    <span class="n">ipackdefs</span> <span class="o">=</span> <span class="p">([</span><span class="s2">&quot;OTHER&quot;</span><span class="p">,</span><span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+    <span class="n">ipackdefs</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;OTHER&quot;</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
         <span class="p">[</span><span class="s2">&quot;CM900&quot;</span><span class="p">,</span> <span class="s2">&quot;CM900&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
-        <span class="p">[</span><span class="s2">&quot;GSM&quot;</span><span class="p">,</span><span class="s2">&quot;GSM&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
-        <span class="p">[</span><span class="s2">&quot;CERMETEK&quot;</span><span class="p">,</span><span class="s2">&quot;Dial-up&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
-        <span class="p">[</span><span class="s2">&quot;DOCOMO&quot;</span><span class="p">,</span><span class="s2">&quot;DoCoMo&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
-        <span class="p">[</span><span class="s2">&quot;CDMA&quot;</span><span class="p">,</span><span class="s2">&quot;CDMA&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
-        <span class="p">[</span><span class="s2">&quot;IRIDIUM&quot;</span><span class="p">,</span><span class="s2">&quot;Iridium&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
-        <span class="p">[</span><span class="s2">&quot;GLOBALSTAR&quot;</span><span class="p">,</span><span class="s2">&quot;GlobalStar&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;GSM&quot;</span><span class="p">,</span> <span class="s2">&quot;GSM&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;CERMETEK&quot;</span><span class="p">,</span> <span class="s2">&quot;Dial-up&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;DOCOMO&quot;</span><span class="p">,</span> <span class="s2">&quot;DoCoMo&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;CDMA&quot;</span><span class="p">,</span> <span class="s2">&quot;CDMA&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;IRIDIUM&quot;</span><span class="p">,</span> <span class="s2">&quot;Iridium&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;GLOBALSTAR&quot;</span><span class="p">,</span> <span class="s2">&quot;GlobalStar&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
         <span class="p">[</span><span class="s2">&quot;DIRECT&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackACCESS (7169)&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
         <span class="p">[</span><span class="s2">&quot;CDMA_C1&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS CDMA (4621)&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
         <span class="p">[</span><span class="s2">&quot;GSM_G2_R1&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS GSM (4622)&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
@@ -403,10 +387,11 @@ document.write(`
         <span class="p">[</span><span class="s2">&quot;2G_GSM_G3&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS GSM (4622)&quot;</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
         <span class="p">[</span><span class="s2">&quot;LTE_TDD&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS LTE-TDD (9388)&quot;</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
         <span class="p">[</span><span class="s2">&quot;LTE_VZW&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS LTE-VZW (9390)&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
-        <span class="p">[</span><span class="s2">&quot;LTE_ATT&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS LTE-ATT (9389)&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+        <span class="p">[</span><span class="s2">&quot;LTE_ATT&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS LTE-ATT (9389)&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+    <span class="p">)</span>
 
     <span class="n">ipacktype</span> <span class="o">=</span> <span class="n">ipackdefs</span><span class="p">[</span><span class="n">typeint</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">apn</span>       <span class="o">=</span> <span class="n">ipackdefs</span><span class="p">[</span><span class="n">typeint</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">apn</span> <span class="o">=</span> <span class="n">ipackdefs</span><span class="p">[</span><span class="n">typeint</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">ipacktype</span><span class="p">,</span> <span class="n">apn</span></div>
 
@@ -414,24 +399,23 @@ document.write(`
 <div class="viewcode-block" id="ipackinfo_backup"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipackinfo_backup">[docs]</a><span class="k">def</span> <span class="nf">ipackinfo_backup</span><span class="p">(</span><span class="n">phonestr</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">phonestr</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;*99&quot;</span><span class="p">:</span>
         <span class="n">ipacktype</span> <span class="o">=</span> <span class="s2">&quot;iPackGPS GSM (4622)&quot;</span>
-        <span class="n">apn</span>       <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">apn</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">elif</span> <span class="n">phonestr</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;#777&quot;</span><span class="p">:</span>
         <span class="n">ipacktype</span> <span class="o">=</span> <span class="s2">&quot;iPackGPS CDMA (4621)&quot;</span>
-        <span class="n">apn</span>       <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">apn</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">ipacktype</span> <span class="o">=</span> <span class="s2">&quot;iPackACCESS (7169)&quot;</span>
-        <span class="n">apn</span>       <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">apn</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">return</span> <span class="n">ipacktype</span><span class="p">,</span> <span class="n">apn</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-   <span class="n">ipk2lgr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
- 
+    <span class="n">ipk2lgr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
-    <span class="c1">#     #     #     #     #     #     # </span>
+    <span class="c1">#     #     #     #     #     #     #</span>
     <span class="c1"># iPack file Line assignment (0 indexed)</span>
-    <span class="c1"># </span>
+    <span class="c1">#</span>
     <span class="c1"># 0 = Primary ISP Phone Number</span>
     <span class="c1"># 1 = Secondary ISP Phone Number (hidden)</span>
     <span class="c1"># 2 = Primary DNS number</span>
@@ -451,88 +435,86 @@ document.write(`
     <span class="c1"># 16 = Next Call Time (seconds since 1970)</span>
     <span class="c1"># 17 = Call Interval (seconds)</span>
     <span class="c1"># 18 = iPack type:</span>
-		<span class="c1"># 0 = OTHER</span>
-		<span class="c1"># 1 = AMPS</span>
-		<span class="c1"># 2 = GSM/GPRS</span>
-		<span class="c1"># 3 = Dial-up</span>
-		<span class="c1"># 4 = DoCoMo</span>
-		<span class="c1"># 5 = CDMA</span>
-		<span class="c1"># 6 = Satellite ... etc...</span>
-    <span class="c1"># 19 = GSM pin</span>
-    <span class="c1"># 20 =</span>
-    <span class="c1"># 21 = </span>
-    <span class="c1"># 22 = </span>
-    <span class="c1"># 23 = </span>
-    <span class="c1"># 24 = Patch Password</span>
-    <span class="c1"># 25 = CC E-Mail Address </span>
-    <span class="c1"># 26 = CC E-Mail Address 2</span>
-    <span class="c1"># 27 = My SMTP Server requires authentication 1/0</span>
-    <span class="c1"># 28 = SMTP Login</span>
-    <span class="c1"># 29 = SMTP Password</span>
-    <span class="c1"># 30 = APN Name (GPRS Only)</span>
-    <span class="c1"># 31 = Download partial files 255/0</span>
-    <span class="c1"># 32 = Check POP mailbox 255/0</span>
-    <span class="c1"># 33 = Enable SMTP 255/0</span>
-    <span class="c1"># 34 = POP Port</span>
-    <span class="c1"># 35 = SMTP Port</span>
-    <span class="c1"># 36 = Enable Modbus? 1/0</span>
-    <span class="c1"># 37 = Modbus Slave Address (1-255)</span>
-    <span class="c1"># 38 = Modpus Port (1-65535)</span>
-    <span class="c1"># 39 = Enable DHCP? 1/0</span>
-    <span class="c1"># 40 = Static IP Address</span>
-    <span class="c1"># 41 = Subnet Mask</span>
-    <span class="c1"># 42 = Gateway IP Address</span>
-    <span class="c1"># 43 = Statistical Data Interval (seconds)</span>
-    <span class="c1"># 44 = Stale Data Timeout (seconds)</span>
-    <span class="c1"># 45 = Use Secure IP Address 1/0</span>
-    <span class="c1"># 46 - 55 = Allowed IP Address 1 - 10</span>
-    <span class="c1">#     #     #     #     #     # </span>
-    <span class="c1"># LGR file comms line assignment</span>
-    <span class="c1"># 1 = ;Renewable NRG Systems SymphoniePRO &amp; iPack Configuration File (comment)</span>
-    <span class="c1"># 2 = ;Software Version: 2.2.0.3 (build 27564 (modified) 2016-09-08) (comment)</span>
-    <span class="c1"># 3 = ;Generated: 2016-11-21 10:02:29 (comment)</span>
-    <span class="c1"># 4 =</span>
-    <span class="c1"># 5 = [FileHeader]</span>
-    <span class="c1"># 6 = FormatVersion=1</span>
-    <span class="c1"># 7 =</span>
-    <span class="c1"># 8 = [EmailSchedule]</span>
-    <span class="c1"># 9 = Frequency=Daily</span>
-    <span class="c1"># 10 = Time(UTC)=12:10</span>
-    <span class="c1"># 11 = SmtpServer=</span>
-    <span class="c1"># 12 = SmtpPort=</span>
-    <span class="c1"># 13 = SmtpUserName=</span>
-    <span class="c1"># 14 = Password=</span>
-    <span class="c1"># 15 = SendersEmail=</span>
-    <span class="c1"># 16 = SendersName=</span>
-    <span class="c1"># 17 = RecipientsEmail=</span>
-    <span class="c1"># 18 = CCEmail1=</span>
-    <span class="c1"># 19 = CCEmail2=</span>
-    <span class="c1"># 21 = Subject=</span>
-    <span class="c1"># 22 =</span>
-    <span class="c1"># 23 = [TimeService]</span>
-    <span class="c1"># 24 = SntpServer=ntp.ubuntu.com</span>
-    <span class="c1"># 25 = UseSntp=Off</span>
-    <span class="c1"># 26 = UseGps=On</span>
-    <span class="c1"># 27 = </span>
-    <span class="c1"># 28 = [iPackNetwork]</span>
-    <span class="c1"># 29 = iPackModel=iPackGPS CDMA (4621) OR</span>
-    <span class="c1">#      iPackModel=iPackACCESS (7169)</span>
-    <span class="c1">#      iPackModel=iPackGPS DoCoMo (4623) *USES APN &amp; PIN</span>
-    <span class="c1">#      iPackModel=iPackGPS 3G (7984)     *USES APN &amp; PIN</span>
-    <span class="c1">#      iPackModel=iPackGPS GSM (4622)    *USES APN &amp; PIN</span>
+<span class="c1"># 0 = OTHER</span>
+<span class="c1"># 1 = AMPS</span>
+<span class="c1"># 2 = GSM/GPRS</span>
+<span class="c1"># 3 = Dial-up</span>
+<span class="c1"># 4 = DoCoMo</span>
+<span class="c1"># 5 = CDMA</span>
+<span class="c1"># 6 = Satellite ... etc...</span>
+<span class="c1"># 19 = GSM pin</span>
+<span class="c1"># 20 =</span>
+<span class="c1"># 21 =</span>
+<span class="c1"># 22 =</span>
+<span class="c1"># 23 =</span>
+<span class="c1"># 24 = Patch Password</span>
+<span class="c1"># 25 = CC E-Mail Address</span>
+<span class="c1"># 26 = CC E-Mail Address 2</span>
+<span class="c1"># 27 = My SMTP Server requires authentication 1/0</span>
+<span class="c1"># 28 = SMTP Login</span>
+<span class="c1"># 29 = SMTP Password</span>
+<span class="c1"># 30 = APN Name (GPRS Only)</span>
+<span class="c1"># 31 = Download partial files 255/0</span>
+<span class="c1"># 32 = Check POP mailbox 255/0</span>
+<span class="c1"># 33 = Enable SMTP 255/0</span>
+<span class="c1"># 34 = POP Port</span>
+<span class="c1"># 35 = SMTP Port</span>
+<span class="c1"># 36 = Enable Modbus? 1/0</span>
+<span class="c1"># 37 = Modbus Slave Address (1-255)</span>
+<span class="c1"># 38 = Modpus Port (1-65535)</span>
+<span class="c1"># 39 = Enable DHCP? 1/0</span>
+<span class="c1"># 40 = Static IP Address</span>
+<span class="c1"># 41 = Subnet Mask</span>
+<span class="c1"># 42 = Gateway IP Address</span>
+<span class="c1"># 43 = Statistical Data Interval (seconds)</span>
+<span class="c1"># 44 = Stale Data Timeout (seconds)</span>
+<span class="c1"># 45 = Use Secure IP Address 1/0</span>
+<span class="c1"># 46 - 55 = Allowed IP Address 1 - 10</span>
+<span class="c1">#     #     #     #     #     #</span>
+<span class="c1"># LGR file comms line assignment</span>
+<span class="c1"># 1 = ;Renewable NRG Systems SymphoniePRO &amp; iPack Configuration File (comment)</span>
+<span class="c1"># 2 = ;Software Version: 2.2.0.3 (build 27564 (modified) 2016-09-08) (comment)</span>
+<span class="c1"># 3 = ;Generated: 2016-11-21 10:02:29 (comment)</span>
+<span class="c1"># 4 =</span>
+<span class="c1"># 5 = [FileHeader]</span>
+<span class="c1"># 6 = FormatVersion=1</span>
+<span class="c1"># 7 =</span>
+<span class="c1"># 8 = [EmailSchedule]</span>
+<span class="c1"># 9 = Frequency=Daily</span>
+<span class="c1"># 10 = Time(UTC)=12:10</span>
+<span class="c1"># 11 = SmtpServer=</span>
+<span class="c1"># 12 = SmtpPort=</span>
+<span class="c1"># 13 = SmtpUserName=</span>
+<span class="c1"># 14 = Password=</span>
+<span class="c1"># 15 = SendersEmail=</span>
+<span class="c1"># 16 = SendersName=</span>
+<span class="c1"># 17 = RecipientsEmail=</span>
+<span class="c1"># 18 = CCEmail1=</span>
+<span class="c1"># 19 = CCEmail2=</span>
+<span class="c1"># 21 = Subject=</span>
+<span class="c1"># 22 =</span>
+<span class="c1"># 23 = [TimeService]</span>
+<span class="c1"># 24 = SntpServer=ntp.ubuntu.com</span>
+<span class="c1"># 25 = UseSntp=Off</span>
+<span class="c1"># 26 = UseGps=On</span>
+<span class="c1"># 27 =</span>
+<span class="c1"># 28 = [iPackNetwork]</span>
+<span class="c1"># 29 = iPackModel=iPackGPS CDMA (4621) OR</span>
+<span class="c1">#      iPackModel=iPackACCESS (7169)</span>
+<span class="c1">#      iPackModel=iPackGPS DoCoMo (4623) *USES APN &amp; PIN</span>
+<span class="c1">#      iPackModel=iPackGPS 3G (7984)     *USES APN &amp; PIN</span>
+<span class="c1">#      iPackModel=iPackGPS GSM (4622)    *USES APN &amp; PIN</span>
 
 
-    <span class="c1"># 30 = IspUserName=web</span>
-    <span class="c1"># 31 = IspPassword=web</span>
+<span class="c1"># 30 = IspUserName=web</span>
+<span class="c1"># 31 = IspPassword=web</span>
 
-    <span class="c1"># 32 = GsmApn=</span>
-    <span class="c1"># 33 = Pin=</span>
-    <span class="c1"># 34 = DialString=#777 or *99***1#</span>
-    <span class="c1"># 35 = PrimaryDNS=0.0.0.0</span>
-    <span class="c1"># 36 = SecondaryDNS=0.0.0.0</span>
-    <span class="c1"># 37</span>
-
-                 
+<span class="c1"># 32 = GsmApn=</span>
+<span class="c1"># 33 = Pin=</span>
+<span class="c1"># 34 = DialString=#777 or *99***1#</span>
+<span class="c1"># 35 = PrimaryDNS=0.0.0.0</span>
+<span class="c1"># 36 = SecondaryDNS=0.0.0.0</span>
+<span class="c1"># 37</span>
 </pre></div>
 
                 </article>
@@ -541,9 +523,15 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -553,7 +541,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -568,7 +556,7 @@ By NRG Systems, Inc.
     
   <p class="copyright">
     
-      © Copyright 2022, NRG Systems, Inc..
+      © Copyright 2023, NRG Systems, Inc..
       <br/>
     
   </p>
@@ -583,7 +571,7 @@ By NRG Systems, Inc.
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -592,8 +580,8 @@ By NRG Systems, Inc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

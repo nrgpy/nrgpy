@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -32,8 +32,8 @@
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -243,7 +243,7 @@ document.write(`
     <span class="k">pass</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">io</span>
-<span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="n">affirm_directory</span><span class="p">,</span> <span class="n">date_check</span><span class="p">,</span> <span class="n">draw_progress_bar</span>
+<span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="n">affirm_directory</span><span class="p">,</span> <span class="n">string_date_check</span><span class="p">,</span> <span class="n">draw_progress_bar</span>
 <span class="kn">from</span> <span class="nn">.auth</span> <span class="kn">import</span> <span class="n">nrg_api</span><span class="p">,</span> <span class="n">convert_url</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">requests</span>
@@ -251,7 +251,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="nrg_api_convert"><a class="viewcode-back" href="../../../nrgpy.api.convert.html#nrgpy.api.convert.nrg_api_convert">[docs]</a><span class="k">class</span> <span class="nc">nrg_api_convert</span><span class="p">(</span><span class="n">nrg_api</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Uses NRG hosted web-based API to convert RLD and RWD files to text format</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Uses NRG hosted web-based API to convert RLD and RWD files to text format</span>
 <span class="sd">    To sign up for the service, go to https://services.nrgsystems.com/</span>
 
 <span class="sd">    Parameters</span>
@@ -320,13 +320,26 @@ document.write(`
 <span class="sd">    &gt;&gt;&gt; converter.process()</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rld_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                 <span class="n">site_filter</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">filter2</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                 <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;1970-01-01&#39;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s1">&#39;2150-12-31&#39;</span><span class="p">,</span>
-                 <span class="n">client_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                 <span class="n">encryption_pass</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">header_type</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">,</span> <span class="n">nec_file</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                 <span class="n">export_type</span><span class="o">=</span><span class="s1">&#39;meas&#39;</span><span class="p">,</span> <span class="n">export_format</span><span class="o">=</span><span class="s1">&#39;csv_zipped&#39;</span><span class="p">,</span>
-                 <span class="n">progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">rld_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">out_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">site_filter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">filter2</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span>
+        <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2150-12-31&quot;</span><span class="p">,</span>
+        <span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">client_secret</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">encryption_pass</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">header_type</span><span class="o">=</span><span class="s2">&quot;standard&quot;</span><span class="p">,</span>
+        <span class="n">nec_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">export_type</span><span class="o">=</span><span class="s2">&quot;meas&quot;</span><span class="p">,</span>
+        <span class="n">export_format</span><span class="o">=</span><span class="s2">&quot;csv_zipped&quot;</span><span class="p">,</span>
+        <span class="n">progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">)</span>
 
@@ -335,8 +348,8 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span> <span class="o">=</span> <span class="n">export_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="o">=</span> <span class="n">site_filter</span>
 
-        <span class="k">if</span> <span class="s1">&#39;file_filter&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">site_filter</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file_filter&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;file_filter&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">site_filter</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;file_filter&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="o">=</span> <span class="n">filter2</span>
@@ -366,11 +379,11 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="ow">in</span> <span class="n">f</span>
-            <span class="ow">and</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;rld&#39;</span><span class="p">)</span>
+            <span class="n">f</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;rld&quot;</span><span class="p">)</span>
             <span class="c1"># and f.lower().endswith((&#39;rwd&#39;, &#39;rld&#39;))    ## Uncomment when RWD convert is supported</span>
-            <span class="ow">and</span> <span class="n">date_check</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">string_date_check</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
         <span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
@@ -381,46 +394,57 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">single_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">,</span> <span class="n">rld</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="nrg_api_convert.single_file"><a class="viewcode-back" href="../../../nrgpy.api.convert.html#nrgpy.api.convert.nrg_api_convert.single_file">[docs]</a>    <span class="k">def</span> <span class="nf">single_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rld</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="p">:</span>
                 <span class="n">draw_progress_bar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Processing </span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2"> ... </span><span class="si">{2}</span><span class="s2"> ... &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">rld</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Processing </span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2"> ... </span><span class="si">{2}</span><span class="s2"> ... &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">),</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_count</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">),</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">rld</span><span class="p">),</span>
+                    <span class="p">),</span>
+                    <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">encoded_rld_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_file_bytes</span><span class="p">(</span><span class="n">rld</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_file_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_valid</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_session_token</span><span class="p">()</span>
+                <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">session_start_time</span><span class="p">,</span>
+                <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_session_token</span><span class="p">()</span>
 
             <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">)}</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-                        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">rld</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
-                        <span class="s1">&#39;filebytes&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_rld_bytes</span><span class="p">,</span>
-                        <span class="s1">&#39;necfilebytes&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span><span class="p">,</span>
-                        <span class="s1">&#39;headertype&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_type</span><span class="p">,</span>      <span class="c1"># standard | columnonly  | none</span>
-                        <span class="s1">&#39;exporttype&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span><span class="p">,</span>      <span class="c1"># measurements (default) | samples</span>
-                        <span class="s1">&#39;exportformat&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_format</span><span class="p">,</span>  <span class="c1"># csv_zipped (default)   | parquet</span>
-                        <span class="s1">&#39;encryptionkey&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encryption_pass</span><span class="p">,</span>
-                        <span class="s1">&#39;columnheaderformat&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>            <span class="c1"># not implemented yet</span>
-                    <span class="p">}</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">rld</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
+                <span class="s2">&quot;filebytes&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_rld_bytes</span><span class="p">,</span>
+                <span class="s2">&quot;necfilebytes&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span><span class="p">,</span>
+                <span class="s2">&quot;headertype&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_type</span><span class="p">,</span>  <span class="c1"># standard | columnonly  | none</span>
+                <span class="s2">&quot;exporttype&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span><span class="p">,</span>  <span class="c1"># measurements (default) | samples</span>
+                <span class="s2">&quot;exportformat&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_format</span><span class="p">,</span>  <span class="c1"># csv_zipped (default)   | parquet</span>
+                <span class="s2">&quot;encryptionkey&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encryption_pass</span><span class="p">,</span>
+                <span class="s2">&quot;columnheaderformat&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>  <span class="c1"># not implemented yet</span>
+            <span class="p">}</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">convert_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 
             <span class="n">zipped_data_file</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
             <span class="n">reg_data_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">zipped_data_file</span><span class="o">.</span><span class="n">infolist</span><span class="p">()</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="n">out_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">rld</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;txt&#39;</span>
+            <span class="n">out_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">rld</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;txt&quot;</span>
 
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_filename</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outputfile</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_filename</span><span class="p">),</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outputfile</span><span class="p">:</span>
                 <span class="n">outputfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">zipped_data_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
 
             <span class="k">try</span><span class="p">:</span>
@@ -431,7 +455,9 @@ document.write(`
                 <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
             <span class="k">except</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Could not convert Windows newline characters properly; file may be unstable&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Could not convert Windows newline characters properly; file may be unstable&quot;</span>
+                <span class="p">)</span>
 
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;converted </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">out_filename</span><span class="p">)</span><span class="si">}</span><span class="s2"> OK&quot;</span><span class="p">)</span>
 
@@ -444,7 +470,7 @@ document.write(`
 
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unable to convert </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;unable to process file: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;unable to process file: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld</span><span class="p">))</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">reason</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">pass</span></div></div>
@@ -456,9 +482,15 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -468,7 +500,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -483,7 +515,7 @@ By NRG Systems, Inc.
     
   <p class="copyright">
     
-      © Copyright 2022, NRG Systems, Inc..
+      © Copyright 2023, NRG Systems, Inc..
       <br/>
     
   </p>
@@ -498,7 +530,7 @@ By NRG Systems, Inc.
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -507,8 +539,8 @@ By NRG Systems, Inc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

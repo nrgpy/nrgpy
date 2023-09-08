@@ -260,7 +260,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -276,6 +278,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8"><code class="docutils literal notranslate"><span class="pre">convert_utf16le_to_utf8</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file"><code class="docutils literal notranslate"><span class="pre">convert_utf16le_to_utf8.single_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -285,8 +298,51 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="nrgpy-utils-encodings-module">
-<h1>nrgpy.utils.encodings module<a class="headerlink" href="#nrgpy-utils-encodings-module" title="Permalink to this heading">#</a></h1>
+  <section id="module-nrgpy.utils.encodings">
+<span id="nrgpy-utils-encodings-module"></span><h1>nrgpy.utils.encodings module<a class="headerlink" href="#module-nrgpy.utils.encodings" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.utils.encodings.convert_utf16le_to_utf8">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.utils.encodings.</span></span><span class="sig-name descname"><span class="pre">convert_utf16le_to_utf8</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/encodings.html#convert_utf16le_to_utf8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>for making Spidar data files compatible with programs that do not support utf-16-le character encoding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>(optional) path of file to convert</p>
+</dd>
+<dt><strong>input_directory</strong><span class="classifier">str</span></dt><dd><p>(optional) path of directory with files to convert</p>
+</dd>
+<dt><strong>output_directory</strong><span class="classifier">str</span></dt><dd><p>(optional) path of directory store converted files in</p>
+</dd>
+<dt><strong>inplace</strong><span class="classifier">bool</span></dt><dd><p>(False) if true, overwrites filename provided</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>convert single file</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/path/to/files/file.zip&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nrgpy</span><span class="o">.</span><span class="n">convert_utf16le_to_utf8</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>convert directory of files</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">input_directory</span> <span class="o">=</span> <span class="s2">&quot;/path/to/files/&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nrgpy</span><span class="o">.</span><span class="n">convert_utf16le_to_utf8</span><span class="p">(</span><span class="n">input_directory</span><span class="o">=</span><span class="n">input_directory</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file">
+<span class="sig-name descname"><span class="pre">single_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/encodings.html#convert_utf16le_to_utf8.single_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
 
@@ -310,6 +366,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8"><code class="docutils literal notranslate"><span class="pre">convert_utf16le_to_utf8</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file"><code class="docutils literal notranslate"><span class="pre">convert_utf16le_to_utf8.single_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

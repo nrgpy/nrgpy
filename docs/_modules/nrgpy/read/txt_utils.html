@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -32,8 +32,8 @@
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -260,7 +260,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="read_text_data"><a class="viewcode-back" href="../../../nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data">[docs]</a><span class="k">class</span> <span class="nc">read_text_data</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;class for handling known csv-style text data files with header information</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;class for handling known csv-style text data files with header information</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -327,14 +327,13 @@ document.write(`
         <span class="k">return</span> <span class="s2">&quot;&lt;class </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2"> &gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
 
 <div class="viewcode-block" id="read_text_data.arrange_ch_info"><a class="viewcode-back" href="../../../nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.arrange_ch_info">[docs]</a>    <span class="k">def</span> <span class="nf">arrange_ch_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;generates list and dataframe of channel information&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;generates list and dataframe of channel information&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ch_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
         <span class="n">ch_data</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">ch_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">ch_details</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ch_info_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ch_details</span> <span class="o">==</span> <span class="mi">0</span>
             <span class="p">):</span>  <span class="c1"># start channel data read</span>
@@ -368,7 +367,7 @@ document.write(`
         <span class="n">filter2</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;combine exported rwd files (in txt format)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;combine exported rwd files (in txt format)</span>
 
 <span class="sd">        parameters</span>
 <span class="sd">        ----------</span>
@@ -400,9 +399,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-
                 <span class="k">if</span> <span class="n">progress_bar</span><span class="p">:</span>
                     <span class="n">draw_progress_bar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -466,7 +463,6 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="n">output_txt</span><span class="p">:</span>
-
             <span class="k">if</span> <span class="n">out_file</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
                 <span class="n">out_file</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data_type</span><span class="si">}</span><span class="s2">_&quot;</span>
@@ -493,7 +489,7 @@ document.write(`
             <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="read_text_data.get_site_info"><a class="viewcode-back" href="../../../nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.get_site_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_site_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_file</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;create dataframe of site info&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;create dataframe of site info&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">header_len</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
@@ -531,7 +527,7 @@ document.write(`
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span></div>
 
 <div class="viewcode-block" id="read_text_data.get_head"><a class="viewcode-back" href="../../../nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.get_head">[docs]</a>    <span class="k">def</span> <span class="nf">get_head</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_file</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;get the first lines of the file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get the first lines of the file</span>
 
 <span class="sd">        excluding those without tabs up to the self.skip_rows line</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -547,7 +543,7 @@ document.write(`
                 <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span></div>
 
 <div class="viewcode-block" id="read_text_data.get_data"><a class="viewcode-back" href="../../../nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_file</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;create dataframe of tabulated data&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;create dataframe of tabulated data&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;sympro&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">header_len</span> <span class="o">+=</span> <span class="p">(</span>
                 <span class="mi">1</span>  <span class="c1"># this shouldn&#39;t be necessary; something with get_site_info?</span>
@@ -558,7 +554,7 @@ document.write(`
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="read_text_data.format_rwd_site_data"><a class="viewcode-back" href="../../../nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data">[docs]</a>    <span class="k">def</span> <span class="nf">format_rwd_site_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;adds formatted site dataframe to reader object&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;adds formatted site dataframe to reader object&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Site_info</span><span class="o">.</span><span class="n">T</span>
@@ -598,7 +594,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="format_sympro_site_data"><a class="viewcode-back" href="../../../nrgpy.read.txt_utils.html#nrgpy.read.txt_utils.format_sympro_site_data">[docs]</a><span class="k">def</span> <span class="nf">format_sympro_site_data</span><span class="p">(</span><span class="n">reader</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;adds formatted site dataframe to reader object&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;adds formatted site dataframe to reader object&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">reader</span><span class="o">.</span><span class="n">Site_info</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">reader</span><span class="o">.</span><span class="n">_site_info</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">Site_info</span><span class="o">.</span><span class="n">T</span>
@@ -640,9 +636,15 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -652,7 +654,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -667,7 +669,7 @@ By NRG Systems, Inc.
     
   <p class="copyright">
     
-      © Copyright 2022, NRG Systems, Inc..
+      © Copyright 2023, NRG Systems, Inc..
       <br/>
     
   </p>
@@ -682,7 +684,7 @@ By NRG Systems, Inc.
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -691,8 +693,8 @@ By NRG Systems, Inc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

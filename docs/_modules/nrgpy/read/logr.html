@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -32,8 +32,8 @@
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -242,7 +242,7 @@ document.write(`
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="k">pass</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>  <span class="c1"># noqa: F811</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -251,29 +251,29 @@ document.write(`
     <span class="n">windows_folder_path</span><span class="p">,</span>
     <span class="n">linux_folder_path</span><span class="p">,</span>
     <span class="n">draw_progress_bar</span><span class="p">,</span>
-    <span class="n">date_check</span><span class="p">,</span>
+    <span class="n">string_date_check</span><span class="p">,</span>
     <span class="n">renamer</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 
 
-<div class="viewcode-block" id="logr_read"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read">[docs]</a><span class="k">class</span> <span class="nc">logr_read</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="LogrRead"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.LogrRead">[docs]</a><span class="k">class</span> <span class="nc">LogrRead</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">text_timestamps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">logger_local_time</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">out_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">text_timestamps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">logger_local_time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Class of Pandas dataframes created from LOGR dat file.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Class of Pandas dataframes created from LOGR dat file.</span>
 
-<span class="sd">        If a filename is passed when calling class, the file is read in alone. Otherwise,</span>
-<span class="sd">        an instance of the class is created, and the concat_txt function may be called to</span>
-<span class="sd">        combine all txt files in a directory.</span>
+<span class="sd">        If a filename is passed when calling class, the file is read in alone. </span>
+<span class="sd">        Otherwise, an instance of the class is created, and the concat_txt function may </span>
+<span class="sd">        be called to combine all txt files in a directory.</span>
 
-<span class="sd">        Filters may be used on any part of the filename, to combine a subset of dat files in</span>
-<span class="sd">        a directory.</span>
+<span class="sd">        Filters may be used on any part of the filename, to combine a subset of dat </span>
+<span class="sd">        files in a directory.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -289,9 +289,11 @@ document.write(`
 <span class="sd">        Returns</span>
 <span class="sd">        ---------</span>
 <span class="sd">        ch_info : obj</span>
-<span class="sd">            pandas dataframe of ch_list (below) pulled out of file with logr_read.arrange_ch_info()</span>
+<span class="sd">            pandas dataframe of ch_list (below) pulled out of file with </span>
+<span class="sd">            logr_read.arrange_ch_info()</span>
 <span class="sd">        ch_list : list</span>
-<span class="sd">            list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)</span>
+<span class="sd">            list of channel info; can be converted to json w/ import json ... </span>
+<span class="sd">            json.dumps(fut.ch_info)</span>
 <span class="sd">        data : obj</span>
 <span class="sd">            pandas dataframe of all data</span>
 <span class="sd">        head : obj</span>
@@ -324,7 +326,7 @@ document.write(`
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">next</span><span class="p">(</span><span class="n">myfile</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">myfile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
 
             <span class="n">header_len</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="n">read_len</span> <span class="o">=</span> <span class="n">header_len</span> <span class="o">-</span> <span class="mi">5</span>
@@ -370,8 +372,8 @@ document.write(`
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;&lt;class </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2"> &gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
 
-<div class="viewcode-block" id="logr_read.arrange_ch_info"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.arrange_ch_info">[docs]</a>    <span class="k">def</span> <span class="nf">arrange_ch_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;creates ch_info dataframe and ch_list array&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="LogrRead.arrange_ch_info"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.LogrRead.arrange_ch_info">[docs]</a>    <span class="k">def</span> <span class="nf">arrange_ch_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;creates ch_info dataframe and ch_list array&quot;&quot;&quot;</span>
         <span class="n">array</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;Channel:&quot;</span><span class="p">,</span>
             <span class="s2">&quot;Channel&quot;</span><span class="p">,</span>  <span class="c1"># &lt;--- fix for missing colon in dat file Channel key</span>
@@ -393,7 +395,6 @@ document.write(`
         <span class="n">ch_details</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">array</span><span class="p">)]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-
             <span class="c1"># if row[1][0] == array[0] and ch_details == 0:  # start channel data read</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="n">ch_details</span> <span class="o">==</span> <span class="mi">0</span>
@@ -423,7 +424,7 @@ document.write(`
 
         <span class="c1"># correction for calculated channel colon missing</span>
         <span class="k">def</span> <span class="nf">return_channel_number</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;temporary fix for missing colon on dat file Channel key&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;temporary fix for missing colon on dat file Channel key&quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;Channel:&quot;</span><span class="p">]):</span>
                 <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;Channel&quot;</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
@@ -435,8 +436,8 @@ document.write(`
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="logr_read.format_site_data"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.format_site_data">[docs]</a>    <span class="k">def</span> <span class="nf">format_site_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;take dat header to create oject data&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="LogrRead.format_site_data"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.LogrRead.format_site_data">[docs]</a>    <span class="k">def</span> <span class="nf">format_site_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;take dat header to create oject data&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Site_info</span><span class="o">.</span><span class="n">T</span>
@@ -476,21 +477,21 @@ document.write(`
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: error processing site_info: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot parse site info: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="logr_read.concat_txt"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.concat_txt">[docs]</a>    <span class="k">def</span> <span class="nf">concat_txt</span><span class="p">(</span>
+<div class="viewcode-block" id="LogrRead.concat_txt"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.LogrRead.concat_txt">[docs]</a>    <span class="k">def</span> <span class="nf">concat_txt</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">dat_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">file_type</span><span class="o">=</span><span class="s2">&quot;statistical&quot;</span><span class="p">,</span>
-        <span class="n">file_filter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">filter2</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span>
-        <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2150-12-31&quot;</span><span class="p">,</span>
-        <span class="n">ch_details</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">output_txt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">progress_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">dat_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">file_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;statistical&quot;</span><span class="p">,</span>
+        <span class="n">file_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">filter2</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">start_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span>
+        <span class="n">end_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2150-12-31&quot;</span><span class="p">,</span>
+        <span class="n">ch_details</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">output_txt</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">out_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">progress_bar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Will concatenate all text files in the dat_dir</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Will concatenate all text files in the dat_dir</span>
 
 <span class="sd">        files must match the site_filter argument. Note these are both blank by default.</span>
 
@@ -520,9 +521,11 @@ document.write(`
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        ch_info : obj</span>
-<span class="sd">            pandas dataframe of ch_list (below) pulled out of file with logr_read.arrange_ch_info()</span>
+<span class="sd">            pandas dataframe of ch_list (below) pulled out of file with </span>
+<span class="sd">            logr_read.arrange_ch_info()</span>
 <span class="sd">        ch_list : list</span>
-<span class="sd">            list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)</span>
+<span class="sd">            list of channel info; can be converted to json w/ import json ... </span>
+<span class="sd">            json.dumps(fut.ch_info)</span>
 <span class="sd">        data : obj</span>
 <span class="sd">            pandas dataframe of all data</span>
 <span class="sd">        head : obj</span>
@@ -604,7 +607,7 @@ document.write(`
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="ow">in</span> <span class="n">f</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter2</span> <span class="ow">in</span> <span class="n">f</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_type</span> <span class="ow">in</span> <span class="n">f</span>
-            <span class="ow">and</span> <span class="n">date_check</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">string_date_check</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
         <span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">file_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
@@ -616,7 +619,6 @@ document.write(`
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Concatenating </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">file_count</span><span class="si">}</span><span class="s2"> files...&quot;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-
             <span class="k">if</span> <span class="n">progress_bar</span><span class="p">:</span>
                 <span class="n">draw_progress_bar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -645,8 +647,8 @@ document.write(`
                 <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Only standard LOGR headertypes accepted&quot;</span><span class="p">)</span>
                     <span class="k">break</span>
-                <span class="k">except</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">progress_bar</span> <span class="o">!=</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">progress_bar</span><span class="p">:</span>
                         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED]&quot;</span><span class="p">)</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not concat </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;could not concat </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
@@ -678,7 +680,7 @@ document.write(`
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">failed_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-                <span class="k">except</span><span class="p">:</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">progress_bar</span><span class="p">:</span>
                         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED]&quot;</span><span class="p">)</span>
@@ -728,20 +730,20 @@ document.write(`
             <span class="k">return</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">failed_files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">failed_files</span><span class="p">)</span><span class="si">}</span><span class="s2"> files unable to be concatenated. See failed_files list&quot;</span><span class="p">)</span></div>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">failed_files</span><span class="p">)</span><span class="si">}</span><span class="s2"> files unable to be concatenated. See failed_files list&quot;</span>  <span class="c1"># noqa: E501</span>
+            <span class="p">)</span></div>
 
-<div class="viewcode-block" id="logr_read.output_txt_file"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.output_txt_file">[docs]</a>    <span class="k">def</span> <span class="nf">output_txt_file</span><span class="p">(</span>
+<div class="viewcode-block" id="LogrRead.output_txt_file"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.LogrRead.output_txt_file">[docs]</a>    <span class="k">def</span> <span class="nf">output_txt_file</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">standard</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">shift_timestamps</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">standard</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">shift_timestamps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">out_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-
         <span class="n">out_dir</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;out_dir&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">shift_timestamps</span><span class="p">:</span>
-
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">file_date</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">])</span>
@@ -765,7 +767,7 @@ document.write(`
                     <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">first_timestamp</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">])</span>
                     <span class="p">)</span>
-                <span class="k">except</span><span class="p">:</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span>
                         <span class="s2">&quot;couldn&#39;t rename &#39;Effective Date:&#39; info in </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">output_name</span>
@@ -860,8 +862,8 @@ document.write(`
                 <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Outputting </span><span class="si">{</span><span class="n">output_name</span><span class="si">}</span><span class="s2"> failed&quot;</span><span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="logr_read.insert_blank_header_rows"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.logr_read.insert_blank_header_rows">[docs]</a>    <span class="k">def</span> <span class="nf">insert_blank_header_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;insert blank rows when using shift_timestamps()</span>
+<div class="viewcode-block" id="LogrRead.insert_blank_header_rows"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.LogrRead.insert_blank_header_rows">[docs]</a>    <span class="k">def</span> <span class="nf">insert_blank_header_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;insert blank rows when using shift_timestamps()</span>
 
 <span class="sd">        ensures the resulting text file looks and feels like an</span>
 <span class="sd">        original LOGR  export</span>
@@ -924,14 +926,14 @@ document.write(`
 
 
 <div class="viewcode-block" id="shift_timestamps"><a class="viewcode-back" href="../../../nrgpy.read.html#nrgpy.read.logr.shift_timestamps">[docs]</a><span class="k">def</span> <span class="nf">shift_timestamps</span><span class="p">(</span>
-    <span class="n">txt_folder</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="n">out_folder</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="n">file_filter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span>
-    <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2150-12-31&quot;</span><span class="p">,</span>
-    <span class="n">seconds</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
+    <span class="n">txt_folder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">out_folder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">file_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">start_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span>
+    <span class="n">end_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2150-12-31&quot;</span><span class="p">,</span>
+    <span class="n">seconds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3600</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Takes as input a folder of exported standard text files and</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Takes as input a folder of exported standard text files and</span>
 <span class="sd">    time to shift in seconds.</span>
 
 <span class="sd">    Parameters</span>
@@ -966,7 +968,7 @@ document.write(`
     <span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">f</span>
         <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">txt_folder</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="s2">&quot;*.txt&quot;</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">file_filter</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="n">date_check</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file_filter</span> <span class="ow">in</span> <span class="n">f</span> <span class="ow">and</span> <span class="n">string_date_check</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
     <span class="p">]</span>
 
     <span class="n">file_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
@@ -974,7 +976,6 @@ document.write(`
     <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-
         <span class="k">try</span><span class="p">:</span>
             <span class="n">draw_progress_bar</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">file_count</span><span class="p">,</span> <span class="n">start_time</span><span class="p">)</span>
             <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">txt_folder</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
@@ -989,11 +990,14 @@ document.write(`
         <span class="k">except</span> <span class="n">pd</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">EmptyDataError</span><span class="p">:</span>
             <span class="k">pass</span>
 
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
             <span class="k">pass</span>
 
         <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+
+<span class="n">logr_read</span> <span class="o">=</span> <span class="n">LogrRead</span>
 </pre></div>
 
                 </article>
@@ -1002,9 +1006,15 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -1014,7 +1024,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -1029,7 +1039,7 @@ By NRG Systems, Inc.
     
   <p class="copyright">
     
-      © Copyright 2022, NRG Systems, Inc..
+      © Copyright 2023, NRG Systems, Inc..
       <br/>
     
   </p>
@@ -1044,7 +1054,7 @@ By NRG Systems, Inc.
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -1053,8 +1063,8 @@ By NRG Systems, Inc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -260,7 +260,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -276,6 +278,22 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api"><code class="docutils literal notranslate"><span class="pre">nrg_api</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.load_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.load_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.maintain_session_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.maintain_session_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.prepare_file_bytes"><code class="docutils literal notranslate"><span class="pre">nrg_api.prepare_file_bytes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.request_session_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.request_session_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.save_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.save_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.token_valid"><code class="docutils literal notranslate"><span class="pre">nrg_api.token_valid()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -285,8 +303,84 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="nrgpy-api-auth-module">
-<h1>nrgpy.api.auth module<a class="headerlink" href="#nrgpy-api-auth-module" title="Permalink to this heading">#</a></h1>
+  <section id="module-nrgpy.api.auth">
+<span id="nrgpy-api-auth-module"></span><h1>nrgpy.api.auth module<a class="headerlink" href="#module-nrgpy.api.auth" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.api.auth.nrg_api">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.api.auth.</span></span><span class="sig-name descname"><span class="pre">nrg_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/auth.html#nrg_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.auth.nrg_api" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Parent class for NRG API functionality</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.api.auth.nrg_api.load_token">
+<span class="sig-name descname"><span class="pre">load_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.nrgpy_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/auth.html#nrg_api.load_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.auth.nrg_api.load_token" title="Permalink to this definition">#</a></dt>
+<dd><p>read session token from pickle file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.api.auth.nrg_api.maintain_session_token">
+<span class="sig-name descname"><span class="pre">maintain_session_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.nrgpy_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/auth.html#nrg_api.maintain_session_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.auth.nrg_api.maintain_session_token" title="Permalink to this definition">#</a></dt>
+<dd><p>maintain a current/valid session token for data service api</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.api.auth.nrg_api.prepare_file_bytes">
+<span class="sig-name descname"><span class="pre">prepare_file_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/auth.html#nrg_api.prepare_file_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.auth.nrg_api.prepare_file_bytes" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.api.auth.nrg_api.request_session_token">
+<span class="sig-name descname"><span class="pre">request_session_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/auth.html#nrg_api.request_session_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.auth.nrg_api.request_session_token" title="Permalink to this definition">#</a></dt>
+<dd><p>generates a new session token for convert service api</p>
+<p>requires an active account with NRG Systems. to sign
+up for an account, go to:
+<a class="reference external" href="https://services.nrgsystems.com">https://services.nrgsystems.com</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>obtained from NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>session_token</strong><span class="classifier">str</span></dt><dd><p>valid for 24 hour</p>
+</dd>
+<dt><strong>session_start_time</strong><span class="classifier">datetime</span></dt><dd><p>start time of 24 hour countdown</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.api.auth.nrg_api.save_token">
+<span class="sig-name descname"><span class="pre">save_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.nrgpy_token'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/auth.html#nrg_api.save_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.auth.nrg_api.save_token" title="Permalink to this definition">#</a></dt>
+<dd><p>save session token in token pickle file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.api.auth.nrg_api.token_valid">
+<span class="sig-name descname"><span class="pre">token_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/auth.html#nrg_api.token_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.auth.nrg_api.token_valid" title="Permalink to this definition">#</a></dt>
+<dd><p>check if token is still valid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>session_start_time</strong><span class="classifier">datetime</span></dt><dd><p>generated at time of token request</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>status</strong><span class="classifier">bool</span></dt><dd><p>true if still valid, false if expired</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
@@ -310,6 +404,28 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api"><code class="docutils literal notranslate"><span class="pre">nrg_api</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.load_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.load_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.maintain_session_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.maintain_session_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.prepare_file_bytes"><code class="docutils literal notranslate"><span class="pre">nrg_api.prepare_file_bytes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.request_session_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.request_session_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.save_token"><code class="docutils literal notranslate"><span class="pre">nrg_api.save_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.auth.nrg_api.token_valid"><code class="docutils literal notranslate"><span class="pre">nrg_api.token_valid()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

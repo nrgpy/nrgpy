@@ -260,7 +260,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -276,6 +278,24 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi"><code class="docutils literal notranslate"><span class="pre">CloudApi</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.load_token"><code class="docutils literal notranslate"><span class="pre">CloudApi.load_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.maintain_session_token"><code class="docutils literal notranslate"><span class="pre">CloudApi.maintain_session_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.prepare_file_bytes"><code class="docutils literal notranslate"><span class="pre">CloudApi.prepare_file_bytes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.request_session_token"><code class="docutils literal notranslate"><span class="pre">CloudApi.request_session_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.save_token"><code class="docutils literal notranslate"><span class="pre">CloudApi.save_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.token_valid"><code class="docutils literal notranslate"><span class="pre">CloudApi.token_valid()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.cloud_api"><code class="docutils literal notranslate"><span class="pre">cloud_api</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.is_authorized"><code class="docutils literal notranslate"><span class="pre">is_authorized()</span></code></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -285,8 +305,128 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="nrgpy-cloud-api-auth-module">
-<h1>nrgpy.cloud_api.auth module<a class="headerlink" href="#nrgpy-cloud-api-auth-module" title="Permalink to this heading">#</a></h1>
+  <section id="module-nrgpy.cloud_api.auth">
+<span id="nrgpy-cloud-api-auth-module"></span><h1>nrgpy.cloud_api.auth module<a class="headerlink" href="#module-nrgpy.cloud_api.auth" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.auth.CloudApi">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.auth.</span></span><span class="sig-name descname"><span class="pre">CloudApi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_base</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#CloudApi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.CloudApi" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Parent class for NRG Cloud API functionality</p>
+<p>nrgpy simplifies usage of the NRG Cloud APIs. See the documentation for the
+cloud_api.sites, .export, and .convert modules for more information.</p>
+<p>For non-nrgpy implementations, the following Usage information may be
+helpful.</p>
+<p>The base url for the NRG Cloud APIs is</p>
+<p><a class="reference external" href="https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/">https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/</a></p>
+<p>Use client ID and secret to obtain a bearer token at the /token endpoint.
+This token is good for 24 hours.</p>
+<p>You will be limited to creating 10 tokens per day, though normally one
+token should suffice, so please cache. nrgpy’s cloud_api modules will
+automatically manage bearer tokens, refreshing only when necessary.</p>
+<p>Endpoints:</p>
+<dl class="simple">
+<dt>base</dt><dd><p><a class="reference external" href="https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/">https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/</a></p>
+</dd>
+</dl>
+<dl class="option-list">
+<dt><kbd><span class="option">/token</span></kbd></dt>
+<dd><p>for accessing bearer token. Client ID and Secret required.</p>
+</dd>
+<dt><kbd><span class="option">/sites</span></kbd></dt>
+<dd><p>Get list of sites. Bearer token required</p>
+</dd>
+<dt><kbd><span class="option">/convert</span></kbd></dt>
+<dd><p>Convert RLD file to TXT. Bearer token required</p>
+</dd>
+<dt><kbd><span class="option">/export</span></kbd></dt>
+<dd><p>Export TXT or RLD files for a given date range. NEC files may be used
+to format TXT outputs. Bearer  token required.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.auth.CloudApi.load_token">
+<span class="sig-name descname"><span class="pre">load_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#CloudApi.load_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.CloudApi.load_token" title="Permalink to this definition">#</a></dt>
+<dd><p>read session token from pickle file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.auth.CloudApi.maintain_session_token">
+<span class="sig-name descname"><span class="pre">maintain_session_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#CloudApi.maintain_session_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.CloudApi.maintain_session_token" title="Permalink to this definition">#</a></dt>
+<dd><p>maintain a current/valid session token for data service api</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.auth.CloudApi.prepare_file_bytes">
+<span class="sig-name descname"><span class="pre">prepare_file_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#CloudApi.prepare_file_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.CloudApi.prepare_file_bytes" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.auth.CloudApi.request_session_token">
+<span class="sig-name descname"><span class="pre">request_session_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#CloudApi.request_session_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.CloudApi.request_session_token" title="Permalink to this definition">#</a></dt>
+<dd><p>Generates a new session token for convert service api</p>
+<p>Requires an active account with NRG Cloud. To sign
+up for a free account, go to:</p>
+<p><a class="reference external" href="https://cloud.nrgsystems.com">https://cloud.nrgsystems.com</a></p>
+<p>Client ID and Secret can be accessed here:</p>
+<p><a class="reference external" href="https://cloud.nrgsystems.com/data-manager/api-setup">https://cloud.nrgsystems.com/data-manager/api-setup</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>obtained from NRG Systems</p>
+</dd>
+<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>session_token</strong><span class="classifier">str</span></dt><dd><p>valid for 24 hour</p>
+</dd>
+<dt><strong>session_start_time</strong><span class="classifier">datetime</span></dt><dd><p>start time of 24 hour countdown</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.auth.CloudApi.save_token">
+<span class="sig-name descname"><span class="pre">save_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#CloudApi.save_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.CloudApi.save_token" title="Permalink to this definition">#</a></dt>
+<dd><p>save session token in token pickle file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.auth.CloudApi.token_valid">
+<span class="sig-name descname"><span class="pre">token_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#CloudApi.token_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.CloudApi.token_valid" title="Permalink to this definition">#</a></dt>
+<dd><p>check if token is still valid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>session_start_time</strong><span class="classifier">datetime</span></dt><dd><p>generated at time of token request</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>status</strong><span class="classifier">bool</span></dt><dd><p>true if still valid, false if expired</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.auth.cloud_api">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.auth.</span></span><span class="sig-name descname"><span class="pre">cloud_api</span></span><a class="headerlink" href="#nrgpy.cloud_api.auth.cloud_api" title="Permalink to this definition">#</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nrgpy.cloud_api.auth.CloudApi" title="nrgpy.cloud_api.auth.CloudApi"><code class="xref py py-class docutils literal notranslate"><span class="pre">CloudApi</span></code></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.cloud_api.auth.is_authorized">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.cloud_api.auth.</span></span><span class="sig-name descname"><span class="pre">is_authorized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resp</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/nrgpy/cloud_api/auth.html#is_authorized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.cloud_api.auth.is_authorized" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </section>
 
 
@@ -310,6 +450,30 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi"><code class="docutils literal notranslate"><span class="pre">CloudApi</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.load_token"><code class="docutils literal notranslate"><span class="pre">CloudApi.load_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.maintain_session_token"><code class="docutils literal notranslate"><span class="pre">CloudApi.maintain_session_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.prepare_file_bytes"><code class="docutils literal notranslate"><span class="pre">CloudApi.prepare_file_bytes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.request_session_token"><code class="docutils literal notranslate"><span class="pre">CloudApi.request_session_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.save_token"><code class="docutils literal notranslate"><span class="pre">CloudApi.save_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.CloudApi.token_valid"><code class="docutils literal notranslate"><span class="pre">CloudApi.token_valid()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.cloud_api"><code class="docutils literal notranslate"><span class="pre">cloud_api</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.cloud_api.auth.is_authorized"><code class="docutils literal notranslate"><span class="pre">is_authorized()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

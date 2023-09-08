@@ -260,7 +260,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -276,6 +278,30 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.affirm_directory"><code class="docutils literal notranslate"><span class="pre">affirm_directory()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.check_platform"><code class="docutils literal notranslate"><span class="pre">check_platform()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.count_files"><code class="docutils literal notranslate"><span class="pre">count_files()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.create_spd_filename_from_cloud_export"><code class="docutils literal notranslate"><span class="pre">create_spd_filename_from_cloud_export()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.data_months"><code class="docutils literal notranslate"><span class="pre">data_months()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.date_check"><code class="docutils literal notranslate"><span class="pre">date_check()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.draw_progress_bar"><code class="docutils literal notranslate"><span class="pre">draw_progress_bar()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.fix_export_siteid_filename"><code class="docutils literal notranslate"><span class="pre">fix_export_siteid_filename()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.is_sympro_running"><code class="docutils literal notranslate"><span class="pre">is_sympro_running()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.linux_folder_path"><code class="docutils literal notranslate"><span class="pre">linux_folder_path()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.rename_cloud_export_like_spd"><code class="docutils literal notranslate"><span class="pre">rename_cloud_export_like_spd()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.renamer"><code class="docutils literal notranslate"><span class="pre">renamer</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.set_start_stop"><code class="docutils literal notranslate"><span class="pre">set_start_stop()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.string_date_check"><code class="docutils literal notranslate"><span class="pre">string_date_check()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.windows_folder_path"><code class="docutils literal notranslate"><span class="pre">windows_folder_path()</span></code></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -285,8 +311,183 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="nrgpy-utils-utilities-module">
-<h1>nrgpy.utils.utilities module<a class="headerlink" href="#nrgpy-utils-utilities-module" title="Permalink to this heading">#</a></h1>
+  <section id="module-nrgpy.utils.utilities">
+<span id="nrgpy-utils-utilities-module"></span><h1>nrgpy.utils.utilities module<a class="headerlink" href="#module-nrgpy.utils.utilities" title="Permalink to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.affirm_directory">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">affirm_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#affirm_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.affirm_directory" title="Permalink to this definition">#</a></dt>
+<dd><p>create directory if not exists</p>
+<p>print status to terminal</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.check_platform">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">check_platform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#check_platform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.check_platform" title="Permalink to this definition">#</a></dt>
+<dd><p>determine which operating system python is running on</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.count_files">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">count_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#count_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.count_files" title="Permalink to this definition">#</a></dt>
+<dd><p>counts the number of files in the first level of a directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>directory</strong><span class="classifier">str</span></dt><dd><p>path of directory to be checked</p>
+</dd>
+<dt><strong>filters</strong><span class="classifier">str</span></dt><dd><p>filter present in file to be checked</p>
+</dd>
+<dt><strong>extension</strong><span class="classifier">str</span></dt><dd><p>secondary filter</p>
+</dd>
+<dt><strong>show_files</strong><span class="classifier">bool, optional</span></dt><dd><p>if set to True, prints file name</p>
+</dd>
+<dt><strong>start_time</strong><span class="classifier">int</span></dt><dd><p>seconds; if set, use as reference; only count if file is newer than start_time</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.create_spd_filename_from_cloud_export">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">create_spd_filename_from_cloud_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#create_spd_filename_from_cloud_export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.create_spd_filename_from_cloud_export" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.data_months">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">data_months</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'string'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#data_months"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.data_months" title="Permalink to this definition">#</a></dt>
+<dd><p>returns list of months for a date range in YYYY-mm-dd format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_date</strong><span class="classifier">str or datetime</span></dt><dd><p>YYYY-mm-dd formatted date or datetime object</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str or datetime</span></dt><dd><p>must be same formatting as start_date or god help you</p>
+</dd>
+<dt><strong>output</strong><span class="classifier">str</span></dt><dd><p>“string” or “datetime”; specify date types you want returned.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>list</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.date_check">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">date_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.utils.utilities.date_check" title="Permalink to this definition">#</a></dt>
+<dd><p>returns true if string date is between dates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-mm-dd”</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-mm-dd”</p>
+</dd>
+<dt><strong>string</strong><span class="classifier">str</span></dt><dd><p>string including date to check</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.draw_progress_bar">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">draw_progress_bar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">barLen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">45</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Time</span> <span class="pre">elapsed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#draw_progress_bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.draw_progress_bar" title="Permalink to this definition">#</a></dt>
+<dd><p>simple text progress bar</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.fix_export_siteid_filename">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">fix_export_siteid_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#fix_export_siteid_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.fix_export_siteid_filename" title="Permalink to this definition">#</a></dt>
+<dd><p>Change out NRG Cloud site id with padded site number</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.is_sympro_running">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">is_sympro_running</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#is_sympro_running"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.is_sympro_running" title="Permalink to this definition">#</a></dt>
+<dd><p>checks pid list for instance of sympro running</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.linux_folder_path">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">linux_folder_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#linux_folder_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.linux_folder_path" title="Permalink to this definition">#</a></dt>
+<dd><p>assert folder_path ending with ‘/’</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.load">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.load" title="Permalink to this definition">#</a></dt>
+<dd><p>recall a reader from a pickle file by site number or filename</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>site_number</strong><span class="classifier">str</span></dt><dd><p>6-digit site number of stored reader OR spidar serial number</p>
+</dd>
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>full or relative path of pickle file</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>object</dt><dd><p>contents of pickle file</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.rename_cloud_export_like_spd">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">rename_cloud_export_like_spd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#rename_cloud_export_like_spd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.rename_cloud_export_like_spd" title="Permalink to this definition">#</a></dt>
+<dd><p>rename nrg cloud export files with SPD formatting</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.renamer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">renamer</span></span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#renamer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.renamer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>for replacing duplicate column names after transpose</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.save">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.save" title="Permalink to this definition">#</a></dt>
+<dd><p>save reader as a Python pickle file, to be recalled later</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.set_start_stop">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">set_start_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#set_start_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.set_start_stop" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.string_date_check">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">string_date_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#string_date_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.string_date_check" title="Permalink to this definition">#</a></dt>
+<dd><p>returns true if string date is between dates</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-mm-dd”</p>
+</dd>
+<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-mm-dd”</p>
+</dd>
+<dt><strong>string</strong><span class="classifier">str</span></dt><dd><p>string including date to check</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nrgpy.utils.utilities.windows_folder_path">
+<span class="sig-prename descclassname"><span class="pre">nrgpy.utils.utilities.</span></span><span class="sig-name descname"><span class="pre">windows_folder_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/utilities.html#windows_folder_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.utilities.windows_folder_path" title="Permalink to this definition">#</a></dt>
+<dd><p>convert ‘/’ to ‘' in folder_path and assert ending in ‘'</p>
+</dd></dl>
+
 </section>
 
 
@@ -310,6 +511,36 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.affirm_directory"><code class="docutils literal notranslate"><span class="pre">affirm_directory()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.check_platform"><code class="docutils literal notranslate"><span class="pre">check_platform()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.count_files"><code class="docutils literal notranslate"><span class="pre">count_files()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.create_spd_filename_from_cloud_export"><code class="docutils literal notranslate"><span class="pre">create_spd_filename_from_cloud_export()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.data_months"><code class="docutils literal notranslate"><span class="pre">data_months()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.date_check"><code class="docutils literal notranslate"><span class="pre">date_check()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.draw_progress_bar"><code class="docutils literal notranslate"><span class="pre">draw_progress_bar()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.fix_export_siteid_filename"><code class="docutils literal notranslate"><span class="pre">fix_export_siteid_filename()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.is_sympro_running"><code class="docutils literal notranslate"><span class="pre">is_sympro_running()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.linux_folder_path"><code class="docutils literal notranslate"><span class="pre">linux_folder_path()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.rename_cloud_export_like_spd"><code class="docutils literal notranslate"><span class="pre">rename_cloud_export_like_spd()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.renamer"><code class="docutils literal notranslate"><span class="pre">renamer</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.set_start_stop"><code class="docutils literal notranslate"><span class="pre">set_start_stop()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.string_date_check"><code class="docutils literal notranslate"><span class="pre">string_date_check()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.utilities.windows_folder_path"><code class="docutils literal notranslate"><span class="pre">windows_folder_path()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

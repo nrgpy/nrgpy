@@ -260,7 +260,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -276,6 +278,23 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd"><code class="docutils literal notranslate"><span class="pre">nsd</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.add_channel_history"><code class="docutils literal notranslate"><span class="pre">nsd.add_channel_history()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.check_for_jet_drivers"><code class="docutils literal notranslate"><span class="pre">nsd.check_for_jet_drivers()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.check_platform"><code class="docutils literal notranslate"><span class="pre">nsd.check_platform()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.close"><code class="docutils literal notranslate"><span class="pre">nsd.close()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.read_channel_settings"><code class="docutils literal notranslate"><span class="pre">nsd.read_channel_settings()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.read_sensor_history"><code class="docutils literal notranslate"><span class="pre">nsd.read_sensor_history()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.write_channel_settings"><code class="docutils literal notranslate"><span class="pre">nsd.write_channel_settings()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -285,8 +304,149 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="nrgpy-utils-nsd-functions-module">
-<h1>nrgpy.utils.nsd_functions module<a class="headerlink" href="#nrgpy-utils-nsd-functions-module" title="Permalink to this heading">#</a></h1>
+  <section id="module-nrgpy.utils.nsd_functions">
+<span id="nrgpy-utils-nsd-functions-module"></span><h1>nrgpy.utils.nsd_functions module<a class="headerlink" href="#module-nrgpy.utils.nsd_functions" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.utils.nsd_functions.nsd">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.utils.nsd_functions.</span></span><span class="sig-name descname"><span class="pre">nsd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nsd_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/nsd_functions.html#nsd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.nsd_functions.nsd" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>class for handling NSD files from Symphonie Logger Data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>nsd_file</strong><span class="classifier">str</span></dt><dd><p>path to nsd file to open for reading and writing</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>obj</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.utils.nsd_functions.nsd.add_channel_history">
+<span class="sig-name descname"><span class="pre">add_channel_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_notes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/nsd_functions.html#nsd.add_channel_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.nsd_functions.nsd.add_channel_history" title="Permalink to this definition">#</a></dt>
+<dd><p>use for adding new sensor history registries</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>timestamp</strong><span class="classifier">string</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS”</p>
+</dd>
+<dt><strong>channel</strong><span class="classifier">int</span></dt><dd><p>or string, channel number</p>
+</dd>
+<dt><strong>sensor_type</strong><span class="classifier">int</span></dt><dd><dl class="simple">
+<dt>or string, number:</dt><dd><p>1 : anemometer
+2 : totalizer (rain gauge)
+3 : vane
+4 : analog (temp, bp, rh, etc.)</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>sensor_desc</strong><span class="classifier">string</span></dt><dd><p>description</p>
+</dd>
+<dt><strong>print_precision</strong><span class="classifier">int</span></dt><dd><p>1 through 4, number of decimals</p>
+</dd>
+<dt><strong>units</strong><span class="classifier">string</span></dt><dd></dd>
+<dt><strong>serial_number</strong><span class="classifier">string</span></dt><dd></dd>
+<dt><strong>height</strong><span class="classifier">float</span></dt><dd></dd>
+<dt><strong>sensor_detail</strong><span class="classifier">note</span></dt><dd></dd>
+<dt><strong>sensor_notes</strong><span class="classifier">note</span></dt><dd></dd>
+<dt><strong>scale_factor</strong><span class="classifier">float</span></dt><dd></dd>
+<dt><strong>offset</strong><span class="classifier">float</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.utils.nsd_functions.nsd.check_for_jet_drivers">
+<span class="sig-name descname"><span class="pre">check_for_jet_drivers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/nsd_functions.html#nsd.check_for_jet_drivers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.nsd_functions.nsd.check_for_jet_drivers" title="Permalink to this definition">#</a></dt>
+<dd><p>check for jet database drivers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>bool</dt><dd><p>True if drivers present, otherwise False</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.utils.nsd_functions.nsd.check_platform">
+<span class="sig-name descname"><span class="pre">check_platform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nrgpy.utils.nsd_functions.nsd.check_platform" title="Permalink to this definition">#</a></dt>
+<dd><p>determine which operating system python is running on</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.utils.nsd_functions.nsd.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/nsd_functions.html#nsd.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.nsd_functions.nsd.close" title="Permalink to this definition">#</a></dt>
+<dd><p>close connection to database</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.utils.nsd_functions.nsd.read_channel_settings">
+<span class="sig-name descname"><span class="pre">read_channel_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/nsd_functions.html#nsd.read_channel_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.nsd_functions.nsd.read_channel_settings" title="Permalink to this definition">#</a></dt>
+<dd><p>read individual channel settings from sensor history table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>channel</strong><span class="classifier">int</span></dt><dd><p>1 through 15 (12 if Sym Classic nsd file)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>obj</dt><dd><p>pandas dataframe of channel details</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.utils.nsd_functions.nsd.read_sensor_history">
+<span class="sig-name descname"><span class="pre">read_sensor_history</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/nsd_functions.html#nsd.read_sensor_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.nsd_functions.nsd.read_sensor_history" title="Permalink to this definition">#</a></dt>
+<dd><p>read SensorHistory table into dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>obj</dt><dd><p>sensor_history : pandas dataframe</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.utils.nsd_functions.nsd.write_channel_settings">
+<span class="sig-name descname"><span class="pre">write_channel_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_notes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-9999</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/utils/nsd_functions.html#nsd.write_channel_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.utils.nsd_functions.nsd.write_channel_settings" title="Permalink to this definition">#</a></dt>
+<dd><p>write new sensor history to site file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>channel</strong><span class="classifier">int</span></dt><dd><p>required; 1 through 15 (or 1 through 12 for Sym Classic)</p>
+</dd>
+<dt><strong>entry</strong><span class="classifier">int</span></dt><dd><p>default is 1 for channel baseline values, 2, 3, etc. for newer entries</p>
+</dd>
+<dt><strong>sensor_desc</strong><span class="classifier">string</span></dt><dd></dd>
+<dt><strong>print_precision</strong><span class="classifier">int</span></dt><dd><p>1, 2, 3, or 4 or 0 for off</p>
+</dd>
+<dt><strong>units</strong><span class="classifier">string</span></dt><dd></dd>
+<dt><strong>serial_number</strong><span class="classifier">string</span></dt><dd></dd>
+<dt><strong>height</strong><span class="classifier">string</span></dt><dd></dd>
+<dt><strong>sensor_detail</strong><span class="classifier">string</span></dt><dd></dd>
+<dt><strong>sensor_notes</strong><span class="classifier">string</span></dt><dd></dd>
+<dt><strong>scale_factor</strong><span class="classifier">float</span></dt><dd></dd>
+<dt><strong>offset</strong><span class="classifier">float</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
@@ -310,6 +470,29 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd"><code class="docutils literal notranslate"><span class="pre">nsd</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.add_channel_history"><code class="docutils literal notranslate"><span class="pre">nsd.add_channel_history()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.check_for_jet_drivers"><code class="docutils literal notranslate"><span class="pre">nsd.check_for_jet_drivers()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.check_platform"><code class="docutils literal notranslate"><span class="pre">nsd.check_platform()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.close"><code class="docutils literal notranslate"><span class="pre">nsd.close()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.read_channel_settings"><code class="docutils literal notranslate"><span class="pre">nsd.read_channel_settings()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.read_sensor_history"><code class="docutils literal notranslate"><span class="pre">nsd.read_sensor_history()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.utils.nsd_functions.nsd.write_channel_settings"><code class="docutils literal notranslate"><span class="pre">nsd.write_channel_settings()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
