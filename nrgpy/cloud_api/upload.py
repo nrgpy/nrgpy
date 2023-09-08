@@ -10,7 +10,7 @@ import os
 import requests
 
 
-class cloud_import(cloud_api):
+class CloudImport(cloud_api):
     """Uses NRG hosted web-based API to import RLD and CSV/CSV.zip files to
     existing sites in NRG Cloud.
     To sign up for the service, go to https://cloud.nrgsystems.com/.
@@ -54,7 +54,7 @@ class cloud_import(cloud_api):
     >>> filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.filename
     >>> client_id = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
     >>> client_secret = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
-    >>> importer = nrgpy.cloud_import(
+    >>> importer = nrgpy.CloudImport(
             filename=filename,
             client_id=client_id,
             client_secret=client_secret,
@@ -67,7 +67,7 @@ class cloud_import(cloud_api):
     >>> in_directory = "filenames"
     >>> client_id = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
     >>> client_secret = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
-    >>> importer = nrgpy.cloud_import(
+    >>> importer = nrgpy.CloudImport(
             file_filter=file_filter,
             in_dir=in_directory,
             client_id=client_id,
@@ -81,16 +81,16 @@ class cloud_import(cloud_api):
 
     def __init__(
         self,
-        in_dir="",
-        filename="",
-        site_filter="",
-        filter2="",
-        start_date="1970-01-01",
-        end_date="2150-12-31",
-        client_id="",
-        client_secret="",
-        url_base=cloud_url_base,
-        progress_bar=True,
+        in_dir: str = "",
+        filename: str = "",
+        site_filter: str = "",
+        filter2: str = "",
+        start_date: str = "1970-01-01",
+        end_date: str = "2150-12-31",
+        client_id: str = "",
+        client_secret: str = "",
+        url_base: str = cloud_url_base,
+        progress_bar: bool = True,
         **kwargs,
     ):
         """Initialize a cloud_export object.
@@ -145,19 +145,15 @@ class cloud_import(cloud_api):
 
     def process(self):
         self.start_time = datetime.now()
-
-        self.files = [
-            f
-            for f in sorted(os.listdir(self.in_dir))
-            if self.site_filter in f
-            and self.filter2 in f
-            and f.lower().endswith(tuple(["rld", "csv", "csv.zip"]))
-            and string_date_check(self.start_date, self.end_date, f)
-        ]
+        self.files = self.get_valid_files_from_in_dir()
 
         self.raw_count = len(self.files)
         self.pad = len(str(self.raw_count)) + 1
         self.counter = 1
+
+        if len(self.files) == 0:
+            logger.debug(f"no files to process in {self.in_dir}")
+            raise FileNotFoundError(f"no files to process in {self.in_dir}")
 
         for filename in self.files:
             try:
@@ -165,10 +161,23 @@ class cloud_import(cloud_api):
                 self.counter += 1
                 if not is_authorized(self.resp):
                     break
-            except:
+            except Exception:
                 pass
 
-    def single_file(self, filename=""):
+    def get_valid_files_from_in_dir(self) -> list:
+        return [
+            f
+            for f in sorted(os.listdir(self.in_dir))
+            if self.site_filter in f
+            and self.filter2 in f
+            and f.lower().endswith(
+                tuple(["rld", "csv", "csv.zip", "diag", "statistical.dat"])
+            )
+            and string_date_check(self.start_date, self.end_date, f)
+        ]
+
+
+    def single_file(self, filename: str = ""):
         try:
             if self.progress_bar:
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
@@ -204,7 +213,6 @@ class cloud_import(cloud_api):
             )
 
             if self.resp.status_code == 200:
-
                 if self.progress_bar is False:
                     print("[DONE]")
 
@@ -241,3 +249,6 @@ class cloud_import(cloud_api):
             logger.error(f"unable to import {os.path.basename(filename)}: FAILED")
             logger.debug(e)
             print(f"unable to process file: {filename}")
+
+
+cloud_import = CloudImport

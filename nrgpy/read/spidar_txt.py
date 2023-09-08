@@ -11,7 +11,7 @@ from nrgpy.utils.utilities import (
 import pandas as pd
 
 
-class spidar_data_read(object):
+class SpidarRead:
     """reads in CSV file(s) using pandas and creates
 
     Parameters
@@ -162,11 +162,11 @@ class spidar_data_read(object):
                         end="",
                         flush=True,
                     )
-                if first_file == True:
+                if first_file:
                     first_file = False
                     try:
                         base = spidar_data_read(f)
-                        if progress_bar == False:
+                        if not progress_bar:
                             print("[OK]")
                         pass
                     except IndexError:
@@ -213,3 +213,6 @@ class spidar_data_read(object):
             for col in self.columns
             if "horz_mean" in col and "m/s" in col
         ]
+
+
+spidar_data_read = SpidarRead

@@ -16,8 +16,8 @@ venv/
 *__pycache__/
 *egg-info/
 *.ipynb_checkpoints/
+*.pytest_cache/
 *.wine/
 
 !.gitignore
 !tests/test_readers/test_files/*.txt
-# !SDR_on_Linux_example.ipynb

@@ -5,4 +5,3 @@ nrgpy
    :maxdepth: 4
 
    nrgpy
-   setup

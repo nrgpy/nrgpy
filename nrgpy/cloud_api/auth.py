@@ -20,7 +20,7 @@ import_url = "data/import"
 sites_url = "sites"
 
 
-class cloud_api(object):
+class CloudApi(object):
     """
     Parent class for NRG Cloud API functionality
 
@@ -56,7 +56,12 @@ class cloud_api(object):
         to format TXT outputs. Bearer  token required.
     """
 
-    def __init__(self, client_id="", client_secret="", url_base=cloud_url_base):
+    def __init__(
+        self,
+        client_id: str = "",
+        client_secret: str = "",
+        url_base: str = cloud_url_base,
+    ):
         logger.debug(f"cloud base: {url_base}")
         self.client_id = client_id
         self.client_secret = client_secret
@@ -74,13 +79,13 @@ class cloud_api(object):
             self.maintain_session_token()
         else:
             print(
-                "[Access error] Valid credentials are required.\n\nPlease visit https://cloud.nrgsystems.com/data-manager/api-setup\nto access your API credentials"
+                "[Access error] Valid credentials are required.\n\nPlease visit https://cloud.nrgsystems.com/data-manager/api-setup\nto access your API credentials"  # noqa: E501
             )
             logger.error(
-                "[Access error] Valid credentials are required. Please visit https://cloud.nrgsystems.com/data-manager/api-setup to access your API credentials"
+                "[Access error] Valid credentials are required. Please visit https://cloud.nrgsystems.com/data-manager/api-setup to access your API credentials"  # noqa: E501
             )
 
-    def request_session_token(self):
+    def request_session_token(self) -> None:
         """Generates a new session token for convert service api
 
         Requires an active account with NRG Cloud. To sign
@@ -138,7 +143,7 @@ class cloud_api(object):
             print("[FAILED] | unable to get session token.")
             self.session_token = False
 
-    def token_valid(self):
+    def token_valid(self) -> bool:
         """check if token is still valid
 
         Parameters
@@ -153,22 +158,21 @@ class cloud_api(object):
         """
         if datetime.now() < self.session_start_time + timedelta(hours=22):
             if self.session_token is not False:
-                # logger.debug(f"session token reused: expires {self.session_start_time + timedelta(hours=24)}")
                 return True
 
         return False
 
-    def save_token(self):
+    def save_token(self) -> None:
         """save session token in token pickle file"""
         with open(self.token_file_name, "wb") as f:
             pickle.dump([self.session_token, self.session_start_time], f)
 
-    def load_token(self):
+    def load_token(self) -> None:
         """read session token from pickle file"""
         with open(self.token_file_name, "rb") as f:
             self.session_token, self.session_start_time = pickle.load(f)
 
-    def maintain_session_token(self):
+    def maintain_session_token(self) -> None:
         """maintain a current/valid session token for data service api"""
         try:
             self.load_token()
@@ -179,12 +183,12 @@ class cloud_api(object):
             self.request_session_token()
             self.save_token()
 
-    def prepare_file_bytes(self, filename=""):
+    def prepare_file_bytes(self, filename: str = "") -> bytes:
         file_bytes = base64.encodebytes(open(filename, "rb").read())
         return file_bytes
 
 
-def is_authorized(resp):
+def is_authorized(resp) -> bool:
     if (
         resp.status_code == 401
         or resp.status_code == 400
@@ -193,10 +197,12 @@ def is_authorized(resp):
         try:
             logger.error(json.loads(resp.text)["apiResponseMessage"])
             print(json.loads(resp.text)["apiResponseMessage"])
-        except:
+        except Exception:
             logger.error("Unable to process request")
             logger.debug(traceback.format_exc())
             print("Unable to complete request.  Check nrpy log file for details")
         return False
 
     return True
+
+cloud_api = CloudApi

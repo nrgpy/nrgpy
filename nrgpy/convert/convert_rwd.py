@@ -18,9 +18,9 @@ from nrgpy.utils.utilities import (
 )
 
 
-class local(object):
-    """nrgpy.convert_rwd.local - use local installation of Symphonie Data Retriever (SDR)
-    to convert *.RWD files to *.TXT
+class local:
+    """nrgpy.convert_rwd.local - use local installation of 
+    Symphonie Data Retriever (SDR) to convert *.RWD files to *.TXT
 
     Parameters
     ----------
@@ -89,18 +89,18 @@ class local(object):
 
     def __init__(
         self,
-        rwd_dir="",
-        out_dir="",
-        filename="",
-        encryption_pin="",
-        sdr_path=r"C:/NRG/SymDR/SDR.exe",
-        convert_type="meas",
-        file_filter="",
-        wine_folder="~/.wine/drive_c/",
-        use_site_file=False,
-        raw_mode=False,
-        progress_bar=True,
-        show_result=True,
+        rwd_dir: str="",
+        out_dir: str="",
+        filename: str="",
+        encryption_pin: str="",
+        sdr_path: str=r"C:/NRG/SymDR/SDR.exe",
+        convert_type: str="meas",
+        file_filter: str="",
+        wine_folder: str="~/.wine/drive_c/",
+        use_site_file: bool=False,
+        raw_mode: bool=False,
+        progress_bar: bool=True,
+        show_result: bool=True,
         **kwargs
     ):
 
@@ -154,7 +154,7 @@ class local(object):
                 os.path.exists(self.sdr_path)
                 self.sdr_ok = True
 
-            except:
+            except Exception:
                 self.sdr_ok = False
                 print(
                     "SDR not installed. Please install SDR or check path.\nhttps://www.nrgsystems.com/support/product-support/software/symphonie-data-retriever-software"
@@ -167,10 +167,10 @@ class local(object):
                 subprocess.check_output(["wine", "--version"])
             except NotADirectoryError:
                 print(
-                    "System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable."
+                    "System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable."  # noqa: E501
                 )
                 logger.error(
-                    "System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable."
+                    "System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable."  # noqa: E501
                 )
 
             try:
@@ -181,7 +181,7 @@ class local(object):
 
                 os.remove(os.path.join(self.wine_folder, "NRG/ScaledData/test.log"))
 
-            except:
+            except Exception:
                 self.sdr_ok = False
                 print("SDR unable to start")
                 print(traceback.format_exc())
@@ -209,7 +209,7 @@ class local(object):
             try:
                 self._filename = "\\".join([self.RawData + site_num, f])
                 self._single_file()
-            except:
+            except Exception:
                 print("file conversion failed on {}".format(self._filename))
             self.counter += 1
 
@@ -305,10 +305,10 @@ class local(object):
 
             try:
                 self._copy_txt_file()
-            except:
+            except Exception:
                 print("unable to copy {} to text folder".format(_f))
 
-        except:
+        except Exception:
             if not self.progress_bar and not self.show_result:
                 print("[FAILED]")
             import traceback
@@ -329,14 +329,14 @@ class local(object):
 
                 try:
                     affirm_directory(site_folder)
-                except:
+                except Exception:
                     print("couldn't create {}".format(site_folder))
                     pass
 
                 try:
                     # shutil.copy(os.path.join(self.rwd_dir, f), os.path.join(site_folder))
                     shutil.copy(self.rwd_dir + f, os.path.join(site_folder))
-                except:
+                except Exception:
                     import traceback
 
                     print("unable to copy file to RawData folder:  {}".format(f))
@@ -353,7 +353,7 @@ class local(object):
             txt_file_path = os.path.join(self.ScaledData, txt_file_name)
             out_path = self.file_path_joiner.join([self.out_dir, txt_file_name])
 
-        except:
+        except Exception:
             print("could not do the needful")
             import traceback
 
@@ -371,10 +371,10 @@ class local(object):
 
             try:
                 os.remove(txt_file_path)
-            except:
+            except Exception:
                 print("{0} remains in {1}".format(txt_file_name, self.ScaledData))
 
-        except:
+        except Exception:
             import traceback
 
             print(traceback.format_exc())

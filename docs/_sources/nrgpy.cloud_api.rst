@@ -44,14 +44,6 @@ nrgpy.cloud\_api.sites module
    :undoc-members:
    :show-inheritance:
 
-nrgpy.cloud\_api.test\_download module
---------------------------------------
-
-.. automodule:: nrgpy.cloud_api.test_download
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 nrgpy.cloud\_api.upload module
 ------------------------------
 

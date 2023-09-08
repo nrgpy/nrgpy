@@ -1,10 +1,13 @@
 from nrgpy import logger
 from nrgpy import logr_read
 import os
+import pytest
 import sys
 import traceback
 
 
+# TODO: convert to pytest
+@pytest.mark.skip(reason="this is not set up as a pytest yet")
 def test_logr_read(directory="tests/test_readers/test_files"):
     """Check that LOGR dat files are ingested by nrgpy.logr_read"""
 
@@ -12,8 +15,8 @@ def test_logr_read(directory="tests/test_readers/test_files"):
         reader = logr_read()
         reader.concat_txt(dat_dir=directory)
 
-    except:
-        print(f"Could not create reader from test_files")
+    except Exception:
+        print("Could not create reader from test_files")
         print(traceback.format_exc())
         logger.error("test failed: could not create reader")
         logger.debug(traceback.format_exc())
@@ -35,6 +38,8 @@ def test_logr_read(directory="tests/test_readers/test_files"):
     return True
 
 
+# TODO: convert to pytest
+@pytest.mark.skip(reason="this is not set up as a pytest yet")
 def test_logr_write(directory="tests/test_readers/test_files"):
     """Confirm output_txt working"""
     try:
@@ -43,19 +48,19 @@ def test_logr_write(directory="tests/test_readers/test_files"):
         reader.output_txt_file(out_file="test.dat")
         reader_2 = logr_read(filename="test.dat")
         if len(reader.data) == 180:
-            logger.info(f"logr output_txt test passed")
-            print(f"logr output_txt test passed")
+            logger.info("logr output_txt test passed")
+            print("logr output_txt test passed")
             return True
         else:
             logger.error(
                 f"logr output_txt test failed, len(reader.data) is {len(reader.data)} not 180"
             )
-            print(f"logr output_txt test failed")
+            print("logr output_txt test failed")
             return False
-    except:
-        print(f"Could not create verify write function")
+    except Exception:
+        print("Could not create verify write function")
         print(traceback.format_exc())
-        logger.error(f"Could not create verify write function")
+        logger.error("Could not create verify write function")
         logger.debug(traceback.format_exc())
         return False
 
@@ -69,5 +74,5 @@ if __name__ == "__main__":
         print(f"directory is {sys.argv[1]}")
         assert test_logr_read(os.path.join(os.getcwd(), sys.argv[1]))
     else:
-        print(f"directory is not specified")
+        print("directory is not specified")
         assert test_logr_read()

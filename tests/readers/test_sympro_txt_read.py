@@ -1,10 +1,13 @@
 from nrgpy import logger
 from nrgpy import sympro_txt_read
 import os
+import pytest
 import sys
 import traceback
 
 
+# TODO: convert to pytest
+@pytest.mark.skip(reason="this is not set up as a pytest yet")
 def test_sympro_txt_read(directory="tests/test_readers/test_files"):
     """Check that SymPRO TXT exports are ingested by nrgpy.sympro_txt_read"""
 
@@ -12,8 +15,8 @@ def test_sympro_txt_read(directory="tests/test_readers/test_files"):
         reader = sympro_txt_read()
         reader.concat_txt(txt_dir=directory)
 
-    except:
-        print(f"Could not create reader from test_files")
+    except Exception:
+        print("Could not create reader from test_files")
         print(traceback.format_exc())
         logger.error("test failed: could not create reader")
         logger.debug(traceback.format_exc())
@@ -44,5 +47,5 @@ if __name__ == "__main__":
         print(f"directory is {sys.argv[1]}")
         assert test_sympro_txt_read(os.path.join(os.getcwd(), sys.argv[1]))
     else:
-        print(f"directory is not specified")
+        print("directory is not specified")
         assert test_sympro_txt_read()

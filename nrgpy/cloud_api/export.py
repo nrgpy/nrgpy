@@ -13,7 +13,7 @@ import requests
 import zipfile
 
 
-class cloud_export(cloud_api):
+class CloudExport(cloud_api):
     """Uses NRG hosted web-based API to download data in text format
     To sign up for the service, go to https://cloud.nrgsystems.com
 
@@ -72,7 +72,7 @@ class cloud_export(cloud_api):
     >>> client_secret = "go to https://cloud.nrgsystems.com for access"
     >>> save_dir = '/path/to/exported/data'
     >>>
-    >>> exporter = nrgpy.cloud_export(
+    >>> exporter = nrgpy.CloudExport(
             client_id=client_id,
             client_secret=client_secret,
             out_dir=save_dir,
@@ -101,7 +101,7 @@ class cloud_export(cloud_api):
     >>> save_dir = '/path/to/exported/data'
     >>> file_format = 'zx'
     >>>
-    >>> exporter = nrgpy.cloud_export(
+    >>> exporter = nrgpy.CloudExport(
             client_id=client_id,
             client_secret=client_secret,
             out_dir=save_dir,
@@ -115,21 +115,21 @@ class cloud_export(cloud_api):
 
     def __init__(
         self,
-        out_dir="",
-        site_id="",
-        site_number="",
-        logger_sn="",
-        start_date="2014-01-01",
-        end_date="2030-12-31",
-        file_format="txt",
-        client_id="",
-        client_secret="",
-        url_base=cloud_url_base,
-        nec_file="",
-        export_type="measurements",
-        interval="",
-        concatenate=True,
-        unzip=True,
+        out_dir: str = "",
+        site_id: str = "",
+        site_number: str = "",
+        logger_sn: str = "",
+        start_date: str = "2014-01-01",
+        end_date: str = "2030-12-31",
+        file_format: str = "txt",
+        client_id: str = "",
+        client_secret: str = "",
+        url_base: str = cloud_url_base,
+        nec_file: str = "",
+        export_type: str = "measurements",
+        interval: str = "",
+        concatenate: bool = True,
+        unzip: bool = True,
         **kwargs,
     ):
         """Initialize a cloud_export object.
@@ -269,3 +269,5 @@ class cloud_export(cloud_api):
             print(str(self.resp.status_code) + " | " + self.resp.reason)
             print(self.resp.text.split(":")[1].split('"')[1])
             return False
+
+cloud_export = CloudExport

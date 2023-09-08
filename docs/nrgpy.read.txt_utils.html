@@ -260,9 +260,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -278,23 +276,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.format_sympro_site_data"><code class="docutils literal notranslate"><span class="pre">format_sympro_site_data()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data"><code class="docutils literal notranslate"><span class="pre">read_text_data</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">read_text_data.arrange_ch_info()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.concat"><code class="docutils literal notranslate"><span class="pre">read_text_data.concat()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data"><code class="docutils literal notranslate"><span class="pre">read_text_data.format_rwd_site_data()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_data"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_data()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_head"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_head()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_site_info"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_site_info()</span></code></a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -304,89 +285,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="module-nrgpy.read.txt_utils">
-<span id="nrgpy-read-txt-utils-module"></span><h1>nrgpy.read.txt_utils module<a class="headerlink" href="#module-nrgpy.read.txt_utils" title="Permalink to this heading">#</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="nrgpy.read.txt_utils.format_sympro_site_data">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.read.txt_utils.</span></span><span class="sig-name descname"><span class="pre">format_sympro_site_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#format_sympro_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.format_sympro_site_data" title="Permalink to this definition">#</a></dt>
-<dd><p>adds formatted site dataframe to reader object</p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.txt_utils.</span></span><span class="sig-name descname"><span class="pre">read_text_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sp3'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>class for handling known csv-style text data files with header information</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>filename</strong><span class="classifier">str, optional</span></dt><dd><p>perform a single file read (takes precedence over txt_dir)</p>
-</dd>
-<dt><strong>data_type</strong><span class="classifier">str</span></dt><dd><p>specify instrument that the data file came from</p>
-</dd>
-<dt><strong>sep</strong><span class="classifier">str</span></dt><dd><p>‘       ‘; csv separator</p>
-</dd>
-<dt><strong>txt_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>folder path of text files to read and concatenate</p>
-</dd>
-<dt><strong>file_filter</strong><span class="classifier">str, optional</span></dt><dd><p>use when using txt_dir to filter on subset of files</p>
-</dd>
-<dt><strong>file_ext</strong><span class="classifier">str, optional</span></dt><dd><p>secondary file filter</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.arrange_ch_info">
-<span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info" title="Permalink to this definition">#</a></dt>
-<dd><p>generates list and dataframe of channel information</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.concat">
-<span class="sig-name descname"><span class="pre">concat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.concat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.concat" title="Permalink to this definition">#</a></dt>
-<dd><p>combine exported rwd files (in txt format)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>output_txt</strong><span class="classifier">bool</span></dt><dd><p>set to True to save a concatenated text file</p>
-</dd>
-<dt><strong>out_file</strong><span class="classifier">str</span></dt><dd><p>filepath, absolute or relative</p>
-</dd>
-<dt><strong>file_filter</strong><span class="classifier">str</span></dt><dd></dd>
-<dt><strong>filter2</strong><span class="classifier">str</span></dt><dd></dd>
-<dt><strong>progress_bar</strong><span class="classifier">bool</span></dt><dd></dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.format_rwd_site_data">
-<span class="sig-name descname"><span class="pre">format_rwd_site_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.format_rwd_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data" title="Permalink to this definition">#</a></dt>
-<dd><p>adds formatted site dataframe to reader object</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.get_data">
-<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.get_data" title="Permalink to this definition">#</a></dt>
-<dd><p>create dataframe of tabulated data</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.get_head">
-<span class="sig-name descname"><span class="pre">get_head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.get_head"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.get_head" title="Permalink to this definition">#</a></dt>
-<dd><p>get the first lines of the file</p>
-<p>excluding those without tabs up to the self.skip_rows line</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.get_site_info">
-<span class="sig-name descname"><span class="pre">get_site_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.get_site_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.get_site_info" title="Permalink to this definition">#</a></dt>
-<dd><p>create dataframe of site info</p>
-</dd></dl>
-
-</dd></dl>
-
+  <section id="nrgpy-read-txt-utils-module">
+<h1>nrgpy.read.txt_utils module<a class="headerlink" href="#nrgpy-read-txt-utils-module" title="Permalink to this heading">#</a></h1>
 </section>
 
 
@@ -411,29 +311,6 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.format_sympro_site_data"><code class="docutils literal notranslate"><span class="pre">format_sympro_site_data()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data"><code class="docutils literal notranslate"><span class="pre">read_text_data</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">read_text_data.arrange_ch_info()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.concat"><code class="docutils literal notranslate"><span class="pre">read_text_data.concat()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data"><code class="docutils literal notranslate"><span class="pre">read_text_data.format_rwd_site_data()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_data"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_data()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_head"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_head()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.txt_utils.read_text_data.get_site_info"><code class="docutils literal notranslate"><span class="pre">read_text_data.get_site_info()</span></code></a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
             
           </div>
           <footer class="bd-footer-content">
@@ -452,7 +329,7 @@ By NRG Systems, Inc.
     
   <p class="copyright">
     
-      © Copyright 2022, NRG Systems, Inc..
+      © Copyright 2023, NRG Systems, Inc..
       <br/>
     
   </p>

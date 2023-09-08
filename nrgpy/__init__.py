@@ -22,7 +22,7 @@ try:
     logfile = os.path.join(home_dir, ".nrgpy", logfile_name)
     token_file = os.path.join(home_dir, ".nrgpy", token_file_name)
 
-except:
+except Exception:
     print(traceback.format_exc())
     logfile = logfile_name
     token_file = token_file_name
@@ -49,16 +49,16 @@ from .api.catalog import nrg_api_catalog
 from .api.convert import nrg_api_convert
 from .api.export import nrg_api_export
 from .api.upload import nrg_api_upload
-from .cloud_api.auth import cloud_api
-from .cloud_api.convert import cloud_convert
-from .cloud_api.export import cloud_export
-from .cloud_api.jobs import export_job
-from .cloud_api.sites import cloud_sites
-from .cloud_api.upload import cloud_import
+from .cloud_api.auth import cloud_api, CloudApi
+from .cloud_api.convert import cloud_convert, CloudConvert
+from .cloud_api.export import cloud_export, CloudExport
+from .cloud_api.jobs import export_job, CloudExportJob
+from .cloud_api.sites import cloud_sites, CloudSites
+from .cloud_api.upload import cloud_import, CloudImport
 from .quality.quality import check_intervals, select_interval_length
-from .read.logr import logr_read
-from .read.spidar_txt import spidar_data_read
-from .read.sympro_txt import sympro_txt_read, shift_timestamps
+from .read.logr import LogrRead, logr_read
+from .read.spidar_txt import SpidarRead, spidar_data_read
+from .read.sympro_txt import SymProTextRead, sympro_txt_read, shift_timestamps
 from .read.txt_utils import read_text_data
 from .utils.encodings import convert_utf16le_to_utf8
 from .utils.ipk2lgr import ipk2lgr

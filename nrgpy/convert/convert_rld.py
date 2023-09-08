@@ -17,17 +17,18 @@ from nrgpy.utils.utilities import (
 )
 
 
-class local(object):
+class local:
     """For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.
 
-    This method uses locally installed SymphoniePRO Desktop software to convert *.rld files to txt format (tab-delimited-text).
+    This method uses locally installed SymphoniePRO Desktop software to convert *.rld 
+    files to txt format (tab-delimited-text).
 
     Parameters
     ----------
     rld_dir : str, optional (path-like)
         specify directory. Note for unc values, you
         will need to escape all forward slashes, e.g.
-        rld_dir = "\\\\sol\\techsupport\\data\\"
+        rld_dir = "\\\\network\\techsupport\\data\\"
         or use the r'\\path\to\dir' approach
     out_dir : str, optional (path-like)
         see note for rld_dir.
@@ -64,17 +65,17 @@ class local(object):
 
     def __init__(
         self,
-        rld_dir="",
-        out_dir="",
-        encryption_pass="",
-        hex_key="",
-        filename="",
-        sympro_path=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
-        process_type="convert",
-        convert_type="meas",
-        nec="",
-        site_filter="",
-        site_file="",
+        rld_dir: str="",
+        out_dir: str="",
+        encryption_pass: str="",
+        hex_key: str="",
+        filename: str="",
+        sympro_path: str=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
+        process_type: str="convert",
+        convert_type: str="meas",
+        nec: str="",
+        site_filter: str="",
+        site_file: str="",
         **kwargs,
     ):
 
@@ -128,7 +129,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             else:
                 encryption = ""
 
-        except:
+        except Exception:
             print("could not parse encryption_pass")
 
         try:
@@ -137,7 +138,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             else:
                 encryption_key = ""
 
-        except:
+        except Exception:
             print("could not parse hex_key")
 
         try:
@@ -146,7 +147,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             else:
                 nec = ""
 
-        except:
+        except Exception:
             print("could not parse encryption_pass")
 
         try:
@@ -157,7 +158,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             else:
                 site_file = ""
 
-        except:
+        except Exception:
             print("could not parse encryption_pass")
 
         try:
@@ -236,7 +237,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
 
                   """
             )
-        except:
+        except Exception:
             logger.error("unable to process files in {0}".format(self.rld_dir))
             logger.debug(traceback.format_exc())
             print("Unable to process files in directory")
@@ -276,7 +277,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
 
                 else:
                     pass
-        except:
+        except Exception:
             logger.error("Could not rename files")
             logger.debug(traceback.format_exc())
             print("Could not rename files")
@@ -289,7 +290,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
                 encryption = '/pass "{0}"'.format(self.encryption_pass)
             else:
                 encryption = ""
-        except:
+        except Exception:
             print("could not parse encryption_pass")
 
         try:
@@ -297,7 +298,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
                 encryption_key = '/key "{0}"'.format(self.hex_key)
             else:
                 encryption_key = ""
-        except:
+        except Exception:
             print("could not parse hex_key")
 
         try:
@@ -305,7 +306,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
                 nec = '/config "{0}"'.format(self.nec)
             else:
                 nec = ""
-        except:
+        except Exception:
             print("could not get nec file")
 
         try:
@@ -313,7 +314,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
                 site_file = '/site "{0}"'.format(self.site_file)
             else:
                 site_file = ""
-        except:
+        except Exception:
             print("could not get site file")
 
         cmd = [
@@ -351,7 +352,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
                 logger.info(f"{p.stdout.decode()}")
                 print("[DONE]")
 
-        except:
+        except Exception:
             logger.error("processing {0} FAILED".format(filepath))
             logger.debug(traceback.format_exc())
             print("\n\t processing {0} [FAILED]".format(filepath))
