@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -32,8 +32,8 @@
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -243,25 +243,31 @@ document.write(`
     <span class="k">pass</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">psutil</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">from</span> <span class="nn">nrgpy.api.convert</span> <span class="kn">import</span> <span class="n">nrg_api_convert</span>
-<span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="n">check_platform</span><span class="p">,</span> <span class="n">windows_folder_path</span><span class="p">,</span> <span class="n">affirm_directory</span><span class="p">,</span> <span class="n">count_files</span><span class="p">,</span> <span class="n">is_sympro_running</span>
+<span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">check_platform</span><span class="p">,</span>
+    <span class="n">windows_folder_path</span><span class="p">,</span>
+    <span class="n">affirm_directory</span><span class="p">,</span>
+    <span class="n">count_files</span><span class="p">,</span>
+    <span class="n">is_sympro_running</span><span class="p">,</span>
+<span class="p">)</span>
 
 
-<div class="viewcode-block" id="local"><a class="viewcode-back" href="../../../nrgpy.convert.convert_rld.html#nrgpy.convert.convert_rld.local">[docs]</a><span class="k">class</span> <span class="nc">local</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.</span>
+<div class="viewcode-block" id="local"><a class="viewcode-back" href="../../../nrgpy.convert.convert_rld.html#nrgpy.convert.convert_rld.local">[docs]</a><span class="k">class</span> <span class="nc">local</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.</span>
 
-<span class="sd">    This method uses locally installed SymphoniePRO Desktop software to convert *.rld files to txt format (tab-delimited-text).</span>
+<span class="sd">    This method uses locally installed SymphoniePRO Desktop software to convert *.rld </span>
+<span class="sd">    files to txt format (tab-delimited-text).</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    rld_dir : str, optional (path-like)</span>
 <span class="sd">        specify directory. Note for unc values, you</span>
 <span class="sd">        will need to escape all forward slashes, e.g.</span>
-<span class="sd">        rld_dir = &quot;\\\\sol\\techsupport\\data\\&quot;</span>
+<span class="sd">        rld_dir = &quot;\\\\network\\techsupport\\data\\&quot;</span>
 <span class="sd">        or use the r&#39;\\path\to\dir&#39; approach</span>
 <span class="sd">    out_dir : str, optional (path-like)</span>
 <span class="sd">        see note for rld_dir.</span>
@@ -296,9 +302,21 @@ document.write(`
 <span class="sd">    &gt;&gt;&gt; converter.convert()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rld_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">encryption_pass</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">hex_key</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                 <span class="n">sympro_path</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&quot;C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe&quot;&#39;</span><span class="p">,</span>
-                 <span class="n">process_type</span><span class="o">=</span><span class="s1">&#39;convert&#39;</span><span class="p">,</span> <span class="n">convert_type</span><span class="o">=</span><span class="s1">&#39;meas&#39;</span><span class="p">,</span> <span class="n">nec</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">site_filter</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">site_file</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">rld_dir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">encryption_pass</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">hex_key</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">sympro_path</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&quot;C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe&quot;&#39;</span><span class="p">,</span>
+        <span class="n">process_type</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;convert&quot;</span><span class="p">,</span>
+        <span class="n">convert_type</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;meas&quot;</span><span class="p">,</span>
+        <span class="n">nec</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">site_filter</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">site_file</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span> <span class="o">=</span> <span class="n">windows_folder_path</span><span class="p">(</span><span class="n">rld_dir</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">windows_folder_path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span>
@@ -311,88 +329,98 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="o">=</span> <span class="n">site_filter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">site_file</span> <span class="o">=</span> <span class="n">site_file</span>
 
-        <span class="k">if</span> <span class="s1">&#39;file_filter&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">site_filter</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file_filter&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;file_filter&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">site_filter</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;file_filter&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_filter</span>
 
-        <span class="k">if</span> <span class="n">check_platform</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">check_platform</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">is_sympro_running</span><span class="p">():</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SymphoniePRO Desktop is already running. Please close it and try again.&quot;</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;SymphoniePRO Desktop is already running so it could not be run&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;SymphoniePRO Desktop is already running. Please close it and try again.&quot;</span>
+                <span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">&quot;SymphoniePRO Desktop is already running so it could not be run&quot;</span>
+                <span class="p">)</span>
 
             <span class="k">elif</span> <span class="n">filename</span><span class="p">:</span>
                 <span class="n">affirm_directory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">single_file</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">convert_rld.local() method ONLY compatible with Windows OS.</span>
-<span class="s2">Please use nrgpy.cloud_convert() method instead.</span>
+            <span class="nb">print</span><span class="p">(</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">convert_rld.local() method ONLY compatible with Windows OS.</span>
+<span class="sd">Please use nrgpy.cloud_convert() method instead.</span>
 
-<span class="s2">Alternately, follow the instructions for using SymphoniePRO Desktop</span>
-<span class="s2">with wine here:</span>
+<span class="sd">Alternately, follow the instructions for using SymphoniePRO Desktop</span>
+<span class="sd">with wine here:</span>
 
-<span class="s2">https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md            </span>
-<span class="s2">            &quot;&quot;&quot;</span><span class="p">)</span>
+<span class="sd">https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md            </span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="p">)</span>
 
 <div class="viewcode-block" id="local.directory"><a class="viewcode-back" href="../../../nrgpy.convert.convert_rld.html#nrgpy.convert.convert_rld.local.directory">[docs]</a>    <span class="k">def</span> <span class="nf">directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;processes all rld files in self.rld_dir, outputs to txt files to out_dir&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;processes all rld files in self.rld_dir, outputs to txt files to out_dir&quot;&quot;&quot;</span>
         <span class="n">affirm_directory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encryption_pass</span><span class="p">:</span>
                 <span class="n">encryption</span> <span class="o">=</span> <span class="s1">&#39;/pass &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encryption_pass</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">encryption</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">encryption</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;could not parse encryption_pass&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not parse encryption_pass&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hex_key</span><span class="p">:</span>
                 <span class="n">encryption_key</span> <span class="o">=</span> <span class="s1">&#39;/key &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hex_key</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">encryption_key</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">encryption_key</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;could not parse hex_key&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not parse hex_key&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nec</span><span class="p">:</span>
                 <span class="n">nec</span> <span class="o">=</span> <span class="s1">&#39;/config &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nec</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">nec</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">nec</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;could not parse encryption_pass&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not parse encryption_pass&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_file</span><span class="p">:</span>
-                <span class="n">site_file</span> <span class="o">=</span> <span class="s1">&#39;/site &#39;</span>
+                <span class="n">site_file</span> <span class="o">=</span> <span class="s2">&quot;/site &quot;</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_file</span><span class="p">:</span>
                 <span class="n">site_file</span> <span class="o">=</span> <span class="s1">&#39;/site &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">site_file</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">site_file</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">site_file</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;could not parse encryption_pass&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not parse encryption_pass&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">rld_count</span> <span class="o">=</span> <span class="n">count_files</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">,</span> <span class="s1">&#39;rld&#39;</span><span class="p">)</span>
+            <span class="n">rld_count</span> <span class="o">=</span> <span class="n">count_files</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">,</span> <span class="s2">&quot;rld&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;converting </span><span class="si">{0}</span><span class="s1"> files from </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Converting </span><span class="si">{0}</span><span class="s1"> files from </span><span class="si">{1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saving outputs to </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;converting </span><span class="si">{0}</span><span class="s2"> files from </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Converting </span><span class="si">{0}</span><span class="s2"> files from </span><span class="si">{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving outputs to </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span>
 
             <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">sympro_path</span><span class="p">,</span>
-                <span class="s2">&quot;/cmd&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_type</span><span class="p">,</span>
-                <span class="s2">&quot;/file&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">])</span><span class="o">+</span><span class="s1">&#39;*.rld&quot;&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;/cmd&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">process_type</span><span class="p">,</span>
+                <span class="s2">&quot;/file&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;*.rld&quot;&#39;</span><span class="p">,</span>
                 <span class="n">encryption</span><span class="p">,</span>
                 <span class="n">encryption_key</span><span class="p">,</span>
                 <span class="n">nec</span><span class="p">,</span>
                 <span class="n">site_file</span><span class="p">,</span>
-                <span class="s2">&quot;/type&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_type</span><span class="o">+</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span>
-                <span class="s2">&quot;/outputdir&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;&quot;&#39;</span>
+                <span class="s2">&quot;/type&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_type</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;/outputdir&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">,</span>
             <span class="p">]</span>
 
             <span class="c1"># print(&#39;\nUsing command line script:\n{}&#39;.format(&quot; &quot;.join(cmd)))</span>
@@ -404,36 +432,54 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">convert_time</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
 
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;TXT files saved in </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">TXT files saved in </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;TXT files saved in </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TXT files saved in </span><span class="si">{0}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">))</span>
 
-            <span class="n">txt_count</span> <span class="o">=</span> <span class="n">count_files</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">,</span> <span class="s1">&#39;txt&#39;</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
-            <span class="n">log_count</span><span class="p">,</span> <span class="n">log_files</span> <span class="o">=</span> <span class="n">count_files</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">show_files</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+            <span class="n">txt_count</span> <span class="o">=</span> <span class="n">count_files</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">,</span> <span class="s2">&quot;txt&quot;</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span>
+            <span class="p">)</span>
+            <span class="n">log_count</span><span class="p">,</span> <span class="n">log_files</span> <span class="o">=</span> <span class="n">count_files</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span><span class="p">,</span>
+                <span class="s2">&quot;log&quot;</span><span class="p">,</span>
+                <span class="n">show_files</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span>
+            <span class="p">)</span>
 
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IN: </span><span class="si">{</span><span class="n">rld_count</span><span class="si">}</span><span class="s2">, OUT: </span><span class="si">{</span><span class="n">txt_count</span><span class="si">}</span><span class="s2">, FAILED: </span><span class="si">{</span><span class="n">log_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RLDs in    : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld_count</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;TXTs out   : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">txt_count</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;LOGs out   : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">log_count</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RLDs in    : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld_count</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TXTs out   : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">txt_count</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LOGs out   : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">log_count</span><span class="p">))</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">log_files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Log files created:&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Log files created:&quot;</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">_filename</span> <span class="ow">in</span> <span class="n">log_files</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_filename</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------</span><span class="se">\n</span><span class="s1">Difference : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rld_count</span> <span class="o">-</span> <span class="p">(</span><span class="n">txt_count</span> <span class="o">+</span> <span class="n">log_count</span><span class="p">)))</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_filename</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;----------------</span><span class="se">\n</span><span class="s2">Difference : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">rld_count</span> <span class="o">-</span> <span class="p">(</span><span class="n">txt_count</span> <span class="o">+</span> <span class="n">log_count</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;SymphoniePRO Desktop Application not found: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sympro_path</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">                  No instance of SymphoniePRO Desktop Application found.</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;SymphoniePRO Desktop Application not found: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sympro_path</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                  No instance of SymphoniePRO Desktop Application found.</span>
 
-<span class="s2">                  Please follow the link below to download and install this software:</span>
-<span class="s2">                  https://www.nrgsystems.com/support/product-support/software/symphoniepro-desktop-application</span>
+<span class="sd">                  Please follow the link below to download and install this software:</span>
+<span class="sd">                  https://www.nrgsystems.com/support/product-support/software/symphoniepro-desktop-application</span>
 
-<span class="s2">                  &quot;&quot;&quot;</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
+<span class="sd">                  &quot;&quot;&quot;</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;unable to process files in </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">))</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Unable to process files in directory&#39;</span><span class="p">)</span></div>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to process files in directory&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="local.convert"><a class="viewcode-back" href="../../../nrgpy.convert.convert_rld.html#nrgpy.convert.convert_rld.local.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">()</span></div>
@@ -442,21 +488,24 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="local.rename_rlds"><a class="viewcode-back" href="../../../nrgpy.convert.convert_rld.html#nrgpy.convert.convert_rld.local.rename_rlds">[docs]</a>    <span class="k">def</span> <span class="nf">rename_rlds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number and logger serial number.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;uses SymPRO utility NrgRldSiteSerialRename.exe to rename files with site number and logger serial number.</span>
 
 <span class="sd">        This function is only compatible with Windows&gt;=7 AND</span>
 <span class="sd">        a local installation of SymphoniePRO Desktop software</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">renamer_path</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;renamer_path&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/Default Application Files/Utilities/NrgRldSiteSerialRename.exe&quot;</span><span class="p">)</span>
+            <span class="n">renamer_path</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s2">&quot;renamer_path&quot;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s2">&quot;C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/Default Application Files/Utilities/NrgRldSiteSerialRename.exe&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
 
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span><span class="p">):</span>
 
                 <span class="n">filepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rld_dir</span> <span class="o">+</span> <span class="n">f</span>
 
-                <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s2">&quot;.rld&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-                    <span class="n">rename_cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">renamer_path</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="n">filepath</span><span class="o">+</span><span class="s1">&#39;&quot;&#39;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;.rld&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_filter</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">rename_cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">renamer_path</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="n">filepath</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">]</span>
 
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rename_cmd</span><span class="p">),</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
@@ -467,64 +516,73 @@ document.write(`
 
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">pass</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Could not rename files&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not rename files&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Could not rename files&#39;</span><span class="p">)</span></div>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Could not rename files&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="local.single_file"><a class="viewcode-back" href="../../../nrgpy.convert.convert_rld.html#nrgpy.convert.convert_rld.local.single_file">[docs]</a>    <span class="k">def</span> <span class="nf">single_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="local.single_file"><a class="viewcode-back" href="../../../nrgpy.convert.convert_rld.html#nrgpy.convert.convert_rld.local.single_file">[docs]</a>    <span class="k">def</span> <span class="nf">single_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encryption_pass</span><span class="p">:</span>
                 <span class="n">encryption</span> <span class="o">=</span> <span class="s1">&#39;/pass &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encryption_pass</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">encryption</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;could not parse encryption_pass&#39;</span><span class="p">)</span>
+                <span class="n">encryption</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not parse encryption_pass&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hex_key</span><span class="p">:</span>
                 <span class="n">encryption_key</span> <span class="o">=</span> <span class="s1">&#39;/key &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hex_key</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">encryption_key</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;could not parse hex_key&#39;</span><span class="p">)</span>
+                <span class="n">encryption_key</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not parse hex_key&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nec</span><span class="p">:</span>
                 <span class="n">nec</span> <span class="o">=</span> <span class="s1">&#39;/config &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nec</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">nec</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;could not get nec file&#39;</span><span class="p">)</span>
+                <span class="n">nec</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not get nec file&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_file</span><span class="p">:</span>
                 <span class="n">site_file</span> <span class="o">=</span> <span class="s1">&#39;/site &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">site_file</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">site_file</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;could not get site file&#39;</span><span class="p">)</span>
+                <span class="n">site_file</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;could not get site file&quot;</span><span class="p">)</span>
 
         <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sympro_path</span><span class="p">,</span>
-            <span class="s2">&quot;/cmd&quot;</span><span class="p">,</span> <span class="s2">&quot;convert&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;/file&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="o">+</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;/cmd&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;convert&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/file&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">,</span>
             <span class="n">encryption</span><span class="p">,</span>
             <span class="n">encryption_key</span><span class="p">,</span>
             <span class="n">nec</span><span class="p">,</span>
             <span class="n">site_file</span><span class="p">,</span>
-            <span class="s2">&quot;/type&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_type</span><span class="o">+</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span>
-            <span class="s2">&quot;/outputdir&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;&quot;&#39;</span>
+            <span class="s2">&quot;/type&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_type</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;/outputdir&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> ... </span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">),</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">),</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span>
+            <span class="p">)</span>
 
-            <span class="k">if</span> <span class="s2">&quot;File does not&quot;</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;Decryption failed&quot;</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="s2">&quot;File does not&quot;</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+                <span class="ow">or</span> <span class="s2">&quot;Decryption failed&quot;</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+            <span class="p">):</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[FAILED]&quot;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -533,7 +591,7 @@ document.write(`
                 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[DONE]&quot;</span><span class="p">)</span>
 
-        <span class="k">except</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;processing </span><span class="si">{0}</span><span class="s2"> FAILED&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2"> processing </span><span class="si">{0}</span><span class="s2"> [FAILED]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
@@ -552,9 +610,15 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -564,7 +628,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -579,7 +643,7 @@ By NRG Systems, Inc.
     
   <p class="copyright">
     
-      © Copyright 2022, NRG Systems, Inc..
+      © Copyright 2023, NRG Systems, Inc..
       <br/>
     
   </p>
@@ -594,7 +658,7 @@ By NRG Systems, Inc.
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -603,8 +667,8 @@ By NRG Systems, Inc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

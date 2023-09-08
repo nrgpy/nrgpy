@@ -260,7 +260,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -276,6 +278,18 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.convert.convert_rwd.local"><code class="docutils literal notranslate"><span class="pre">local</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.convert.convert_rwd.local.check_sdr"><code class="docutils literal notranslate"><span class="pre">local.check_sdr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.convert.convert_rwd.local.convert"><code class="docutils literal notranslate"><span class="pre">local.convert()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -285,8 +299,101 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="nrgpy-convert-convert-rwd-module">
-<h1>nrgpy.convert.convert_rwd module<a class="headerlink" href="#nrgpy-convert-convert-rwd-module" title="Permalink to this heading">#</a></h1>
+  <section id="module-nrgpy.convert.convert_rwd">
+<span id="nrgpy-convert-convert-rwd-module"></span><h1>nrgpy.convert.convert_rwd module<a class="headerlink" href="#module-nrgpy.convert.convert_rwd" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nrgpy.convert.convert_rwd.local">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.convert.convert_rwd.</span></span><span class="sig-name descname"><span class="pre">local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rwd_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encryption_pin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sdr_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'C:/NRG/SymDR/SDR.exe'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'meas'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wine_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'~/.wine/drive_c/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_site_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/convert/convert_rwd.html#local"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.convert.convert_rwd.local" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>nrgpy.convert_rwd.local - use local installation of 
+Symphonie Data Retriever (SDR) to convert <a href="#id1"><span class="problematic" id="id2">*</span></a>.RWD files to <a href="#id3"><span class="problematic" id="id4">*</span></a>.TXT</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filename</strong><span class="classifier">str</span></dt><dd><p>if populated, a single file is exported</p>
+</dd>
+<dt><strong>encryption_pin</strong><span class="classifier">str</span></dt><dd><p>four digit pin, only used for encrypted files</p>
+</dd>
+<dt><strong>sdr_path</strong><span class="classifier">str</span></dt><dd><p>r‘“C:/NRG/SymDR/SDR.exe”’, may be any path</p>
+</dd>
+<dt><strong>file_filter</strong><span class="classifier">str</span></dt><dd><p>filters files on text in filename</p>
+</dd>
+<dt><strong>rwd_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>folder to check for RWD files</p>
+</dd>
+<dt><strong>out_dir</strong><span class="classifier">str (path-like)</span></dt><dd><p>folder to save exported TXT files into</p>
+</dd>
+<dt><strong>wine_folder</strong><span class="classifier">str</span></dt><dd><p>‘~/.wine/drive_c/’, for linux installations</p>
+</dd>
+<dt><strong>use_site_file</strong><span class="classifier">bool</span></dt><dd><p>set to True to use local site file</p>
+</dd>
+<dt><strong>raw_mode</strong><span class="classifier">bool</span></dt><dd><p>set to True to convert raw counts and voltages</p>
+</dd>
+<dt><strong>progress_bar</strong><span class="classifier">bool</span></dt><dd><p>set to False to see individual file conversions</p>
+</dd>
+<dt><strong>show_result</strong><span class="classifier">bool</span></dt><dd><p>set to False to hide prints to console</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Convert a folder of RWD files to Text with SymphoniePRO Desktop Software</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nrgpy.convert_rwd</span> <span class="kn">import</span> <span class="n">local</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">local</span><span class="p">(</span>
+<span class="go">        rwd_dir=&#39;/path/to/rwd/files&#39;,</span>
+<span class="go">        out_dir=/path/to/txt/outputs,</span>
+<span class="go">        file_filter=&#39;1234202001&#39;, # for files from January 2020</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Convert a folder … on Linux; this assumes you followed the instructions
+in the ‘’’SDR_Linux_README.md’’’ file.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">getpass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">username</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rwd_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/home/</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">/data/symplus3/raw&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">txt_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/home/</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">/data/symplus3/export&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wine_folder</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/home/</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">/prefix32/drive_c&quot;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">convert_rwd</span><span class="o">.</span><span class="n">local</span><span class="p">(</span>
+<span class="go">        rwd_dir=rwd_dir,</span>
+<span class="go">        out_dir=txt_dir,</span>
+<span class="go">        wine_folder=wine_folder</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">converter</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.convert.convert_rwd.local.check_sdr">
+<span class="sig-name descname"><span class="pre">check_sdr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/convert/convert_rwd.html#local.check_sdr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.convert.convert_rwd.local.check_sdr" title="Permalink to this definition">#</a></dt>
+<dd><p>determine if SDR is installed</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.convert.convert_rwd.local.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/convert/convert_rwd.html#local.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.convert.convert_rwd.local.convert" title="Permalink to this definition">#</a></dt>
+<dd><p>process rwd files</p>
+<p>create list of RWD files that match filtering
+copy RWD files to RawData directory
+iterate through files</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
@@ -310,6 +417,24 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.convert.convert_rwd.local"><code class="docutils literal notranslate"><span class="pre">local</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.convert.convert_rwd.local.check_sdr"><code class="docutils literal notranslate"><span class="pre">local.check_sdr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.convert.convert_rwd.local.convert"><code class="docutils literal notranslate"><span class="pre">local.convert()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
