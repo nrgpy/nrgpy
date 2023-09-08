@@ -260,9 +260,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -278,17 +276,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.catalog.nrg_api_catalog"><code class="docutils literal notranslate"><span class="pre">nrg_api_catalog</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.catalog.nrg_api_catalog.data_catalog"><code class="docutils literal notranslate"><span class="pre">nrg_api_catalog.data_catalog()</span></code></a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -298,63 +285,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="module-nrgpy.api.catalog">
-<span id="nrgpy-api-catalog-module"></span><h1>nrgpy.api.catalog module<a class="headerlink" href="#module-nrgpy.api.catalog" title="Permalink to this heading">#</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="nrgpy.api.catalog.nrg_api_catalog">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.api.catalog.</span></span><span class="sig-name descname"><span class="pre">nrg_api_catalog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serial_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2014-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2023-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/catalog.html#nrg_api_catalog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.catalog.nrg_api_catalog" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="nrgpy.api.auth.html#nrgpy.api.auth.nrg_api" title="nrgpy.api.auth.nrg_api"><code class="xref py py-class docutils literal notranslate"><span class="pre">nrg_api</span></code></a></p>
-<p>Uses NRG hosted web-based API to catalog of available data in text format
-To sign up for the service, go to <a class="reference external" href="https://services.nrgsystems.com/">https://services.nrgsystems.com/</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>serial_number</strong><span class="classifier">str or int</span></dt><dd><p>serial number of data logger (like, 820612345)</p>
-</dd>
-<dt><strong>site_number</strong><span class="classifier">str or int</span></dt><dd><p>up to 6-digit site number</p>
-</dd>
-<dt><strong>start_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
-times are in logger local time</p>
-</dd>
-<dt><strong>end_date</strong><span class="classifier">str</span></dt><dd><p>“YYYY-MM-DD HH:MM:SS” format, if just date it will return the whole day
-times are in logger local time</p>
-</dd>
-<dt><strong>client_id</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
-</dd>
-<dt><strong>client_secret</strong><span class="classifier">str</span></dt><dd><p>provided by NRG Systems</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>object</dt><dd><p>export object</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<p>Check for available data files for site number 6</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nrgpy</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">client_secret</span> <span class="o">=</span> <span class="s2">&quot;contact support@nrgsystems.com for access&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">catalog</span> <span class="o">=</span> <span class="n">nrgpy</span><span class="o">.</span><span class="n">nrg_api_catalog</span><span class="p">(</span>
-<span class="go">        client_id=client_id,</span>
-<span class="go">        client_secret=client_secret,</span>
-<span class="go">        site_number=6,</span>
-<span class="go">        serial_number=820600019,</span>
-<span class="go">        start_date=&quot;2020-05-01&quot;,</span>
-<span class="go">        end_date=&quot;2020-05-03&quot;,</span>
-<span class="go">        save_file=False</span>
-<span class="go">    )</span>
-</pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py" id="nrgpy.api.catalog.nrg_api_catalog.data_catalog">
-<span class="sig-name descname"><span class="pre">data_catalog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/api/catalog.html#nrg_api_catalog.data_catalog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.api.catalog.nrg_api_catalog.data_catalog" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <section id="nrgpy-api-catalog-module">
+<h1>nrgpy.api.catalog module<a class="headerlink" href="#nrgpy-api-catalog-module" title="Permalink to this heading">#</a></h1>
 </section>
 
 
@@ -379,23 +311,6 @@ times are in logger local time</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.catalog.nrg_api_catalog"><code class="docutils literal notranslate"><span class="pre">nrg_api_catalog</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.api.catalog.nrg_api_catalog.data_catalog"><code class="docutils literal notranslate"><span class="pre">nrg_api_catalog.data_catalog()</span></code></a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
             
           </div>
           <footer class="bd-footer-content">
@@ -414,7 +329,7 @@ By NRG Systems, Inc.
     
   <p class="copyright">
     
-      © Copyright 2022, NRG Systems, Inc..
+      © Copyright 2023, NRG Systems, Inc..
       <br/>
     
   </p>
