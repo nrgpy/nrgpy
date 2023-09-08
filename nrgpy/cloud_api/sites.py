@@ -3,12 +3,11 @@ try:
 except ImportError:
     pass
 from .auth import cloud_api, cloud_url_base
-import json
 import pandas as pd
 import requests
 
 
-class cloud_sites(cloud_api):
+class CloudSites(cloud_api):
     """Find NRG Cloud sites associated with a user.
 
     Attributes
@@ -26,7 +25,7 @@ class cloud_sites(cloud_api):
     >>> import nrgpy
     >>> client_id = 'go to https://cloud.nrgsystems.com for access'
     >>> client_secret = 'go to https://cloud.nrgsystems.com for access'
-    >>> sites = nrgpy.cloud_sites(client_id=client_id, client_secret=client_secret)
+    >>> sites = nrgpy.CloudSites(client_id=client_id, client_secret=client_secret)
     >>> sites.sites_df
     siteId  siteNumber    siteDescription               project  loggerSerialNumber
     0      33        6716           SunnyDog              SunnyDog           820606716
@@ -36,7 +35,9 @@ class cloud_sites(cloud_api):
 
     """
 
-    def __init__(self, client_id, client_secret, url_base=cloud_url_base):
+    def __init__(
+        self, client_id: str, client_secret: str, url_base: str = cloud_url_base
+    ):
         """Initialize a cloud_sites object.
 
         Parameters
@@ -64,7 +65,7 @@ class cloud_sites(cloud_api):
         logger.info(f"{len(self.sites_list)} sites found")
         self.sites_df = pd.DataFrame(self.sites_list)
 
-    def get_siteid(self, site_number="", logger_sn=""):
+    def get_siteid(self, site_number: str = "", logger_sn: str = ""):
         """Get NRG Cloud site ID that corresponds to site number and/or logger SN
 
         Parameters
@@ -157,3 +158,6 @@ class cloud_sites(cloud_api):
                     + "Confirm that you have entered the value correctly "
                     + "and that you have access to this site."
                 )
+
+
+cloud_sites = CloudSites

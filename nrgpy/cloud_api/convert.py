@@ -10,7 +10,7 @@ import requests
 import zipfile
 
 
-class cloud_convert(cloud_api):
+class CloudConvert(cloud_api):
     """Uses NRG hosted web-based API to convert RLD and RWD files to text format
     To sign up for the service, go to https://cloud.nrgsystems.com/.
 
@@ -61,7 +61,7 @@ class cloud_convert(cloud_api):
     >>> filename = "/home/user/data/sympro/000123/000123_2019-05-23_19.00_003672.rld
     >>> client_id = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
     >>> client_secret = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
-    >>> converter = nrgpy.cloud_convert(
+    >>> converter = nrgpy.CloudConvert(
             file_filter=file_filter,
             filename=filename,
             client_id=client_id,
@@ -76,7 +76,7 @@ class cloud_convert(cloud_api):
     >>> txt_dir = "/home/user/data/sympro/000123/txt/"
     >>> client_id = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
     >>> client_secret = "go to https://cloud.nrgsystems.com/data-manager/api-setup for access"
-    >>> converter = nrgpy.cloud_convert(
+    >>> converter = nrgpy.CloudConvert(
             file_filter=file_filter,
             rld_dir=rld_directory,
             out_dir=txt_dir,
@@ -91,20 +91,20 @@ class cloud_convert(cloud_api):
 
     def __init__(
         self,
-        rld_dir="",
-        out_dir="",
-        filename="",
-        site_filter="",
-        filter2="",
-        start_date="1970-01-01",
-        end_date="2150-12-31",
-        client_id="",
-        client_secret="",
-        url_base=cloud_url_base,
-        export_type="measurements",
-        nec_file="",
-        unzip=True,
-        progress_bar=True,
+        rld_dir: str = "",
+        out_dir: str = "",
+        filename: str = "",
+        site_filter: str = "",
+        filter2: str = "",
+        start_date: str = "1970-01-01",
+        end_date: str = "2150-12-31",
+        client_id: str = "",
+        client_secret: str = "",
+        url_base: str = cloud_url_base,
+        export_type: str = "measurements",
+        nec_file: str = "",
+        unzip: bool = True,
+        progress_bar: bool = True,
         **kwargs,
     ):
         """Initialize a cloud_export object.
@@ -170,7 +170,7 @@ class cloud_convert(cloud_api):
         if rld_dir:
             self.process()
 
-    def process(self):
+    def process(self) -> None:
         self.start_time = datetime.now()
 
         self.files = [
@@ -193,7 +193,7 @@ class cloud_convert(cloud_api):
 
         print("\n")
 
-    def single_file(self, rld):
+    def single_file(self, rld) -> None:
         try:
             if self.progress_bar:
                 draw_progress_bar(self.counter, self.raw_count, self.start_time)
@@ -283,3 +283,5 @@ class cloud_convert(cloud_api):
             print("unable to process file: {0}".format(rld))
             print(e)
             pass
+
+cloud_convert = CloudConvert

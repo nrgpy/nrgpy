@@ -87,7 +87,7 @@ filename = "path/to/rld"
 txt_dir = "path/to/txt/"
 client_id = "https://cloud.nrgsystems.com/data-manager/api-setup"
 client_secret = ""
-converter = nrgpy.cloud_convert(
+converter = nrgpy.CloudConvert(
     filename=filename, 
     client_id=client_id,
     client_secret=client_secret,
@@ -100,7 +100,7 @@ converter = nrgpy.cloud_convert(
 file_filter = "000110"
 import nrgpy
 
-reader = nrgpy.sympro_txt_read()
+reader = nrgpy.SymProTextRead()
 reader.concat_txt(
     txt_dir=text_folder_name, 
     file_filter=file_filter, 
@@ -187,7 +187,7 @@ In [1]: import nrgpy
 
 In [2]: fname = "/spidar/1922AG7777_CAG70-SPPP-LPPP_NRG1_AVGWND_2019-07-07_1.zip"                            
 
-In [3]: reader = nrgpy.spidar_data_read(filename=fname)                                                                              
+In [3]: reader = nrgpy.SpidarRead(filename=fname)                                                                              
 
 In [4]: reader.heights                                                                                                         
 Out[4]: [40, 60, 80, 90, 100, 120, 130, 160, 180, 200]

@@ -3,7 +3,7 @@ try:
 except ImportError:
     pass
 import datetime
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta  # noqa: F811
 from glob import glob
 import os
 import pandas as pd
@@ -18,23 +18,23 @@ from nrgpy.utils.utilities import (
 import traceback
 
 
-class logr_read(object):
+class LogrRead:
     def __init__(
         self,
-        filename="",
-        out_file="",
-        text_timestamps=False,
-        logger_local_time=False,
+        filename: str = "",
+        out_file: str = "",
+        text_timestamps: bool = False,
+        logger_local_time: bool = False,
         **kwargs,
     ):
         """Class of Pandas dataframes created from LOGR dat file.
 
-        If a filename is passed when calling class, the file is read in alone. Otherwise,
-        an instance of the class is created, and the concat_txt function may be called to
-        combine all txt files in a directory.
+        If a filename is passed when calling class, the file is read in alone. 
+        Otherwise, an instance of the class is created, and the concat_txt function may 
+        be called to combine all txt files in a directory.
 
-        Filters may be used on any part of the filename, to combine a subset of dat files in
-        a directory.
+        Filters may be used on any part of the filename, to combine a subset of dat 
+        files in a directory.
 
         Parameters
         ----------
@@ -50,9 +50,11 @@ class logr_read(object):
         Returns
         ---------
         ch_info : obj
-            pandas dataframe of ch_list (below) pulled out of file with logr_read.arrange_ch_info()
+            pandas dataframe of ch_list (below) pulled out of file with 
+            logr_read.arrange_ch_info()
         ch_list : list
-            list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
+            list of channel info; can be converted to json w/ import json ... 
+            json.dumps(fut.ch_info)
         data : obj
             pandas dataframe of all data
         head : obj
@@ -154,7 +156,6 @@ class logr_read(object):
         ch_details = 0
 
         for row in self.site_info.loc[self.site_info[0].isin(array)].iterrows():
-
             # if row[1][0] == array[0] and ch_details == 0:  # start channel data read
             if (
                 row[1][0] in (array[0], array[1]) and ch_details == 0
@@ -239,16 +240,16 @@ class logr_read(object):
 
     def concat_txt(
         self,
-        dat_dir="",
-        file_type="statistical",
-        file_filter="",
-        filter2="",
-        start_date="1970-01-01",
-        end_date="2150-12-31",
-        ch_details=False,
-        output_txt=False,
-        out_file="",
-        progress_bar=True,
+        dat_dir: str = "",
+        file_type: str = "statistical",
+        file_filter: str = "",
+        filter2: str = "",
+        start_date: str = "1970-01-01",
+        end_date: str = "2150-12-31",
+        ch_details: bool = False,
+        output_txt: bool = False,
+        out_file: str = "",
+        progress_bar: bool = True,
         **kwargs,
     ):
         """Will concatenate all text files in the dat_dir
@@ -281,9 +282,11 @@ class logr_read(object):
         Returns
         -------
         ch_info : obj
-            pandas dataframe of ch_list (below) pulled out of file with logr_read.arrange_ch_info()
+            pandas dataframe of ch_list (below) pulled out of file with 
+            logr_read.arrange_ch_info()
         ch_list : list
-            list of channel info; can be converted to json w/ import json ... json.dumps(fut.ch_info)
+            list of channel info; can be converted to json w/ import json ... 
+            json.dumps(fut.ch_info)
         data : obj
             pandas dataframe of all data
         head : obj
@@ -377,7 +380,6 @@ class logr_read(object):
         logger.info(f"Concatenating {self.file_count} files...")
 
         for f in files:
-
             if progress_bar:
                 draw_progress_bar(self.counter, self.file_count, self.start_time)
             else:
@@ -406,8 +408,8 @@ class logr_read(object):
                 except IndexError:
                     print("Only standard LOGR headertypes accepted")
                     break
-                except:
-                    if progress_bar != True:
+                except Exception:
+                    if not progress_bar:
                         print("[FAILED]")
                     print("could not concat {0}".format(os.path.basename(f)))
                     logger.error("could not concat {0}".format(os.path.basename(f)))
@@ -439,7 +441,7 @@ class logr_read(object):
                     logger.debug(traceback.format_exc())
                     self.failed_files.append(f)
 
-                except:
+                except Exception:
                     logger.debug(traceback.format_exc())
                     if not progress_bar:
                         print("[FAILED]")
@@ -490,21 +492,19 @@ class logr_read(object):
 
         if len(self.failed_files) > 0:
             print(
-                f"{len(self.failed_files)} files unable to be concatenated. See failed_files list"
+                f"{len(self.failed_files)} files unable to be concatenated. See failed_files list"  # noqa: E501
             )
 
     def output_txt_file(
         self,
-        standard=True,
-        shift_timestamps=False,
-        out_file="",
+        standard: bool = True,
+        shift_timestamps: bool = False,
+        out_file: str = "",
         **kwargs,
     ):
-
         out_dir = kwargs.get("out_dir", "")
 
         if shift_timestamps:
-
             os.makedirs(out_dir, exist_ok=True)
             file_date = (
                 str(self.data.iloc[0]["Timestamp"])
@@ -528,7 +528,7 @@ class logr_read(object):
                     self.site_info = self.site_info.replace(
                         self.first_timestamp, str(self.data.iloc[0]["Timestamp"])
                     )
-                except:
+                except Exception:
                     print(
                         "couldn't rename 'Effective Date:' info in {0}".format(
                             output_name
@@ -623,7 +623,7 @@ class logr_read(object):
                 logger.error(f"Outputting {output_name} failed")
                 logger.debug(traceback.format_exc())
 
-    def insert_blank_header_rows(self, filename):
+    def insert_blank_header_rows(self, filename: str):
         """insert blank rows when using shift_timestamps()
 
         ensures the resulting text file looks and feels like an
@@ -687,12 +687,12 @@ class logr_read(object):
 
 
 def shift_timestamps(
-    txt_folder="",
-    out_folder="",
-    file_filter="",
-    start_date="1970-01-01",
-    end_date="2150-12-31",
-    seconds=3600,
+    txt_folder: str = "",
+    out_folder: str = "",
+    file_filter: str = "",
+    start_date: str = "1970-01-01",
+    end_date: str = "2150-12-31",
+    seconds: int = 3600,
 ):
     """Takes as input a folder of exported standard text files and
     time to shift in seconds.
@@ -737,7 +737,6 @@ def shift_timestamps(
     start_time = datetime.now()
 
     for f in files:
-
         try:
             draw_progress_bar(counter, file_count, start_time)
             f = os.path.join(txt_folder, f)
@@ -752,8 +751,11 @@ def shift_timestamps(
         except pd.errors.EmptyDataError:
             pass
 
-        except Exception as e:
+        except Exception:
             print(traceback.format_exc())
             pass
 
         counter += 1
+
+
+logr_read = LogrRead
