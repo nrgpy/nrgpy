@@ -166,11 +166,6 @@ class CloudExportJob(cloud_export):
 
     def create_export_job(self):
         """Create export job"""
-        try:
-            self.headers = {"Authorization": "Bearer " + self.session_token}
-        except TypeError:
-            return False
-
         self.data = {
             "siteid": self.site_id,
             "fromdate": self.start_date,

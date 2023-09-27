@@ -48,7 +48,8 @@ class CloudExport(cloud_api):
         which type of data to export
     interval : {'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
         'thirtyMinute', 'Hour', 'Day'}, optional
-        averaging interval of exported data; must be a multiple of the logger's statistical interval
+        averaging interval of exported data; must be a multiple of the logger's
+        statistical interval
     unzip : bool
         whether to extract the .txt data file from the .zip file
     session_token : str
@@ -213,11 +214,6 @@ class CloudExport(cloud_api):
     def export(self):
         """Export data using the NRG Cloud API."""
 
-        try:
-            self.headers = {"Authorization": "Bearer " + self.session_token}
-        except TypeError:
-            return False
-
         self.data = {
             "siteid": self.site_id,
             "fromdate": self.start_date,
@@ -269,5 +265,6 @@ class CloudExport(cloud_api):
             print(str(self.resp.status_code) + " | " + self.resp.reason)
             print(self.resp.text.split(":")[1].split('"')[1])
             return False
+
 
 cloud_export = CloudExport

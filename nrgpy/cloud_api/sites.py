@@ -54,11 +54,6 @@ class CloudSites(cloud_api):
 
     def get_sites(self):
         """Retrieve list of sites user has access to."""
-
-        self.headers = {
-            "Authorization": "Bearer " + self.session_token,
-        }
-
         self.resp = requests.get(url=self.sites_url, headers=self.headers)
 
         self.sites_list = self.resp.json()["sites"]
