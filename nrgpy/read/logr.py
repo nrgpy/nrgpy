@@ -147,6 +147,9 @@ class LogrRead:
             "Scale Factor:",
             "Offset:",
             "Units:",
+            "Vane Mounting Angle:",
+            "Gust Source Channel:",
+            "Wacky wonton:"
         ]
 
         self.array = array

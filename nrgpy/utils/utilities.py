@@ -12,7 +12,7 @@ import sys
 import traceback
 
 
-def affirm_directory(directory):
+def affirm_directory(directory: str):
     """create directory if not exists
 
     print status to terminal
@@ -25,7 +25,7 @@ def affirm_directory(directory):
             pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
         except FileExistsError:
             pass
-        except:
+        except Exception:
             pass
 
 
@@ -34,7 +34,7 @@ def check_platform():
     return sys.platform
 
 
-def count_files(directory, filters, extension, show_files=False, **kwargs):
+def count_files(directory: str, filters: str, extension: str, show_files: bool = False, **kwargs):
     """counts the number of files in the first level of a directory
 
     Parameters
@@ -74,7 +74,7 @@ def count_files(directory, filters, extension, show_files=False, **kwargs):
     return count
 
 
-def string_date_check(start_date, end_date, string):
+def string_date_check(start_date: str, end_date: str, string: str):
     """returns true if string date is between dates
 
     Parameters
@@ -99,7 +99,7 @@ def string_date_check(start_date, end_date, string):
     try:
         start = datetime.strptime(start_date, "%Y-%m-%d")
         end = datetime.strptime(end_date, "%Y-%m-%d")
-    except TypeError as t:
+    except TypeError:
         print(traceback.format_exc())
         start = start_date
         end = end_date
@@ -201,7 +201,7 @@ def save(reader, filename=""):
     if not filename:
         try:
             filename = f"{reader.site_number}_reader.pkl"
-        except:
+        except Exception:
             filename = f"{reader.serial_number}_reader.pkl"
 
     with open(filename, "wb") as pkl:
@@ -338,7 +338,7 @@ def rename_cloud_export_like_spd(filepath):
         os.rename(filepath, os.path.join(directory, new_filename))
         logger.info(f"renamed {filename} to {new_filename}")
 
-    except:
+    except Exception:
         logger.error(f"couldn't rename {filename} to {new_filename}")
         print(f"couldn't rename {filename} to {new_filename}")
         import traceback

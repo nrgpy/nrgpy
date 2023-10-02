@@ -209,7 +209,7 @@ def is_authorized(resp) -> bool:
         except Exception:
             logger.error("Unable to process request")
             logger.debug(traceback.format_exc())
-            print("Unable to complete request.  Check nrpy log file for details")
+            print("Unable to complete request.  Check nrgpy log file for details")
         return False
 
     return True

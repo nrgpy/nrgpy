@@ -260,7 +260,7 @@ class CloudExport(cloud_api):
             logger.debug(f"{self.resp.status_code} | {self.resp.reason}")
             try:
                 logger.debug(self.resp.text.split(":")[1].split('"')[1])
-            except:
+            except Exception:
                 pass
             print(str(self.resp.status_code) + " | " + self.resp.reason)
             print(self.resp.text.split(":")[1].split('"')[1])

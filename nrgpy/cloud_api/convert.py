@@ -218,11 +218,7 @@ class CloudConvert(cloud_api):
                 self.encoded_nec_bytes = ""
                 self.encoded_nec_string = ""
 
-            if not self.token_valid():
-                (
-                    self.session_token,
-                    self.session_start_time,
-                ) = self.request_session_token()
+            self.maintain_session_token()
 
             self.data = {
                 "FileBytes64BitEncoded": self.encoded_rld_string,

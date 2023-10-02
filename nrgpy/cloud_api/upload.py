@@ -194,11 +194,7 @@ class CloudImport(cloud_api):
             self.encoded_filename_bytes = self.prepare_file_bytes(filename)
             self.encoded_filename_string = self.encoded_filename_bytes.decode("utf-8")
 
-            if not self.token_valid():
-                (
-                    self.session_token,
-                    self.session_start_time,
-                ) = self.request_session_token()
+            self.maintain_session_token()
 
             self.data = {
                 "FileBytes64BitEncoded": self.encoded_filename_string,

@@ -202,7 +202,7 @@ class CloudExportJob(cloud_export):
             print(f"created export job {self.job_id} for site {self.site_id}")
         except Exception:
             logger.error(
-                f"unable to create export job for {self.site_id}, {self.start_date}, {self.end_date}"
+                f"unable to create export job for {self.site_id}, {self.start_date}, {self.end_date}" #noqa E501
             )
             logger.debug(traceback.format_exc())
             return False
@@ -212,12 +212,6 @@ class CloudExportJob(cloud_export):
 
         Uses self.job_id as reference
         """
-        try:
-            self.headers = {
-                "Authorization": "Bearer " + self.session_token,
-            }
-        except TypeError:
-            return False
         self.request_time = datetime.now()
         self.resp = requests.get(
             url=f"{self.export_job_url}?jobId={self.job_id}&download=false",
@@ -274,13 +268,6 @@ class CloudExportJob(cloud_export):
             logger.info("Keyboard Interrupt detected: stopping monitoring")
 
     def download_export(self):
-        try:
-            self.headers = {
-                "Authorization": "Bearer " + self.session_token,
-                "content-type": "application/zip",
-            }
-        except TypeError:
-            return False
         self.request_time = datetime.now()
         self.resp = requests.get(
             url=f"{self.export_job_url}?jobId={self.job_id}&download=true",
