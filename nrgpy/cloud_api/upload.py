@@ -176,7 +176,6 @@ class CloudImport(cloud_api):
             and string_date_check(self.start_date, self.end_date, f)
         ]
 
-
     def single_file(self, filename: str = ""):
         try:
             if self.progress_bar:
@@ -195,13 +194,7 @@ class CloudImport(cloud_api):
             self.encoded_filename_bytes = self.prepare_file_bytes(filename)
             self.encoded_filename_string = self.encoded_filename_bytes.decode("utf-8")
 
-            if not self.token_valid():
-                (
-                    self.session_token,
-                    self.session_start_time,
-                ) = self.request_session_token()
-
-            headers = {"Authorization": "Bearer {}".format(self.session_token)}
+            self.maintain_session_token()
 
             self.data = {
                 "FileBytes64BitEncoded": self.encoded_filename_string,
@@ -209,7 +202,7 @@ class CloudImport(cloud_api):
             }
 
             self.resp = requests.post(
-                json=self.data, url=self.import_url, headers=headers
+                json=self.data, url=self.import_url, headers=self.headers
             )
 
             if self.resp.status_code == 200:

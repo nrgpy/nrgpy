@@ -3,7 +3,8 @@ import pandas as pd
 
 
 class convert_utf16le_to_utf8(object):
-    """for making Spidar data files compatible with programs that do not support utf-16-le character encoding
+    """for making Spidar data files compatible with programs that do not support 
+    utf-16-le character encoding
 
     Parameters
     ----------

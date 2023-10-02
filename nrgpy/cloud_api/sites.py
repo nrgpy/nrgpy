@@ -54,11 +54,6 @@ class CloudSites(cloud_api):
 
     def get_sites(self):
         """Retrieve list of sites user has access to."""
-
-        self.headers = {
-            "Authorization": "Bearer " + self.session_token,
-        }
-
         self.resp = requests.get(url=self.sites_url, headers=self.headers)
 
         self.sites_list = self.resp.json()["sites"]
@@ -93,7 +88,7 @@ class CloudSites(cloud_api):
 
             else:
                 logger.error(
-                    f"unable to get site matching site number {site_number} or logger serial {logger_sn}"
+                    f"unable to get site matching site number {site_number} or logger serial {logger_sn}" #noqa E501
                 )
                 print(
                     "No site matches this site number and logger serial number. "
@@ -118,7 +113,7 @@ class CloudSites(cloud_api):
 
             elif len(matching_sites) == 1:
                 logger.info(
-                    f"found match for site number {site_number}: siteId {matching_sites[0]['siteId']}"
+                    f"found match for site number {site_number}: siteId {matching_sites[0]['siteId']}" #noqa E501
                 )
                 return matching_sites[0]["siteId"]
 
@@ -147,7 +142,7 @@ class CloudSites(cloud_api):
 
             elif len(matching_sites) == 1:
                 logger.info(
-                    f"found match for serial number {logger_sn}: siteId {matching_sites[0]['siteId']}"
+                    f"found match for serial number {logger_sn}: siteId {matching_sites[0]['siteId']}" #noqa E501
                 )
                 return matching_sites[0]["siteId"]
 
