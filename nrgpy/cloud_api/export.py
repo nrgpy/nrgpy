@@ -9,6 +9,7 @@ from nrgpy.utils.utilities import (
 from .auth import cloud_api, cloud_url_base
 from .sites import cloud_sites
 import os
+from packaging.version import parse as parse_version
 import requests
 import zipfile
 
@@ -156,21 +157,22 @@ class CloudExport(cloud_api):
             start date/time of data export
             if just date, it will return the whole day
             times are in logger local time
-        file_format : {'txt', 'rld'}, default 'txt'
-            whether tab-delimited text or binary output
+        file_format : {'singleFile', 'multipleFiles'}, 
+            whether tab-delimited text or binary output; use 'multipleFiles' for RLD
         client_id : str
             available in the NRG Cloud portal
         client_secret : str
             available in the NRG Cloud portal
         nec_file : str, optional
             path to NEC file for custom export formatting
-        export_type : {'measurements', 'diagnostic', 'events', 'communication'}, default 'measurements'
-            which type of data to export
-        interval : {'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
-            'thirtyMinute', 'Hour', 'Day'}, optional
-            averaging interval of exported data; must be a multiple of the logger's statistical interval
+        export_type : {'measurements', 'diagnostic', 'events', 'communication'}, 
+            default 'measurements';  which type of data to export
+        interval : {'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 
+            'fifteenMinute', 'thirtyMinute', 'Hour', 'Day'}, optional
+            averaging interval of exported data; must be a multiple of the logger's 
+            statistical interval
         concatenate : bool
-            (True) set to False to return original CSV files in export (ZX only)
+            [DEPRECATED] (True) set to False to return original CSV files in export
         unzip : bool, default True
             whether to extract the .txt data file from the .zip file
         """
@@ -211,21 +213,10 @@ class CloudExport(cloud_api):
             self.encoded_nec_bytes = ""
             self.encoded_nec_string = ""
 
-    def export(self):
+    def export(self) -> None:
         """Export data using the NRG Cloud API."""
 
-        self.data = {
-            "siteid": self.site_id,
-            "fromdate": self.start_date,
-            "todate": self.end_date,
-            "fileFormat": self.file_format,
-            "NecFileBytes": self.encoded_nec_string,
-            "exporttype": self.export_type,
-            "isOldZxExport": not self.concatenate,
-        }
-
-        if self.interval:
-            self.data["interval"] = self.interval
+        self.prepare_post_data()
 
         self.request_time = datetime.now()
         self.resp = requests.post(
@@ -237,26 +228,15 @@ class CloudExport(cloud_api):
             with open(self.filepath, "wb") as f:
                 f.write(self.resp.content)
 
-            if self.unzip:
-                with zipfile.ZipFile(self.filepath, "r") as z:
-                    self.export_filename = z.namelist()[0]
-                    z.extractall(self.out_dir)
-                os.remove(self.filepath)
-                self.export_filepath = os.path.normpath(
-                    os.path.join(self.out_dir, self.export_filename)
-                )
-
-            else:
-                self.export_filepath = os.path.normpath(self.filepath)
-                self.export_filename = self.zip_file
+            self.process_zip()
 
             logger.info(f"export created for site_id {self.site_id}")
             logger.info(
-                f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes"
+                f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes" # noqa E501
             )
 
         else:
-            logger.error(f"export not created")
+            logger.error("export not created")
             logger.debug(f"{self.resp.status_code} | {self.resp.reason}")
             try:
                 logger.debug(self.resp.text.split(":")[1].split('"')[1])
@@ -265,6 +245,50 @@ class CloudExport(cloud_api):
             print(str(self.resp.status_code) + " | " + self.resp.reason)
             print(self.resp.text.split(":")[1].split('"')[1])
             return False
+
+    def prepare_post_data(self) -> None:
+        self.data = {
+            "siteid": self.site_id,
+            "fromdate": self.start_date,
+            "todate": self.end_date,
+            "fileFormat": self.file_format,
+            "necFileBytes": self.encoded_nec_string,
+            "exportType": self.export_type,
+        }
+
+        self.format_data_for_api_versions()
+
+        if self.interval:
+            self.data["interval"] = self.interval
+
+    def format_data_for_api_versions(self) -> None:
+        if self.api_version >= parse_version('1.9.0.0'):
+            logger.info(f"api_version is {self.api_version}, using newer export format")
+            if self.data["fileFormat"] == "rld":
+               self.data["fileFormat"] = "multipleFiles"
+            if self.data["fileFormat"] == "txt":
+               self.data["fileFormat"] = "singleFile"
+    
+        elif self.api_version < parse_version('1.9.0.0'):
+            logger.info(f"api_version is {self.api_version}, using older export format")
+            if self.data["fileFormat"] == "multipleFiles":
+               self.data["fileFormat"] = "rld"
+            if self.data["fileFormat"] == "singleFile":
+               self.data["fileFormat"] = "txt"
+
+    def process_zip(self) -> None:
+        if self.unzip:
+            with zipfile.ZipFile(self.filepath, "r") as z:
+                self.export_filename = z.namelist()[0]
+                z.extractall(self.out_dir)
+            os.remove(self.filepath)
+            self.export_filepath = os.path.normpath(
+                    os.path.join(self.out_dir, self.export_filename)
+                )
+
+        else:
+            self.export_filepath = os.path.normpath(self.filepath)
+            self.export_filename = self.zip_file
 
 
 cloud_export = CloudExport

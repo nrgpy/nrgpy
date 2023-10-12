@@ -7,6 +7,7 @@ import base64
 from datetime import datetime, timedelta
 from importlib.metadata import version
 import json
+from packaging.version import parse as parse_version
 import pickle
 import requests
 import traceback
@@ -137,6 +138,11 @@ class CloudApi(object):
             url=self.token_url,
         )
         self.session_start_time = datetime.now()
+        try:
+            self.api_version = parse_version(self.resp.headers["customerapi-version"])
+        except Exception:
+            self.api_version = parse_version("1.8.0.0")
+        logger.info(f"customer api version {self.api_version}")
 
         if self.resp.status_code == 200:
             print("[OK]")
@@ -170,12 +176,16 @@ class CloudApi(object):
     def save_token(self) -> None:
         """save session token in token pickle file"""
         with open(self.token_file_name, "wb") as f:
-            pickle.dump([self.session_token, self.session_start_time], f)
+            pickle.dump(
+                [self.session_token, self.session_start_time, self.api_version], f
+            )
 
     def load_token(self) -> None:
         """read session token from pickle file"""
         with open(self.token_file_name, "rb") as f:
-            self.session_token, self.session_start_time = pickle.load(f)
+            self.session_token, self.session_start_time, self.api_version = pickle.load(
+                f
+            )
 
     def maintain_session_token(self) -> None:
         """maintain a current/valid session token for data service api"""
@@ -184,7 +194,7 @@ class CloudApi(object):
             if not self.token_valid():
                 self.request_session_token()
                 self.save_token()
-        except FileNotFoundError:
+        except (FileNotFoundError, ValueError):
             self.request_session_token()
             self.save_token()
         self.headers = {
