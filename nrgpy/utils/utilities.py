@@ -12,7 +12,7 @@ import sys
 import traceback
 
 
-def affirm_directory(directory: str):
+def affirm_directory(directory: str) -> None:
     """create directory if not exists
 
     print status to terminal
@@ -29,12 +29,14 @@ def affirm_directory(directory: str):
             pass
 
 
-def check_platform():
+def check_platform() -> sys.platform:
     """determine which operating system python is running on"""
     return sys.platform
 
 
-def count_files(directory: str, filters: str, extension: str, show_files: bool = False, **kwargs):
+def count_files(
+    directory: str, filters: str, extension: str, show_files: bool = False, **kwargs
+) -> int:
     """counts the number of files in the first level of a directory
 
     Parameters
@@ -74,7 +76,7 @@ def count_files(directory: str, filters: str, extension: str, show_files: bool =
     return count
 
 
-def string_date_check(start_date: str, end_date: str, string: str):
+def string_date_check(start_date: str, end_date: str, string: str) -> bool:
     """returns true if string date is between dates
 
     Parameters
@@ -132,7 +134,7 @@ date_check = string_date_check
 
 def draw_progress_bar(
     index, total, start_time, barLen=45, header="Time elapsed", label=""
-):
+) -> None:
     """simple text progress bar"""
     percent = index / total
     pad = len(str(total))
@@ -155,7 +157,7 @@ def draw_progress_bar(
     sys.stdout.flush()
 
 
-def linux_folder_path(folder_path):
+def linux_folder_path(folder_path) -> str:
     """assert folder_path ending with '/'"""
     folder_path = folder_path.replace("\\", "/").replace(" ", "\ ")
 
@@ -167,7 +169,7 @@ def linux_folder_path(folder_path):
     return folder_path
 
 
-def windows_folder_path(folder_path):
+def windows_folder_path(folder_path) -> str:
     """convert '/' to '\\' in folder_path and assert ending in '\\'"""
     folder_path = folder_path.replace("/", "\\")
 
@@ -186,7 +188,6 @@ class renamer:
         self.d = dict()
 
     def __call__(self, x):
-
         if x not in self.d:
             self.d[x] = 0
             return x
@@ -196,7 +197,7 @@ class renamer:
             return "%s_%d" % (x, self.d[x])
 
 
-def save(reader, filename=""):
+def save(reader, filename="") -> None:
     """save reader as a Python pickle file, to be recalled later"""
     if not filename:
         try:
@@ -208,7 +209,7 @@ def save(reader, filename=""):
         pickle.dump(reader, pkl, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-def load(site_number="", serial_number="", filename=""):
+def load(site_number: str="", serial_number: str="", filename: str="") -> object:
     """recall a reader from a pickle file by site number or filename
 
     parameters
@@ -236,7 +237,7 @@ def load(site_number="", serial_number="", filename=""):
     return reader
 
 
-def data_months(start_date, end_date, output="string"):
+def data_months(start_date: str, end_date: str, output: str="string") -> list:
     """returns list of months for a date range in YYYY-mm-dd format
 
     parameters
@@ -280,7 +281,6 @@ def data_months(start_date, end_date, output="string"):
     months = []
 
     for y in years:
-
         if str(y) == str(start_year):
             _month0 = int(start_month)
         else:
@@ -292,7 +292,6 @@ def data_months(start_date, end_date, output="string"):
             _month12 = 12
 
         for _m in list(range(_month0, _month12 + 1)):
-
             if output == "string":
                 months.append(f"{y}-{str(_m).zfill(2)}-01")
 
@@ -306,8 +305,7 @@ def data_months(start_date, end_date, output="string"):
     return months
 
 
-def create_spd_filename_from_cloud_export(filename):
-
+def create_spd_filename_from_cloud_export(filename: str) -> str:
     cld_fmt = "%m-%d-%Y"
     spd_fmt = "%Y-%m-%d"
 
@@ -320,7 +318,7 @@ def create_spd_filename_from_cloud_export(filename):
     return outname
 
 
-def rename_cloud_export_like_spd(filepath):
+def rename_cloud_export_like_spd(filepath: str) -> bool:
     """rename nrg cloud export files with SPD formatting"""
 
     filename = os.path.basename(filepath)
@@ -348,7 +346,7 @@ def rename_cloud_export_like_spd(filepath):
         return False
 
 
-def fix_export_siteid_filename(filepath, site_number):
+def fix_export_siteid_filename(filepath: str, site_number: str) -> str:
     """Change out NRG Cloud site id with padded site number"""
     filename = os.path.basename(filepath)
     if filename.startswith("siteid"):
@@ -358,7 +356,7 @@ def fix_export_siteid_filename(filepath, site_number):
     return filepath
 
 
-def is_sympro_running():
+def is_sympro_running() -> bool:
     """checks pid list for instance of sympro running"""
 
     if psutil.WINDOWS:
@@ -370,7 +368,7 @@ def is_sympro_running():
     return False
 
 
-def set_start_stop(reader, with_time=False):
+def set_start_stop(reader: object, with_time: bool=False) -> None:
     """ """
     reader.start_date = reader.data["Timestamp"].loc[0]
     reader.end_date = reader.data["Timestamp"].loc[len(reader.data) - 1]

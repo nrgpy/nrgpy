@@ -55,8 +55,8 @@ class CloudExportJob(cloud_export):
     interval : str, optional
         'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
         'thirtyMinute', 'Hour', 'Day'
-        must be a multiple of the logger's statistical interval. if not specified, will use
-        "native" interval (usually oneMinute for solar, tenMinute for wind)
+        must be a multiple of the logger's statistical interval. if not specified,
+        will use "native" interval (usually oneMinute for solar, tenMinute for wind)
     concatenate : bool
         (True) set to False to return original CSV files in export (ZX only)
     unzip : bool
@@ -85,7 +85,7 @@ class CloudExportJob(cloud_export):
             site_number=3456,
             start_date="2021-04-01",
             end_date="2022-03-31",
-            file_format="txt",     # <--- can be "rld" for raw SymPRO data files, or "zx" for ZX 300
+            file_format="singleFile",  # use "multipleFiles" for RLD export
             unzip=True,
         )
     >>>
@@ -164,25 +164,12 @@ class CloudExportJob(cloud_export):
         )
         pass
 
-    def create_export_job(self):
+    def create_export_job(self) -> None:
         """Create export job"""
-        self.data = {
-            "siteid": self.site_id,
-            "fromdate": self.start_date,
-            "todate": self.end_date,
-            "fileFormat": self.file_format,
-            "NecFileBytes": self.encoded_nec_string,
-            "exporttype": self.export_type,
-        }
-
-        if self.file_format.lower() == "zx":
-            self.data["isOldZxExport"] = not self.concatenate
-
-        if self.interval:
-            self.data["interval"] = self.interval
-
+        self.prepare_post_data()
         self.request_time = datetime.now()
         self.export_request_time = datetime.now()
+
         logger.debug(f"creating export job for site {self.site_id}")
         try:
             self.resp = requests.post(
@@ -207,7 +194,7 @@ class CloudExportJob(cloud_export):
             logger.debug(traceback.format_exc())
             return False
 
-    def check_export_job(self):
+    def check_export_job(self) -> None:
         """Checks the status of an export job
 
         Uses self.job_id as reference
@@ -231,7 +218,7 @@ class CloudExportJob(cloud_export):
             print(self.resp.text.split(":")[1].split('"')[1])
             return False
 
-    def monitor_export_job(self, download: bool = False):
+    def monitor_export_job(self, download: bool = False) -> None:
         """Monitor the status of an export job
 
         Uses self.job_id as reference
@@ -252,7 +239,7 @@ class CloudExportJob(cloud_export):
 
                 sys.stdout.write("\r")
                 sys.stdout.write(
-                    f"job ID {self.job_id} | time elapsed: {(datetime.now() - start).seconds} s | status: {self.json_response['status'].lower()}                           "
+                    f"job ID {self.job_id} | time elapsed: {(datetime.now() - start).seconds} s | status: {self.json_response['status'].lower()}                           " # noqa E501
                 )
                 time.sleep(0.5)
             if download:
@@ -261,13 +248,13 @@ class CloudExportJob(cloud_export):
                     logger.info(f"\nDownloading export job {self.job_id}")
                     self.download_export()
                 else:
-                    print(f"Unable to download export job")
-                    logger.error(f"Unable to download export job")
+                    print("Unable to download export job")
+                    logger.error("Unable to download export job")
         except KeyboardInterrupt:
             print("Keyboard Interrupt detected: stopping monitoring")
             logger.info("Keyboard Interrupt detected: stopping monitoring")
 
-    def download_export(self):
+    def download_export(self) -> None:
         self.request_time = datetime.now()
         self.resp = requests.get(
             url=f"{self.export_job_url}?jobId={self.job_id}&download=true",
@@ -303,7 +290,7 @@ class CloudExportJob(cloud_export):
 
             logger.info(f"job_id {self.job_id} for site_id {self.site_id}")
             logger.info(
-                f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes"
+                f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes" # noqa E501
             )
         elif not is_authorized(self.resp):
             return False
