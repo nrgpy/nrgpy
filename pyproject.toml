@@ -4,7 +4,7 @@ requires = ["setuptools", "setuptools-scm"]
 
 [project]
 name = "nrgpy"
-version = "2.0.1"
+version = "2.1.0"
 authors = [
     {name = "David Carlson", email = "drc@nrgsystems.com"},
     {name = "Natalie Babij", email = "natalie@chickadeemail.com"},
@@ -29,6 +29,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
 ]
 dependencies = [
+    'packaging',
     'pandas>=1.5, >=2.0',
     'psutil',
     'requests',

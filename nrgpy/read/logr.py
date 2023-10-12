@@ -147,6 +147,8 @@ class LogrRead:
             "Scale Factor:",
             "Offset:",
             "Units:",
+            "Vane Mounting Angle:",
+            "Gust Source Channel:",
         ]
 
         self.array = array
@@ -638,33 +640,33 @@ class LogrRead:
 
         blank_list = []
         for i in self.site_info[
-            self.site_info[0].str.contains("Site Properties") == True
+            self.site_info[0].str.contains("Site Properties") is True
         ].index:
             blank_list.append(i)
             site_properties_line = i + 2
 
         for i in self.site_info[
-            self.site_info[0].str.contains("File Properties") == True
+            self.site_info[0].str.contains("File Properties") is True
         ].index:
             blank_list.append(i)
             file_properties_line = i + 2
 
         for i in self.site_info[
-            self.site_info[0].str.contains("Sensor History") == True
+            self.site_info[0].str.contains("Sensor History") is True
         ].index:
             blank_list.append(i)
             sensor_history_line = i + 2
 
         skip_first_channel = True
         for i in self.site_info[
-            self.site_info[0].str.contains("Channel:") == True
+            self.site_info[0].str.contains("Channel:") is True
         ].index:
-            if skip_first_channel == True:
+            if skip_first_channel:
                 skip_first_channel = False
             else:
                 blank_list.append(i)
 
-        for i in self.site_info[self.site_info[0].str.match("Data") == True].index:
+        for i in self.site_info[self.site_info[0].str.match("Data") is True].index:
             blank_list.append(i)
             data_line = i + 2
 

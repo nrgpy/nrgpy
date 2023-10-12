@@ -1,8 +1,12 @@
+from packaging.version import parse as parse_version
 from pytest import MonkeyPatch
 from nrgpy import logger
 import nrgpy
 from nrgpy.cloud_api import upload
 
+
+def mock_maintain_session_token(arg):
+    return True
 
 def mock_request_session_token():
     return True
@@ -72,3 +76,37 @@ class TestCloudApis:
             assert False, "expected FileNotFoundError"
         except FileNotFoundError:
             assert True
+
+    def test_api_new_version(self):
+        # Arrange
+        TestCloudApis.monkeypatch.setattr(
+            "nrgpy.CloudApi.maintain_session_token", mock_maintain_session_token
+        )
+        exporter = nrgpy.CloudExport(client_id="yes", client_secret="yes", site_id=1)
+        exporter.api_version = parse_version("1.10.0")
+        exporter.prepare_post_data()
+        # Act
+        exporter.data["fileFormat"] = "rld"
+        exporter.format_data_for_api_versions()
+
+        # Assert
+        TestCloudApis.monkeypatch.undo()
+        assert exporter.data["fileFormat"] == "multipleFiles"
+        assert True
+
+    def test_api_old_version(self):
+        # Arrange
+        TestCloudApis.monkeypatch.setattr(
+            "nrgpy.CloudApi.maintain_session_token", mock_maintain_session_token
+        )
+        exporter = nrgpy.CloudExport(client_id="yes", client_secret="yes", site_id=1)
+        exporter.api_version = parse_version("1.8.0")
+        exporter.prepare_post_data()
+        # Act
+        exporter.data["fileFormat"] = "singleFile"
+        exporter.format_data_for_api_versions()
+
+        # Assert
+        TestCloudApis.monkeypatch.undo()
+        assert exporter.data["fileFormat"] == "txt"
+        assert True

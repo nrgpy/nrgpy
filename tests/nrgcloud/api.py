@@ -1,6 +1,6 @@
 try:
     from nrgpy import logger
-except:
+except ImportError:
     pass
 import nrgpy
 import traceback
@@ -14,7 +14,7 @@ end_date = "2021-01-05"
 unauth_site_id = 9
 
 
-def test_sites_api(client_id, client_secret):
+def test_sites_api(client_id: str, client_secret: str):
     """Ensure NRG Cloud Sites API is working properly with test account
 
     Test account has access to site 353002, associated with logger 820600087
@@ -32,12 +32,12 @@ def test_sites_api(client_id, client_secret):
             logger.error(f"Site ID != {site_id}: SiteIds = {sites.sites_df['siteId']}")
             return False
 
-    except:
+    except Exception:
         print(traceback.format_exc())
         logger.error(traceback.format_exc())
         try:
             print(sites.sites_df)
-        except:
+        except Exception:
             print("no sites_df exists")
 
         return False
@@ -48,7 +48,7 @@ def test_sites_api(client_id, client_secret):
     return True
 
 
-def test_export_api(client_id, client_secret):
+def test_export_api(client_id: str, client_secret: str):
     """"""
     try:
         exporter = nrgpy.cloud_export(
@@ -71,7 +71,7 @@ def test_export_api(client_id, client_secret):
             )
             return False
 
-    except:
+    except Exception:
         print(traceback.format_exc())
         logger.error(traceback.format_exc())
         return False
@@ -81,7 +81,7 @@ def test_export_api(client_id, client_secret):
     return True
 
 
-def test_export_jobs_api(client_id, client_secret):
+def test_export_jobs_api(client_id: str, client_secret: str):
     """"""
     try:
         exporter = nrgpy.export_job(
@@ -103,14 +103,14 @@ def test_export_jobs_api(client_id, client_secret):
             return False
         return True
 
-    except:
+    except Exception:
 
         print(traceback.format_exc())
         logger.error(traceback.format_exc())
     return False
 
 
-def test_export_jobs_api_unauthorized(client_id, client_secret):
+def test_export_jobs_api_unauthorized(client_id: str, client_secret: str):
     """"""
     try:
         exporter = nrgpy.export_job(
@@ -126,7 +126,7 @@ def test_export_jobs_api_unauthorized(client_id, client_secret):
         if exporter.resp.status_code == 401:
             return True
 
-    except:
+    except Exception:
         print(traceback.format_exc())
         logger.error(traceback.format_exc())
 

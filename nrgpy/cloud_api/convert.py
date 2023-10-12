@@ -218,13 +218,7 @@ class CloudConvert(cloud_api):
                 self.encoded_nec_bytes = ""
                 self.encoded_nec_string = ""
 
-            if not self.token_valid():
-                (
-                    self.session_token,
-                    self.session_start_time,
-                ) = self.request_session_token()
-
-            headers = {"Authorization": "Bearer {}".format(self.session_token)}
+            self.maintain_session_token()
 
             self.data = {
                 "FileBytes64BitEncoded": self.encoded_rld_string,
@@ -233,7 +227,7 @@ class CloudConvert(cloud_api):
             }
 
             self.resp = requests.post(
-                json=self.data, url=self.convert_url, headers=headers
+                json=self.data, url=self.convert_url, headers=self.headers
             )
 
             self.zip_file = os.path.basename(rld)[:-3] + "zip"
@@ -283,5 +277,6 @@ class CloudConvert(cloud_api):
             print("unable to process file: {0}".format(rld))
             print(e)
             pass
+
 
 cloud_convert = CloudConvert

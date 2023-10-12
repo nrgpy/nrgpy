@@ -5,7 +5,9 @@ except ImportError:
 from nrgpy import token_file
 import base64
 from datetime import datetime, timedelta
+from importlib.metadata import version
 import json
+from packaging.version import parse as parse_version
 import pickle
 import requests
 import traceback
@@ -65,6 +67,7 @@ class CloudApi(object):
         logger.debug(f"cloud base: {url_base}")
         self.client_id = client_id
         self.client_secret = client_secret
+        self.user_agent = f"nrgpy-{version('nrgpy')}"
         self.token_file_name = token_file + "_" + self.client_id[:10]
         self.url_base = url_base
         self.token_url = url_base + token_url
@@ -120,7 +123,10 @@ class CloudApi(object):
             flush=True,
         )
 
-        request_token_header = {"content-type": "application/json"}
+        request_token_header = {
+            "content-type": "application/json",
+            "user-agent": self.user_agent,
+        }
         request_payload = {
             "clientId": "{}".format(self.client_id),
             "clientSecret": "{}".format(self.client_secret),
@@ -132,6 +138,11 @@ class CloudApi(object):
             url=self.token_url,
         )
         self.session_start_time = datetime.now()
+        try:
+            self.api_version = parse_version(self.resp.headers["customerapi-version"])
+        except Exception:
+            self.api_version = parse_version("1.8.0.0")
+        logger.info(f"customer api version {self.api_version}")
 
         if self.resp.status_code == 200:
             print("[OK]")
@@ -165,12 +176,16 @@ class CloudApi(object):
     def save_token(self) -> None:
         """save session token in token pickle file"""
         with open(self.token_file_name, "wb") as f:
-            pickle.dump([self.session_token, self.session_start_time], f)
+            pickle.dump(
+                [self.session_token, self.session_start_time, self.api_version], f
+            )
 
     def load_token(self) -> None:
         """read session token from pickle file"""
         with open(self.token_file_name, "rb") as f:
-            self.session_token, self.session_start_time = pickle.load(f)
+            self.session_token, self.session_start_time, self.api_version = pickle.load(
+                f
+            )
 
     def maintain_session_token(self) -> None:
         """maintain a current/valid session token for data service api"""
@@ -179,9 +194,13 @@ class CloudApi(object):
             if not self.token_valid():
                 self.request_session_token()
                 self.save_token()
-        except FileNotFoundError:
+        except (FileNotFoundError, ValueError):
             self.request_session_token()
             self.save_token()
+        self.headers = {
+            "Authorization": "Bearer {}".format(self.session_token),
+            "user-agent": self.user_agent,
+        }
 
     def prepare_file_bytes(self, filename: str = "") -> bytes:
         file_bytes = base64.encodebytes(open(filename, "rb").read())
@@ -200,9 +219,10 @@ def is_authorized(resp) -> bool:
         except Exception:
             logger.error("Unable to process request")
             logger.debug(traceback.format_exc())
-            print("Unable to complete request.  Check nrpy log file for details")
+            print("Unable to complete request.  Check nrgpy log file for details")
         return False
 
     return True
+
 
 cloud_api = CloudApi

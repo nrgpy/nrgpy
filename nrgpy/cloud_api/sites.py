@@ -52,20 +52,19 @@ class CloudSites(cloud_api):
 
         self.get_sites()
 
-    def get_sites(self):
+    def get_sites(self) -> None:
         """Retrieve list of sites user has access to."""
-
-        self.headers = {
-            "Authorization": "Bearer " + self.session_token,
-        }
-
         self.resp = requests.get(url=self.sites_url, headers=self.headers)
 
-        self.sites_list = self.resp.json()["sites"]
-        logger.info(f"{len(self.sites_list)} sites found")
-        self.sites_df = pd.DataFrame(self.sites_list)
+        try:
+            self.sites_list = self.resp.json()["sites"]
+            logger.info(f"{len(self.sites_list)} sites found")
+            self.sites_df = pd.DataFrame(self.sites_list)
+        except KeyError:
+            logger.exception(f"unable to get sites for {self.client_id[:10]}")
+            logger.debug(self.resp.text)
 
-    def get_siteid(self, site_number: str = "", logger_sn: str = ""):
+    def get_siteid(self, site_number: str = "", logger_sn: str = "") -> None:
         """Get NRG Cloud site ID that corresponds to site number and/or logger SN
 
         Parameters
@@ -93,7 +92,7 @@ class CloudSites(cloud_api):
 
             else:
                 logger.error(
-                    f"unable to get site matching site number {site_number} or logger serial {logger_sn}"
+                    f"unable to get site matching site number {site_number} or logger serial {logger_sn}" #noqa E501
                 )
                 print(
                     "No site matches this site number and logger serial number. "
@@ -118,7 +117,7 @@ class CloudSites(cloud_api):
 
             elif len(matching_sites) == 1:
                 logger.info(
-                    f"found match for site number {site_number}: siteId {matching_sites[0]['siteId']}"
+                    f"found match for site number {site_number}: siteId {matching_sites[0]['siteId']}" #noqa E501
                 )
                 return matching_sites[0]["siteId"]
 
@@ -147,7 +146,7 @@ class CloudSites(cloud_api):
 
             elif len(matching_sites) == 1:
                 logger.info(
-                    f"found match for serial number {logger_sn}: siteId {matching_sites[0]['siteId']}"
+                    f"found match for serial number {logger_sn}: siteId {matching_sites[0]['siteId']}" #noqa E501
                 )
                 return matching_sites[0]["siteId"]
 
