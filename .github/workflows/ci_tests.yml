@@ -24,7 +24,7 @@ jobs:
           python-version: ${{matrix.python-version}}
       - name: Install dependencies
         run: |
-          pip install --upgrade pip && pip install .[test]
+          pip install --upgrade pip && pip install .[test] && pip install nrgpy
       - name: SymPRO TXT Reader Test
         run: python -m tests.readers.test_sympro_txt_read tests/readers/files/
       - name: Endpoint Test
