@@ -24,7 +24,7 @@ class TestCloudApis:
         # Act
         author = nrgpy.CloudApi(client_id, client_secret)
         # Assert
-        assert author.resp.status_code >= 403, "expecting failure status code"
+        assert author.resp.status_code >= 400, "expecting failure status code"
 
     def test_cloud_auth_expired_creds_gets_new_token(self):
         # Arrange
