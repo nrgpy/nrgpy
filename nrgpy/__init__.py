@@ -50,6 +50,7 @@ from .api.convert import nrg_api_convert  # noqa: E402, F401
 from .api.export import nrg_api_export  # noqa: E402, F401
 from .api.upload import nrg_api_upload  # noqa: E402, F401
 from .cloud_api.auth import cloud_api, CloudApi  # noqa: E402, F401
+from .cloud_api.convert import cloud_convert, CloudConvert # noqa: E402, F401
 from .cloud_api.export import cloud_export, CloudExport  # noqa: E402, F401
 from .cloud_api.jobs import export_job, CloudExportJob  # noqa: E402, F401
 from .cloud_api.sites import cloud_sites, CloudSites  # noqa: E402, F401

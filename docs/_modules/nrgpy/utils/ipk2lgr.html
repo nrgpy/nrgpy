@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -32,8 +32,9 @@
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -52,6 +53,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -196,10 +206,10 @@
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -207,7 +217,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -242,7 +252,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">sys</span>
 
 
-<div class="viewcode-block" id="ipk2lgr"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipk2lgr">[docs]</a><span class="k">def</span> <span class="nf">ipk2lgr</span><span class="p">(</span><span class="n">ipkfile</span><span class="p">):</span>
+<div class="viewcode-block" id="ipk2lgr"><a class="viewcode-back" href="../../../nrgpy.utils.html#nrgpy.utils.ipk2lgr.ipk2lgr">[docs]</a><span class="k">def</span> <span class="nf">ipk2lgr</span><span class="p">(</span><span class="n">ipkfile</span><span class="p">):</span>
     <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># handle the old and new filenames, abort if filename bad</span>
@@ -351,7 +361,7 @@ document.write(`
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to convert file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipkfile</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="callinterval"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.callinterval">[docs]</a><span class="k">def</span> <span class="nf">callinterval</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>
+<div class="viewcode-block" id="callinterval"><a class="viewcode-back" href="../../../nrgpy.utils.html#nrgpy.utils.ipk2lgr.callinterval">[docs]</a><span class="k">def</span> <span class="nf">callinterval</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3600</span><span class="p">:</span>
         <span class="n">callint</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">original</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; Minutes&quot;</span>
     <span class="k">elif</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3600</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">86400</span><span class="p">:</span>
@@ -365,11 +375,11 @@ document.write(`
     <span class="k">return</span> <span class="n">callint</span></div>
 
 
-<div class="viewcode-block" id="calltime"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.calltime">[docs]</a><span class="k">def</span> <span class="nf">calltime</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>
+<div class="viewcode-block" id="calltime"><a class="viewcode-back" href="../../../nrgpy.utils.html#nrgpy.utils.ipk2lgr.calltime">[docs]</a><span class="k">def</span> <span class="nf">calltime</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ipackinfo"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipackinfo">[docs]</a><span class="k">def</span> <span class="nf">ipackinfo</span><span class="p">(</span><span class="n">typeint</span><span class="p">):</span>
+<div class="viewcode-block" id="ipackinfo"><a class="viewcode-back" href="../../../nrgpy.utils.html#nrgpy.utils.ipk2lgr.ipackinfo">[docs]</a><span class="k">def</span> <span class="nf">ipackinfo</span><span class="p">(</span><span class="n">typeint</span><span class="p">):</span>
     <span class="n">ipackdefs</span> <span class="o">=</span> <span class="p">(</span>
         <span class="p">[</span><span class="s2">&quot;OTHER&quot;</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
         <span class="p">[</span><span class="s2">&quot;CM900&quot;</span><span class="p">,</span> <span class="s2">&quot;CM900&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
@@ -396,7 +406,7 @@ document.write(`
     <span class="k">return</span> <span class="n">ipacktype</span><span class="p">,</span> <span class="n">apn</span></div>
 
 
-<div class="viewcode-block" id="ipackinfo_backup"><a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipackinfo_backup">[docs]</a><span class="k">def</span> <span class="nf">ipackinfo_backup</span><span class="p">(</span><span class="n">phonestr</span><span class="p">):</span>
+<div class="viewcode-block" id="ipackinfo_backup"><a class="viewcode-back" href="../../../nrgpy.utils.html#nrgpy.utils.ipk2lgr.ipackinfo_backup">[docs]</a><span class="k">def</span> <span class="nf">ipackinfo_backup</span><span class="p">(</span><span class="n">phonestr</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">phonestr</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;*99&quot;</span><span class="p">:</span>
         <span class="n">ipacktype</span> <span class="o">=</span> <span class="s2">&quot;iPackGPS GSM (4622)&quot;</span>
         <span class="n">apn</span> <span class="o">=</span> <span class="kc">True</span>
@@ -522,16 +532,12 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -580,8 +586,8 @@ By NRG Systems, Inc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>
