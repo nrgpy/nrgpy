@@ -9,15 +9,14 @@
 | Website and source | <https://github.com/nrgpy/nrgpy>           |
 | Documentation      | <https://nrgpy.github.io/nrgpy/index.html> |
 | IEA Task 43 Parser | <https://github.com/nrgpy/nrg-parser>      |
-| Support            |  support@nrgsystems.com                    |
+| Support            |  <support@nrgsystems.com>                    |
 
 It provides tools for:
 
 - Converting binary ".rld" and ".rwd" files to text format
   - using locally installed SymphoniePRO Desktop Software and Symphonie Data Retriever
   - using NRG Cloud API (compatible with Linux!) *(SymphoniePRO only at this time)
-- Reading Symphonie text exports into Pandas dataframes
-- Reading Spidar zip/csv files into Pandas dataframes
+- Reading Symphonie text exports, LOGR dat, and Spidar zip/csv files into Pandas dataframes
 - Timestamp adjustment (of text files)
 - Simple quality checks on data
 

@@ -4,7 +4,7 @@ requires = ["setuptools", "setuptools-scm"]
 
 [project]
 name = "nrgpy"
-version = "2.1.0"
+version = "2.1.2"
 authors = [
     {name = "David Carlson", email = "drc@nrgsystems.com"},
     {name = "Natalie Babij", email = "natalie@chickadeemail.com"},
@@ -50,4 +50,10 @@ dev = [
     'ruff',
     'black',
     'jupyterlab',
+]
+
+docs = [
+    'numpydoc',
+    'sphinx',
+    'sphinx-book-theme',
 ]
