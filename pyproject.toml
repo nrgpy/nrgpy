@@ -51,3 +51,9 @@ dev = [
     'black',
     'jupyterlab',
 ]
+
+docs = [
+    'numpydoc',
+    'sphinx',
+    'sphinx-book-theme',
+]
