@@ -233,6 +233,8 @@ class LogrRead:
             self.logger_type = self._site_info["Model Number"].values[0]
             self.logger_model = self.logger_type
             self.time_zone = self._site_info["Time Zone"].values[0]
+            self.created_fw_version = self._site_info["Created FW Version"].values[0]
+            self.ftp_fw_version = self._site_info["FTP FW Version"].values[0]
             # self.ch_info.drop(columns=['Channel'], inplace=True)
 
         except Exception as e:
