@@ -81,7 +81,7 @@ def check_intervals(
     if expected_rows != actual_rows:
         missing_timestamps, _df = find_missing_intervals(_df, interval)
 
-    duplicate_timestamps, _df = find_duplicate_intervals(_df, interval)
+    duplicate_timestamps, _df = find_duplicate_intervals(_df)
 
     if verbose:
         print("Statistical interval      : {0} seconds".format(interval))
