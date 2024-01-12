@@ -21,3 +21,4 @@ venv/
 
 !.gitignore
 !tests/test_readers/test_files/*.txt
+!tests/readers/files/*

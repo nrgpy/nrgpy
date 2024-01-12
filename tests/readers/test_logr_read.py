@@ -1,78 +1,40 @@
-from nrgpy import logger
 from nrgpy import logr_read
-import os
-import pytest
-import sys
-import traceback
 
 
-# TODO: convert to pytest
-@pytest.mark.skip(reason="this is not set up as a pytest yet")
-def test_logr_read(directory="tests/test_readers/test_files"):
-    """Check that LOGR dat files are ingested by nrgpy.logr_read"""
-
-    try:
+class TestLogrRead:
+    def test_logr_concat_9431_returns(self, test_file_directory):
+        """Check that LOGR-S (model 9431) dat files are ingested by nrgpy.logr_read"""
         reader = logr_read()
-        reader.concat_txt(dat_dir=directory)
+        reader.concat_txt(dat_dir=str(test_file_directory), file_filter="000511")
 
-    except Exception:
-        print("Could not create reader from test_files")
-        print(traceback.format_exc())
-        logger.error("test failed: could not create reader")
-        logger.debug(traceback.format_exc())
-        return False
+        assert reader.site_description == "Crows Nest", f"Expected site number {reader.site_description} to be 'Crows Nest'"
+        assert len(reader.data) == 180, f"Dataframe length {len(reader.data)} is not 180"
 
-    if reader.site_description != "Crows Nest":
-        logger.error(f"Site number {reader.site_description} is not 'Crows Nest'")
-        print(f"Site number {reader.site_number} is not 'Crows Nest'")
-        return False
-
-    if len(reader.data) != 180:
-        logger.error(f"Dataframe length {len(reader.data)} is not 180")
-        print(f"Dataframe length {len(reader.data)} is not 180")
-        return False
-
-    logger.info("Tests pass")
-    print("Tests pass!")
-
-    return True
-
-
-# TODO: convert to pytest
-@pytest.mark.skip(reason="this is not set up as a pytest yet")
-def test_logr_write(directory="tests/test_readers/test_files"):
-    """Confirm output_txt working"""
-    try:
+    def test_logr_concat_9432_returns(self, test_file_directory):
+        """Check that LOGR|SOLAR (model 9432) dat files are ingested by nrgpy.logr_read"""
         reader = logr_read()
-        reader.concat_txt(dat_dir=directory)
-        reader.output_txt_file(out_file="test.dat")
-        reader_2 = logr_read(filename="test.dat")
-        if len(reader.data) == 180:
-            logger.info("logr output_txt test passed")
-            print("logr output_txt test passed")
-            return True
-        else:
-            logger.error(
-                f"logr output_txt test failed, len(reader.data) is {len(reader.data)} not 180"
-            )
-            print("logr output_txt test failed")
-            return False
-    except Exception:
-        print("Could not create verify write function")
-        print(traceback.format_exc())
-        logger.error("Could not create verify write function")
-        logger.debug(traceback.format_exc())
-        return False
+        reader.concat_txt(dat_dir=str(test_file_directory), file_filter="000304")
 
+        assert reader.site_description == "Crows Nest Counters", f"Expected site number {reader.site_description} to be 'Crows Nest'"
+        assert len(reader.data) == 41, f"Dataframe length {len(reader.data)} is not 180"
 
-if __name__ == "__main__":
+    def test_logr_read_9432_log_returns(self, test_file_directory):
+        """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
+        filename = test_file_directory / "20240111_1339_000304_002995.log"
+        reader = logr_read(filename, drop_duplicates=False)
 
-    print(f"Script directory: {os.path.dirname(os.path.abspath(__file__))}")
-    print(f"Working directory: {os.getcwd()}")
+        assert reader.site_description == "Crows Nest Counters", f"Expected site description {reader.site_description} to be 'Crows Nest Counters'"
+        assert len(reader.data) == 1, f"Dataframe length {len(reader.data)} is not 1"
 
-    if len(sys.argv) > 1:
-        print(f"directory is {sys.argv[1]}")
-        assert test_logr_read(os.path.join(os.getcwd(), sys.argv[1]))
-    else:
-        print("directory is not specified")
-        assert test_logr_read()
+    def test_logr_concat_9432_log_returns(self, test_file_directory):
+        """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
+        reader = logr_read()
+        reader.concat_txt(
+            dat_dir=str(test_file_directory),
+            file_type="log",
+            file_filter="000304",
+            drop_duplicates=False,
+        )
+
+        assert reader.site_description == "Crows Nest Counters", f"Expected site description {reader.site_description} to be 'Crows Nest Counters'"
+        assert len(reader.data) == 3, f"Dataframe length {len(reader.data)} is not 3"
