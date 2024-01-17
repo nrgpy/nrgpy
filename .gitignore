@@ -3,6 +3,7 @@
 *.exe
 *.ipynb
 *.log
+*.kdev4
 *.swp
 *.txt
 

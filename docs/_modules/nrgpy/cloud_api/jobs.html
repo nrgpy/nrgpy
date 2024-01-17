@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -32,8 +32,9 @@
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -52,6 +53,15 @@
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -196,10 +206,10 @@
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -207,7 +217,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -294,8 +304,8 @@ document.write(`
 <span class="sd">    interval : str, optional</span>
 <span class="sd">        &#39;oneMinute&#39;, &#39;twoMinute&#39;, &#39;fiveMinute&#39;, &#39;tenMinute&#39;, &#39;fifteenMinute&#39;,</span>
 <span class="sd">        &#39;thirtyMinute&#39;, &#39;Hour&#39;, &#39;Day&#39;</span>
-<span class="sd">        must be a multiple of the logger&#39;s statistical interval. if not specified, will use</span>
-<span class="sd">        &quot;native&quot; interval (usually oneMinute for solar, tenMinute for wind)</span>
+<span class="sd">        must be a multiple of the logger&#39;s statistical interval. if not specified,</span>
+<span class="sd">        will use &quot;native&quot; interval (usually oneMinute for solar, tenMinute for wind)</span>
 <span class="sd">    concatenate : bool</span>
 <span class="sd">        (True) set to False to return original CSV files in export (ZX only)</span>
 <span class="sd">    unzip : bool</span>
@@ -324,7 +334,7 @@ document.write(`
 <span class="sd">            site_number=3456,</span>
 <span class="sd">            start_date=&quot;2021-04-01&quot;,</span>
 <span class="sd">            end_date=&quot;2022-03-31&quot;,</span>
-<span class="sd">            file_format=&quot;txt&quot;,     # &lt;--- can be &quot;rld&quot; for raw SymPRO data files, or &quot;zx&quot; for ZX 300</span>
+<span class="sd">            file_format=&quot;singleFile&quot;,  # use &quot;multipleFiles&quot; for RLD export</span>
 <span class="sd">            unzip=True,</span>
 <span class="sd">        )</span>
 <span class="sd">    &gt;&gt;&gt;</span>
@@ -403,30 +413,12 @@ document.write(`
         <span class="p">)</span>
         <span class="k">pass</span>
 
-<div class="viewcode-block" id="CloudExportJob.create_export_job"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.CloudExportJob.create_export_job">[docs]</a>    <span class="k">def</span> <span class="nf">create_export_job</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudExportJob.create_export_job"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.CloudExportJob.create_export_job">[docs]</a>    <span class="k">def</span> <span class="nf">create_export_job</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create export job&quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">}</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;siteid&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="p">,</span>
-            <span class="s2">&quot;fromdate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span>
-            <span class="s2">&quot;todate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span>
-            <span class="s2">&quot;fileFormat&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_format</span><span class="p">,</span>
-            <span class="s2">&quot;NecFileBytes&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span><span class="p">,</span>
-            <span class="s2">&quot;exporttype&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span><span class="p">,</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_format</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;zx&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;isOldZxExport&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">concatenate</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_post_data</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">request_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">export_request_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;creating export job for site </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
@@ -446,22 +438,16 @@ document.write(`
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;created export job </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">job_id</span><span class="si">}</span><span class="s2"> for site </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;unable to create export job for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;unable to create export job for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="si">}</span><span class="s2">&quot;</span> <span class="c1">#noqa E501</span>
             <span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="CloudExportJob.check_export_job"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.CloudExportJob.check_export_job">[docs]</a>    <span class="k">def</span> <span class="nf">check_export_job</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudExportJob.check_export_job"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.CloudExportJob.check_export_job">[docs]</a>    <span class="k">def</span> <span class="nf">check_export_job</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks the status of an export job</span>
 
 <span class="sd">        Uses self.job_id as reference</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span>
-            <span class="p">}</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">request_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">export_job_url</span><span class="si">}</span><span class="s2">?jobId=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">job_id</span><span class="si">}</span><span class="s2">&amp;download=false&quot;</span><span class="p">,</span>
@@ -481,7 +467,7 @@ document.write(`
             <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="CloudExportJob.monitor_export_job"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.CloudExportJob.monitor_export_job">[docs]</a>    <span class="k">def</span> <span class="nf">monitor_export_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">download</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudExportJob.monitor_export_job"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.CloudExportJob.monitor_export_job">[docs]</a>    <span class="k">def</span> <span class="nf">monitor_export_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">download</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Monitor the status of an export job</span>
 
 <span class="sd">        Uses self.job_id as reference</span>
@@ -502,7 +488,7 @@ document.write(`
 
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;job ID </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">job_id</span><span class="si">}</span><span class="s2"> | time elapsed: </span><span class="si">{</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="si">}</span><span class="s2"> s | status: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">json_response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">                           &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;job ID </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">job_id</span><span class="si">}</span><span class="s2"> | time elapsed: </span><span class="si">{</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="si">}</span><span class="s2"> s | status: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">json_response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">                           &quot;</span> <span class="c1"># noqa E501</span>
                 <span class="p">)</span>
                 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">download</span><span class="p">:</span>
@@ -511,20 +497,13 @@ document.write(`
                     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Downloading export job </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">job_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">download_export</span><span class="p">()</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unable to download export job&quot;</span><span class="p">)</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unable to download export job&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to download export job&quot;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unable to download export job&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Keyboard Interrupt detected: stopping monitoring&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Keyboard Interrupt detected: stopping monitoring&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudExportJob.download_export"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.CloudExportJob.download_export">[docs]</a>    <span class="k">def</span> <span class="nf">download_export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_token</span><span class="p">,</span>
-                <span class="s2">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/zip&quot;</span><span class="p">,</span>
-            <span class="p">}</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
+<div class="viewcode-block" id="CloudExportJob.download_export"><a class="viewcode-back" href="../../../nrgpy.cloud_api.html#nrgpy.cloud_api.jobs.CloudExportJob.download_export">[docs]</a>    <span class="k">def</span> <span class="nf">download_export</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">request_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">export_job_url</span><span class="si">}</span><span class="s2">?jobId=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">job_id</span><span class="si">}</span><span class="s2">&amp;download=true&quot;</span><span class="p">,</span>
@@ -560,7 +539,7 @@ document.write(`
 
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;job_id </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">job_id</span><span class="si">}</span><span class="s2"> for site_id </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;export took </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">request_duration</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;export took </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">request_duration</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes&quot;</span> <span class="c1"># noqa E501</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="n">is_authorized</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
@@ -581,16 +560,12 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -639,8 +614,8 @@ By NRG Systems, Inc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>
