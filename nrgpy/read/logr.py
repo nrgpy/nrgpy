@@ -2,8 +2,7 @@ try:
     from nrgpy import logger
 except ImportError:
     pass
-import datetime
-from datetime import datetime, timedelta  # noqa: F811
+from datetime import datetime, timedelta
 from glob import glob
 import os
 import pandas as pd
@@ -27,13 +26,13 @@ class LogrRead:
         logger_local_time: bool = False,
         **kwargs,
     ):
-        """Class of Pandas dataframes created from LOGR dat file.
+        """Class of Pandas dataframes created from LOGR data files.
 
-        If a filename is passed when calling class, the file is read in alone. 
-        Otherwise, an instance of the class is created, and the concat_txt function may 
+        If a filename is passed when calling class, the file is read in alone.
+        Otherwise, an instance of the class is created, and the concat_txt function may
         be called to combine all txt files in a directory.
 
-        Filters may be used on any part of the filename, to combine a subset of dat 
+        Filters may be used on any part of the filename, to combine a subset of dat
         files in a directory.
 
         Parameters
@@ -50,10 +49,10 @@ class LogrRead:
         Returns
         ---------
         ch_info : obj
-            pandas dataframe of ch_list (below) pulled out of file with 
+            pandas dataframe of ch_list (below) pulled out of file with
             logr_read.arrange_ch_info()
         ch_list : list
-            list of channel info; can be converted to json w/ import json ... 
+            list of channel info; can be converted to json w/ import json ...
             json.dumps(fut.ch_info)
         data : obj
             pandas dataframe of all data
@@ -81,7 +80,7 @@ class LogrRead:
         if self.filename:
             self.process_file()
 
-    def process_file(self):
+    def process_file(self) -> None:
         i = 0
         with open(self.filename) as infile:
             for line in infile:
@@ -96,61 +95,68 @@ class LogrRead:
         read_len = header_len - 5
 
         self.site_info = pd.read_csv(
-                self.filename,
-                skiprows=2,
-                sep="\t",
-                index_col=False,
-                nrows=read_len,
-                usecols=[0, 1],
-                header=None,
-            )
+            self.filename,
+            skiprows=2,
+            sep="\t",
+            index_col=False,
+            nrows=read_len,
+            usecols=[0, 1],
+            header=None,
+        )
 
         self.site_info = self.site_info.iloc[
-                : self.site_info.loc[self.site_info[0] == "Data"].index.tolist()[0] + 1
-            ]
+            : self.site_info.loc[self.site_info[0] == "Data"].index.tolist()[0] + 1
+        ]
 
+        self.create_data_df(header_len)
+
+        # if not hasattr(self, "site_details"):
+        self.format_site_data()
+
+    def create_data_df(self, header_len: int) -> None:
         if str(self.filename).lower().endswith("log"):
             try:
                 self.data = pd.read_csv(
-                    self.filename, 
-                    names=["Timestamp", 0, 1, 2, 3],
+                    self.filename,
+                    names=[
+                        "Timestamp",
+                        "EpochTime",
+                        "EventType",
+                        "Description",
+                        "Details",
+                    ],
                     skiprows=header_len,
-                    sep=",", 
+                    sep=",",
                     encoding="iso-8859-1",
                 )
             except IndexError:
                 pass
         else:
             self.data = pd.read_csv(
-                    self.filename, skiprows=header_len, sep="\t", encoding="iso-8859-1"
-                )
+                self.filename, skiprows=header_len, sep="\t", encoding="iso-8859-1"
+            )
             self.arrange_ch_info()
             self.format_timestamps()
         self.first_timestamp = self.data.iloc[0]["Timestamp"]
 
-        # if not hasattr(self, "site_details"):
-        self.format_site_data()
-
-    def format_timestamps(self):
+    def format_timestamps(self) -> None:
         if not self.text_timestamps:
             self.data["Timestamp"] = pd.to_datetime(self.data["Timestamp"])
         if self.logger_local_time and not self.text_timestamps:
             self.data["TimestampUTC"] = self.data["Timestamp"]
             self.data["Timestamp"] = self.data["TimestampUTC"] + timedelta(
-                        hours=int(self.time_zone)
-                    )
+                hours=int(self.time_zone)
+            )
         elif self.logger_local_time and self.text_timestamps:
-            print(
-                        "Cannot convert timestamps to local if using text_timestamps==True"
-                    )
+            print("Cannot convert timestamps to local if using text_timestamps==True")
             logger.error(
-                        "Cannot convert timestamps to local if using text_timestamps==True"
-                    )
+                "Cannot convert timestamps to local if using text_timestamps==True"
+            )
 
     def __repr__(self):
         return "<class {}: {} >".format(self.__class__.__name__, self.filename)
 
-    def arrange_ch_info(self):
+    def arrange_ch_info(self) -> None:
         """creates ch_info dataframe and ch_list array"""
         array = [
             "Channel:",
@@ -182,8 +188,7 @@ class LogrRead:
                 ch_data[row[1][0]] = row[1][1]
 
             elif (
-                row[1][0] in (array[0], array[1])
-                and ch_details == 1
+                row[1][0] in (array[0], array[1]) and ch_details == 1
             ):  # close channel, start new data read
                 ch_list.append(ch_data)
                 ch_data = {}
@@ -200,21 +205,19 @@ class LogrRead:
             [self.ch_info, ch_df], ignore_index=True, axis=0, join="outer"
         )
 
+        self.ch_info["Channel:"] = self.ch_info.apply(
+            lambda x: return_channel_number(x), axis=1
+        )
+
         # correction for calculated channel colon missing
-        def return_channel_number(x):
+        def return_channel_number(x: pd.Series) -> int:
             """temporary fix for missing colon on dat file Channel key"""
             if pd.isnull(x["Channel:"]):
                 return x["Channel"]
             else:
                 return x["Channel:"]
 
-        self.ch_info["Channel:"] = self.ch_info.apply(
-            lambda x: return_channel_number(x), axis=1
-        )
-
-        return self
-
-    def format_site_data(self):
+    def format_site_data(self) -> None:
         """take dat header to create oject data"""
         try:
             self.Site_info = self.site_info.copy()
@@ -228,7 +231,8 @@ class LogrRead:
                 self._site_info = self._site_info.iloc[:, :width]
             except (
                 ValueError
-            ):  # allows for parsing site info in diagnostic & events export, which don't have sensor history
+            ):  # allows for parsing site info in diagnostic & events export,
+                # which don't have sensor history
                 pass
 
             self._site_info.rename(columns=renamer(), inplace=True)
@@ -250,7 +254,9 @@ class LogrRead:
             self.time_zone = self._site_info["Time Zone"].values[0]
             try:
                 self.ftp_fw_version = self._site_info["FTP FW Version"].values[0]
-                self.created_fw_version = self._site_info["Created FW Version"].values[0]
+                self.created_fw_version = self._site_info["Created FW Version"].values[
+                    0
+                ]
             except KeyError:
                 self.ftp_fw_version = self._site_info["FW Version"].values[0]
                 self.created_fw_version = None
@@ -308,10 +314,10 @@ class LogrRead:
         Returns
         -------
         ch_info : obj
-            pandas dataframe of ch_list (below) pulled out of file with 
+            pandas dataframe of ch_list (below) pulled out of file with
             logr_read.arrange_ch_info()
         ch_list : list
-            list of channel info; can be converted to json w/ import json ... 
+            list of channel info; can be converted to json w/ import json ...
             json.dumps(fut.ch_info)
         data : obj
             pandas dataframe of all data
@@ -378,7 +384,7 @@ class LogrRead:
         self.dat_file_names = []
 
         if "txt_dir" in kwargs and not dat_dir:
-            dat_dir = kwargs.get("txt_dir")
+            dat_dir = kwargs.get("txt_dir")  # type: ignore
 
         if check_platform() == "win32":
             self.dat_dir = windows_folder_path(dat_dir)
@@ -390,7 +396,7 @@ class LogrRead:
         files = [
             os.path.join(self.dat_dir, f)
             for f in sorted(os.listdir(self.dat_dir))
-            if self.file_filter in f
+            if self.file_filter in f  # type: ignore
             and self.filter2 in f
             and self.file_type in f
             and string_date_check(self.start_date, self.end_date, f)
@@ -436,8 +442,9 @@ class LogrRead:
                 except Exception:
                     if not progress_bar:
                         print("[FAILED]")
-                    print("could not concat {0}".format(os.path.basename(f)))
+                    # print("could not concat {0}".format(os.path.basename(f)))
                     logger.exception("could not concat {0}".format(os.path.basename(f)))
+                    break
             else:
                 file_path = f
 
@@ -503,8 +510,10 @@ class LogrRead:
 
             if drop_duplicates:
                 logger.info("Dropping duplicate timestamps")
-                self.data = base.data.drop_duplicates(subset=["Timestamp"], keep="first")
-            else: 
+                self.data = base.data.drop_duplicates(
+                    subset=["Timestamp"], keep="first"
+                )
+            else:
                 self.data = base.data
             self.data.reset_index(drop=True, inplace=True)
 
