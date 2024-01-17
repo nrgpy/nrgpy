@@ -158,6 +158,14 @@ class LogrRead:
 
     def arrange_ch_info(self) -> None:
         """creates ch_info dataframe and ch_list array"""
+        # correction for calculated channel colon missing
+        def return_channel_number(x: pd.Series) -> int:
+            """temporary fix for missing colon on dat file Channel key"""
+            if pd.isnull(x["Channel:"]):
+                return x["Channel"]
+            else:
+                return x["Channel:"]
+
         array = [
             "Channel:",
             "Channel",  # <--- fix for missing colon in dat file Channel key
@@ -208,14 +216,6 @@ class LogrRead:
         self.ch_info["Channel:"] = self.ch_info.apply(
             lambda x: return_channel_number(x), axis=1
         )
-
-        # correction for calculated channel colon missing
-        def return_channel_number(x: pd.Series) -> int:
-            """temporary fix for missing colon on dat file Channel key"""
-            if pd.isnull(x["Channel:"]):
-                return x["Channel"]
-            else:
-                return x["Channel:"]
 
     def format_site_data(self) -> None:
         """take dat header to create oject data"""
