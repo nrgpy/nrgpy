@@ -428,7 +428,7 @@ class LogrRead:
                 first_file = False
 
                 try:
-                    base = logr_read(
+                    base = LogrRead(
                         f,
                         text_timestamps=self.text_timestamps,
                         logger_local_time=self.logger_local_time,
@@ -449,7 +449,7 @@ class LogrRead:
                 file_path = f
 
                 try:
-                    s = logr_read(
+                    s = LogrRead(
                         file_path,
                         text_timestamps=self.text_timestamps,
                         logger_local_time=self.logger_local_time,
@@ -777,7 +777,7 @@ def shift_timestamps(
         try:
             draw_progress_bar(counter, file_count, start_time)
             f = os.path.join(txt_folder, f)
-            fut = logr_read(filename=f)
+            fut = LogrRead(filename=f)
             fut.format_site_data()
             fut.data["Timestamp"] = pd.to_datetime(fut.data["Timestamp"]) + timedelta(
                 seconds=seconds
@@ -795,4 +795,4 @@ def shift_timestamps(
         counter += 1
 
 
-logr_read = LogrRead
+LogrRead = LogrRead

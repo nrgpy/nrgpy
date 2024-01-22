@@ -29,7 +29,7 @@ jobs:
         run: python -m tests.readers.test_sympro_txt_read tests/readers/files/
       - name: Endpoint Test
         run: |
-          python -m tests.nrgcloud.endpoint
+          python tests/nrgcloud/endpoint.py
       - name: NRG Cloud API tests
         env:
           CLIENT_ID: ${{ secrets.NRG_CLOUD_API_CLIENT_ID }}
