@@ -13,6 +13,7 @@ def mock_request_session_token():
 def mock_single_file(item, filename):
     pass 
 
+
 class TestCloudApis:
     monkeypatch = MonkeyPatch()
     
@@ -91,7 +92,6 @@ class TestCloudApis:
         # Assert
         TestCloudApis.monkeypatch.undo()
         assert exporter.data["fileFormat"] == "multipleFiles"
-        assert True
 
     def test_api_old_version(self):
         # Arrange
@@ -108,4 +108,3 @@ class TestCloudApis:
         # Assert
         TestCloudApis.monkeypatch.undo()
         assert exporter.data["fileFormat"] == "txt"
-        assert True

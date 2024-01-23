@@ -114,30 +114,38 @@ class LogrRead:
         self.format_site_data()
 
     def create_data_df(self, header_len: int) -> None:
-        if str(self.filename).lower().endswith("log"):
+        suffix = str(self.filename).lower().split(".")[-1]
+        if suffix == "log":
             try:
                 self.data = pd.read_csv(
                     self.filename,
-                    names=[
-                        "Timestamp",
-                        "EpochTime",
-                        "EventType",
-                        "Description",
-                        "Details",
-                    ],
+                    names=logr_log_columns,
                     skiprows=header_len,
                     sep=",",
                     encoding="iso-8859-1",
                 )
+                self.first_timestamp = self.data.iloc[0]["Timestamp"]
+            except IndexError:
+                pass
+        elif suffix == "diag":
+            try:
+                self.data = pd.read_csv(
+                    self.filename,
+                    names=logr_diag_columns,
+                    skiprows=header_len,
+                    sep="\t",
+                    encoding="iso-8859-1",
+                )
+                self.first_timestamp = self.data.iloc[0][logr_diag_columns[0]]
             except IndexError:
                 pass
         else:
             self.data = pd.read_csv(
                 self.filename, skiprows=header_len, sep="\t", encoding="iso-8859-1"
             )
-            self.arrange_ch_info()
             self.format_timestamps()
-        self.first_timestamp = self.data.iloc[0]["Timestamp"]
+            self.arrange_ch_info()
+            self.first_timestamp = self.data.iloc[0]["Timestamp"]
 
     def format_timestamps(self) -> None:
         if not self.text_timestamps:
@@ -158,6 +166,7 @@ class LogrRead:
 
     def arrange_ch_info(self) -> None:
         """creates ch_info dataframe and ch_list array"""
+
         # correction for calculated channel colon missing
         def return_channel_number(x: pd.Series) -> int:
             """temporary fix for missing colon on dat file Channel key"""
@@ -429,7 +438,7 @@ class LogrRead:
                 first_file = False
 
                 try:
-                    base = logr_read(
+                    base = LogrRead(
                         f,
                         text_timestamps=self.text_timestamps,
                         logger_local_time=self.logger_local_time,
@@ -450,7 +459,7 @@ class LogrRead:
                 file_path = f
 
                 try:
-                    s = logr_read(
+                    s = LogrRead(
                         file_path,
                         text_timestamps=self.text_timestamps,
                         logger_local_time=self.logger_local_time,
@@ -458,7 +467,7 @@ class LogrRead:
                     base.data = pd.concat(
                         [base.data, s.data], ignore_index=True, axis=0, join="outer"
                     )
-                    if not s.filename.lower().endswith("log"):
+                    if not s.filename.lower().endswith(("log", "diag")):
                         base.ch_info = pd.concat(
                             [base.ch_info, s.ch_info],
                             ignore_index=True,
@@ -786,7 +795,7 @@ def shift_timestamps(
         try:
             draw_progress_bar(counter, file_count, start_time)
             f = os.path.join(txt_folder, f)
-            fut = logr_read(filename=f)
+            fut = LogrRead(filename=f)
             fut.format_site_data()
             fut.data["Timestamp"] = pd.to_datetime(fut.data["Timestamp"]) + timedelta(
                 seconds=seconds
@@ -804,4 +813,81 @@ def shift_timestamps(
         counter += 1
 
 
-logr_read = LogrRead
+LogrRead = LogrRead
+logr_diag_columns = [
+    "Stats_Timestamp",
+    "VIN_RP_V_Avg",
+    "VIN_RP_V_Min",
+    "VIN_RP_V_Max",
+    "VIN_RP_V_SD",
+    "12_4V_V_Avg",
+    "12_4V_V_Min",
+    "12_4V_V_Max",
+    "12_4V_V_SD",
+    "12_4V_mA_Avg",
+    "12_4V_mA_Min",
+    "12_4V_mA_Max",
+    "12_4V_mA_SD",
+    "3_3V_V_Avg",
+    "3_3V_V_Min",
+    "3_3V_V_Max",
+    "3_3V_V_SD",
+    "3_3V_mA_Avg",
+    "3_3V_mA_Min",
+    "3_3V_mA_Max",
+    "3_3V_mA_SD",
+    "COMA EXC_V_Avg",
+    "COMA EXC_V_Min",
+    "COMA EXC_V_Max",
+    "COMA EXC_V_SD",
+    "COMA EXC_mA_Avg",
+    "COMA EXC_mA_Min",
+    "COMA EXC_mA_Max",
+    "COMA EXC_mA_SD",
+    "COMB EXC_V_Avg",
+    "COMB EXC_V_Min",
+    "COMB EXC_V_Max",
+    "COMB EXC_V_SD",
+    "COMB EXC_mA_Avg",
+    "COMB EXC_mA_Min",
+    "COMB EXC_mA_Max" "COMB EXC_mA_SD" "+VIN_RP_Avg",
+    "+VIN_RP_Min",
+    "+VIN_RP_Max",
+    "+VIN_RP_SD",
+    "13_3V_V_Avg",
+    "13_3V_V_Min",
+    "13_3V_V_Max",
+    "13_3V_V_SD",
+    "15V_V_Avg",
+    "15V_V_Min",
+    "15V_V_Max",
+    "15V_V_SD",
+    "12V_V_Avg",
+    "12V_V_Min",
+    "12V_V_Max",
+    "12V_V_SD",
+    "5V_V_Avg",
+    "5V_V_Min",
+    "5V_V_Max",
+    "5V_V_SD",
+    "-VIN_RP_V_Avg",
+    "-VIN_RP_V_Min",
+    "-VIN_RP_V_Max",
+    "-VIN_RP_V_SD",
+    "-15V_V_Avg",
+    "-15V_V_Min",
+    "-15V_V_Max",
+    "-15V_V_SD",
+    "12V_mA_Avg",
+    "12V_mA_Min",
+    "12V_mA_Max",
+    "12V_mA_SD",
+]
+
+logr_log_columns = [
+    "Timestamp",
+    "EpochTime",
+    "EventType",
+    "Description",
+    "Details",
+]

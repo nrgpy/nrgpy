@@ -3,6 +3,7 @@ try:
 except ImportError:
     pass
 import nrgpy
+import pytest
 import traceback
 
 
@@ -14,6 +15,7 @@ end_date = "2021-01-05"
 unauth_site_id = 9
 
 
+@pytest.mark.skip(reason="this is not set up as a pytest yet")
 def test_sites_api(client_id: str, client_secret: str):
     """Ensure NRG Cloud Sites API is working properly with test account
 
@@ -48,6 +50,7 @@ def test_sites_api(client_id: str, client_secret: str):
     return True
 
 
+@pytest.mark.skip(reason="this is not set up as a pytest yet")
 def test_export_api(client_id: str, client_secret: str):
     """"""
     try:
@@ -81,6 +84,7 @@ def test_export_api(client_id: str, client_secret: str):
     return True
 
 
+@pytest.mark.skip(reason="this is not set up as a pytest yet")
 def test_export_jobs_api(client_id: str, client_secret: str):
     """"""
     try:
@@ -110,6 +114,7 @@ def test_export_jobs_api(client_id: str, client_secret: str):
     return False
 
 
+@pytest.mark.skip(reason="this is not set up as a pytest yet")
 def test_export_jobs_api_unauthorized(client_id: str, client_secret: str):
     """"""
     try:
