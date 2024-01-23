@@ -233,6 +233,8 @@ class LogrRead:
             self.logger_type = self._site_info["Model Number"].values[0]
             self.logger_model = self.logger_type
             self.time_zone = self._site_info["Time Zone"].values[0]
+            self.created_fw_version = self._site_info["Created FW Version"].values[0]
+            self.ftp_fw_version = self._site_info["FTP FW Version"].values[0]
             # self.ch_info.drop(columns=['Channel'], inplace=True)
 
         except Exception as e:
@@ -252,6 +254,7 @@ class LogrRead:
         output_txt: bool = False,
         out_file: str = "",
         progress_bar: bool = True,
+        drop_duplicates: bool = True,
         **kwargs,
     ):
         """Will concatenate all text files in the dat_dir
@@ -280,6 +283,8 @@ class LogrRead:
             filename to write data dataframe too if output_txt = True
         progress_bar : bool
             show bar on concat [True] or list of files [False]
+        drop_duplicates : bool
+            drop duplicate timestamps [True] or leave duplicates [False]
 
         Returns
         -------
@@ -462,7 +467,11 @@ class LogrRead:
             self.ch_info = s.ch_info
             self.ch_list = s.ch_list
             self.array = s.array
-            self.data = base.data.drop_duplicates(subset=["Timestamp"], keep="first")
+            if drop_duplicates:
+                logger.info(f"Dropping duplicate timestamps")
+                self.data = base.data.drop_duplicates(subset=["Timestamp"], keep="first")
+            else: 
+                self.data = base.data
             self.data.reset_index(drop=True, inplace=True)
             base.ch_info["ch"] = base.ch_info["Channel:"].astype(int)
 
