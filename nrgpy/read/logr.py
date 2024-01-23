@@ -252,6 +252,7 @@ class LogrRead:
             self.logger_type = self._site_info["Model Number"].values[0]
             self.logger_model = self.logger_type
             self.time_zone = self._site_info["Time Zone"].values[0]
+
             try:
                 self.ftp_fw_version = self._site_info["FTP FW Version"].values[0]
                 self.created_fw_version = self._site_info["Created FW Version"].values[
@@ -488,10 +489,18 @@ class LogrRead:
             base.data.to_csv(os.path.join(dat_dir, out_file), sep=",", index=False)
 
         try:
+
             if self.filename.lower().endswith("dat"):
                 self.ch_info = s.ch_info
                 self.ch_list = s.ch_list
                 self.array = s.array
+          
+                if drop_duplicates:
+                    logger.info(f"Dropping duplicate timestamps")
+                    self.data = base.data.drop_duplicates(subset=["Timestamp"], keep="first")
+                else: 
+                    self.data = base.data
+                self.data.reset_index(drop=True, inplace=True)
                 base.ch_info["ch"] = base.ch_info["Channel:"].astype(int)
 
                 try:
