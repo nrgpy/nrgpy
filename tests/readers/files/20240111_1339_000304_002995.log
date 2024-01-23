@@ -1,0 +1,24 @@
+NRG Systems Data Logger
+File Created On (UTC):	2024-01-11T13:39:31Z
+Model Number:	9432
+Serial Number:	304
+Created FW Version:	1.09.14
+
+Site Properties
+Site:	Crows Nest Counters
+Project:	R2 Counter PCB 0831
+Location:	NRG Roof
+Latitude:	44.33889
+Longitude:	-73.11202
+Elevation:	136
+Time Zone:	-5
+
+File Properties
+File Schema Version:	1
+SD Card Free Space (kB):	6602981
+
+FTP FW Version:	1.09.14
+
+File Content:	Logs
+Data
+2024-01-11T13:39:31Z, 1704980371, ACTION, SRVEL_ACT_DLGR_CREATING_NEW_PACKAGE_FILE, New Package: 77_1704980370_000304_002995.dat

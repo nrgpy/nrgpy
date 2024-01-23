@@ -1,6 +1,5 @@
 from packaging.version import parse as parse_version
 from pytest import MonkeyPatch
-from nrgpy import logger
 import nrgpy
 from nrgpy.cloud_api import upload
 
