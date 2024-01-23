@@ -1,14 +1,15 @@
-## requirements
+# Building docs
 
-use pip to install these packages or the below commands will fail:
+## Requirements
 
-- numpydoc
-- sphinx
-- sphinx-book-theme
+Install the docs requirements with
 
-## to build docs:
+`pip install .[docs]`
 
-```
+## To build docs
+
+```bash
 ~: cd [this directory]
 ~: sphinx-apidoc -f -o source/ ../
 ~: sphinx-build -b html source/ .
+```
