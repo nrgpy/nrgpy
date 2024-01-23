@@ -38,3 +38,24 @@ class TestLogrRead:
 
         assert reader.site_description == "Crows Nest Counters", f"Expected site description {reader.site_description} to be 'Crows Nest Counters'"
         assert len(reader.data) == 3, f"Dataframe length {len(reader.data)} is not 3"
+
+    def test_logr_read_9432_diag_returns(self, test_file_directory):
+        """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
+        filename = test_file_directory / "20240111_1339_000304_002995.diag"
+        reader = LogrRead(filename, drop_duplicates=False)
+
+        assert reader.site_description == "Crows Nest Counters", f"Expected site description {reader.site_description} to be 'Crows Nest Counters'"
+        assert len(reader.data) == 3, f"Dataframe length {len(reader.data)} is not 3"
+
+    def test_logr_concat_9432_diag_returns(self, test_file_directory):
+        """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
+        reader = LogrRead()
+        reader.concat_txt(
+            dat_dir=str(test_file_directory),
+            file_type="diag",
+            file_filter="000304",
+            drop_duplicates=False,
+        )
+
+        assert reader.site_description == "Crows Nest Counters", f"Expected site description {reader.site_description} to be 'Crows Nest Counters'"
+        assert len(reader.data) == 43, f"Dataframe length {len(reader.data)} is not 43"

@@ -10,6 +10,7 @@ import json
 from packaging.version import parse as parse_version
 import pickle
 import requests
+import sys
 import traceback
 
 cloud_url_base = "https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/"
@@ -68,6 +69,7 @@ class CloudApi(object):
         self.client_id = client_id
         self.client_secret = client_secret
         self.user_agent = f"nrgpy-{version('nrgpy')}"
+        self.python_version = sys.version
         self.token_file_name = token_file + "_" + self.client_id[:10]
         self.url_base = url_base
         self.token_url = url_base + token_url
@@ -126,6 +128,7 @@ class CloudApi(object):
         request_token_header = {
             "content-type": "application/json",
             "user-agent": self.user_agent,
+            "python-version": self.python_version,
         }
         request_payload = {
             "clientId": "{}".format(self.client_id),
