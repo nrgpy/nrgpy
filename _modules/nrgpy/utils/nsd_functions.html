@@ -1,0 +1,673 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nrgpy.utils.nsd_functions &#8212; nrgpy  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nrgpy/utils/nsd_functions';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nrg_logo.png" class="logo__image only-light" alt="nrgpy  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nrg_logo.png" class="logo__image only-dark" alt="nrgpy  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../nrgpy.html">nrgpy package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.api.html">nrgpy.api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.convert.html">nrgpy.convert package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.quality.html">nrgpy.quality package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.read.html">nrgpy.read package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.utils.html">nrgpy.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">setup module</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for nrgpy.utils.nsd_functions</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="n">check_platform</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+
+<span class="k">if</span> <span class="n">check_platform</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">pyodbc</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pyodbc required for nrg functions&quot;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="nsd">
+<a class="viewcode-back" href="../../../nrgpy.utils.nsd_functions.html#nrgpy.utils.nsd_functions.nsd">[docs]</a>
+<span class="k">class</span> <span class="nc">nsd</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;class for handling NSD files from Symphonie Logger Data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nsd_file : str</span>
+<span class="sd">        path to nsd file to open for reading and writing</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    obj</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; from nrgpy.nsd_functions import nsd</span>
+
+<span class="sd">    &gt;&gt;&gt; db = nsd(nsd_file=&quot;C:/NRG/SiteFiles/0322.nsd&quot;)</span>
+
+<span class="sd">    &gt;&gt;&gt; db.read_channel_settings(channel=1)</span>
+
+<span class="sd">    &gt;&gt;&gt; db.channel_settings</span>
+<span class="sd">    TimeStamp  Channel  SensorType          SensorDesc SerialNumber  Height  ScaleFactor  Offset  PrintPrecision Units SensorDetail SensorNotes</span>
+<span class="sd">    0 1899-12-30        1           1    NRG #40 Anem. m/s    SN002618  50   m        0.766   0.332               1   m/s</span>
+
+<span class="sd">    &gt;&gt;&gt; db.write_channel_settings(channel=1, description=&quot;50m CLASS 1 m/s&quot;, scale_factor=1, offset=1)</span>
+
+<span class="sd">    &gt;&gt;&gt; db.read_channel_settings(channel=1)</span>
+
+<span class="sd">    &gt;&gt;&gt; db.channel_settings</span>
+<span class="sd">    TimeStamp  Channel  SensorType       SensorDesc SerialNumber  Height  ScaleFactor  Offset  PrintPrecision Units SensorDetail SensorNotes</span>
+<span class="sd">    0 1899-12-30        1           1  50m CLASS 1 m/s     SN002618  50   m          1.0     1.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="n">check_platform</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nsd_file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">check_platform</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;nsd functions only compatible with Windows&quot;</span><span class="p">)</span>
+            <span class="c1"># return</span>
+            <span class="c1">#  0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nsd_file</span> <span class="o">=</span> <span class="n">nsd_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver_check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_for_jet_drivers</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver_check</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">conn_str</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">r</span><span class="s2">&quot;DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};&quot;</span>
+                    <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;DBQ=&quot;</span>
+                    <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsd_file</span>
+                    <span class="o">+</span> <span class="s2">&quot;;&quot;</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="n">pyodbc</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conn_str</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;whomp, whomp.&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Microsoft Access drivers required for these functions.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Download drivers from:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;https://www.microsoft.com/en-US/download/details.aspx?id=13255</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Note: Python architecture must match any installed Microsoft Office&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;architecture (32-bit or 64-bit)&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;If your MS Office is installed in C:\Program Files (x86), you&#39;ll need&quot;</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the 32-bit version of Python 3+ to use these functions</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="nsd.read_sensor_history">
+<a class="viewcode-back" href="../../../nrgpy.utils.nsd_functions.html#nrgpy.utils.nsd_functions.nsd.read_sensor_history">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_sensor_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;read SensorHistory table into dataframe</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        obj</span>
+<span class="sd">            sensor_history : pandas dataframe</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM SensorHistory&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sensor_history</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_sh</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sensor_history_e</span> <span class="o">=</span> <span class="n">e_sh</span></div>
+
+
+<div class="viewcode-block" id="nsd.read_channel_settings">
+<a class="viewcode-back" href="../../../nrgpy.utils.nsd_functions.html#nrgpy.utils.nsd_functions.nsd.read_channel_settings">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_channel_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;read individual channel settings from sensor history table</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        channel : int</span>
+<span class="sd">            1 through 15 (12 if Sym Classic nsd file)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        obj</span>
+<span class="sd">            pandas dataframe of channel details</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM SensorHistory WHERE Channel = </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dash</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_channel_settings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">channel_settings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">rcs_e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">channel_settings</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rcs_e</span> <span class="o">=</span> <span class="n">rcs_e</span></div>
+
+
+<div class="viewcode-block" id="nsd.write_channel_settings">
+<a class="viewcode-back" href="../../../nrgpy.utils.nsd_functions.html#nrgpy.utils.nsd_functions.nsd.write_channel_settings">[docs]</a>
+    <span class="k">def</span> <span class="nf">write_channel_settings</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">channel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">entry</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">sensor_desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">print_precision</span><span class="o">=-</span><span class="mi">9999</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">serial_number</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">sensor_detail</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">sensor_notes</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">scale_factor</span><span class="o">=-</span><span class="mi">9999</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=-</span><span class="mi">9999</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;write new sensor history to site file</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        channel : int</span>
+<span class="sd">            required; 1 through 15 (or 1 through 12 for Sym Classic)</span>
+<span class="sd">        entry : int</span>
+<span class="sd">            default is 1 for channel baseline values, 2, 3, etc. for newer entries</span>
+<span class="sd">        sensor_desc : string</span>
+<span class="sd">        print_precision : int</span>
+<span class="sd">            1, 2, 3, or 4 or 0 for off</span>
+<span class="sd">        units : string</span>
+<span class="sd">        serial_number : string</span>
+<span class="sd">        height : string</span>
+<span class="sd">        sensor_detail : string</span>
+<span class="sd">        sensor_notes : string</span>
+<span class="sd">        scale_factor : float</span>
+<span class="sd">        offset : float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">channel</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read_channel_settings</span><span class="p">(</span><span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">entry_index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel_settings</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_channel_settings</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;entry&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">entry_index</span><span class="p">)</span>
+            <span class="n">entry_timestamp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_channel_settings</span><span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_channel_settings</span><span class="o">.</span><span class="n">entry</span> <span class="o">==</span> <span class="n">entry</span>
+                <span class="p">]</span><span class="o">.</span><span class="n">TimeStamp</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">to_pydatetime</span><span class="p">()</span>
+            <span class="n">channel</span> <span class="o">=</span> <span class="s2">&quot; WHERE Channel = </span><span class="si">{}</span><span class="s2"> AND TimeStamp = ?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">channel</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">sensor_desc</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">sensor_desc</span> <span class="o">=</span> <span class="s2">&quot; SensorDesc = &#39;</span><span class="si">{}</span><span class="s2">&#39;,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sensor_desc</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">print_precision</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">9999</span><span class="p">:</span>
+                <span class="n">print_precision</span> <span class="o">=</span> <span class="s2">&quot; PrintPrecision = </span><span class="si">{}</span><span class="s2">,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">print_precision</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">print_precision</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="k">if</span> <span class="n">units</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="s2">&quot; Units = &#39;</span><span class="si">{}</span><span class="s2">&#39;,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">serial_number</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">serial_number</span> <span class="o">=</span> <span class="s2">&quot; SerialNumber = &#39;</span><span class="si">{}</span><span class="s2">&#39;,&quot;</span>
+
+            <span class="k">if</span> <span class="n">height</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">height</span> <span class="o">=</span> <span class="s2">&quot; Height = &#39;</span><span class="si">{}</span><span class="s2">&#39;,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">scale_factor</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">9999</span><span class="p">:</span>
+                <span class="n">scale_factor</span> <span class="o">=</span> <span class="s2">&quot; ScaleFactor = </span><span class="si">{}</span><span class="s2">,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">scale_factor</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="k">if</span> <span class="n">offset</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">9999</span><span class="p">:</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="s2">&quot; Offset = </span><span class="si">{}</span><span class="s2">,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="k">if</span> <span class="n">sensor_detail</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">sensor_detail</span> <span class="o">=</span> <span class="s2">&quot; SensorDetail = &#39;</span><span class="si">{}</span><span class="s2">&#39;,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sensor_detail</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">sensor_notes</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">sensor_notes</span> <span class="o">=</span> <span class="s2">&quot; SensorNotes = &#39;</span><span class="si">{}</span><span class="s2">&#39;,&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sensor_notes</span><span class="p">)</span>
+
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;UPDATE SensorHistory SET</span><span class="si">{0}{1}{2}{3}{4}{5}{6}{7}{8}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">sensor_desc</span><span class="p">,</span>
+                <span class="n">print_precision</span><span class="p">,</span>
+                <span class="n">units</span><span class="p">,</span>
+                <span class="n">serial_number</span><span class="p">,</span>
+                <span class="n">height</span><span class="p">,</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">),</span>
+                <span class="n">sensor_detail</span><span class="p">,</span>
+                <span class="n">sensor_notes</span><span class="p">,</span>
+            <span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+                <span class="n">channel</span>
+            <span class="p">)</span>  <span class="c1"># &#39;&#39;.join([char for char in sql+str(channel)])</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sql</span><span class="p">,</span> <span class="n">entry_timestamp</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s1">&#39;specify channel for write &quot;eg: write_channel_settings(channel=10 .. )&quot;&#39;</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nsd.add_channel_history">
+<a class="viewcode-back" href="../../../nrgpy.utils.nsd_functions.html#nrgpy.utils.nsd_functions.nsd.add_channel_history">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_channel_history</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">timestamp</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">channel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">sensor_type</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="n">sensor_desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">print_precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">serial_number</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">sensor_detail</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">sensor_notes</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">scale_factor</span><span class="o">=-</span><span class="mi">9999</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=-</span><span class="mi">9999</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;use for adding new sensor history registries</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        timestamp : string</span>
+<span class="sd">            &quot;YYYY-MM-DD HH:MM:SS&quot;</span>
+<span class="sd">        channel : int</span>
+<span class="sd">            or string, channel number</span>
+<span class="sd">        sensor_type : int</span>
+<span class="sd">            or string, number:</span>
+<span class="sd">                1 : anemometer</span>
+<span class="sd">                2 : totalizer (rain gauge)</span>
+<span class="sd">                3 : vane</span>
+<span class="sd">                4 : analog (temp, bp, rh, etc.)</span>
+<span class="sd">        sensor_desc : string</span>
+<span class="sd">            description</span>
+<span class="sd">        print_precision : int</span>
+<span class="sd">            1 through 4, number of decimals</span>
+<span class="sd">        units : string</span>
+<span class="sd">        serial_number : string</span>
+<span class="sd">        height : float</span>
+<span class="sd">        sensor_detail : note</span>
+<span class="sd">        sensor_notes : note</span>
+<span class="sd">        scale_factor : float</span>
+<span class="sd">        offset : float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            INSERT INTO SensorHistory</span>
+<span class="s2">                ([TimeStamp], Channel, SensorType, SensorDesc, SerialNumber, Height, </span>
+<span class="s2">                ScaleFactor, Offset, PrintPrecision, Units, SensorDetail, SensorNotes)</span>
+<span class="s2">            VALUES </span>
+<span class="s2">                (&#39;</span><span class="si">{0}</span><span class="s2">&#39;, &#39;</span><span class="si">{1}</span><span class="s2">&#39;, &#39;</span><span class="si">{2}</span><span class="s2">&#39;, &#39;</span><span class="si">{3}</span><span class="s2">&#39;,&#39;</span><span class="si">{4}</span><span class="s2">&#39;,&#39;</span><span class="si">{5}</span><span class="s2">&#39;,</span>
+<span class="s2">                &#39;</span><span class="si">{6}</span><span class="s2">&#39;,&#39;</span><span class="si">{7}</span><span class="s2">&#39;,&#39;</span><span class="si">{8}</span><span class="s2">&#39;,&#39;</span><span class="si">{9}</span><span class="s2">&#39;,&#39;</span><span class="si">{10}</span><span class="s2">&#39;,&#39;</span><span class="si">{11}</span><span class="s2">&#39;);&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">timestamp</span><span class="p">,</span>
+                <span class="n">channel</span><span class="p">,</span>
+                <span class="n">sensor_type</span><span class="p">,</span>
+                <span class="n">sensor_desc</span><span class="p">,</span>
+                <span class="n">serial_number</span><span class="p">,</span>
+                <span class="n">height</span><span class="p">,</span>
+                <span class="n">scale_factor</span><span class="p">,</span>
+                <span class="n">offset</span><span class="p">,</span>
+                <span class="n">print_precision</span><span class="p">,</span>
+                <span class="n">units</span><span class="p">,</span>
+                <span class="n">sensor_detail</span><span class="p">,</span>
+                <span class="n">sensor_notes</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Unable to add sensor history value&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nsd.close">
+<a class="viewcode-back" href="../../../nrgpy.utils.nsd_functions.html#nrgpy.utils.nsd_functions.nsd.close">[docs]</a>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;close connection to database&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="nsd.check_for_jet_drivers">
+<a class="viewcode-back" href="../../../nrgpy.utils.nsd_functions.html#nrgpy.utils.nsd_functions.nsd.check_for_jet_drivers">[docs]</a>
+    <span class="k">def</span> <span class="nf">check_for_jet_drivers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;check for jet database drivers</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if drivers present, otherwise False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pyodbc</span><span class="o">.</span><span class="n">drivers</span><span class="p">()]</span>
+
+        <span class="k">if</span> <span class="s2">&quot;Microsoft Access Driver (*.mdb, *.accdb)&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">drivers</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NRG Systems, Inc.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, NRG Systems, Inc..
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

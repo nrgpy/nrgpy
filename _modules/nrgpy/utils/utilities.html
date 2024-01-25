@@ -1,0 +1,771 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nrgpy.utils.utilities &#8212; nrgpy  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nrgpy/utils/utilities';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nrg_logo.png" class="logo__image only-light" alt="nrgpy  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nrg_logo.png" class="logo__image only-dark" alt="nrgpy  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../nrgpy.html">nrgpy package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.api.html">nrgpy.api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.convert.html">nrgpy.convert package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.quality.html">nrgpy.quality package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.read.html">nrgpy.read package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.utils.html">nrgpy.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">setup module</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for nrgpy.utils.utilities</h1><div class="highlight"><pre>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">nrgpy</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">psutil</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+
+
+<div class="viewcode-block" id="affirm_directory">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.affirm_directory">[docs]</a>
+<span class="k">def</span> <span class="nf">affirm_directory</span><span class="p">(</span><span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;create directory if not exists</span>
+
+<span class="sd">    print status to terminal</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileExistsError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="check_platform">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.check_platform">[docs]</a>
+<span class="k">def</span> <span class="nf">check_platform</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;determine which operating system python is running on&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span></div>
+
+
+
+<div class="viewcode-block" id="count_files">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.count_files">[docs]</a>
+<span class="k">def</span> <span class="nf">count_files</span><span class="p">(</span>
+    <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">extension</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">show_files</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;counts the number of files in the first level of a directory</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    directory : str</span>
+<span class="sd">        path of directory to be checked</span>
+<span class="sd">    filters : str</span>
+<span class="sd">        filter present in file to be checked</span>
+<span class="sd">    extension : str</span>
+<span class="sd">        secondary filter</span>
+<span class="sd">    show_files : bool, optional</span>
+<span class="sd">        if set to True, prints file name</span>
+<span class="sd">    start_time :  int</span>
+<span class="sd">        seconds; if set, use as reference; only count if file is newer than start_time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;start_time&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">file_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">subdirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">x</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">filters</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">extension</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">start_time</span><span class="p">:</span>
+                                <span class="n">file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                                <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+
+                        <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+                            <span class="n">file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                            <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">show_files</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">count</span><span class="p">,</span> <span class="n">file_list</span>
+    <span class="k">return</span> <span class="n">count</span></div>
+
+
+
+<div class="viewcode-block" id="string_date_check">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.string_date_check">[docs]</a>
+<span class="k">def</span> <span class="nf">string_date_check</span><span class="p">(</span><span class="n">start_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">end_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;returns true if string date is between dates</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    start_date : str</span>
+<span class="sd">        &quot;YYYY-mm-dd&quot;</span>
+<span class="sd">    end_date : str</span>
+<span class="sd">        &quot;YYYY-mm-dd&quot;</span>
+<span class="sd">    string : str</span>
+<span class="sd">        string including date to check</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># LOGR &amp; SymphonieClassic</span>
+    <span class="n">date_format_no_dash</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">[0-9]</span><span class="si">{2}</span><span class="s2">[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+    <span class="n">strp_format_no_dash</span> <span class="o">=</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span>
+    <span class="c1"># ZX datafile</span>
+    <span class="n">date_format_zx</span> <span class="o">=</span> <span class="s2">&quot;(Y[0-9]</span><span class="si">{4}</span><span class="s2">_M[0-9]</span><span class="si">{2}</span><span class="s2">_D[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+    <span class="n">strp_format_zx</span> <span class="o">=</span> <span class="s2">&quot;Y%Y_M%m_D</span><span class="si">%d</span><span class="s2">&quot;</span>
+    <span class="c1"># SymphoniePRO</span>
+    <span class="n">date_format_with_dash</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">\-[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+    <span class="n">strp_format_with_dash</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
+    <span class="c1"># NRG Cloud TXT Export</span>
+    <span class="n">date_format_with_dot</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{4}</span><span class="s2">\.[0-9]</span><span class="si">{2}</span><span class="s2">\.[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+    <span class="n">strp_format_with_dot</span> <span class="o">=</span> <span class="s2">&quot;%Y.%m.</span><span class="si">%d</span><span class="s2">&quot;</span>
+
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">strp_format_with_dash</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">end_date</span><span class="p">,</span> <span class="n">strp_format_with_dash</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">start_date</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">end_date</span>
+
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format_no_dash</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">date_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format_no_dash</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">file_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_text</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">strp_format_no_dash</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">ext_date_format_no_dash</span> <span class="o">=</span> <span class="s2">&quot;([0-9]</span><span class="si">{6}</span><span class="s2">[0-9]</span><span class="si">{4}</span><span class="s2">[0-9]</span><span class="si">{2}</span><span class="s2">[0-9]</span><span class="si">{2}</span><span class="s2">)&quot;</span>
+            <span class="n">date_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">ext_date_format_no_dash</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+            <span class="n">file_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_text</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">6</span><span class="p">:],</span> <span class="n">strp_format_no_dash</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format_with_dash</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">date_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format_with_dash</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        <span class="n">file_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_text</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">strp_format_with_dash</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format_with_dot</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">date_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format_with_dot</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        <span class="n">file_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_text</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">strp_format_with_dot</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format_zx</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">date_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date_format_zx</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        <span class="n">file_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_text</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">strp_format_zx</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">file_date</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">file_date</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<span class="c1"># in case anyone is using this directly</span>
+<span class="n">date_check</span> <span class="o">=</span> <span class="n">string_date_check</span>
+
+
+<div class="viewcode-block" id="draw_progress_bar">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.draw_progress_bar">[docs]</a>
+<span class="k">def</span> <span class="nf">draw_progress_bar</span><span class="p">(</span>
+    <span class="n">index</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">barLen</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s2">&quot;Time elapsed&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;simple text progress bar&quot;&quot;&quot;</span>
+    <span class="n">percent</span> <span class="o">=</span> <span class="n">index</span> <span class="o">/</span> <span class="n">total</span>
+    <span class="n">pad</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">total</span><span class="p">))</span>
+
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+        <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> | </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> / </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> [{:&lt;</span><span class="si">{}</span><span class="s2">}] </span><span class="si">{:.0f}</span><span class="s2">%</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">header</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="p">,</span>
+            <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">pad</span><span class="p">),</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="n">total</span><span class="p">,</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">barLen</span> <span class="o">*</span> <span class="n">percent</span><span class="p">),</span>
+            <span class="n">barLen</span><span class="p">,</span>
+            <span class="n">percent</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="linux_folder_path">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.linux_folder_path">[docs]</a>
+<span class="k">def</span> <span class="nf">linux_folder_path</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;assert folder_path ending with &#39;/&#39;&quot;&quot;&quot;</span>
+    <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;\ &quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span>
+
+    <span class="k">return</span> <span class="n">folder_path</span></div>
+
+
+
+<div class="viewcode-block" id="windows_folder_path">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.windows_folder_path">[docs]</a>
+<span class="k">def</span> <span class="nf">windows_folder_path</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;convert &#39;/&#39; to &#39;\\&#39; in folder_path and assert ending in &#39;\\&#39;&quot;&quot;&quot;</span>
+    <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">):</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">folder_path</span> <span class="o">=</span> <span class="n">folder_path</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span>
+
+    <span class="k">return</span> <span class="n">folder_path</span></div>
+
+
+
+<div class="viewcode-block" id="renamer">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.renamer">[docs]</a>
+<span class="k">class</span> <span class="nc">renamer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;for replacing duplicate column names after transpose&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="save">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.save">[docs]</a>
+<span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;save reader as a Python pickle file, to be recalled later&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">reader</span><span class="o">.</span><span class="n">site_number</span><span class="si">}</span><span class="s2">_reader.pkl&quot;</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">reader</span><span class="o">.</span><span class="n">serial_number</span><span class="si">}</span><span class="s2">_reader.pkl&quot;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pkl</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">pkl</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="load">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.load">[docs]</a>
+<span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">site_number</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">serial_number</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;recall a reader from a pickle file by site number or filename</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    site_number : str</span>
+<span class="sd">        6-digit site number of stored reader OR spidar serial number</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        full or relative path of pickle file</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    object</span>
+<span class="sd">        contents of pickle file</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">serial_number</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">site_number</span><span class="si">}</span><span class="s2">_reader.pkl&quot;</span>
+
+    <span class="k">if</span> <span class="n">serial_number</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">serial_number</span><span class="si">}</span><span class="s2">_reader.pkl&quot;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pkl</span><span class="p">:</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pkl</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reader</span></div>
+
+
+
+<div class="viewcode-block" id="data_months">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.data_months">[docs]</a>
+<span class="k">def</span> <span class="nf">data_months</span><span class="p">(</span><span class="n">start_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">end_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;returns list of months for a date range in YYYY-mm-dd format</span>
+
+<span class="sd">    parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    start_date : str or datetime</span>
+<span class="sd">        YYYY-mm-dd formatted date or datetime object</span>
+<span class="sd">    end_date : str or datetime</span>
+<span class="sd">        must be same formatting as start_date or god help you</span>
+<span class="sd">    output : str</span>
+<span class="sd">        &quot;string&quot; or &quot;datetime&quot;; specify date types you want returned.</span>
+
+<span class="sd">    returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span>
+        <span class="s2">&quot;^\d</span><span class="si">{4}</span><span class="s2">\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])&quot;</span><span class="p">,</span> <span class="n">start_date</span>
+    <span class="p">):</span>
+        <span class="n">start_year</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">start_month</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">start_day</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">end_year</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">end_month</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">end_day</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
+        <span class="n">start_year</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">year</span>
+        <span class="n">start_month</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">month</span>
+        <span class="n">start_day</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">day</span>
+        <span class="n">end_year</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">year</span>
+        <span class="n">end_month</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">month</span>
+        <span class="n">end_day</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">day</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unsupported date type: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="se">\n</span><span class="s2">use &#39;YYYY-mm-dd&#39; or datetime object&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">start_year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">end_year</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">months</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_year</span><span class="p">):</span>
+            <span class="n">_month0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_month</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_month0</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">end_year</span><span class="p">):</span>
+            <span class="n">_month12</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">end_month</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_month12</span> <span class="o">=</span> <span class="mi">12</span>
+
+        <span class="k">for</span> <span class="n">_m</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">_month0</span><span class="p">,</span> <span class="n">_month12</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">:</span>
+                <span class="n">months</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">_m</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">-01&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;datetime&quot;</span><span class="p">:</span>
+                <span class="n">months</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">_m</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unsupported output type: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="se">\n</span><span class="s2">use &#39;string&#39; or &#39;datetime&#39;&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">months</span></div>
+
+
+
+<div class="viewcode-block" id="create_spd_filename_from_cloud_export">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.create_spd_filename_from_cloud_export">[docs]</a>
+<span class="k">def</span> <span class="nf">create_spd_filename_from_cloud_export</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">cld_fmt</span> <span class="o">=</span> <span class="s2">&quot;%m-</span><span class="si">%d</span><span class="s2">-%Y&quot;</span>
+    <span class="n">spd_fmt</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span>
+
+    <span class="n">splits</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+    <span class="n">site</span> <span class="o">=</span> <span class="n">splits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">splits</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cld_fmt</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">spd_fmt</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">splits</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">cld_fmt</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">spd_fmt</span><span class="p">)</span>
+    <span class="n">outname</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">site</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">splits</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Measurements&quot;</span><span class="p">,</span> <span class="s2">&quot;meas&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">outname</span></div>
+
+
+
+<div class="viewcode-block" id="rename_cloud_export_like_spd">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.rename_cloud_export_like_spd">[docs]</a>
+<span class="k">def</span> <span class="nf">rename_cloud_export_like_spd</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;rename nrg cloud export files with SPD formatting&quot;&quot;&quot;</span>
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="n">new_filename</span> <span class="o">=</span> <span class="n">create_spd_filename_from_cloud_export</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">new_filename</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;renamed </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">except</span> <span class="ne">FileExistsError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2"> exists, replacing&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">new_filename</span><span class="p">))</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">new_filename</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;renamed </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;couldn&#39;t rename </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;couldn&#39;t rename </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">new_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="kn">import</span> <span class="nn">traceback</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="fix_export_siteid_filename">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.fix_export_siteid_filename">[docs]</a>
+<span class="k">def</span> <span class="nf">fix_export_siteid_filename</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">site_number</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Change out NRG Cloud site id with padded site number&quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;siteid&quot;</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">site_number</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span> <span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">filepath</span></div>
+
+
+
+<div class="viewcode-block" id="is_sympro_running">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.is_sympro_running">[docs]</a>
+<span class="k">def</span> <span class="nf">is_sympro_running</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;checks pid list for instance of sympro running&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">psutil</span><span class="o">.</span><span class="n">WINDOWS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">pids</span><span class="p">():</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;SymPRODesktop.exe&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="set_start_stop">
+<a class="viewcode-back" href="../../../nrgpy.utils.utilities.html#nrgpy.utils.nsd_functions.set_start_stop">[docs]</a>
+<span class="k">def</span> <span class="nf">set_start_stop</span><span class="p">(</span><span class="n">reader</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">with_time</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+    <span class="n">reader</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">reader</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">with_time</span><span class="p">:</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">end_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NRG Systems, Inc.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, NRG Systems, Inc..
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

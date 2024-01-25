@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nrgpy.cloud_api.export &#8212; nrgpy  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nrgpy/cloud_api/export';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nrg_logo.png" class="logo__image only-light" alt="nrgpy  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nrg_logo.png" class="logo__image only-dark" alt="nrgpy  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../nrgpy.html">nrgpy package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.api.html">nrgpy.api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.convert.html">nrgpy.convert package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.quality.html">nrgpy.quality package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.read.html">nrgpy.read package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.utils.html">nrgpy.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">setup module</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for nrgpy.cloud_api.export</h1><div class="highlight"><pre>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">nrgpy</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">nrgpy.utils.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">affirm_directory</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.auth</span> <span class="kn">import</span> <span class="n">cloud_api</span><span class="p">,</span> <span class="n">cloud_url_base</span>
+<span class="kn">from</span> <span class="nn">.sites</span> <span class="kn">import</span> <span class="n">cloud_sites</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">parse</span> <span class="k">as</span> <span class="n">parse_version</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+
+<div class="viewcode-block" id="CloudExport">
+<a class="viewcode-back" href="../../../nrgpy.cloud_api.export.html#nrgpy.cloud_api.export.CloudExport">[docs]</a>
+<span class="k">class</span> <span class="nc">CloudExport</span><span class="p">(</span><span class="n">cloud_api</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Uses NRG hosted web-based API to download data in text format</span>
+<span class="sd">    To sign up for the service, go to https://cloud.nrgsystems.com</span>
+
+<span class="sd">    Note that the site must exist in the NRG Cloud platform, and you must have</span>
+<span class="sd">    Contributor or Administrator level access to the site to use these features.</span>
+
+<span class="sd">    Use the Site Number or NRG Cloud Site ID to choose the site.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    out_dir : str (path-like)</span>
+<span class="sd">        path to save exported data</span>
+<span class="sd">    site_id : int</span>
+<span class="sd">        NRG Cloud site identifier (NOT the site number)</span>
+<span class="sd">    site_number : int</span>
+<span class="sd">        site number</span>
+<span class="sd">    logger_sn : int</span>
+<span class="sd">        serial number of data logger</span>
+<span class="sd">    start_date : str (&#39;{YYYY}-{MM}-{DD}T{HH}:{MM}:{SS}&#39;)</span>
+<span class="sd">        start date/time of data export</span>
+<span class="sd">    end_date : str (&#39;{YYYY}-{MM}-{DD}T{HH}:{MM}:{SS}&#39;)</span>
+<span class="sd">        end date/time of data export</span>
+<span class="sd">    file_format : {&#39;txt&#39;, &#39;rld&#39;, &#39;zx&#39;}</span>
+<span class="sd">        whether SymPRO tab-delimited text or binary output or ZX</span>
+<span class="sd">    client_id : str</span>
+<span class="sd">        available in the NRG Cloud portal</span>
+<span class="sd">    client_secret : str</span>
+<span class="sd">        available in the NRG Cloud portal</span>
+<span class="sd">    nec_file : str, optional</span>
+<span class="sd">        path to NEC file for custom export formatting</span>
+<span class="sd">    export_type : {&#39;measurements&#39;, &#39;diagnostic&#39;, &#39;events&#39;, &#39;communication&#39;}</span>
+<span class="sd">        which type of data to export</span>
+<span class="sd">    interval : {&#39;oneMinute&#39;, &#39;twoMinute&#39;, &#39;fiveMinute&#39;, &#39;tenMinute&#39;, &#39;fifteenMinute&#39;,</span>
+<span class="sd">        &#39;thirtyMinute&#39;, &#39;Hour&#39;, &#39;Day&#39;}, optional</span>
+<span class="sd">        averaging interval of exported data; must be a multiple of the logger&#39;s</span>
+<span class="sd">        statistical interval</span>
+<span class="sd">    unzip : bool</span>
+<span class="sd">        whether to extract the .txt data file from the .zip file</span>
+<span class="sd">    session_token : str</span>
+<span class="sd">    headers : str</span>
+<span class="sd">        headers passed in API call</span>
+<span class="sd">    data : str</span>
+<span class="sd">        data passed in API call</span>
+<span class="sd">    resp : str</span>
+<span class="sd">        API response</span>
+<span class="sd">    export_filepath : str (path-like)</span>
+<span class="sd">        path of export file</span>
+
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Download 15 days of data with an NEC file applied, and read data</span>
+
+<span class="sd">    &gt;&gt;&gt; import nrgpy</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; client_id = &quot;go to https://cloud.nrgsystems.com for access&quot;</span>
+<span class="sd">    &gt;&gt;&gt; client_secret = &quot;go to https://cloud.nrgsystems.com for access&quot;</span>
+<span class="sd">    &gt;&gt;&gt; save_dir = &#39;/path/to/exported/data&#39;</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; exporter = nrgpy.CloudExport(</span>
+<span class="sd">            client_id=client_id,</span>
+<span class="sd">            client_secret=client_secret,</span>
+<span class="sd">            out_dir=save_dir,</span>
+<span class="sd">            nec_file=&#39;12vbat.nec&#39;,</span>
+<span class="sd">            site_id=245,</span>
+<span class="sd">            start_date=&quot;2021-05-01&quot;,</span>
+<span class="sd">            end_date=&quot;2021-05-15&quot;,</span>
+<span class="sd">        )</span>
+<span class="sd">    &gt;&gt;&gt; exporter.export()</span>
+<span class="sd">    &gt;&gt;&gt; # read result</span>
+<span class="sd">    &gt;&gt;&gt; reader = nrgpy.sympro_txt_read(exporter.export_filepath)</span>
+<span class="sd">    &gt;&gt;&gt; reader.format_site_data()</span>
+<span class="sd">    &gt;&gt;&gt; if reader:</span>
+<span class="sd">    &gt;&gt;&gt;     print(f&quot;Site number               : {reader.site_number}&quot;)</span>
+<span class="sd">    &gt;&gt;&gt;     print(f&quot;Site description          : {reader.site_description}&quot;)</span>
+<span class="sd">    &gt;&gt;&gt;     reader.interval_check = nrgpy.check_intervals(reader.data)</span>
+<span class="sd">    &gt;&gt;&gt; else:</span>
+<span class="sd">    &gt;&gt;&gt;     print(&quot;unable to get reader&quot;)</span>
+
+<span class="sd">    Download 15 days of data files from ZX 300 site</span>
+
+<span class="sd">    &gt;&gt;&gt; import nrgpy</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; client_id = &quot;go to https://cloud.nrgsystems.com for access&quot;</span>
+<span class="sd">    &gt;&gt;&gt; client_secret = &quot;go to https://cloud.nrgsystems.com for access&quot;</span>
+<span class="sd">    &gt;&gt;&gt; save_dir = &#39;/path/to/exported/data&#39;</span>
+<span class="sd">    &gt;&gt;&gt; file_format = &#39;zx&#39;</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; exporter = nrgpy.CloudExport(</span>
+<span class="sd">            client_id=client_id,</span>
+<span class="sd">            client_secret=client_secret,</span>
+<span class="sd">            out_dir=save_dir,</span>
+<span class="sd">            file_format=&#39;zx&#39;,</span>
+<span class="sd">            site_id=57,</span>
+<span class="sd">            start_date=&quot;2022-05-01&quot;,</span>
+<span class="sd">            end_date=&quot;2022-05-15&quot;,</span>
+<span class="sd">        )</span>
+<span class="sd">    &gt;&gt;&gt; exporter.export()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">site_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">site_number</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">logger_sn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">start_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2014-01-01&quot;</span><span class="p">,</span>
+        <span class="n">end_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2030-12-31&quot;</span><span class="p">,</span>
+        <span class="n">file_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;txt&quot;</span><span class="p">,</span>
+        <span class="n">client_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">client_secret</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">url_base</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">cloud_url_base</span><span class="p">,</span>
+        <span class="n">nec_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">export_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;measurements&quot;</span><span class="p">,</span>
+        <span class="n">interval</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">concatenate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">unzip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a cloud_export object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        out_dir : str (path-like)</span>
+<span class="sd">            path to save exported data</span>
+<span class="sd">        site_id : int</span>
+<span class="sd">            NRG Cloud site identifier (NOT the site number)</span>
+<span class="sd">            must pass site_id OR [site_number and/or logger_sn]</span>
+<span class="sd">        site_number : int</span>
+<span class="sd">            site number</span>
+<span class="sd">            must pass site_id OR [site_number and/or logger_sn]</span>
+<span class="sd">        logger_sn : int</span>
+<span class="sd">            serial number of data logger (like, 820612345)</span>
+<span class="sd">            must pass site_id OR [site_number and/or logger_sn]</span>
+<span class="sd">        start_date : str (&#39;YYYY-MM-DD HH:MM:SS&#39;), default&#39;2014-01-01&#39;</span>
+<span class="sd">            start date/time of data export</span>
+<span class="sd">            if just date, it will return the whole day</span>
+<span class="sd">            times are in logger local time</span>
+<span class="sd">        end_date : str (&#39;YYYY-MM-DD HH:MM:SS&#39;), default &#39;2030-12-31&#39;</span>
+<span class="sd">            start date/time of data export</span>
+<span class="sd">            if just date, it will return the whole day</span>
+<span class="sd">            times are in logger local time</span>
+<span class="sd">        file_format : {&#39;singleFile&#39;, &#39;multipleFiles&#39;}, </span>
+<span class="sd">            whether tab-delimited text or binary output; use &#39;multipleFiles&#39; for RLD</span>
+<span class="sd">        client_id : str</span>
+<span class="sd">            available in the NRG Cloud portal</span>
+<span class="sd">        client_secret : str</span>
+<span class="sd">            available in the NRG Cloud portal</span>
+<span class="sd">        nec_file : str, optional</span>
+<span class="sd">            path to NEC file for custom export formatting</span>
+<span class="sd">        export_type : {&#39;measurements&#39;, &#39;diagnostic&#39;, &#39;events&#39;, &#39;communication&#39;}, </span>
+<span class="sd">            default &#39;measurements&#39;;  which type of data to export</span>
+<span class="sd">        interval : {&#39;oneMinute&#39;, &#39;twoMinute&#39;, &#39;fiveMinute&#39;, &#39;tenMinute&#39;, </span>
+<span class="sd">            &#39;fifteenMinute&#39;, &#39;thirtyMinute&#39;, &#39;Hour&#39;, &#39;Day&#39;}, optional</span>
+<span class="sd">            averaging interval of exported data; must be a multiple of the logger&#39;s </span>
+<span class="sd">            statistical interval</span>
+<span class="sd">        concatenate : bool</span>
+<span class="sd">            [DEPRECATED] (True) set to False to return original CSV files in export</span>
+<span class="sd">        unzip : bool, default True</span>
+<span class="sd">            whether to extract the .txt data file from the .zip file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">url_base</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;siteid</span><span class="si">{</span><span class="n">site_id</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">export_type</span><span class="si">}</span><span class="s2">.zip&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span>
+        <span class="n">affirm_directory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">site_id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">site_id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">client_sites</span> <span class="o">=</span> <span class="n">cloud_sites</span><span class="p">(</span><span class="n">client_id</span><span class="o">=</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="o">=</span><span class="n">client_secret</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">client_sites</span><span class="o">.</span><span class="n">get_siteid</span><span class="p">(</span>
+                <span class="n">site_number</span><span class="o">=</span><span class="n">site_number</span><span class="p">,</span> <span class="n">logger_sn</span><span class="o">=</span><span class="n">logger_sn</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">start_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_format</span> <span class="o">=</span> <span class="n">file_format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span> <span class="o">=</span> <span class="n">nec_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span> <span class="o">=</span> <span class="n">export_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">concatenate</span> <span class="o">=</span> <span class="n">concatenate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unzip</span> <span class="o">=</span> <span class="n">unzip</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_file_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nec_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_bytes</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<div class="viewcode-block" id="CloudExport.export">
+<a class="viewcode-back" href="../../../nrgpy.cloud_api.export.html#nrgpy.cloud_api.export.CloudExport.export">[docs]</a>
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export data using the NRG Cloud API.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prepare_post_data</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">json</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">export_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_duration</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_time</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_zip</span><span class="p">()</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;export created for site_id </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;export took </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">request_duration</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes&quot;</span> <span class="c1"># noqa E501</span>
+            <span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;export not created&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">reason</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; | &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="CloudExport.prepare_post_data">
+<a class="viewcode-back" href="../../../nrgpy.cloud_api.export.html#nrgpy.cloud_api.export.CloudExport.prepare_post_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">prepare_post_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;siteid&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="p">,</span>
+            <span class="s2">&quot;fromdate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span>
+            <span class="s2">&quot;todate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">,</span>
+            <span class="s2">&quot;fileFormat&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_format</span><span class="p">,</span>
+            <span class="s2">&quot;necFileBytes&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded_nec_string</span><span class="p">,</span>
+            <span class="s2">&quot;exportType&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_type</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">format_data_for_api_versions</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span></div>
+
+
+<div class="viewcode-block" id="CloudExport.format_data_for_api_versions">
+<a class="viewcode-back" href="../../../nrgpy.cloud_api.export.html#nrgpy.cloud_api.export.CloudExport.format_data_for_api_versions">[docs]</a>
+    <span class="k">def</span> <span class="nf">format_data_for_api_versions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_version</span> <span class="o">&gt;=</span> <span class="n">parse_version</span><span class="p">(</span><span class="s1">&#39;1.9.0.0&#39;</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;api_version is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="si">}</span><span class="s2">, using newer export format&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;fileFormat&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;rld&quot;</span><span class="p">:</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;fileFormat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;multipleFiles&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;fileFormat&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;txt&quot;</span><span class="p">:</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;fileFormat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;singleFile&quot;</span>
+    
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_version</span> <span class="o">&lt;</span> <span class="n">parse_version</span><span class="p">(</span><span class="s1">&#39;1.9.0.0&#39;</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;api_version is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="si">}</span><span class="s2">, using older export format&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;fileFormat&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;multipleFiles&quot;</span><span class="p">:</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;fileFormat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rld&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;fileFormat&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;singleFile&quot;</span><span class="p">:</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;fileFormat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;txt&quot;</span></div>
+
+
+<div class="viewcode-block" id="CloudExport.process_zip">
+<a class="viewcode-back" href="../../../nrgpy.cloud_api.export.html#nrgpy.cloud_api.export.CloudExport.process_zip">[docs]</a>
+    <span class="k">def</span> <span class="nf">process_zip</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unzip</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">namelist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zip_file</span></div>
+</div>
+
+
+
+<span class="n">cloud_export</span> <span class="o">=</span> <span class="n">CloudExport</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NRG Systems, Inc.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, NRG Systems, Inc..
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

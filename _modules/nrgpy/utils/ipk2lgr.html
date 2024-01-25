@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nrgpy.utils.ipk2lgr &#8212; nrgpy  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nrgpy/utils/ipk2lgr';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nrg_logo.png" class="logo__image only-light" alt="nrgpy  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nrg_logo.png" class="logo__image only-dark" alt="nrgpy  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../nrgpy.html">nrgpy package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.api.html">nrgpy.api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.cloud_api.html">nrgpy.cloud_api package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.convert.html">nrgpy.convert package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.quality.html">nrgpy.quality package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.read.html">nrgpy.read package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../nrgpy.utils.html">nrgpy.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">setup module</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for nrgpy.utils.ipk2lgr</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<div class="viewcode-block" id="ipk2lgr">
+<a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipk2lgr">[docs]</a>
+<span class="k">def</span> <span class="nf">ipk2lgr</span><span class="p">(</span><span class="n">ipkfile</span><span class="p">):</span>
+    <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># handle the old and new filenames, abort if filename bad</span>
+    <span class="n">filenameroot</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">filenameroot</span> <span class="o">+</span> <span class="n">ipkfile</span>
+    <span class="n">lgrfilename</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;lgr&quot;</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;file doesn&#39;t exist&quot;</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">lgrfilename</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># replace existing lgr file</span>
+        <span class="n">lgrfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">lgrfilename</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">)</span>
+        <span class="n">lgrfile</span><span class="o">.</span><span class="n">truncate</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lgrfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">lgrfilename</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">)</span>
+
+    <span class="c1"># read the ipk file into array, map included in comments below</span>
+    <span class="n">ipkfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">ipkline</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">ipkfile</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="n">ipkline</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">)))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">ipkline</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="c1"># assign smtp port if older IPK file</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ipkline</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">35</span><span class="p">:</span>
+        <span class="n">smtpport</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">smtpport</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">35</span><span class="p">])</span>
+
+    <span class="c1"># get iPack type</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ipacktype</span><span class="p">,</span> <span class="n">apn</span> <span class="o">=</span> <span class="n">ipackinfo</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">18</span><span class="p">])</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">ipacktype</span><span class="p">,</span> <span class="n">apn</span> <span class="o">=</span> <span class="n">ipackinfo_backup</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># write the settings into a new lgr file</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">writearray</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">&quot;;Renewable NRG Systems SymphoniePRO &amp; iPack Configuration File&quot;</span>
+        <span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;;Software Version: x.x.x.x (converted with Python)&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;;Generated: &quot;</span> <span class="o">+</span> <span class="n">today</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[FileHeader]&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;FormatVersion=1&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[EmailSchedule]&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Frequency=&quot;</span> <span class="o">+</span> <span class="n">callinterval</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">17</span><span class="p">])))</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Time(UTC)=&quot;</span> <span class="o">+</span> <span class="n">calltime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">16</span><span class="p">])))</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SmtpServer=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SmtpPort=&quot;</span> <span class="o">+</span> <span class="n">smtpport</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SmtpUserName=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">28</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Password=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">29</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SendersEmail=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SendersName=&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;RecipientsEmail=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;RecipientsName=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;CCEmail1=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">25</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;CCEmail2=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">26</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Subject=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[TimeService]&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SntpServer=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;UseSntp=On&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;UseGps=On&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[iPackNetwork]&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;iPackModel=&quot;</span> <span class="o">+</span> <span class="n">ipacktype</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;IspUserName=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;IspPassword=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">apn</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;GsmApn=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">30</span><span class="p">])</span>
+            <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Pin=&quot;</span><span class="p">)</span>  <span class="c1"># +ipkline[19])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;DialString=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;PrimaryDNS=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SecondaryDNS=&quot;</span> <span class="o">+</span> <span class="n">ipkline</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[LoggerInitiatedSchedule]&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Frequency=Disabled&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Time(UTC)=00:00&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;PrimaryHost=&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;PrimaryPort=30406&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SecondaryHost=&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;SecondaryPort=30406&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Backup=On&quot;</span><span class="p">)</span>  <span class="c1"># enable connections to listener server</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[LoggerListeningSchedule]&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Frequency=&quot;</span> <span class="o">+</span> <span class="n">callinterval</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ipkline</span><span class="p">[</span><span class="mi">17</span><span class="p">])))</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Time(UTC)=12:00&quot;</span><span class="p">)</span>
+        <span class="n">writearray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Duration=1 Hour&quot;</span><span class="p">)</span>
+        <span class="c1"># write array to file</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Writing data to </span><span class="si">{0}</span><span class="s2">  ...</span><span class="se">\t\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lgrfilename</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">writearray</span><span class="p">:</span>
+            <span class="n">lgrfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">row</span><span class="p">)</span>
+
+        <span class="n">lgrfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[DONE]&quot;</span><span class="p">)</span>
+
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">lgrfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to convert file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipkfile</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="callinterval">
+<a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.callinterval">[docs]</a>
+<span class="k">def</span> <span class="nf">callinterval</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3600</span><span class="p">:</span>
+        <span class="n">callint</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">original</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; Minutes&quot;</span>
+    <span class="k">elif</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3600</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">86400</span><span class="p">:</span>
+        <span class="n">callint</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">original</span> <span class="o">/</span> <span class="mi">3600</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; Hours&quot;</span>
+    <span class="k">elif</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">==</span> <span class="mi">86400</span><span class="p">:</span>
+        <span class="n">callint</span> <span class="o">=</span> <span class="s2">&quot;Daily&quot;</span>
+    <span class="k">elif</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">86400</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">520000</span><span class="p">:</span>
+        <span class="n">callint</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">original</span> <span class="o">/</span> <span class="mi">86400</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; Days&quot;</span>
+    <span class="k">elif</span> <span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">520000</span><span class="p">:</span>
+        <span class="n">callint</span> <span class="o">=</span> <span class="s2">&quot;Weekly&quot;</span>
+    <span class="k">return</span> <span class="n">callint</span></div>
+
+
+
+<div class="viewcode-block" id="calltime">
+<a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.calltime">[docs]</a>
+<span class="k">def</span> <span class="nf">calltime</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">original</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ipackinfo">
+<a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipackinfo">[docs]</a>
+<span class="k">def</span> <span class="nf">ipackinfo</span><span class="p">(</span><span class="n">typeint</span><span class="p">):</span>
+    <span class="n">ipackdefs</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;OTHER&quot;</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;CM900&quot;</span><span class="p">,</span> <span class="s2">&quot;CM900&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;GSM&quot;</span><span class="p">,</span> <span class="s2">&quot;GSM&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;CERMETEK&quot;</span><span class="p">,</span> <span class="s2">&quot;Dial-up&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;DOCOMO&quot;</span><span class="p">,</span> <span class="s2">&quot;DoCoMo&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;CDMA&quot;</span><span class="p">,</span> <span class="s2">&quot;CDMA&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;IRIDIUM&quot;</span><span class="p">,</span> <span class="s2">&quot;Iridium&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;GLOBALSTAR&quot;</span><span class="p">,</span> <span class="s2">&quot;GlobalStar&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;DIRECT&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackACCESS (7169)&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;CDMA_C1&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS CDMA (4621)&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;GSM_G2_R1&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS GSM (4622)&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;GSM_3G&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS 3G (7984)&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;CDMA_C2&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS CDMA (4621)&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;2G_GSM_G3&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS GSM (4622)&quot;</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;LTE_TDD&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS LTE-TDD (9388)&quot;</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;LTE_VZW&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS LTE-VZW (9390)&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;LTE_ATT&quot;</span><span class="p">,</span> <span class="s2">&quot;iPackGPS LTE-ATT (9389)&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">ipacktype</span> <span class="o">=</span> <span class="n">ipackdefs</span><span class="p">[</span><span class="n">typeint</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">apn</span> <span class="o">=</span> <span class="n">ipackdefs</span><span class="p">[</span><span class="n">typeint</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">ipacktype</span><span class="p">,</span> <span class="n">apn</span></div>
+
+
+
+<div class="viewcode-block" id="ipackinfo_backup">
+<a class="viewcode-back" href="../../../nrgpy.utils.ipk2lgr.html#nrgpy.utils.ipk2lgr.ipackinfo_backup">[docs]</a>
+<span class="k">def</span> <span class="nf">ipackinfo_backup</span><span class="p">(</span><span class="n">phonestr</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">phonestr</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;*99&quot;</span><span class="p">:</span>
+        <span class="n">ipacktype</span> <span class="o">=</span> <span class="s2">&quot;iPackGPS GSM (4622)&quot;</span>
+        <span class="n">apn</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">phonestr</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;#777&quot;</span><span class="p">:</span>
+        <span class="n">ipacktype</span> <span class="o">=</span> <span class="s2">&quot;iPackGPS CDMA (4621)&quot;</span>
+        <span class="n">apn</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ipacktype</span> <span class="o">=</span> <span class="s2">&quot;iPackACCESS (7169)&quot;</span>
+        <span class="n">apn</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="n">ipacktype</span><span class="p">,</span> <span class="n">apn</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">ipk2lgr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1">#     #     #     #     #     #     #</span>
+    <span class="c1"># iPack file Line assignment (0 indexed)</span>
+    <span class="c1">#</span>
+    <span class="c1"># 0 = Primary ISP Phone Number</span>
+    <span class="c1"># 1 = Secondary ISP Phone Number (hidden)</span>
+    <span class="c1"># 2 = Primary DNS number</span>
+    <span class="c1"># 3 = Secondary DNS number</span>
+    <span class="c1"># 4 = ISP User name</span>
+    <span class="c1"># 5 = ISP Password</span>
+    <span class="c1"># 6 = POP Mailbox Name</span>
+    <span class="c1"># 7 = POP Mailbox Password</span>
+    <span class="c1"># 8 = POP3 server</span>
+    <span class="c1"># 9 = SMTP server</span>
+    <span class="c1"># 10 = Recipient&#39;s E-Mail Address</span>
+    <span class="c1"># 11 = Recipient&#39;s Name</span>
+    <span class="c1"># 12 = Sender&#39;s E-Mail Address</span>
+    <span class="c1"># 13 =</span>
+    <span class="c1"># 14 = E-Mail Subject Line</span>
+    <span class="c1"># 15 = Internet Time Server</span>
+    <span class="c1"># 16 = Next Call Time (seconds since 1970)</span>
+    <span class="c1"># 17 = Call Interval (seconds)</span>
+    <span class="c1"># 18 = iPack type:</span>
+<span class="c1"># 0 = OTHER</span>
+<span class="c1"># 1 = AMPS</span>
+<span class="c1"># 2 = GSM/GPRS</span>
+<span class="c1"># 3 = Dial-up</span>
+<span class="c1"># 4 = DoCoMo</span>
+<span class="c1"># 5 = CDMA</span>
+<span class="c1"># 6 = Satellite ... etc...</span>
+<span class="c1"># 19 = GSM pin</span>
+<span class="c1"># 20 =</span>
+<span class="c1"># 21 =</span>
+<span class="c1"># 22 =</span>
+<span class="c1"># 23 =</span>
+<span class="c1"># 24 = Patch Password</span>
+<span class="c1"># 25 = CC E-Mail Address</span>
+<span class="c1"># 26 = CC E-Mail Address 2</span>
+<span class="c1"># 27 = My SMTP Server requires authentication 1/0</span>
+<span class="c1"># 28 = SMTP Login</span>
+<span class="c1"># 29 = SMTP Password</span>
+<span class="c1"># 30 = APN Name (GPRS Only)</span>
+<span class="c1"># 31 = Download partial files 255/0</span>
+<span class="c1"># 32 = Check POP mailbox 255/0</span>
+<span class="c1"># 33 = Enable SMTP 255/0</span>
+<span class="c1"># 34 = POP Port</span>
+<span class="c1"># 35 = SMTP Port</span>
+<span class="c1"># 36 = Enable Modbus? 1/0</span>
+<span class="c1"># 37 = Modbus Slave Address (1-255)</span>
+<span class="c1"># 38 = Modpus Port (1-65535)</span>
+<span class="c1"># 39 = Enable DHCP? 1/0</span>
+<span class="c1"># 40 = Static IP Address</span>
+<span class="c1"># 41 = Subnet Mask</span>
+<span class="c1"># 42 = Gateway IP Address</span>
+<span class="c1"># 43 = Statistical Data Interval (seconds)</span>
+<span class="c1"># 44 = Stale Data Timeout (seconds)</span>
+<span class="c1"># 45 = Use Secure IP Address 1/0</span>
+<span class="c1"># 46 - 55 = Allowed IP Address 1 - 10</span>
+<span class="c1">#     #     #     #     #     #</span>
+<span class="c1"># LGR file comms line assignment</span>
+<span class="c1"># 1 = ;Renewable NRG Systems SymphoniePRO &amp; iPack Configuration File (comment)</span>
+<span class="c1"># 2 = ;Software Version: 2.2.0.3 (build 27564 (modified) 2016-09-08) (comment)</span>
+<span class="c1"># 3 = ;Generated: 2016-11-21 10:02:29 (comment)</span>
+<span class="c1"># 4 =</span>
+<span class="c1"># 5 = [FileHeader]</span>
+<span class="c1"># 6 = FormatVersion=1</span>
+<span class="c1"># 7 =</span>
+<span class="c1"># 8 = [EmailSchedule]</span>
+<span class="c1"># 9 = Frequency=Daily</span>
+<span class="c1"># 10 = Time(UTC)=12:10</span>
+<span class="c1"># 11 = SmtpServer=</span>
+<span class="c1"># 12 = SmtpPort=</span>
+<span class="c1"># 13 = SmtpUserName=</span>
+<span class="c1"># 14 = Password=</span>
+<span class="c1"># 15 = SendersEmail=</span>
+<span class="c1"># 16 = SendersName=</span>
+<span class="c1"># 17 = RecipientsEmail=</span>
+<span class="c1"># 18 = CCEmail1=</span>
+<span class="c1"># 19 = CCEmail2=</span>
+<span class="c1"># 21 = Subject=</span>
+<span class="c1"># 22 =</span>
+<span class="c1"># 23 = [TimeService]</span>
+<span class="c1"># 24 = SntpServer=ntp.ubuntu.com</span>
+<span class="c1"># 25 = UseSntp=Off</span>
+<span class="c1"># 26 = UseGps=On</span>
+<span class="c1"># 27 =</span>
+<span class="c1"># 28 = [iPackNetwork]</span>
+<span class="c1"># 29 = iPackModel=iPackGPS CDMA (4621) OR</span>
+<span class="c1">#      iPackModel=iPackACCESS (7169)</span>
+<span class="c1">#      iPackModel=iPackGPS DoCoMo (4623) *USES APN &amp; PIN</span>
+<span class="c1">#      iPackModel=iPackGPS 3G (7984)     *USES APN &amp; PIN</span>
+<span class="c1">#      iPackModel=iPackGPS GSM (4622)    *USES APN &amp; PIN</span>
+
+
+<span class="c1"># 30 = IspUserName=web</span>
+<span class="c1"># 31 = IspPassword=web</span>
+
+<span class="c1"># 32 = GsmApn=</span>
+<span class="c1"># 33 = Pin=</span>
+<span class="c1"># 34 = DialString=#777 or *99***1#</span>
+<span class="c1"># 35 = PrimaryDNS=0.0.0.0</span>
+<span class="c1"># 36 = SecondaryDNS=0.0.0.0</span>
+<span class="c1"># 37</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NRG Systems, Inc.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, NRG Systems, Inc..
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
