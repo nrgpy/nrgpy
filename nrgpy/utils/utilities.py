@@ -97,10 +97,14 @@ def string_date_check(start_date: str, end_date: str, string: str) -> bool:
     # SymphoniePRO
     date_format_with_dash = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
     strp_format_with_dash = "%Y-%m-%d"
+    # NRG Cloud TXT Export
+    date_format_with_dot = "([0-9]{4}\.[0-9]{2}\.[0-9]{2})"
+    strp_format_with_dot = "%Y.%m.%d"
+
 
     try:
-        start = datetime.strptime(start_date, "%Y-%m-%d")
-        end = datetime.strptime(end_date, "%Y-%m-%d")
+        start = datetime.strptime(start_date, strp_format_with_dash)
+        end = datetime.strptime(end_date, strp_format_with_dash)
     except TypeError:
         print(traceback.format_exc())
         start = start_date
@@ -118,6 +122,9 @@ def string_date_check(start_date: str, end_date: str, string: str) -> bool:
     elif re.search(date_format_with_dash, string):
         date_text = re.search(date_format_with_dash, string)
         file_date = datetime.strptime(date_text[0], strp_format_with_dash)
+    elif re.search(date_format_with_dot, string):
+        date_text = re.search(date_format_with_dot, string)
+        file_date = datetime.strptime(date_text[0], strp_format_with_dot)
     elif re.search(date_format_zx, string):
         date_text = re.search(date_format_zx, string)
         file_date = datetime.strptime(date_text[0], strp_format_zx)

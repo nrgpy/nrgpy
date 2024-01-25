@@ -1,6 +1,5 @@
 from packaging.version import parse as parse_version
 from pytest import MonkeyPatch
-from nrgpy import logger
 import nrgpy
 from nrgpy.cloud_api import upload
 
@@ -13,6 +12,7 @@ def mock_request_session_token():
 
 def mock_single_file(item, filename):
     pass 
+
 
 class TestCloudApis:
     monkeypatch = MonkeyPatch()
@@ -92,7 +92,6 @@ class TestCloudApis:
         # Assert
         TestCloudApis.monkeypatch.undo()
         assert exporter.data["fileFormat"] == "multipleFiles"
-        assert True
 
     def test_api_old_version(self):
         # Arrange
@@ -109,4 +108,3 @@ class TestCloudApis:
         # Assert
         TestCloudApis.monkeypatch.undo()
         assert exporter.data["fileFormat"] == "txt"
-        assert True

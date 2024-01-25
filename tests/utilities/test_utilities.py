@@ -85,4 +85,15 @@ class TestDateCheck:
         assert (
             result
         ), f"expected True result from start: {start_date}, end: {end_date}, string: {string}"  # noqa: E501
-        pass
+
+    def test_nrg_cloud_format_passes(self):
+        # arrange
+        start_date = "2024-01-01"
+        end_date = "2024-01-10"
+        string = "006716_SunnyDog_meas_2024.01.02-2024.01.08.txt"
+        # act
+        result = string_date_check(start_date, end_date, string)
+        # assert
+        assert (
+            result
+        ), f"expected True result from start: {start_date}, end: {end_date}, string: {string}"  # noqa: E501

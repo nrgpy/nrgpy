@@ -2,9 +2,9 @@ from datetime import datetime
 
 
 def check_intervals(
-    df, verbose=True, return_info=False, show_all_missing_timestamps=False, interval=""
+    df, verbose=True, return_info=False, show_all_missing_timestamps=False, show_all_duplicate_timestamps=False, interval=""
 ):
-    """checks for missing intervals in a pandas dataframe with a "Timestamp" column
+    """checks for missing or duplicate intervals in a pandas dataframe with a "Timestamp" column
 
     Parameters
     ----------
@@ -18,6 +18,8 @@ def check_intervals(
         set to True to return dict with below values
     show_all_missing_timestamps : bool
         set to True to show all missing timestamps in verbose option. otherwise, shows first and last 3.
+    show_all_duplicate_timestamps : bool
+        set to True to show all duplicate timestamps in verbose option. otherwise, shows first and last 3.
 
     Returns
     ----------
@@ -36,6 +38,8 @@ def check_intervals(
             file ending timestamp
         missing_timestamps : list
             a list of missing timestamps
+        duplicate_timestamps : list 
+            a list of duplicate timestamps
 
     Examples
     ----------
@@ -68,11 +72,20 @@ def check_intervals(
         first_interval = datetime.strptime(_df["Timestamp"].min(), time_fmt)
         last_interval = datetime.strptime(_df["Timestamp"].max(), time_fmt)
 
+    duplicate_timestamps, _df = find_duplicate_intervals(_df)
+    # delete duplicate intervals before doing the rest of the interval checks
+    _df = _df.drop_duplicates(subset=["Timestamp"], keep="first")
+    _df.reset_index(drop=True, inplace=True)
+
     interval = select_interval_length(_df)
     time_range = last_interval - first_interval
     expected_rows = int(time_range.total_seconds() / interval)
-    actual_rows = len(df) - 1
-    loss_pct = round(100 * (expected_rows - actual_rows) / expected_rows)
+    actual_rows = len(_df) - 1
+    loss_pct = 100*((expected_rows - actual_rows) / expected_rows)
+    if abs(loss_pct) > 1:
+        loss_pct = round(loss_pct)
+    else:
+        loss_pct = round(loss_pct, 3)
 
     if expected_rows != actual_rows:
         missing_timestamps, _df = find_missing_intervals(_df, interval)
@@ -102,6 +115,17 @@ def check_intervals(
                 ):
                     print("\t{0}\t{1}".format(" ", timestamp))
 
+            print("\nDuplicate {0} timestamps:".format(len(duplicate_timestamps)))
+
+            if len(duplicate_timestamps) <= 8 or show_all_duplicate_timestamps == True: 
+                for i, timestamp in enumerate(duplicate_timestamps):
+                    print ("\t{0}\t{1}".format(i + 1, timestamp))
+            else:
+                for timestamp in (
+                    duplicate_timestamps[0:3] + ["..."] + duplicate_timestamps[-3:]
+                ):
+                    print("\t{0}\t{1}".format(" ", timestamp))
+
     if return_info:
 
         interval_info = {}
@@ -115,7 +139,9 @@ def check_intervals(
         try:
             interval_info["missing_timestamps"] = missing_timestamps
         except:
-            interval_info["missing_timestamps"] = None
+            interval_info["missing_timestamps"] = False
+
+        interval_info["duplicate_timestamps"] = duplicate_timestamps
 
         return interval_info
 
@@ -149,6 +175,30 @@ def find_missing_intervals(__df, interval):
 
     return missing_timestamps, _df
 
+def find_duplicate_intervals(__df): 
+    """find duplicate interval timestamps
+    
+    returns 
+    -------
+    list 
+        a list of all duplicate intervals 
+    """
+    _df = __df.copy()
+    from collections import Counter
+    import pandas as pd
+
+    time_fmt = "%Y-%m-%d %H:%M:%S"
+    observed_intervals = pd.to_datetime(_df["Timestamp"].values, format=time_fmt)
+    unique_timestamps_set = set(observed_intervals)
+
+    if len(observed_intervals) == len(unique_timestamps_set):
+        duplicate_timestamps = False
+    else:
+        # Record duplicates using Counter
+        timestamp_counter = Counter(observed_intervals)
+        duplicate_timestamps = [timestamp for timestamp, count in timestamp_counter.items() if count > 1]
+    
+    return duplicate_timestamps, _df
 
 def select_interval_length(df, seconds=True):
     """returns the mode of the first 10 intervals of the data set

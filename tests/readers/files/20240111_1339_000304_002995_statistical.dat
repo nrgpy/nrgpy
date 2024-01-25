@@ -1,0 +1,265 @@
+NRG Systems Data Logger
+File Created On (UTC):	2024-01-11T13:39:31Z
+Model Number:	9432
+Serial Number:	304
+Created FW Version:	1.09.14
+
+Site Properties
+Site:	Crows Nest Counters
+Project:	R2 Counter PCB 0831
+Location:	NRG Roof
+Latitude:	44.33889
+Longitude:	-73.11202
+Elevation:	136
+Time Zone:	-5
+
+File Properties
+File Schema Version:	1
+SD Card Free Space (kB):	6602981
+
+FTP FW Version:	1.09.14
+
+File Content:	Statistics
+Configuration Version:	4
+Statistical Interval (min):	1
+
+Sensor History
+Channel:	1
+Description:	NRG R1 GHI
+Units:	W/m^2
+Serial Number:	9450000133
+Scale Factor:	111982.085938
+Offset:	0.000000
+Height:	0.00
+
+Channel:	3
+Description:	NRG PVT1_clean
+Units:	deg_C
+Serial Number:	94220000031
+Scale Factor:	1.000000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	5
+Description:	NRG PVT1_soil
+Units:	deg_C
+Serial Number:	9422000032
+Scale Factor:	1.000000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	7
+Description:	OP1 loopback 12V4_gr8_20W
+Units:	V
+Serial Number:	500W_NRG_R1_threshold
+Scale Factor:	1.000000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	8
+Description:	OP2 loopback 12V4_1_to_4PM
+Units:	V
+Serial Number:	one_to_four_PM
+Scale Factor:	1.000000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	9
+Description:	OP3 loopback12V4 les20C 1-5AM
+Units:	V
+Serial Number:	temp_less_than20and1AM-5AM
+Scale Factor:	1.000000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	10
+Description:	Atonometrics RC18 Irradiance
+Units:	W/m^2
+Serial Number:	InPlaneWith30WPV_Panels
+Scale Factor:	1000.000000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	11
+Description:	NRG RH5X
+Units:	%
+Serial Number:	0U812
+Scale Factor:	20.000000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	12
+Description:	NRG 200M Vane
+Units:	Deg
+Serial Number:	1007000033192
+Scale Factor:	147.910995
+Offset:	-1.460200
+Height:	0.00
+Vane Mounting Angle:	0.0
+Gust Source Channel:	401
+
+Channel:	13
+Description:	NRG BP60
+Units:	hPa
+Serial Number:	9395005336
+Scale Factor:	244.192825
+Offset:	494.948792
+Height:	0.00
+
+Channel:	14
+Description:	NRG T60 (pre 3/2023)
+Units:	deg_C
+Serial Number:	9400008249
+Scale Factor:	44.743641
+Offset:	-40.855549
+Height:	0.00
+
+Channel:	101
+Client ID:	6
+Sensor Type:	Lufft WS600
+Description:	Lufft WS600
+Measurand:	Wind Speed Fast
+Units:	m/s
+Serial Number:	000001
+Scale Factor:	0.100000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	102
+Client ID:	6
+Sensor Type:	Lufft WS600
+Description:	Lufft WS600
+Measurand:	Wind Direction Fast
+Units:	deg
+Serial Number:	000001
+Scale Factor:	0.100000
+Offset:	0.000000
+Height:	0.00
+Gust Source Channel:	101
+
+Channel:	103
+Client ID:	6
+Sensor Type:	Lufft WS600
+Description:	Lufft WS600
+Measurand:	Temperature
+Units:	deg_C
+Serial Number:	000001
+Scale Factor:	0.100000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	104
+Client ID:	6
+Sensor Type:	Lufft WS600
+Description:	Lufft WS600
+Measurand:	Pressure
+Units:	hPa
+Serial Number:	000001
+Scale Factor:	0.100000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	105
+Client ID:	6
+Sensor Type:	Lufft WS600
+Description:	Lufft WS600
+Measurand:	Relative Humidity
+Units:	%
+Serial Number:	000001
+Scale Factor:	0.100000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	201
+Soiling Ratio:	Enabled
+Description:	Soiling Ratio Index
+Units:	NA
+
+Channel:	202
+Soiling Ratio:	Enabled
+Description:	I Short Circuit Clean
+Units:	A
+
+Channel:	203
+Soiling Ratio:	Enabled
+Description:	V Open Circuit Clean 
+Units:	V
+
+Channel:	204
+Soiling Ratio:	Enabled
+Description:	I Short Circuit Dirty
+Units:	A
+
+Channel:	205
+Soiling Ratio:	Enabled
+Description:	V Open Circuit Dirty 
+Units:	V
+
+Channel:	301
+Description:	Daily Sum RAIN
+Units:	mm
+
+Channel:	302
+Description:	Hourly Sum RAIN
+Units:	mm
+
+Channel:	303
+Description:	NRG R1 Daily Insolation
+Units:	kWh/m^2
+
+Channel:	308
+Description:	Azimuth Angle
+Units:	Degrees
+
+Channel:	309
+Description:	Elevation Angle
+Units:	Degrees
+
+Channel:	310
+Description:	Zenith Angle
+Units:	Degrees
+
+Channel:	401
+Description:	NRG S1 Anemometer
+Units:	m/s
+Serial Number:	9412006005
+Scale Factor:	0.093500
+Offset:	0.139000
+Height:	0.00
+
+Channel:	402
+Description:	NRG 40H
+Units:	m/s
+Serial Number:	000000000
+Scale Factor:	0.765000
+Offset:	0.350000
+Height:	0.00
+
+Channel:	403
+Description:	NRG 40 Anemometer
+Units:	m/s
+Serial Number:	000000000
+Scale Factor:	0.765000
+Offset:	0.350000
+Height:	0.00
+
+Channel:	404
+Description:	RMY Wind Mon. 05103
+Units:	m/s
+Serial Number:	RCV_AUG_2023
+Scale Factor:	0.098000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	405
+Description:	Rainwise TBRG
+Units:	mm
+Serial Number:	ABCDEFG
+Scale Factor:	0.254000
+Offset:	0.000000
+Height:	0.00
+
+Data
+Timestamp	Ch1_Avg_W/m^2	Ch1_Min_W/m^2	Ch1_Max_W/m^2	Ch1_SD_W/m^2	Ch1_NotUsed	Ch3_Avg_deg_C	Ch3_Min_deg_C	Ch3_Max_deg_C	Ch3_SD_deg_C	Ch3_NotUsed	Ch5_Avg_deg_C	Ch5_Min_deg_C	Ch5_Max_deg_C	Ch5_SD_deg_C	Ch5_NotUsed	Ch7_Avg_V	Ch7_Min_V	Ch7_Max_V	Ch7_SD_V	Ch7_NotUsed	Ch8_Avg_V	Ch8_Min_V	Ch8_Max_V	Ch8_SD_V	Ch8_NotUsed	Ch9_Avg_V	Ch9_Min_V	Ch9_Max_V	Ch9_SD_V	Ch9_NotUsed	Ch10_Avg_W/m^2	Ch10_Min_W/m^2	Ch10_Max_W/m^2	Ch10_SD_W/m^2	Ch10_NotUsed	Ch11_Avg_%	Ch11_Min_%	Ch11_Max_%	Ch11_SD_%	Ch11_NotUsed	Ch12_Avg_Deg	Ch12_Min_Deg	Ch12_Max_Deg	Ch12_SD_Deg	Ch12_Gust_Dir_Deg	Ch13_Avg_hPa	Ch13_Min_hPa	Ch13_Max_hPa	Ch13_SD_hPa	Ch13_NotUsed	Ch14_Avg_deg_C	Ch14_Min_deg_C	Ch14_Max_deg_C	Ch14_SD_deg_C	Ch14_NotUsed	Ch101_Avg_m/s	Ch101_Min_m/s	Ch101_Max_m/s	Ch101_SD_m/s	Ch101_Gust_m/s	Ch102_Avg_deg	Ch102_Min_deg	Ch102_Max_deg	Ch102_SD_deg	Ch102_Gust_Dir_deg	Ch103_Avg_deg_C	Ch103_Min_deg_C	Ch103_Max_deg_C	Ch103_SD_deg_C	Ch103_NotUsed	Ch104_Avg_hPa	Ch104_Min_hPa	Ch104_Max_hPa	Ch104_SD_hPa	Ch104_NotUsed	Ch105_Avg_%	Ch105_Min_%	Ch105_Max_%	Ch105_SD_%	Ch105_NotUsed	Ch201_Avg_NA	Ch201_Min_NA	Ch201_Max_NA	Ch201_SD_NA	Ch201_NotUsed	Ch202_Avg_A	Ch202_Min_A	Ch202_Max_A	Ch202_SD_A	Ch202_NotUsed	Ch203_Avg_V	Ch203_Min_V	Ch203_Max_V	Ch203_SD_V	Ch203_NotUsed	Ch204_Avg_A	Ch204_Min_A	Ch204_Max_A	Ch204_SD_A	Ch204_NotUsed	Ch205_Avg_V	Ch205_Min_V	Ch205_Max_V	Ch205_SD_V	Ch205_NotUsed	Ch301_Avg_mm	Ch301_Min_mm	Ch301_Max_mm	Ch301_SD_mm	Ch301_Sum_mm	Ch302_Avg_mm	Ch302_Min_mm	Ch302_Max_mm	Ch302_SD_mm	Ch302_Sum_mm	Ch303_Avg_kWh/m^2	Ch303_Min_kWh/m^2	Ch303_Max_kWh/m^2	Ch303_SD_kWh/m^2	Ch303_Sum_kWh/m^2	Ch308_Avg_Degrees	Ch308_Min_Degrees	Ch308_Max_Degrees	Ch308_SD_Degrees	Ch308_NotUsed	Ch309_Avg_Degrees	Ch309_Min_Degrees	Ch309_Max_Degrees	Ch309_SD_Degrees	Ch309_NotUsed	Ch310_Avg_Degrees	Ch310_Min_Degrees	Ch310_Max_Degrees	Ch310_SD_Degrees	Ch310_NotUsed	Ch401_Avg_m/s	Ch401_Min_m/s	Ch401_Max_m/s	Ch401_SD_m/s	Ch401_Gust_m/s	Ch402_Avg_m/s	Ch402_Min_m/s	Ch402_Max_m/s	Ch402_SD_m/s	Ch402_Gust_m/s	Ch403_Avg_m/s	Ch403_Min_m/s	Ch403_Max_m/s	Ch403_SD_m/s	Ch403_Gust_m/s	Ch404_Avg_m/s	Ch404_Min_m/s	Ch404_Max_m/s	Ch404_SD_m/s	Ch404_Gust_m/s	Ch405_Avg_mm	Ch405_Min_mm	Ch405_Max_mm	Ch405_SD_mm	Ch405_Total_mm
+2024-01-11T13:39:00Z	52.5895	49.4579	55.0781	1.7164	0.0000	1.7777	1.7570	1.7868	0.0074	0.0000	1.9259	1.8972	1.9432	0.0125	0.0000	12.5722	12.5713	12.5731	0.0004	0.0000	0.0014	0.0014	0.0014	0.0000	0.0000	12.5722	12.5713	12.5732	0.0005	0.0000	40.1663	37.1311	42.3268	1.4968	0.0000	69.2370	68.5378	69.6241	0.3016	0.0000	301.5799	0.0000	0.0000	21.6115	330.4214	993.9306	993.8423	994.0010	0.0360	0.0000	1.1322	1.1170	1.1495	0.0081	0.0000	1.6417	0.4000	3.0000	0.6135	2.5333	284.4662	0.0000	0.0000	18.8624	270.8000	0.8000	0.8000	0.8000	0.0000	0.0000	992.7000	992.7000	992.7000	0.0000	0.0000	69.0450	68.8000	69.1000	0.1171	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0128	0.0000	0.0000	0.0000	0.0128	133.7081	133.6121	133.8042	0.0569	0.0000	9.5186	9.4550	9.5821	0.0376	0.0000	80.4814	80.4179	80.5450	0.0376	0.0000	1.9997	0.7000	3.5985	0.6216	3.3180	1.7015	0.3500	2.6450	0.6036	2.6450	1.9182	1.1150	2.6450	0.5532	2.6450	1.3377	0.3920	2.5480	0.4898	2.3847	0.0000	0.0000	0.0000	0.0000	0.0000
+2024-01-11T13:40:00Z	47.2858	46.4347	49.3325	0.8859	0.0000	1.8000	1.7873	1.8096	0.0062	0.0000	1.9629	1.9435	1.9780	0.0107	0.0000	12.5723	12.5713	12.5733	0.0005	0.0000	0.0014	0.0014	0.0014	0.0000	0.0000	12.5723	12.5713	12.5733	0.0005	0.0000	35.5363	34.1929	37.1359	0.8304	0.0000	68.7274	68.5050	69.0155	0.1656	0.0000	296.4088	0.0000	0.0000	20.8065	305.5909	993.9307	993.8330	994.0203	0.0366	0.0000	1.1485	1.1286	1.1635	0.0098	0.0000	1.2633	0.3000	2.2000	0.4396	2.0667	277.3882	0.0000	0.0000	20.5572	256.8000	0.8000	0.8000	0.8000	0.0000	0.0000	992.7000	992.7000	992.7000	0.0000	0.0000	68.7817	68.7000	68.8000	0.0390	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0136	0.0000	0.0000	0.0000	0.0136	133.9036	133.8074	133.9999	0.0570	0.0000	9.6477	9.5843	9.7110	0.0375	0.0000	80.3523	80.2890	80.4157	0.0375	0.0000	1.3701	0.5130	2.3830	0.4594	2.1960	1.1278	0.3500	2.6450	0.5173	2.1350	1.3955	0.3500	2.6450	0.5072	2.1350	0.9980	0.3920	1.7640	0.3070	1.6987	0.0000	0.0000	0.0000	0.0000	0.0000

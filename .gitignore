@@ -7,6 +7,7 @@
 *.swp
 *.txt
 
+.ruff_cache/
 .vscode/
 build/
 dist/
@@ -14,6 +15,7 @@ evvv/
 raw/
 rld/
 venv/
+
 *__pycache__/
 *egg-info/
 *.ipynb_checkpoints/
@@ -22,3 +24,4 @@ venv/
 
 !.gitignore
 !tests/test_readers/test_files/*.txt
+!tests/readers/files/*
