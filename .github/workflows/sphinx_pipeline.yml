@@ -1,0 +1,35 @@
+name: Publish Docs
+on:
+    workflow_dispatch:
+    push:
+        branches:
+        - master
+    pull_request:
+        branches:
+        - master
+
+jobs:
+    deploy:
+        name: Build and Deploy Documentation
+        runs-on: ubuntu-latest
+        steps:
+            - run: lsb_release -a
+            - run: uname -a
+            - name: Check out repository code
+              uses: actions/checkout@v4
+            - name: Setup Python
+              uses: actions/setup-python@v4
+              with:
+                python-version: "3.10"
+            - name: Upgrade pip
+              run: pip install --upgrade pip
+            - name: Install dependencies
+              run: pip install .[docs]
+            - name: Build Sphinx Files
+              run: cd docs/ && sphinx-apidoc -f -o source/ ../ && sphinx-build -b html source/ . && cd -
+            - name: Deploy to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              if: github.ref == 'refs/heads/master'
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                publish_dir: ./docs
