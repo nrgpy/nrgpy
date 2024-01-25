@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>nrgpy.read package &#8212; nrgpy  documentation</title>
   
@@ -19,28 +18,28 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'nrgpy.read';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -55,10 +54,9 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -99,11 +97,14 @@
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -118,9 +119,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="index.html">
+  
   
   
   
@@ -130,12 +133,23 @@
       
     
     
-    <img src="_static/nrg_logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/nrg_logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/nrg_logo.png" class="logo__image only-light" alt="nrgpy  documentation - Home"/>
+    <script>document.write(`<img src="_static/nrg_logo.png" class="logo__image only-dark" alt="nrgpy  documentation - Home"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current nav bd-sidenav">
@@ -255,6 +269,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -264,6 +279,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -306,12 +322,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead"><code class="docutils literal notranslate"><span class="pre">LogrRead</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">LogrRead.arrange_ch_info()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.concat_txt"><code class="docutils literal notranslate"><span class="pre">LogrRead.concat_txt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.create_data_df"><code class="docutils literal notranslate"><span class="pre">LogrRead.create_data_df()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.format_site_data"><code class="docutils literal notranslate"><span class="pre">LogrRead.format_site_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.format_timestamps"><code class="docutils literal notranslate"><span class="pre">LogrRead.format_timestamps()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.insert_blank_header_rows"><code class="docutils literal notranslate"><span class="pre">LogrRead.insert_blank_header_rows()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.output_txt_file"><code class="docutils literal notranslate"><span class="pre">LogrRead.output_txt_file()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.process_file"><code class="docutils literal notranslate"><span class="pre">LogrRead.process_file()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read"><code class="docutils literal notranslate"><span class="pre">logr_read</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.shift_timestamps"><code class="docutils literal notranslate"><span class="pre">shift_timestamps()</span></code></a></li>
 </ul>
 </li>
@@ -365,49 +383,49 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="nrgpy-read-package">
-<h1>nrgpy.read package<a class="headerlink" href="#nrgpy-read-package" title="Permalink to this heading">#</a></h1>
+<h1>nrgpy.read package<a class="headerlink" href="#nrgpy-read-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-nrgpy.read.channel_info_arrays">
-<span id="nrgpy-read-channel-info-arrays-module"></span><h2>nrgpy.read.channel_info_arrays module<a class="headerlink" href="#module-nrgpy.read.channel_info_arrays" title="Permalink to this heading">#</a></h2>
+<span id="nrgpy-read-channel-info-arrays-module"></span><h2>nrgpy.read.channel_info_arrays module<a class="headerlink" href="#module-nrgpy.read.channel_info_arrays" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.read.channel_info_arrays.return_array">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.read.channel_info_arrays.</span></span><span class="sig-name descname"><span class="pre">return_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_file_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/channel_info_arrays.html#return_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.channel_info_arrays.return_array" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nrgpy.read.channel_info_arrays.</span></span><span class="sig-name descname"><span class="pre">return_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_file_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/channel_info_arrays.html#return_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.channel_info_arrays.return_array" title="Link to this definition">#</a></dt>
 <dd><p>return data file header parameter array based on data_file_type</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.read.channel_info_arrays.return_sp3_ch_info">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.read.channel_info_arrays.</span></span><span class="sig-name descname"><span class="pre">return_sp3_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/channel_info_arrays.html#return_sp3_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.channel_info_arrays.return_sp3_ch_info" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nrgpy.read.channel_info_arrays.</span></span><span class="sig-name descname"><span class="pre">return_sp3_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/channel_info_arrays.html#return_sp3_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.channel_info_arrays.return_sp3_ch_info" title="Link to this definition">#</a></dt>
 <dd><p>returns array of sensor info parameters for Symphonie, PLUS, and PLUS3 txt export files</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.read.channel_info_arrays.return_spro_ch_info">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.read.channel_info_arrays.</span></span><span class="sig-name descname"><span class="pre">return_spro_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/channel_info_arrays.html#return_spro_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.channel_info_arrays.return_spro_ch_info" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nrgpy.read.channel_info_arrays.</span></span><span class="sig-name descname"><span class="pre">return_spro_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/channel_info_arrays.html#return_spro_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.channel_info_arrays.return_spro_ch_info" title="Link to this definition">#</a></dt>
 <dd><p>returns array of possible channel parameters for SymphoniePRO txt export files</p>
 </dd></dl>
 
 </section>
 <section id="module-nrgpy.read.logr">
-<span id="nrgpy-read-logr-module"></span><h2>nrgpy.read.logr module<a class="headerlink" href="#module-nrgpy.read.logr" title="Permalink to this heading">#</a></h2>
+<span id="nrgpy-read-logr-module"></span><h2>nrgpy.read.logr module<a class="headerlink" href="#module-nrgpy.read.logr" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="nrgpy.read.logr.LogrRead">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.logr.</span></span><span class="sig-name descname"><span class="pre">LogrRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_timestamps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_local_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.logr.</span></span><span class="sig-name descname"><span class="pre">LogrRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_timestamps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_local_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.logr.LogrRead.arrange_ch_info">
-<span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.arrange_ch_info" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.arrange_ch_info" title="Link to this definition">#</a></dt>
 <dd><p>creates ch_info dataframe and ch_list array</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.logr.LogrRead.concat_txt">
-<span class="sig-name descname"><span class="pre">concat_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dat_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'statistical'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.concat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.concat_txt" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">concat_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dat_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'statistical'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_duplicates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.concat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.concat_txt" title="Link to this definition">#</a></dt>
 <dd><p>Will concatenate all text files in the dat_dir</p>
 <p>files must match the site_filter argument. Note these are both blank by default.</p>
 <dl class="field-list simple">
@@ -433,14 +451,16 @@ document.write(`
 </dd>
 <dt><strong>progress_bar</strong><span class="classifier">bool</span></dt><dd><p>show bar on concat [True] or list of files [False]</p>
 </dd>
+<dt><strong>drop_duplicates</strong><span class="classifier">bool</span></dt><dd><p>drop duplicate timestamps [True] or leave duplicates [False]</p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>ch_info</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of ch_list (below) pulled out of file with 
+<dt><strong>ch_info</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of ch_list (below) pulled out of file with
 logr_read.arrange_ch_info()</p>
 </dd>
-<dt><strong>ch_list</strong><span class="classifier">list</span></dt><dd><p>list of channel info; can be converted to json w/ import json … 
+<dt><strong>ch_list</strong><span class="classifier">list</span></dt><dd><p>list of channel info; can be converted to json w/ import json …
 json.dumps(fut.ch_info)</p>
 </dd>
 <dt><strong>data</strong><span class="classifier">obj</span></dt><dd><p>pandas dataframe of all data</p>
@@ -498,14 +518,24 @@ json.dumps(fut.ch_info)</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.read.logr.LogrRead.create_data_df">
+<span class="sig-name descname"><span class="pre">create_data_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.create_data_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.create_data_df" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.logr.LogrRead.format_site_data">
-<span class="sig-name descname"><span class="pre">format_site_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.format_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.format_site_data" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">format_site_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.format_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.format_site_data" title="Link to this definition">#</a></dt>
 <dd><p>take dat header to create oject data</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.read.logr.LogrRead.format_timestamps">
+<span class="sig-name descname"><span class="pre">format_timestamps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.format_timestamps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.format_timestamps" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.logr.LogrRead.insert_blank_header_rows">
-<span class="sig-name descname"><span class="pre">insert_blank_header_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.insert_blank_header_rows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.insert_blank_header_rows" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">insert_blank_header_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.insert_blank_header_rows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.insert_blank_header_rows" title="Link to this definition">#</a></dt>
 <dd><p>insert blank rows when using shift_timestamps()</p>
 <p>ensures the resulting text file looks and feels like an
 original LOGR  export</p>
@@ -513,20 +543,19 @@ original LOGR  export</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.logr.LogrRead.output_txt_file">
-<span class="sig-name descname"><span class="pre">output_txt_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">standard</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_timestamps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.output_txt_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.output_txt_file" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">output_txt_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">standard</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_timestamps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.output_txt_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.output_txt_file" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nrgpy.read.logr.LogrRead.process_file">
+<span class="sig-name descname"><span class="pre">process_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/nrgpy/read/logr.html#LogrRead.process_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.LogrRead.process_file" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="nrgpy.read.logr.logr_read">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.read.logr.</span></span><span class="sig-name descname"><span class="pre">logr_read</span></span><a class="headerlink" href="#nrgpy.read.logr.logr_read" title="Permalink to this definition">#</a></dt>
-<dd><p>alias of <a class="reference internal" href="#nrgpy.read.logr.LogrRead" title="nrgpy.read.logr.LogrRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogrRead</span></code></a></p>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.read.logr.shift_timestamps">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.read.logr.</span></span><span class="sig-name descname"><span class="pre">shift_timestamps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3600</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#shift_timestamps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.shift_timestamps" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nrgpy.read.logr.</span></span><span class="sig-name descname"><span class="pre">shift_timestamps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3600</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/logr.html#shift_timestamps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.logr.shift_timestamps" title="Link to this definition">#</a></dt>
 <dd><p>Takes as input a folder of exported standard text files and
 time to shift in seconds.</p>
 <dl class="field-list simple">
@@ -558,10 +587,10 @@ timestamp.</p>
 
 </section>
 <section id="module-nrgpy.read.spidar_txt">
-<span id="nrgpy-read-spidar-txt-module"></span><h2>nrgpy.read.spidar_txt module<a class="headerlink" href="#module-nrgpy.read.spidar_txt" title="Permalink to this heading">#</a></h2>
+<span id="nrgpy-read-spidar-txt-module"></span><h2>nrgpy.read.spidar_txt module<a class="headerlink" href="#module-nrgpy.read.spidar_txt" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="nrgpy.read.spidar_txt.SpidarRead">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.spidar_txt.</span></span><span class="sig-name descname"><span class="pre">SpidarRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#SpidarRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.SpidarRead" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.spidar_txt.</span></span><span class="sig-name descname"><span class="pre">SpidarRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#SpidarRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.SpidarRead" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>reads in CSV file(s) using pandas and creates</p>
 <dl class="field-list simple">
@@ -617,7 +646,7 @@ timestamp.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.spidar_txt.SpidarRead.concat_txt">
-<span class="sig-name descname"><span class="pre">concat_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#SpidarRead.concat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.SpidarRead.concat_txt" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">concat_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#SpidarRead.concat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.SpidarRead.concat_txt" title="Link to this definition">#</a></dt>
 <dd><p>concatenate files in a folder</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -647,43 +676,43 @@ timestamp.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.spidar_txt.SpidarRead.get_heights">
-<span class="sig-name descname"><span class="pre">get_heights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#SpidarRead.get_heights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.SpidarRead.get_heights" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_heights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#SpidarRead.get_heights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.SpidarRead.get_heights" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.spidar_txt.SpidarRead.read_file">
-<span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#SpidarRead.read_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.SpidarRead.read_file" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/spidar_txt.html#SpidarRead.read_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.spidar_txt.SpidarRead.read_file" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="nrgpy.read.spidar_txt.spidar_data_read">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.read.spidar_txt.</span></span><span class="sig-name descname"><span class="pre">spidar_data_read</span></span><a class="headerlink" href="#nrgpy.read.spidar_txt.spidar_data_read" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nrgpy.read.spidar_txt.</span></span><span class="sig-name descname"><span class="pre">spidar_data_read</span></span><a class="headerlink" href="#nrgpy.read.spidar_txt.spidar_data_read" title="Link to this definition">#</a></dt>
 <dd><p>alias of <a class="reference internal" href="nrgpy.read.spidar_txt.html#nrgpy.read.spidar_txt.SpidarRead" title="nrgpy.read.spidar_txt.SpidarRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpidarRead</span></code></a></p>
 </dd></dl>
 
 </section>
 <section id="module-nrgpy.read.sympro_txt">
-<span id="nrgpy-read-sympro-txt-module"></span><h2>nrgpy.read.sympro_txt module<a class="headerlink" href="#module-nrgpy.read.sympro_txt" title="Permalink to this heading">#</a></h2>
+<span id="nrgpy-read-sympro-txt-module"></span><h2>nrgpy.read.sympro_txt module<a class="headerlink" href="#module-nrgpy.read.sympro_txt" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.SymProTextRead">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.sympro_txt.</span></span><span class="sig-name descname"><span class="pre">SymProTextRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_timestamps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.sympro_txt.</span></span><span class="sig-name descname"><span class="pre">SymProTextRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_timestamps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.SymProTextRead.arrange_ch_info">
-<span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.arrange_ch_info" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.arrange_ch_info" title="Link to this definition">#</a></dt>
 <dd><p>creates ch_info dataframe and ch_list array</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.SymProTextRead.calculate_soiling_ratio">
-<span class="sig-name descname"><span class="pre">calculate_soiling_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'IEC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0004</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I_clean_SC_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I_soiled_SC_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.calculate_soiling_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.calculate_soiling_ratio" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">calculate_soiling_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'IEC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0004</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I_clean_SC_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I_soiled_SC_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.calculate_soiling_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.calculate_soiling_ratio" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.SymProTextRead.concat_txt">
-<span class="sig-name descname"><span class="pre">concat_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'meas'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.concat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.concat_txt" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">concat_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'meas'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.concat_txt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.concat_txt" title="Link to this definition">#</a></dt>
 <dd><p>Will concatenate all text files in the txt_dir</p>
 <p>files must match the site_filter argument. Note these are both blank by default.</p>
 <dl class="field-list simple">
@@ -779,18 +808,18 @@ Queue processed
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.SymProTextRead.format_data_for_epe">
-<span class="sig-name descname"><span class="pre">format_data_for_epe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.format_data_for_epe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.format_data_for_epe" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">format_data_for_epe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.format_data_for_epe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.format_data_for_epe" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.SymProTextRead.format_site_data">
-<span class="sig-name descname"><span class="pre">format_site_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.format_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.format_site_data" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">format_site_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.format_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.format_site_data" title="Link to this definition">#</a></dt>
 <dd><p>take txt header to create oject data</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.SymProTextRead.insert_blank_header_rows">
-<span class="sig-name descname"><span class="pre">insert_blank_header_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.insert_blank_header_rows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.insert_blank_header_rows" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">insert_blank_header_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.insert_blank_header_rows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.insert_blank_header_rows" title="Link to this definition">#</a></dt>
 <dd><p>insert blank rows when using shift_timestamps()</p>
 <p>ensures the resulting text file looks and feels like an
 original Sympro Desktop exported</p>
@@ -798,17 +827,17 @@ original Sympro Desktop exported</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.SymProTextRead.make_header_for_epe">
-<span class="sig-name descname"><span class="pre">make_header_for_epe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.make_header_for_epe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.make_header_for_epe" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">make_header_for_epe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.make_header_for_epe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.make_header_for_epe" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.SymProTextRead.output_txt_file">
-<span class="sig-name descname"><span class="pre">output_txt_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soiling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_timestamps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.output_txt_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.output_txt_file" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">output_txt_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soiling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_timestamps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.output_txt_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.output_txt_file" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.SymProTextRead.select_channels_for_reformat">
-<span class="sig-name descname"><span class="pre">select_channels_for_reformat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soiling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.select_channels_for_reformat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.select_channels_for_reformat" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">select_channels_for_reformat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">soiling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#SymProTextRead.select_channels_for_reformat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.SymProTextRead.select_channels_for_reformat" title="Link to this definition">#</a></dt>
 <dd><p>determines which of the channel headers fit those required for 
 post-processing for either</p>
 <blockquote>
@@ -825,7 +854,7 @@ Local export of text files, as of 0.1.8.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.shift_timestamps">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.read.sympro_txt.</span></span><span class="sig-name descname"><span class="pre">shift_timestamps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3600</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#shift_timestamps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.shift_timestamps" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nrgpy.read.sympro_txt.</span></span><span class="sig-name descname"><span class="pre">shift_timestamps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'1970-01-01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'2150-12-31'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3600</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/sympro_txt.html#shift_timestamps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.sympro_txt.shift_timestamps" title="Link to this definition">#</a></dt>
 <dd><p>Takes as input a folder of exported standard text files and
 time to shift in seconds.</p>
 <dl class="field-list simple">
@@ -857,22 +886,22 @@ timestamp.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="nrgpy.read.sympro_txt.sympro_txt_read">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.read.sympro_txt.</span></span><span class="sig-name descname"><span class="pre">sympro_txt_read</span></span><a class="headerlink" href="#nrgpy.read.sympro_txt.sympro_txt_read" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nrgpy.read.sympro_txt.</span></span><span class="sig-name descname"><span class="pre">sympro_txt_read</span></span><a class="headerlink" href="#nrgpy.read.sympro_txt.sympro_txt_read" title="Link to this definition">#</a></dt>
 <dd><p>alias of <a class="reference internal" href="nrgpy.read.sympro_txt.html#nrgpy.read.sympro_txt.SymProTextRead" title="nrgpy.read.sympro_txt.SymProTextRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">SymProTextRead</span></code></a></p>
 </dd></dl>
 
 </section>
 <section id="module-nrgpy.read.txt_utils">
-<span id="nrgpy-read-txt-utils-module"></span><h2>nrgpy.read.txt_utils module<a class="headerlink" href="#module-nrgpy.read.txt_utils" title="Permalink to this heading">#</a></h2>
+<span id="nrgpy-read-txt-utils-module"></span><h2>nrgpy.read.txt_utils module<a class="headerlink" href="#module-nrgpy.read.txt_utils" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.format_sympro_site_data">
-<span class="sig-prename descclassname"><span class="pre">nrgpy.read.txt_utils.</span></span><span class="sig-name descname"><span class="pre">format_sympro_site_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#format_sympro_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.format_sympro_site_data" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nrgpy.read.txt_utils.</span></span><span class="sig-name descname"><span class="pre">format_sympro_site_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reader</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#format_sympro_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.format_sympro_site_data" title="Link to this definition">#</a></dt>
 <dd><p>adds formatted site dataframe to reader object</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.txt_utils.</span></span><span class="sig-name descname"><span class="pre">read_text_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sp3'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nrgpy.read.txt_utils.</span></span><span class="sig-name descname"><span class="pre">read_text_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sp3'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>class for handling known csv-style text data files with header information</p>
 <dl class="field-list simple">
@@ -895,13 +924,13 @@ timestamp.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.arrange_ch_info">
-<span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">arrange_ch_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.arrange_ch_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.arrange_ch_info" title="Link to this definition">#</a></dt>
 <dd><p>generates list and dataframe of channel information</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.concat">
-<span class="sig-name descname"><span class="pre">concat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.concat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.concat" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">concat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_txt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.concat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.concat" title="Link to this definition">#</a></dt>
 <dd><p>combine exported rwd files (in txt format)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -920,26 +949,26 @@ timestamp.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.format_rwd_site_data">
-<span class="sig-name descname"><span class="pre">format_rwd_site_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.format_rwd_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">format_rwd_site_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.format_rwd_site_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.format_rwd_site_data" title="Link to this definition">#</a></dt>
 <dd><p>adds formatted site dataframe to reader object</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.get_data">
-<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.get_data" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.get_data" title="Link to this definition">#</a></dt>
 <dd><p>create dataframe of tabulated data</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.get_head">
-<span class="sig-name descname"><span class="pre">get_head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.get_head"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.get_head" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.get_head"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.get_head" title="Link to this definition">#</a></dt>
 <dd><p>get the first lines of the file</p>
 <p>excluding those without tabs up to the self.skip_rows line</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="nrgpy.read.txt_utils.read_text_data.get_site_info">
-<span class="sig-name descname"><span class="pre">get_site_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.get_site_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.get_site_info" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_site_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nrgpy/read/txt_utils.html#read_text_data.get_site_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nrgpy.read.txt_utils.read_text_data.get_site_info" title="Link to this definition">#</a></dt>
 <dd><p>create dataframe of site info</p>
 </dd></dl>
 
@@ -947,7 +976,7 @@ timestamp.</p>
 
 </section>
 <section id="module-nrgpy.read">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nrgpy.read" title="Permalink to this heading">#</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nrgpy.read" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -960,7 +989,7 @@ timestamp.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="nrgpy.quality.html"
@@ -989,6 +1018,7 @@ timestamp.</p>
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -1006,12 +1036,14 @@ timestamp.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead"><code class="docutils literal notranslate"><span class="pre">LogrRead</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.arrange_ch_info"><code class="docutils literal notranslate"><span class="pre">LogrRead.arrange_ch_info()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.concat_txt"><code class="docutils literal notranslate"><span class="pre">LogrRead.concat_txt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.create_data_df"><code class="docutils literal notranslate"><span class="pre">LogrRead.create_data_df()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.format_site_data"><code class="docutils literal notranslate"><span class="pre">LogrRead.format_site_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.format_timestamps"><code class="docutils literal notranslate"><span class="pre">LogrRead.format_timestamps()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.insert_blank_header_rows"><code class="docutils literal notranslate"><span class="pre">LogrRead.insert_blank_header_rows()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.output_txt_file"><code class="docutils literal notranslate"><span class="pre">LogrRead.output_txt_file()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.LogrRead.process_file"><code class="docutils literal notranslate"><span class="pre">LogrRead.process_file()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.logr_read"><code class="docutils literal notranslate"><span class="pre">logr_read</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nrgpy.read.logr.shift_timestamps"><code class="docutils literal notranslate"><span class="pre">shift_timestamps()</span></code></a></li>
 </ul>
 </li>
@@ -1077,6 +1109,7 @@ By NRG Systems, Inc.
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023, NRG Systems, Inc..
@@ -1103,8 +1136,8 @@ By NRG Systems, Inc.
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>
