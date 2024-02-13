@@ -2,7 +2,6 @@ import getpass
 import logging
 from logging.handlers import RotatingFileHandler
 import os
-from sys import platform
 import traceback
 
 
@@ -11,11 +10,7 @@ logfile_name = "nrgpy.log"
 
 try:
     username = getpass.getuser()
-
-    if platform == "win32":
-        home_dir = f"C:/Users/{username}"
-    else:
-        home_dir = f"/home/{username}"
+    home_dir = os.path.expanduser("~/")
 
     os.makedirs(os.path.join(home_dir, ".nrgpy"), exist_ok=True)
 
@@ -56,7 +51,7 @@ from .cloud_api.jobs import export_job, CloudExportJob  # noqa: E402, F401
 from .cloud_api.sites import cloud_sites, CloudSites  # noqa: E402, F401
 from .cloud_api.upload import cloud_import, CloudImport  # noqa: E402, F401
 from .quality.quality import check_intervals, select_interval_length  # noqa: E402, F401
-from .read.logr import LogrRead, LogrRead  # noqa: E402, F401
+from .read.logr import LogrRead  # noqa: E402, F401
 from .read.spidar_txt import SpidarRead, spidar_data_read  # noqa: E402, F401
 from .read.sympro_txt import SymProTextRead, sympro_txt_read, shift_timestamps  # noqa: E402, F401, E501
 from .read.txt_utils import read_text_data  # noqa: E402, F401

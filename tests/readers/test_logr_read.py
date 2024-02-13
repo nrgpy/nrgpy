@@ -17,6 +17,7 @@ class TestLogrRead:
 
         assert reader.site_description == "Crows Nest Counters", f"Expected site number {reader.site_description} to be 'Crows Nest'"
         assert len(reader.data) == 41, f"Dataframe length {len(reader.data)} is not 180"
+        assert len(reader.ch_info) > 1, "Expected channel info to be populated"
 
     def test_logr_read_9432_log_returns(self, test_file_directory):
         """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
