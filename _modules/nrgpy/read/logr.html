@@ -418,7 +418,6 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">header_len</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;iso-8859-1&quot;</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">format_timestamps</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">arrange_ch_info</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">first_timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">]</span></div>
 
 
@@ -791,7 +790,7 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">array</span>
           
                 <span class="k">if</span> <span class="n">drop_duplicates</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dropping duplicate timestamps&quot;</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Dropping duplicate timestamps&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Timestamp&quot;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span> 
                     <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">data</span>
@@ -824,6 +823,8 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">first_timestamp</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">first_timestamp</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">site_info</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">site_info</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">format_site_data</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">base</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;dat&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arrange_ch_info</span><span class="p">()</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Concatenation of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows complete&quot;</span><span class="p">)</span>
 
