@@ -505,7 +505,7 @@ class LogrRead:
                 self.array = s.array
           
                 if drop_duplicates:
-                    logger.info(f"Dropping duplicate timestamps")
+                    logger.info("Dropping duplicate timestamps")
                     self.data = base.data.drop_duplicates(subset=["Timestamp"], keep="first")
                 else: 
                     self.data = base.data
@@ -538,6 +538,7 @@ class LogrRead:
             self.first_timestamp = base.first_timestamp
             self.site_info = s.site_info
             self.format_site_data()
+            self.arrange_ch_info()
             print("\n")
             logger.info(f"Concatenation of {len(self.data)} rows complete")
 
