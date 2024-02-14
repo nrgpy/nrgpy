@@ -9,6 +9,7 @@ import os
 import pandas as pd
 from nrgpy.utils.utilities import (
     check_platform,
+    locate_text_in_df_column,
     windows_folder_path,
     linux_folder_path,
     draw_progress_bar,
@@ -28,11 +29,11 @@ class SymProTextRead:
     ):
         """Class of pandas dataframes created from SymPRO standard txt output.
 
-        If a filename is passed when calling class, the file is read in alone. 
-        Otherwise, an instance of the class is created, and the concat_txt function may 
+        If a filename is passed when calling class, the file is read in alone.
+        Otherwise, an instance of the class is created, and the concat_txt function may
         be called to combine all txt files in a directory.
 
-        Filters may be used on any part of the filename, to combine a subset of text 
+        Filters may be used on any part of the filename, to combine a subset of text
         files in a directory.
 
         Parameters
@@ -47,10 +48,10 @@ class SymProTextRead:
         Attributes
         ---------
         ch_info : obj
-            pandas dataframe of ch_list (below) pulled out of file with 
+            pandas dataframe of ch_list (below) pulled out of file with
             sympro_txt_read.arrange_ch_info()
         ch_list : list
-            list of channel info; can be converted to json w/ import json ... 
+            list of channel info; can be converted to json w/ import json ...
             json.dumps(fut.ch_info)
         data : obj
             pandas dataframe of all data
@@ -278,10 +279,10 @@ class SymProTextRead:
         Returns
         -------
         ch_info : obj
-            pandas dataframe of ch_list (below) pulled out of file with 
+            pandas dataframe of ch_list (below) pulled out of file with
             sympro_txt_read.arrange_ch_info()
         ch_list : list
-            list of channel info; can be converted to json w/ import json ... 
+            list of channel info; can be converted to json w/ import json ...
             json.dumps(fut.ch_info)
         data : obj
             pandas dataframe of all data
@@ -474,7 +475,7 @@ class SymProTextRead:
             return None
 
     def select_channels_for_reformat(self, epe=False, soiling=False):
-        """determines which of the channel headers fit those required for 
+        """determines which of the channel headers fit those required for
         post-processing for either
 
             a. EPE formatting
@@ -1148,9 +1149,9 @@ class SymProTextRead:
                     self.insert_blank_header_rows(output_name)
                     print("[OK]")
 
-                except Exception as e:
+                except Exception:
                     print("[FAILED]")
-                    print(e)
+                    logger.exception(f"Outputting {output_name} failed")
 
     def insert_blank_header_rows(self, filename):
         """insert blank rows when using shift_timestamps()
@@ -1167,102 +1168,61 @@ class SymProTextRead:
             "Data",
         ]
 
+        ignore_headers = [
+            "Data Type:",
+            "Data Logging Mode:",
+            "Math Function:",
+            "GHI Channel:",
+            "RHI Channel:",
+            "DIF Channel:",
+        ]
+
         blank_list = []
-        for i in self.site_info[
-            self.site_info[0].str.contains("Export Parameters") == True
-        ].index:
-            blank_list.append(i)
-            export_parameter_line = i + 2
+        field_lines = {}
 
-        for i in self.site_info[
-            self.site_info[0].str.contains("Site Properties") == True
-        ].index:
-            blank_list.append(i)
-            site_properties_line = i + 2
-
-        for i in self.site_info[
-            self.site_info[0].str.contains("Logger History") == True
-        ].index:
-            blank_list.append(i)
-            logger_history_line = i + 2
-
-        for i in self.site_info[
-            self.site_info[0].str.contains("iPack History") == True
-        ].index:
-            blank_list.append(i)
-            ipack_history_line = i + 2
-
-        for i in self.site_info[
-            self.site_info[0].str.contains("Sensor History") == True
-        ].index:
-            blank_list.append(i)
-            sensor_history_line = i + 2
+        for h in header_section_headings:
+            for i in locate_text_in_df_column(self.site_info, h):
+                blank_list.append(i)
+                field_lines[h] = i + 2
 
         skip_first_channel = True
-        for i in self.site_info[
-            self.site_info[0].str.contains("Channel:") == True
-        ].index:
+        _channel = locate_text_in_df_column(self.site_info, "Channel:")
+        for i in _channel:
             if skip_first_channel:
                 skip_first_channel = False
             else:
                 blank_list.append(i)
 
-        for i in self.site_info[self.site_info[0].str.match("Data") == True].index:
-            blank_list.append(i)
-            data_line = i + 2
-
-        for i in self.site_info[
-            self.site_info[0].str.contains("Data Type:") == True
-        ].index:
-            blank_list.remove(i)
-
-        for i in self.site_info[
-            self.site_info[0].str.contains("Data Logging Mode:") == True
-        ].index:
-            blank_list.remove(i)
-
-        try:
-            for i in self.site_info[
-                self.site_info[0].str.contains("Math Function:") == True
-            ].index:
-                blank_list.remove(i)
-        except Exception:
-            pass
-
-        try:
-            for i in self.site_info[
-                self.site_info[0].str.contains("GHI Channel:") == True
-            ].index:
-                blank_list.remove(i)
-        except Exception:
-            pass
-
-        try:
-            for i in self.site_info[
-                self.site_info[0].str.contains("RHI Channel:") == True
-            ].index:
-                blank_list.remove(i)
-        except Exception:
-            pass
-
-        try:
-            for i in self.site_info[
-                self.site_info[0].str.contains("DIF Channel:") == True
-            ].index:
-                blank_list.remove(i)
-        except Exception:
-            pass
+        for ih in ignore_headers:
+            _ignore = locate_text_in_df_column(self.site_info, ih)
+            try:
+                for i in _ignore:
+                    blank_list.remove(i)
+            except ValueError:
+                pass
 
         f_read = open(filename, "r")
         contents = f_read.readlines()
         f_read.close()
 
-        contents[export_parameter_line] = header_section_headings[0] + "\n"
-        contents[site_properties_line] = header_section_headings[1] + "\n"
-        contents[logger_history_line] = header_section_headings[2] + "\n"
-        contents[ipack_history_line] = header_section_headings[3] + "\n"
-        contents[sensor_history_line] = header_section_headings[4] + "\n"
-        contents[data_line] = header_section_headings[5] + "\n"
+        contents[field_lines[header_section_headings[0]]] = (
+            header_section_headings[0] + "\n"
+        )
+        contents[field_lines[header_section_headings[1]]] = (
+            header_section_headings[1] + "\n"
+        )
+        contents[field_lines[header_section_headings[2]]] = (
+            header_section_headings[2] + "\n"
+        )
+        contents[field_lines[header_section_headings[3]]] = (
+            header_section_headings[3] + "\n"
+        )
+        contents[field_lines[header_section_headings[4]]] = (
+            header_section_headings[4] + "\n"
+        )
+        contents[field_lines[header_section_headings[5]]] = (
+            header_section_headings[5] + "\n"
+        )
 
         for i in list(reversed(sorted(blank_list))):
             contents.insert(i + 2, "\n")

@@ -8,6 +8,7 @@ import os
 import pandas as pd
 from nrgpy.utils.utilities import (
     check_platform,
+    locate_text_in_df_column,
     windows_folder_path,
     linux_folder_path,
     draw_progress_bar,
@@ -109,9 +110,9 @@ class LogrRead:
         ]
 
         self.create_data_df(header_len)
-
-        # if not hasattr(self, "site_details"):
         self.format_site_data()
+        if self.filename.lower().endswith("dat"):
+            self.arrange_ch_info()
 
     def create_data_df(self, header_len: int) -> None:
         suffix = str(self.filename).lower().split(".")[-1]
@@ -497,16 +498,17 @@ class LogrRead:
             base.data.to_csv(os.path.join(dat_dir, out_file), sep=",", index=False)
 
         try:
-
-            if self.filename.lower().endswith("dat"):
+            if self.dat_file_names[-1].lower().endswith("dat"):
                 self.ch_info = s.ch_info
                 self.ch_list = s.ch_list
                 self.array = s.array
-          
+
                 if drop_duplicates:
                     logger.info("Dropping duplicate timestamps")
-                    self.data = base.data.drop_duplicates(subset=["Timestamp"], keep="first")
-                else: 
+                    self.data = base.data.drop_duplicates(
+                        subset=["Timestamp"], keep="first"
+                    )
+                else:
                     self.data = base.data
                 self.data.reset_index(drop=True, inplace=True)
                 base.ch_info["ch"] = base.ch_info["Channel:"].astype(int)
@@ -537,8 +539,6 @@ class LogrRead:
             self.first_timestamp = base.first_timestamp
             self.site_info = s.site_info
             self.format_site_data()
-            if base.filename.lower().endswith("dat"):
-                self.arrange_ch_info()
             print("\n")
             logger.info(f"Concatenation of {len(self.data)} rows complete")
 
@@ -602,7 +602,7 @@ class LogrRead:
                     sep="\t",
                     index=False,
                     index_label=False,
-                    line_terminator="\n",
+                    lineterminator="\n",
                 )
 
             output_file.close()
@@ -622,7 +622,7 @@ class LogrRead:
                     sep="\t",
                     index=False,
                     index_label=False,
-                    line_terminator="\n",
+                    lineterminator="\n",
                 )
 
             output_file.close()
@@ -644,7 +644,7 @@ class LogrRead:
             try:
                 output_file = open(output_name, "w+", encoding="utf-8")
                 output_file.truncate()
-                output_file.write(self.head)
+                # output_file.write(self.head)
                 output_file.close()
 
                 # write header
@@ -655,7 +655,7 @@ class LogrRead:
                         sep="\t",
                         index=False,
                         index_label=False,
-                        line_terminator="\n",
+                        lineterminator="\n",
                     )
                 output_file.close()
 
@@ -667,7 +667,7 @@ class LogrRead:
                         sep="\t",
                         index=False,
                         index_label=False,
-                        line_terminator="\n",
+                        lineterminator="\n",
                     )
                 output_file.close()
                 self.insert_blank_header_rows(output_name)
@@ -675,9 +675,7 @@ class LogrRead:
 
             except Exception:
                 print("[FAILED]")
-                print(traceback.format_exc())
-                logger.error(f"Outputting {output_name} failed")
-                logger.debug(traceback.format_exc())
+                logger.exception(f"Outputting {output_name} failed")
 
     def insert_blank_header_rows(self, filename: str):
         """insert blank rows when using shift_timestamps()
@@ -693,45 +691,37 @@ class LogrRead:
         ]
 
         blank_list = []
-        for i in self.site_info[
-            self.site_info[0].str.contains("Site Properties") is True
-        ].index:
-            blank_list.append(i)
-            site_properties_line = i + 2
+        field_lines = {}
 
-        for i in self.site_info[
-            self.site_info[0].str.contains("File Properties") is True
-        ].index:
-            blank_list.append(i)
-            file_properties_line = i + 2
-
-        for i in self.site_info[
-            self.site_info[0].str.contains("Sensor History") is True
-        ].index:
-            blank_list.append(i)
-            sensor_history_line = i + 2
+        for h in header_section_headings:
+            for i in locate_text_in_df_column(self.site_info, h):
+                blank_list.append(i)
+                field_lines[h] = i + 2
 
         skip_first_channel = True
-        for i in self.site_info[
-            self.site_info[0].str.contains("Channel:") is True
-        ].index:
+        _channel = locate_text_in_df_column(self.site_info, "Channel:")
+        for i in _channel:
             if skip_first_channel:
                 skip_first_channel = False
             else:
                 blank_list.append(i)
 
-        for i in self.site_info[self.site_info[0].str.match("Data") is True].index:
-            blank_list.append(i)
-            data_line = i + 2
-
         f_read = open(filename, "r")
         contents = f_read.readlines()
         f_read.close()
 
-        contents[site_properties_line] = header_section_headings[0] + "\n"
-        contents[file_properties_line] = header_section_headings[1] + "\n"
-        contents[sensor_history_line] = header_section_headings[2] + "\n"
-        contents[data_line] = header_section_headings[3] + "\n"
+        contents[field_lines[header_section_headings[0]]] = (
+            header_section_headings[0] + "\n"
+        )
+        contents[field_lines[header_section_headings[1]]] = (
+            header_section_headings[1] + "\n"
+        )
+        contents[field_lines[header_section_headings[2]]] = (
+            header_section_headings[2] + "\n"
+        )
+        contents[field_lines[header_section_headings[3]]] = (
+            header_section_headings[3] + "\n"
+        )
 
         for i in list(reversed(sorted(blank_list))):
             contents.insert(i + 2, "\n")
