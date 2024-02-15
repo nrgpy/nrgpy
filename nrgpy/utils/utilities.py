@@ -6,6 +6,7 @@ from datetime import datetime
 import os
 import pathlib
 import pickle
+import pandas as pd
 import psutil
 import re
 import sys
@@ -100,7 +101,6 @@ def string_date_check(start_date: str, end_date: str, string: str) -> bool:
     # NRG Cloud TXT Export
     date_format_with_dot = "([0-9]{4}\.[0-9]{2}\.[0-9]{2})"
     strp_format_with_dot = "%Y.%m.%d"
-
 
     try:
         start = datetime.strptime(start_date, strp_format_with_dash)
@@ -216,7 +216,7 @@ def save(reader, filename="") -> None:
         pickle.dump(reader, pkl, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-def load(site_number: str="", serial_number: str="", filename: str="") -> object:
+def load(site_number: str = "", serial_number: str = "", filename: str = "") -> object:
     """recall a reader from a pickle file by site number or filename
 
     parameters
@@ -244,7 +244,7 @@ def load(site_number: str="", serial_number: str="", filename: str="") -> object
     return reader
 
 
-def data_months(start_date: str, end_date: str, output: str="string") -> list:
+def data_months(start_date: str, end_date: str, output: str = "string") -> list:
     """returns list of months for a date range in YYYY-mm-dd format
 
     parameters
@@ -375,7 +375,7 @@ def is_sympro_running() -> bool:
     return False
 
 
-def set_start_stop(reader: object, with_time: bool=False) -> None:
+def set_start_stop(reader: object, with_time: bool = False) -> None:
     """ """
     reader.start_date = reader.data["Timestamp"].loc[0]
     reader.end_date = reader.data["Timestamp"].loc[len(reader.data) - 1]
@@ -383,3 +383,9 @@ def set_start_stop(reader: object, with_time: bool=False) -> None:
     if not with_time:
         reader.start_date = reader.start_date.date()
         reader.end_date = reader.end_date.date()
+
+
+def locate_text_in_df_column(
+    dataframe: pd.DataFrame, text: str, column: str | int = 0
+) -> list:
+    return dataframe.loc[dataframe[column].str.contains(text)].index
