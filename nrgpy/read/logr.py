@@ -522,7 +522,7 @@ class LogrRead:
                             ],
                             ignore_index=True,
                         )
-                        .drop(columns=["ch", "Channel"],3axis=1)
+                        .drop(columns=["ch", "Channel"], axis=1)
                     )
                 except KeyError as e:
                     logger.debug(e)
