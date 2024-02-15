@@ -111,7 +111,7 @@ class LogrRead:
 
         self.create_data_df(header_len)
         self.format_site_data()
-        if self.filename.lower().endswith("dat"):
+        if str(self.filename.lower()).endswith("dat"):
             self.arrange_ch_info()
 
     def create_data_df(self, header_len: int) -> None:
@@ -498,7 +498,7 @@ class LogrRead:
             base.data.to_csv(os.path.join(dat_dir, out_file), sep=",", index=False)
 
         try:
-            if self.dat_file_names[-1].lower().endswith("dat"):
+            if str(self.dat_file_names[-1]).lower().endswith("dat"):
                 self.ch_info = s.ch_info
                 self.ch_list = s.ch_list
                 self.array = s.array
