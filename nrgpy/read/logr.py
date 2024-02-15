@@ -111,7 +111,7 @@ class LogrRead:
 
         self.create_data_df(header_len)
         self.format_site_data()
-        if str(self.filename.lower()).endswith("dat"):
+        if str(self.filename).lower().endswith("dat"):
             self.arrange_ch_info()
 
     def create_data_df(self, header_len: int) -> None:
@@ -467,7 +467,7 @@ class LogrRead:
                     base.data = pd.concat(
                         [base.data, s.data], ignore_index=True, axis=0, join="outer"
                     )
-                    if not s.filename.lower().endswith(("log", "diag")):
+                    if not str(s.filename).lower().endswith(("log", "diag")):
                         base.ch_info = pd.concat(
                             [base.ch_info, s.ch_info],
                             ignore_index=True,
@@ -522,7 +522,7 @@ class LogrRead:
                             ],
                             ignore_index=True,
                         )
-                        .drop(columns=["ch", "Channel"], axis=1)
+                        .drop(columns=["ch", "Channel"],3axis=1)
                     )
                 except KeyError as e:
                     logger.debug(e)
