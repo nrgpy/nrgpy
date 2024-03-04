@@ -1,4 +1,7 @@
+from collections import Counter
 from datetime import datetime
+import pandas as pd
+
 
 
 def check_intervals(
@@ -105,7 +108,7 @@ def check_intervals(
             print("Interval loss percentage  : {0}".format(loss_pct))
             print("\nMissing {0} timestamps:".format(len(missing_timestamps)))
 
-            if len(missing_timestamps) <= 8 or show_all_missing_timestamps == True:
+            if len(missing_timestamps) <= 8 or show_all_missing_timestamps:
                 for i, timestamp in enumerate(missing_timestamps):
                     print("\t{0}\t{1}".format(i + 1, timestamp))
 
@@ -115,9 +118,9 @@ def check_intervals(
                 ):
                     print("\t{0}\t{1}".format(" ", timestamp))
 
-            print("\nDuplicate {0} timestamps:".format(len(duplicate_timestamps)))
+            print("Duplicate {0} timestamps:".format(len(duplicate_timestamps)))
 
-            if len(duplicate_timestamps) <= 8 or show_all_duplicate_timestamps == True: 
+            if len(duplicate_timestamps) <= 8 or show_all_duplicate_timestamps: 
                 for i, timestamp in enumerate(duplicate_timestamps):
                     print ("\t{0}\t{1}".format(i + 1, timestamp))
             else:
@@ -138,8 +141,8 @@ def check_intervals(
 
         try:
             interval_info["missing_timestamps"] = missing_timestamps
-        except:
-            interval_info["missing_timestamps"] = False
+        except Exception:
+            interval_info["missing_timestamps"] = []
 
         interval_info["duplicate_timestamps"] = duplicate_timestamps
 
@@ -170,12 +173,13 @@ def find_missing_intervals(__df, interval):
 
     for index, row in _df.iterrows():
 
-        if row["data"] != True:
+        if not row["data"]:
             missing_timestamps.append(index)
 
     return missing_timestamps, _df
 
-def find_duplicate_intervals(__df): 
+
+def find_duplicate_intervals(__df: pd.DataFrame) -> list: 
     """find duplicate interval timestamps
     
     returns 
@@ -184,15 +188,12 @@ def find_duplicate_intervals(__df):
         a list of all duplicate intervals 
     """
     _df = __df.copy()
-    from collections import Counter
-    import pandas as pd
-
     time_fmt = "%Y-%m-%d %H:%M:%S"
     observed_intervals = pd.to_datetime(_df["Timestamp"].values, format=time_fmt)
     unique_timestamps_set = set(observed_intervals)
 
     if len(observed_intervals) == len(unique_timestamps_set):
-        duplicate_timestamps = False
+        duplicate_timestamps =[] 
     else:
         # Record duplicates using Counter
         timestamp_counter = Counter(observed_intervals)
@@ -200,7 +201,8 @@ def find_duplicate_intervals(__df):
     
     return duplicate_timestamps, _df
 
-def select_interval_length(df, seconds=True):
+
+def select_interval_length(df: pd.DataFrame, seconds: bool=True) -> int:
     """returns the mode of the first 10 intervals of the data set
 
     parameters
@@ -230,7 +232,7 @@ def select_interval_length(df, seconds=True):
                 )
             )
 
-        except:
+        except Exception:
             formatter = "%Y-%m-%d %H:%M:%S.%f"
             interval.append(int((df["Timestamp"][i + 1] - df["Timestamp"][i]).seconds))
 
@@ -244,7 +246,7 @@ def select_interval_length(df, seconds=True):
         if seconds:
             return select_mode_from_list(interval)
         return select_mode_from_list(interval) / 60
-    except:
+    except Exception:
         return False
 
 
@@ -274,7 +276,7 @@ def check_for_missing_txt_files(txt_file_names):
         file_number = int(f.split("_")[-2])
 
         if i > 0:
-            if file_number - _file_number > 1:
+            if file_number - _file_number > 1:  # noqa: F821
                 missing_file_numbers.append(f)
 
         _file_number = file_number
