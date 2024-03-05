@@ -1,6 +1,7 @@
 from collections import Counter
 from datetime import datetime
 import math
+import numpy as np
 import pandas as pd
 from typing import Union
 
@@ -91,6 +92,7 @@ def check_intervals(
     expected_rows = int(time_range.total_seconds() / interval)
     actual_rows = len(_df) - 1
     loss_pct = 100 * ((expected_rows - actual_rows) / expected_rows)
+
     if abs(loss_pct) > 1:
         loss_pct = round(loss_pct)
     else:
@@ -178,7 +180,10 @@ def find_missing_intervals(__df: pd.DataFrame, interval: Union[int, str]) -> tup
     missing_timestamps = []
 
     for index, row in _df.iterrows():
-        if math.isnan(row["data"]):
+        try:
+            if math.isnan(row["data"]):
+                missing_timestamps.append(index)
+        except TypeError:
             missing_timestamps.append(index)
 
     return missing_timestamps, _df
