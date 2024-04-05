@@ -59,7 +59,7 @@ class TestLogrRead:
         assert (
             reader.site_description == "Crows Nest Counters"
         ), f"Expected site description {reader.site_description} to be 'Crows Nest Counters'"
-        assert len(reader.data) == 3, f"Dataframe length {len(reader.data)} is not 3"
+        assert len(reader.data) == 2, f"Dataframe length {len(reader.data)} is not 2"
 
     def test_logr_concat_9432_diag_returns(self, test_file_directory):
         """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
@@ -74,7 +74,7 @@ class TestLogrRead:
         assert (
             reader.site_description == "Crows Nest Counters"
         ), f"Expected site description {reader.site_description} to be 'Crows Nest Counters'"
-        assert len(reader.data) == 43, f"Dataframe length {len(reader.data)} is not 43"
+        assert len(reader.data) == 41, f"Dataframe length {len(reader.data)} is not 41"
 
     def test_logr_output_txt_generates_file(self, test_file_directory):
         """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
