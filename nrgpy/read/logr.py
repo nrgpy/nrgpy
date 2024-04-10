@@ -5,6 +5,7 @@ except ImportError:
 from datetime import datetime, timedelta
 from glob import glob
 import os
+from typing import List
 import pandas as pd
 from nrgpy.utils.utilities import (
     check_platform,
@@ -544,7 +545,7 @@ class LogrRead:
                 f"{len(self.failed_files)} files unable to be concatenated. See failed_files list"  # noqa: E501
             )
 
-    def get_filtered_file_list(self) -> list[str]:
+    def get_filtered_file_list(self) -> List[str]:
         files = [
             os.path.join(self.dat_dir, f)
             for f in sorted(os.listdir(self.dat_dir))
