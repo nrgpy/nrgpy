@@ -246,10 +246,7 @@ def select_interval_length(df: pd.DataFrame, seconds: bool = True) -> Union[int,
 
         except Exception:
             formatter = "%Y-%m-%d %H:%M:%S.%f"
-            interval.append(int((df["Timestamp"][i + 1] - df["Timestamp"][i]).seconds))
-
-        # except:
-        #    pass
+            interval.append(int((df["Timestamp"].iloc[i + 1] - df["Timestamp"].iloc[i]).seconds))
 
     try:
         if seconds:
