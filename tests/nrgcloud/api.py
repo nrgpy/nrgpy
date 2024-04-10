@@ -141,8 +141,8 @@ def test_export_jobs_api_unauthorized(client_id: str, client_secret: str):
 if __name__ == "__main__":
     import sys
 
-    client_id = sys.argv[1]
-    client_secret = sys.argv[2]
+    client_id = sys.argv[1].strip()
+    client_secret = sys.argv[2].strip()
 
     assert test_sites_api(client_id, client_secret)
     assert test_export_api(client_id, client_secret)
