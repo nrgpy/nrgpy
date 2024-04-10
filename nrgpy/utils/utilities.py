@@ -96,10 +96,10 @@ def string_date_check(start_date: str, end_date: str, string: str) -> bool:
     date_format_zx = "(Y[0-9]{4}_M[0-9]{2}_D[0-9]{2})"
     strp_format_zx = "Y%Y_M%m_D%d"
     # SymphoniePRO
-    date_format_with_dash = "([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
+    date_format_with_dash = r"([0-9]{4}\-[0-9]{2}\-[0-9]{2})"
     strp_format_with_dash = "%Y-%m-%d"
     # NRG Cloud TXT Export
-    date_format_with_dot = "([0-9]{4}\.[0-9]{2}\.[0-9]{2})"
+    date_format_with_dot = r"([0-9]{4}\.[0-9]{2}\.[0-9]{2})"
     strp_format_with_dot = "%Y.%m.%d"
 
     try:
@@ -262,7 +262,7 @@ def data_months(start_date: str, end_date: str, output: str = "string") -> list:
     """
 
     if isinstance(start_date, str) and re.match(
-        "^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])", start_date
+        r"^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])", start_date
     ):
         start_year = start_date.split("-")[0]
         start_month = start_date.split("-")[1]
