@@ -11,6 +11,7 @@ import psutil
 import re
 import sys
 import traceback
+from typing import Union
 
 
 def affirm_directory(directory: str) -> None:
@@ -386,6 +387,6 @@ def set_start_stop(reader: object, with_time: bool = False) -> None:
 
 
 def locate_text_in_df_column(
-    dataframe: pd.DataFrame, text: str, column: str | int = 0
+    dataframe: pd.DataFrame, text: str, column: Union[str, int] = 0
 ) -> list:
     return dataframe.loc[dataframe[column].str.contains(text)].index
