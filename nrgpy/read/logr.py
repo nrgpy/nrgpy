@@ -489,6 +489,8 @@ class LogrRead:
 
             self.counter += 1
 
+        self.data = base.data.copy()
+
         if out_file != "":
             self.out_file = out_file
 
@@ -513,14 +515,14 @@ class LogrRead:
                             ],
                             ignore_index=True,
                         )
-                        .drop(columns=["ch", "Channel"], axis=1)
+                        .drop(columns=["ch", "Channel"], axis=1, errors="ignore")
                     )
-                except KeyError:
-                    logger.exception()
+                except Exception:
+                    logger.exception("could not sort ch_info")
 
             if drop_duplicates:
                 logger.info("Dropping duplicate timestamps")
-                self.data = base.data.drop_duplicates(
+                self.data = self.data.drop_duplicates(
                     subset=[self.timestamp_col], keep="first"
                 )
             else:
@@ -551,7 +553,7 @@ class LogrRead:
             and self.file_type in f
             and string_date_check(self.start_date, self.end_date, f)
         ]
-        
+
         return files
 
     def output_txt_file(
@@ -843,7 +845,9 @@ logr_diag_columns = [
     "COMB EXC_V_SD",
     "COMB EXC_mA_Avg",
     "COMB EXC_mA_Min",
-    "COMB EXC_mA_Max" "COMB EXC_mA_SD" "+VIN_RP_Avg",
+    "COMB EXC_mA_Max",
+    "COMB EXC_mA_SD",
+    "+VIN_RP_Avg",
     "+VIN_RP_Min",
     "+VIN_RP_Max",
     "+VIN_RP_SD",
