@@ -4,7 +4,7 @@ requires = ["setuptools", "setuptools-scm"]
 
 [project]
 name = "nrgpy"
-version = "2.3.5"
+version = "2.3.6"
 authors = [
     {name = "David Carlson", email = "drc@nrgsystems.com"},
     {name = "Natalie Babij", email = "natalie@chickadeemail.com"},
