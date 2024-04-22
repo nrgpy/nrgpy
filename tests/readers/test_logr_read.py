@@ -28,7 +28,7 @@ class TestLogrRead:
 
     def test_logr_read_9432_log_returns(self, test_file_directory):
         """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
-        filename = test_file_directory / "20240111_1339_000304_002995.log"
+        filename = str(test_file_directory / "20240111_1339_000304_002995.log")
         reader = LogrRead(filename, drop_duplicates=False)
 
         assert (
@@ -53,7 +53,7 @@ class TestLogrRead:
 
     def test_logr_read_9432_diag_returns(self, test_file_directory):
         """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
-        filename = test_file_directory / "20240111_1339_000304_002995.diag"
+        filename = str(test_file_directory / "20240111_1339_000304_002995.diag")
         reader = LogrRead(filename, drop_duplicates=False)
 
         assert (
