@@ -5,7 +5,6 @@ except ImportError:
 from datetime import datetime, timedelta
 from glob import glob
 import os
-from typing import List
 import pandas as pd
 from nrgpy.utils.utilities import (
     check_platform,
@@ -477,12 +476,9 @@ class LogrRead:
                         print("[OK]")
                     self.dat_file_names.append(os.path.basename(f))
 
-                except IndexError:
-                    logger.exception()
-                    self.failed_files.append(f)
-
                 except Exception:
-                    logger.exception()
+                    logger.exception(f"could not concat {os.path.basename(f)}")
+                    self.failed_files.append(f)
                     if not progress_bar:
                         print("[FAILED]")
                     print("could not concat {0}".format(os.path.basename(f)))
@@ -494,9 +490,6 @@ class LogrRead:
 
         if out_file != "":
             self.out_file = out_file
-
-        if output_txt:
-            self.data.to_csv(os.path.join(dat_dir, out_file), sep=",", index=False)
 
         try:
             if str(self.dat_file_names[-1]).lower().endswith("dat"):
@@ -545,7 +538,11 @@ class LogrRead:
                 f"{len(self.failed_files)} files unable to be concatenated. See failed_files list"  # noqa: E501
             )
 
-    def get_filtered_file_list(self) -> List[str]:
+        if output_txt:
+            self.data.to_csv(os.path.join(dat_dir, out_file), sep=",", index=False)
+
+
+    def get_filtered_file_list(self) -> list:
         files = [
             os.path.join(self.dat_dir, f)
             for f in sorted(os.listdir(self.dat_dir))
@@ -596,12 +593,11 @@ class LogrRead:
                             output_name
                         )
                     )
-                    logger.error(
+                    logger.exception(
                         "couldn't rename 'Effective Date:' info in {0}".format(
                             output_name
                         )
                     )
-                    logger.exception()
                 self.site_info.to_csv(
                     f,
                     header=False,
@@ -804,7 +800,7 @@ def shift_timestamps(
             pass
 
         except Exception:
-            logger.exception()
+            logger.exception(f"unable to shift timestamps in {f}")
 
         counter += 1
 
