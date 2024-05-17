@@ -5,7 +5,6 @@ except ImportError:
 from datetime import datetime, timedelta
 from glob import glob
 import os
-from typing import List
 import pandas as pd
 from nrgpy.utils.utilities import (
     check_platform,
@@ -543,7 +542,7 @@ class LogrRead:
             self.data.to_csv(os.path.join(dat_dir, out_file), sep=",", index=False)
 
 
-    def get_filtered_file_list(self) -> list[str]:
+    def get_filtered_file_list(self) -> list:
         files = [
             os.path.join(self.dat_dir, f)
             for f in sorted(os.listdir(self.dat_dir))
