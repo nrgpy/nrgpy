@@ -54,7 +54,7 @@ def test_sites_api(client_id: str, client_secret: str):
 def test_export_api(client_id: str, client_secret: str):
     """"""
     try:
-        exporter = nrgpy.cloud_export(
+        exporter = nrgpy.CloudExport(
             client_id=client_id,
             client_secret=client_secret,
             site_id=site_id,
@@ -88,7 +88,7 @@ def test_export_api(client_id: str, client_secret: str):
 def test_export_jobs_api(client_id: str, client_secret: str):
     """"""
     try:
-        exporter = nrgpy.export_job(
+        exporter = nrgpy.CloudExportJob(
             client_id=client_id,
             client_secret=client_secret,
             site_id=site_id,
@@ -118,7 +118,7 @@ def test_export_jobs_api(client_id: str, client_secret: str):
 def test_export_jobs_api_unauthorized(client_id: str, client_secret: str):
     """"""
     try:
-        exporter = nrgpy.export_job(
+        exporter = nrgpy.CloudExportJob(
             client_id=client_id,
             client_secret=client_secret,
             site_id=unauth_site_id,
