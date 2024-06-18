@@ -123,7 +123,7 @@ class CloudExport(cloud_api):
         logger_sn: str = "",
         start_date: str = "2014-01-01",
         end_date: str = "2030-12-31",
-        file_format: str = "txt",
+        file_format: str = "singleFile",
         client_id: str = "",
         client_secret: str = "",
         url_base: str = cloud_url_base,
