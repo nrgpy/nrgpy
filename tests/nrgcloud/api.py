@@ -61,6 +61,8 @@ def test_export_api(client_id: str, client_secret: str):
             start_date=start_date,
             end_date=end_date,
             out_dir=".",
+            unzip=True,
+            file_format="singleFile",
         )
 
         exporter.export()
