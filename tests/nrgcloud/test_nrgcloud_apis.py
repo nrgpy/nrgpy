@@ -76,3 +76,5 @@ class TestCloudApis:
             assert False, "expected FileNotFoundError"
         except FileNotFoundError:
             assert True
+        finally:
+            TestCloudApis.monkeypatch.undo()
