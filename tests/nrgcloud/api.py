@@ -12,7 +12,7 @@ logger_sn = 820600087
 site_number = 353002
 start_date = "2021-01-01"
 end_date = "2021-01-05"
-unauth_site_id = 9
+unauth_site_id = 956
 
 
 @pytest.mark.skip(reason="this is not set up as a pytest yet")
@@ -61,6 +61,8 @@ def test_export_api(client_id: str, client_secret: str):
             start_date=start_date,
             end_date=end_date,
             out_dir=".",
+            unzip=True,
+            file_format="singleFile",
         )
 
         exporter.export()
