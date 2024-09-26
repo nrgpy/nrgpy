@@ -5,6 +5,7 @@ except ImportError:
 from datetime import datetime, timedelta
 from glob import glob
 import os
+import re
 import pandas as pd
 from nrgpy.utils.utilities import (
     check_platform,
@@ -94,7 +95,6 @@ class LogrRead:
 
         header_len = i + 1
         read_len = header_len - 5
-
         self.site_info = pd.read_csv(
             self.filename,
             skiprows=2,
@@ -104,11 +104,9 @@ class LogrRead:
             usecols=[0, 1],
             header=None,
         )
-
         self.site_info = self.site_info.iloc[
             : self.site_info.loc[self.site_info[0] == "Data"].index.tolist()[0] + 1
         ]
-
         self.create_data_df(header_len)
         self.format_site_data()
         if str(self.filename).lower().endswith("dat"):
@@ -124,13 +122,27 @@ class LogrRead:
         suffix = str(self.filename).lower().split(".")[-1]
         if suffix == "log":
             try:
-                self.data = pd.read_csv(
-                    self.filename,
-                    names=logr_log_columns,
-                    skiprows=header_len,
-                    sep=",",
-                    encoding="iso-8859-1",
-                )
+                with open(self.filename) as fd:
+                    data_reader = fd.readlines() #csv.reader(fd)
+                    data_sample_row=[row for idx, row in enumerate(data_reader) if idx==header_len+1]
+                comma_count = len(re.findall('(?=(,))', data_sample_row[0]))
+                if (comma_count + 1) == len(logr_log_columns):
+                    self.data = pd.read_csv(
+                        self.filename,
+                        names=logr_log_columns,
+                        skiprows=header_len,
+                        sep=",",
+                        encoding="iso-8859-1",
+                     )
+                else:
+                    self.data = pd.read_csv(
+                        self.filename,
+                        names=logr_log_columns,
+                        skiprows=header_len,
+                        sep="\t",
+                        encoding="iso-8859-1",
+                    )
+
                 self.first_timestamp = self.data.iloc[0][self.timestamp_col]
             except IndexError:
                 pass
