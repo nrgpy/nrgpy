@@ -7,6 +7,7 @@ from glob import glob
 import os
 import re
 import pandas as pd
+from nrgpy.common.enums import LoggerModel
 from nrgpy.utils.utilities import (
     check_platform,
     locate_text_in_df_column,
@@ -107,8 +108,8 @@ class LogrRead:
         self.site_info = self.site_info.iloc[
             : self.site_info.loc[self.site_info[0] == "Data"].index.tolist()[0] + 1
         ]
-        self.create_data_df(header_len)
         self.format_site_data()
+        self.create_data_df(header_len)
         if str(self.filename).lower().endswith("dat"):
             self.arrange_ch_info()
 
@@ -122,11 +123,7 @@ class LogrRead:
         suffix = str(self.filename).lower().split(".")[-1]
         if suffix == "log":
             try:
-                with open(self.filename) as fd:
-                    data_reader = fd.readlines() 
-                    data_sample_row=[row for idx, row in enumerate(data_reader) if idx==header_len+1]
-                comma_count = len(re.findall('(?=(,))', data_sample_row[0]))
-                if (comma_count + 1) == len(logr_log_columns):
+                if self.logger_model in LoggerModel.LOGR_SOLAR.value:
                     self.data = pd.read_csv(
                         self.filename,
                         names=logr_log_columns,
