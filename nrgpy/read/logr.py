@@ -123,7 +123,7 @@ class LogrRead:
         if suffix == "log":
             try:
                 with open(self.filename) as fd:
-                    data_reader = fd.readlines() #csv.reader(fd)
+                    data_reader = fd.readlines() 
                     data_sample_row=[row for idx, row in enumerate(data_reader) if idx==header_len+1]
                 comma_count = len(re.findall('(?=(,))', data_sample_row[0]))
                 if (comma_count + 1) == len(logr_log_columns):
