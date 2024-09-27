@@ -57,7 +57,7 @@ class TestLogrRead:
         reader.concat_txt(
             dat_dir=str(test_file_directory),
             file_type="log",
-            file_filter="_9640_",
+            file_filter="_9460_",
             drop_duplicates=False,
         )
 
