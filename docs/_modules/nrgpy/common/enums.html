@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nrgpy.utils.encodings &#8212; nrgpy  documentation</title>
+    <title>nrgpy.common.enums &#8212; nrgpy  documentation</title>
   
   
   
@@ -40,7 +40,7 @@
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nrgpy/utils/encodings';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/nrgpy/common/enums';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -251,89 +251,28 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <h1>Source code for nrgpy.utils.encodings</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+  <h1>Source code for nrgpy.common.enums</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
 
-<div class="viewcode-block" id="convert_utf16le_to_utf8"><a class="viewcode-back" href="../../../nrgpy.utils.encodings.html#nrgpy.utils.encodings.convert_utf16le_to_utf8">[docs]</a><span class="k">class</span> <span class="nc">convert_utf16le_to_utf8</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;for making Spidar data files compatible with programs that do not support </span>
-<span class="sd">    utf-16-le character encoding</span>
+<div class="viewcode-block" id="LoggerType"><a class="viewcode-back" href="../../../nrgpy.common.html#nrgpy.common.enums.LoggerType">[docs]</a><span class="k">class</span> <span class="nc">LoggerType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum for supported logger types&quot;&quot;&quot;</span>
+    <span class="n">LOGR_SOLAR</span> <span class="o">=</span> <span class="s2">&quot;LOGR-SOLAR&quot;</span>
+    <span class="n">LOGR_MET</span> <span class="o">=</span> <span class="s2">&quot;LOGR-MET&quot;</span>
+    <span class="n">SYMPRO</span> <span class="o">=</span> <span class="s2">&quot;SYMPRO&quot;</span>
+    <span class="n">SYMPLUS</span> <span class="o">=</span> <span class="s2">&quot;SYMPLUS&quot;</span>
+    <span class="n">SYMPLUS_3</span> <span class="o">=</span> <span class="s2">&quot;SYMPLUS-3&quot;</span>
+    <span class="n">SYMCLASSIC</span> <span class="o">=</span> <span class="s2">&quot;SYMCLASSIC&quot;</span></div>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    filename : str</span>
-<span class="sd">        (optional) path of file to convert</span>
-<span class="sd">    input_directory : str</span>
-<span class="sd">        (optional) path of directory with files to convert</span>
-<span class="sd">    output_directory : str</span>
-<span class="sd">        (optional) path of directory store converted files in</span>
-<span class="sd">    inplace : bool</span>
-<span class="sd">        (False) if true, overwrites filename provided</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    None</span>
-
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-
-<span class="sd">    convert single file</span>
-
-<span class="sd">    &gt;&gt;&gt; import nrgpy</span>
-<span class="sd">    &gt;&gt;&gt; filename = &quot;/path/to/files/file.zip&quot;</span>
-<span class="sd">    &gt;&gt;&gt; nrgpy.convert_utf16le_to_utf8(filename)</span>
-
-<span class="sd">    convert directory of files</span>
-
-<span class="sd">    &gt;&gt;&gt; input_directory = &quot;/path/to/files/&quot;</span>
-<span class="sd">    &gt;&gt;&gt; nrgpy.convert_utf16le_to_utf8(input_directory=input_directory)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">input_directory</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">output_directory</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">):</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input_directory</span> <span class="o">=</span> <span class="n">input_directory</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_directory</span> <span class="o">=</span> <span class="n">output_directory</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inplace</span> <span class="o">=</span> <span class="n">inplace</span>
-
-        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">single_file</span><span class="p">()</span>
-
-        <span class="k">elif</span> <span class="n">input_directory</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-                <span class="p">[</span>
-                    <span class="n">f</span>
-                    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_directory</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="s2">&quot;avgwnd&quot;</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;rawwnd&quot;</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-                <span class="p">]</span>
-            <span class="p">)</span>
-
-            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_directory</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">single_file</span><span class="p">()</span>
-
-<div class="viewcode-block" id="convert_utf16le_to_utf8.single_file"><a class="viewcode-back" href="../../../nrgpy.utils.encodings.html#nrgpy.utils.encodings.convert_utf16le_to_utf8.single_file">[docs]</a>    <span class="k">def</span> <span class="nf">single_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inplace</span><span class="p">:</span>
-            <span class="n">out_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">,</span> <span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">out_file</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_utf8.&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">,</span> <span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_directory</span><span class="p">:</span>
-            <span class="n">out_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_directory</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">out_file</span><span class="p">))</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">infile</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF_16_LE&quot;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="p">)</span>
-            <span class="n">infile</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF_8&quot;</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
-            <span class="k">pass</span></div></div>
+<div class="viewcode-block" id="LoggerModel"><a class="viewcode-back" href="../../../nrgpy.common.html#nrgpy.common.enums.LoggerModel">[docs]</a><span class="k">class</span> <span class="nc">LoggerModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum for supported logger models&quot;&quot;&quot;</span>
+    <span class="n">LOGR_SOLAR</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;9431&quot;</span><span class="p">,</span> <span class="s2">&quot;9432&quot;</span><span class="p">)</span>
+    <span class="n">LOGR_MET</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;9458&quot;</span><span class="p">,</span> <span class="s2">&quot;9459&quot;</span><span class="p">,</span> <span class="s2">&quot;9460&quot;</span><span class="p">)</span>
+    <span class="n">SYMPRO</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;8206&quot;</span><span class="p">)</span>
+    <span class="n">SYMPLUS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;4280&quot;</span><span class="p">)</span>
+    <span class="n">SYMPLUS_3</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;4941&quot;</span><span class="p">)</span>
+    <span class="n">SYMCLASSIC</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;3090&quot;</span><span class="p">,</span> <span class="s2">&quot;3526&quot;</span><span class="p">)</span></div>
 </pre></div>
 
                 </article>

@@ -9,6 +9,7 @@ Subpackages
 
    nrgpy.api
    nrgpy.cloud_api
+   nrgpy.common
    nrgpy.convert
    nrgpy.quality
    nrgpy.read
