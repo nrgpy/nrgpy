@@ -2,13 +2,15 @@ try:
     from nrgpy import logger
 except ImportError:
     pass
-from nrgpy import token_file
 import base64
 from datetime import datetime, timedelta
+import importlib
 from importlib.metadata import version
 import json
+from nrgpy import token_file
 from packaging.version import parse as parse_version
 import pickle
+import re
 import requests
 import sys
 import traceback
@@ -68,8 +70,11 @@ class CloudApi(object):
         logger.debug(f"cloud base: {url_base}")
         self.client_id = client_id
         self.client_secret = client_secret
-        self.user_agent = f"nrgpy-{version('nrgpy')}"
-        self.python_version = sys.version
+        try:
+            self.user_agent = f"nrgpy-{version('nrgpy')}"
+        except importlib.metadata.PackageNotFoundError:
+            self.user_agent = "nrgpy"
+        self.python_version = re.split(r"[ \n\t]", sys.version)[0]
         self.token_file_name = token_file + "_" + self.client_id[:10]
         self.url_base = url_base
         self.token_url = url_base + token_url

@@ -7,6 +7,7 @@ from glob import glob
 import os
 import re
 import pandas as pd
+from nrgpy.common.enums import LoggerModel
 from nrgpy.utils.utilities import (
     check_platform,
     locate_text_in_df_column,
@@ -107,8 +108,8 @@ class LogrRead:
         self.site_info = self.site_info.iloc[
             : self.site_info.loc[self.site_info[0] == "Data"].index.tolist()[0] + 1
         ]
-        self.create_data_df(header_len)
         self.format_site_data()
+        self.create_data_df(header_len)
         if str(self.filename).lower().endswith("dat"):
             self.arrange_ch_info()
 
@@ -119,14 +120,10 @@ class LogrRead:
             self.timestamp_col = "Timestamp"
 
     def create_data_df(self, header_len: int) -> None:
-        suffix = str(self.filename).lower().split(".")[-1]
-        if suffix == "log":
+        self.suffix = str(self.filename).lower().split(".")[-1]
+        if self.suffix == "log":
             try:
-                with open(self.filename) as fd:
-                    data_reader = fd.readlines() 
-                    data_sample_row=[row for idx, row in enumerate(data_reader) if idx==header_len+1]
-                comma_count = len(re.findall('(?=(,))', data_sample_row[0]))
-                if (comma_count + 1) == len(logr_log_columns):
+                if self.logger_model in LoggerModel.LOGR_SOLAR.value:
                     self.data = pd.read_csv(
                         self.filename,
                         names=logr_log_columns,
@@ -146,7 +143,7 @@ class LogrRead:
                 self.first_timestamp = self.data.iloc[0][self.timestamp_col]
             except IndexError:
                 pass
-        elif suffix == "diag":
+        elif self.suffix == "diag":
             try:
                 self.data = pd.read_csv(
                     self.filename,
@@ -449,12 +446,12 @@ class LogrRead:
                 first_file = False
 
                 try:
-                    base = LogrRead(
+                    self.base = LogrRead(
                         f,
                         text_timestamps=self.text_timestamps,
                         logger_local_time=self.logger_local_time,
                     )
-                    self.timestamp_col = base.timestamp_col
+                    self.timestamp_col = self.base.timestamp_col
                     if not progress_bar:
                         print("[OK]")
                     self.dat_file_names.append(os.path.basename(f))
@@ -474,12 +471,12 @@ class LogrRead:
                         text_timestamps=self.text_timestamps,
                         logger_local_time=self.logger_local_time,
                     )
-                    base.data = pd.concat(
-                        [base.data, s.data], ignore_index=True, axis=0, join="outer"
+                    self.base.data = pd.concat(
+                        [self.base.data, s.data], ignore_index=True, axis=0, join="outer"
                     )
                     if not str(s.filename).lower().endswith(("log", "diag")):
-                        base.ch_info = pd.concat(
-                            [base.ch_info, s.ch_info],
+                        self.base.ch_info = pd.concat(
+                            [self.base.ch_info, s.ch_info],
                             ignore_index=True,
                             axis=0,
                             join="outer",
@@ -498,7 +495,7 @@ class LogrRead:
 
             self.counter += 1
 
-        self.data = base.data.copy()
+        self.data = self.base.data.copy()
 
         if out_file != "":
             self.out_file = out_file
@@ -507,17 +504,18 @@ class LogrRead:
             if str(self.dat_file_names[-1]).lower().endswith("dat"):
                 self.ch_info = s.ch_info
                 self.ch_list = s.ch_list
+                self.site_info = s.site_info
                 self.array = s.array
 
                 self.data.reset_index(drop=True, inplace=True)
-                base.ch_info["ch"] = base.ch_info["Channel:"].astype(int)
+                self.base.ch_info["ch"] = self.base.ch_info["Channel:"].astype(int)
 
                 try:
                     self.ch_info = (
-                        base.ch_info.sort_values(by=["ch"])
+                        self.base.ch_info.sort_values(by=["ch"])
                         .drop_duplicates(
                             subset=[
-                                col for col in self.array if col in base.ch_info.columns
+                                col for col in self.array if col in self.base.ch_info.columns
                             ],
                             ignore_index=True,
                         )
@@ -525,6 +523,8 @@ class LogrRead:
                     )
                 except Exception:
                     logger.exception("could not sort ch_info")
+            else:
+                self.site_info = self.base.site_info
 
             if drop_duplicates:
                 logger.info("Dropping duplicate timestamps")
@@ -532,11 +532,10 @@ class LogrRead:
                     subset=[self.timestamp_col], keep="first"
                 )
             else:
-                self.data = base.data
+                self.data = self.base.data
             self.data.reset_index(drop=True, inplace=True)
 
-            self.first_timestamp = base.first_timestamp
-            self.site_info = s.site_info
+            self.first_timestamp = self.base.first_timestamp
             self.format_site_data()
             print("\n")
             logger.info(f"Concatenation of {len(self.data)} rows complete")

@@ -16,7 +16,7 @@ class TestLogrRead:
         ), f"Dataframe length {len(reader.data)} is not 180"
 
     def test_logr_concat_9432_returns(self, test_file_directory):
-        """Check that LOGR|SOLAR (model 9432) dat files are ingested by nrgpy.logr_read"""
+        """Check that LOGR-SOLAR (model 9432) dat files are ingested by nrgpy.logr_read"""
         reader = LogrRead()
         reader.concat_txt(dat_dir=str(test_file_directory), file_filter="000304")
 
@@ -27,7 +27,7 @@ class TestLogrRead:
         assert len(reader.ch_info) > 1, "Expected channel info to be populated"
 
     def test_logr_read_9432_log_returns(self, test_file_directory):
-        """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
+        """Check that LOGR-SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
         filename = str(test_file_directory / "20240111_1339_000304_002995.log")
         reader = LogrRead(filename, drop_duplicates=False)
 
@@ -37,7 +37,7 @@ class TestLogrRead:
         assert len(reader.data) == 1, f"Dataframe length {len(reader.data)} is not 1"
 
     def test_logr_concat_9432_log_returns(self, test_file_directory):
-        """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
+        """Check that LOGR-SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
         reader = LogrRead()
         reader.concat_txt(
             dat_dir=str(test_file_directory),
@@ -51,8 +51,23 @@ class TestLogrRead:
         ), f"Expected site description {reader.site_description} to be 'Crows Nest Counters'"
         assert len(reader.data) == 3, f"Dataframe length {len(reader.data)} is not 3"
 
+    def test_logr_concat_9460_log_returns(self, test_file_directory):
+        """Check that LOGR-MET (model 9460) log files are ingested by nrgpy.logr_read"""
+        reader = LogrRead()
+        reader.concat_txt(
+            dat_dir=str(test_file_directory),
+            file_type="log",
+            file_filter="_9460_",
+            drop_duplicates=False,
+        )
+
+        assert (
+            reader.site_description == "Sys_WRA_60m"
+        ), f"Expected site description {reader.site_description} to be 'Sys_WRA_60m'"
+        assert len(reader.data) == 21, f"Dataframe length {len(reader.data)} is not 21"
+
     def test_logr_read_9432_diag_returns(self, test_file_directory):
-        """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
+        """Check that LOGR-SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
         filename = str(test_file_directory / "20240111_1339_000304_002995.diag")
         reader = LogrRead(filename, drop_duplicates=False)
 
@@ -62,7 +77,7 @@ class TestLogrRead:
         assert len(reader.data) == 2, f"Dataframe length {len(reader.data)} is not 2"
 
     def test_logr_concat_9432_diag_returns(self, test_file_directory):
-        """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
+        """Check that LOGR-SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
         reader = LogrRead()
         reader.concat_txt(
             dat_dir=str(test_file_directory),
@@ -77,7 +92,7 @@ class TestLogrRead:
         assert len(reader.data) == 41, f"Dataframe length {len(reader.data)} is not 41"
 
     def test_logr_output_txt_generates_file(self, test_file_directory):
-        """Check that LOGR|SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
+        """Check that LOGR-SOLAR (model 9432) log files are ingested by nrgpy.logr_read"""
         reader = LogrRead()
         reader.concat_txt(
             dat_dir=str(test_file_directory),
