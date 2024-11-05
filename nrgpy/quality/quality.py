@@ -233,7 +233,13 @@ def select_interval_length(df: pd.DataFrame, seconds: bool = True) -> Union[int,
     formatter = "%Y-%m-%d %H:%M:%S"
     interval = []
 
-    for i in range(5):
+    if len(df["Timestamp"]) < 3:
+        raise ValueError("Insufficient number of timestamps for select_interval_length") 
+
+    range_size = min(5, len(df["Timestamp"])-1)
+    
+
+    for i in range(range_size):
         try:
             interval.append(
                 int(
