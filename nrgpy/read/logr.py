@@ -109,7 +109,7 @@ class LogrRead:
             : self.site_info.loc[self.site_info[0] == "Data"].index.tolist()[0] + 1
         ]
         self.format_site_data()
-        self.create_data_df(header_len)
+        self.create_data_df_wrapper(header_len)
         if str(self.filename).lower().endswith("dat"):
             self.arrange_ch_info()
 
@@ -118,6 +118,47 @@ class LogrRead:
             self.timestamp_col = "Stats_Timestamp"
         else:
             self.timestamp_col = "Timestamp"
+
+    def create_data_df_wrapper(self, header_len: int) -> None:
+        self.suffix = str(self.filename).lower().split(".")[-1]
+        if self.suffix == "log":
+            try:
+                self.create_data_df(header_len)
+            except:
+                try:
+                   old_file_name = self.filename
+                   new_file_name = self.filename[:-4] + "_modified.log"
+                   if os.path.exists(new_file_name):
+                       os.remove(new_file_name)
+                   self.filename = new_file_name
+    
+                   file_line_num = 0
+                   expected_number_columns = len(logr_log_columns)
+                   with open(old_file_name) as in_file, open(self.filename, "w") as out_file:
+                       for line in in_file:
+                           if file_line_num > header_len and line.count("\t") >= expected_number_columns:
+                               split_line = line.split("\t")
+                               new_line = ""
+                               for col_count, col_str in enumerate(split_line):
+                                   if col_count < expected_number_columns - 1:
+                                       new_line = new_line + col_str + "\t"
+                                   else:
+                                       new_line = new_line + col_str + " "
+                               new_line = new_line[:-1]
+                           else:
+                               new_line = line
+                           out_file.write(line.replace(line, new_line))
+                           
+                           file_line_num = file_line_num + 1
+                   # Try to create data_df again
+                   self.create_data_df(header_len)
+                except:
+                    pass
+                    
+            
+        else:
+            self.create_data_df(header_len)
+
 
     def create_data_df(self, header_len: int) -> None:
         self.suffix = str(self.filename).lower().split(".")[-1]
@@ -470,7 +511,7 @@ class LogrRead:
                         f,
                         text_timestamps=self.text_timestamps,
                         logger_local_time=self.logger_local_time,
-                    )
+                    )  
                     self.base.data = pd.concat(
                         [self.base.data, s.data], ignore_index=True, axis=0, join="outer"
                     )
