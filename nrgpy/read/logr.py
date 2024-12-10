@@ -427,6 +427,7 @@ class LogrRead:
         self.failed_files = []
 
         logger.info(f"Concatenating {self.file_count} files...")
+        logger.info(f"Files are {files}")
 
         for f in files:
             if progress_bar:
