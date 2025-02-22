@@ -96,20 +96,20 @@ class read_text_data(object):
 
         for row in self.site_info.iterrows():
             if (
-                row[1][0] == self.ch_info_array[0] and ch_details == 0
+                row.iloc[1][0] == self.ch_info_array[0] and ch_details == 0
             ):  # start channel data read
                 ch_details = 1
-                ch_data[row[1][0]] = row[1][1]
+                ch_data[row.iloc[1][0]] = row.iloc[1][1]
 
             elif (
-                row[1][0] == self.ch_info_array[0] and ch_details == 1
+                row.iloc[1][0] == self.ch_info_array[0] and ch_details == 1
             ):  # close channel, start new data read
                 ch_list.append(ch_data)
                 ch_data = {}
-                ch_data[row[1][0]] = row[1][1]
+                ch_data[row.iloc[1][0]] = row.iloc[1][1]
 
-            elif str(row[1][0]) in str(self.ch_info_array):
-                ch_data[row[1][0]] = row[1][1]
+            elif str(row.iloc[1][0]) in str(self.ch_info_array):
+                ch_data[row.iloc[1][0]] = row.iloc[1][1]
 
         ch_list.append(ch_data)  # last channel's data
 
