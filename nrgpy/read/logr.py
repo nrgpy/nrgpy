@@ -17,6 +17,7 @@ from nrgpy.utils.utilities import (
     string_date_check,
     renamer,
 )
+from typing import List
 
 
 class LogrRead:
@@ -309,6 +310,7 @@ class LogrRead:
         out_file: str = "",
         progress_bar: bool = True,
         drop_duplicates: bool = True,
+        file_list: List[str] = None,
         **kwargs,
     ):
         """Will concatenate all text files in the dat_dir
@@ -339,6 +341,8 @@ class LogrRead:
             show bar on concat [True] or list of files [False]
         drop_duplicates : bool
             drop duplicate timestamps [True] or leave duplicates [False]
+        file_list : List[str], optional
+            Additional list of files to concatenate. These will be added to any files found through directory filtering.
 
         Returns
         -------
@@ -423,6 +427,14 @@ class LogrRead:
         first_file = True
 
         files = self.get_filtered_file_list()
+        
+        if file_list is not None:
+            valid_files = [f for f in file_list if os.path.exists(f)]
+            if valid_files:  
+                files.extend(valid_files)
+                files = sorted(set(files))
+            else:
+                logger.warning("No valid files found in provided file_list")
 
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
