@@ -452,26 +452,21 @@ class LogrRead:
             self.dat_dir = linux_folder_path(dat_dir)
 
         first_file = True
-
-        # Get all files in directory
         all_files = [
             os.path.join(self.dat_dir, f)
             for f in sorted(os.listdir(self.dat_dir))
         ]
 
-        # Apply file_list filter if provided
         if file_list is not None:
             valid_files = [f for f in file_list if os.path.exists(f)]
             if not valid_files:
                 logger.warning("No valid files found in provided file_list")
                 files = []
             else:
-                # Only keep files that are in both all_files and file_list
                 files = [f for f in all_files if f in valid_files]
         else:
             files = all_files
 
-        # Apply remaining filters
         files = self.get_filtered_file_list(files)
 
         self.file_count = len(files)
@@ -515,7 +510,6 @@ class LogrRead:
                 except Exception:
                     if not progress_bar:
                         print("[FAILED]")
-                    # print("could not concat {0}".format(os.path.basename(f)))
                     logger.exception("could not concat {0}".format(os.path.basename(f)))
                     break
             else:
