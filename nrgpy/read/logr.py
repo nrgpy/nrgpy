@@ -479,13 +479,7 @@ class LogrRead:
         else:
             files = all_files
 
-        print(f"files: {files[0:2]}")
-        print (f"number of files: {len(files)}")
-
         files = self.get_filtered_file_list(files)
-
-        print(f"files: {files[0:2]}")
-        print (f"number of files: {len(files)}")
 
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
@@ -493,12 +487,9 @@ class LogrRead:
         self.start_time = datetime.now()
         self.failed_files = []
 
-        print(f"Concatenating {self.file_count} files...")
-        
         logger.info(f"Concatenating {self.file_count} files...")
 
         for f in files:
-            print(f"Processing file {f}...")
             if progress_bar:
                 draw_progress_bar(self.counter, self.file_count, self.start_time)
             else:
