@@ -86,13 +86,13 @@ class LogrRead:
     def process_file(self) -> None:
         i = 0
         self.set_timestamp_col()
-        with open(self.filename) as infile:
+        with open(self.filename, encoding='iso-8859-1') as infile:
             for line in infile:
                 if line == "Data\n":
                     break
                 else:
                     i = i + 1
-        with open(self.filename) as myfile:
+        with open(self.filename, encoding='iso-8859-1') as myfile:
             self.head = "".join([myfile.readline() for _ in range(2)])
 
         header_len = i + 1
@@ -105,6 +105,7 @@ class LogrRead:
             nrows=read_len,
             usecols=[0, 1],
             header=None,
+            encoding='iso-8859-1'
         )
         self.site_info = self.site_info.iloc[
             : self.site_info.loc[self.site_info[0] == "Data"].index.tolist()[0] + 1
@@ -311,7 +312,7 @@ class LogrRead:
                 if self.file_filter in f
                 and self.filter2 in f
                 and self.file_type in f
-                and string_date_check(self.start_date, self.end_date, f)
+                and string_date_check(self.start_date, self.end_date, os.path.basename(f))
             ]
         else:
             files = [
@@ -478,7 +479,13 @@ class LogrRead:
         else:
             files = all_files
 
+        print(f"files: {files[0:2]}")
+        print (f"number of files: {len(files)}")
+
         files = self.get_filtered_file_list(files)
+
+        print(f"files: {files[0:2]}")
+        print (f"number of files: {len(files)}")
 
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
@@ -486,9 +493,12 @@ class LogrRead:
         self.start_time = datetime.now()
         self.failed_files = []
 
+        print(f"Concatenating {self.file_count} files...")
+        
         logger.info(f"Concatenating {self.file_count} files...")
 
         for f in files:
+            print(f"Processing file {f}...")
             if progress_bar:
                 draw_progress_bar(self.counter, self.file_count, self.start_time)
             else:
@@ -521,6 +531,7 @@ class LogrRead:
                 except Exception:
                     if not progress_bar:
                         print("[FAILED]")
+                    print(f"could not concat {os.path.basename(f)}")
                     logger.exception("could not concat {0}".format(os.path.basename(f)))
                     break
             else:
