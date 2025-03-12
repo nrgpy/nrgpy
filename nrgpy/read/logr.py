@@ -369,7 +369,7 @@ class LogrRead:
         drop_duplicates : bool
             drop duplicate timestamps [True] or leave duplicates [False]
         file_list : List[str], optional
-            Initial list of files to filter before applying directory filters
+            Initial list of files to filter before applying directory filters. Can be a list of file
 
         Returns
         -------
@@ -452,18 +452,29 @@ class LogrRead:
             self.dat_dir = linux_folder_path(dat_dir)
 
         first_file = True
+
         all_files = [
             os.path.join(self.dat_dir, f)
             for f in sorted(os.listdir(self.dat_dir))
         ]
 
         if file_list is not None:
-            valid_files = [f for f in file_list if os.path.exists(f)]
-            if not valid_files:
+            # Convert file_list to full paths if they're just filenames
+            full_path_list = []
+            for f in file_list:
+                if os.path.dirname(f):  # If file has a directory component
+                    if os.path.exists(f):  # Check if full path exists
+                        full_path_list.append(f)
+                else:  # If just a filename
+                    full_path = os.path.join(self.dat_dir, f)
+                    if os.path.exists(full_path):
+                        full_path_list.append(full_path)
+            
+            if not full_path_list:
                 logger.warning("No valid files found in provided file_list")
                 files = []
             else:
-                files = [f for f in all_files if f in valid_files]
+                files = [f for f in all_files if f in full_path_list]
         else:
             files = all_files
 
