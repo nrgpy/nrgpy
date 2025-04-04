@@ -185,7 +185,7 @@ class CloudExportJob(CloudExport):
             print(f"created export job {self.job_id} for site {self.site_id}")
         except Exception:
             log.exception(
-                f"unable to create export job for {self.site_id}, {self.start_date}, {self.end_date}" #noqa E501
+                f"unable to create export job for {self.site_id}, {self.start_date}, {self.end_date}"  # noqa E501
             )
 
     def check_export_job(self) -> None:
@@ -232,7 +232,7 @@ class CloudExportJob(CloudExport):
 
                 sys.stdout.write("\r")
                 sys.stdout.write(
-                    f"job ID {self.job_id} | time elapsed: {(datetime.now() - start).seconds} s | status: {self.json_response['status'].lower()}                           " # noqa E501
+                    f"job ID {self.job_id} | time elapsed: {(datetime.now() - start).seconds} s | status: {self.json_response['status'].lower()}                           "  # noqa E501
                 )
                 time.sleep(0.5)
             if download:
@@ -283,7 +283,7 @@ class CloudExportJob(CloudExport):
 
             log.info(f"job_id {self.job_id} for site_id {self.site_id}")
             log.info(
-                f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes" # noqa E501
+                f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes"  # noqa E501
             )
         elif not is_authorized(self.resp):
             log.error("not authorized to download export job")

@@ -229,7 +229,7 @@ class CloudExport(CloudApi):
 
             log.info(f"export created for site_id {self.site_id}")
             log.info(
-                f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes" # noqa E501
+                f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes"  # noqa E501
             )
 
         else:
@@ -271,8 +271,8 @@ class CloudExport(CloudApi):
                 z.extractall(self.out_dir)
             os.remove(self.filepath)
             self.export_filepath = os.path.normpath(
-                    os.path.join(self.out_dir, self.export_filename)
-                )
+                os.path.join(self.out_dir, self.export_filename)
+            )
 
         else:
             self.export_filepath = os.path.normpath(self.filepath)

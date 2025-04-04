@@ -15,7 +15,7 @@ import time
 
 
 class Local:
-    """nrgpy.convert_rwd.local - use local installation of 
+    """nrgpy.convert_rwd.local - use local installation of
     Symphonie Data Retriever (SDR) to convert *.RWD files to *.TXT
 
     Parameters
@@ -85,19 +85,19 @@ class Local:
 
     def __init__(
         self,
-        rwd_dir: str="",
-        out_dir: str="",
-        filename: str="",
-        encryption_pin: str="",
-        sdr_path: str=r"C:/NRG/SymDR/SDR.exe",
-        convert_type: str="meas",
-        file_filter: str="",
-        wine_folder: str="~/.wine/drive_c/",
-        use_site_file: bool=False,
-        raw_mode: bool=False,
-        progress_bar: bool=True,
-        show_result: bool=True,
-        **kwargs
+        rwd_dir: str = "",
+        out_dir: str = "",
+        filename: str = "",
+        encryption_pin: str = "",
+        sdr_path: str = r"C:/NRG/SymDR/SDR.exe",
+        convert_type: str = "meas",
+        file_filter: str = "",
+        wine_folder: str = "~/.wine/drive_c/",
+        use_site_file: bool = False,
+        raw_mode: bool = False,
+        progress_bar: bool = True,
+        show_result: bool = True,
+        **kwargs,
     ):
 
         if encryption_pin != "":

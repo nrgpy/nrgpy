@@ -62,7 +62,9 @@ class CloudSites(CloudApi):
             log.exception(f"unable to get sites for {self.client_id[:10]}")
             log.debug(self.resp.text)
 
-    def get_siteid(self, site_number: str = "", logger_sn: str = "") -> Union[int, None]:
+    def get_siteid(
+        self, site_number: str = "", logger_sn: str = ""
+    ) -> Union[int, None]:
         """Get NRG Cloud site ID that corresponds to site number and/or logger SN
 
         Parameters
@@ -90,7 +92,7 @@ class CloudSites(CloudApi):
 
             else:
                 log.error(
-                    f"unable to get site matching site number {site_number} or logger serial {logger_sn}" #noqa E501
+                    f"unable to get site matching site number {site_number} or logger serial {logger_sn}"  # noqa E501
                 )
                 print(
                     "No site matches this site number and logger serial number. "
@@ -115,7 +117,7 @@ class CloudSites(CloudApi):
 
             elif len(matching_sites) == 1:
                 log.info(
-                    f"found match for site number {site_number}: siteId {matching_sites[0]['siteId']}" #noqa E501
+                    f"found match for site number {site_number}: siteId {matching_sites[0]['siteId']}"  # noqa E501
                 )
                 return matching_sites[0]["siteId"]
 
@@ -144,7 +146,7 @@ class CloudSites(CloudApi):
 
             elif len(matching_sites) == 1:
                 log.info(
-                    f"found match for serial number {logger_sn}: siteId {matching_sites[0]['siteId']}" #noqa E501
+                    f"found match for serial number {logger_sn}: siteId {matching_sites[0]['siteId']}"  # noqa E501
                 )
                 return matching_sites[0]["siteId"]
 

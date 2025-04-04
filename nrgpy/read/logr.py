@@ -126,7 +126,7 @@ class LogrRead:
                         skiprows=header_len,
                         sep=",",
                         encoding="iso-8859-1",
-                     )
+                    )
                 else:
                     self.data = pd.read_csv(
                         self.filename,
@@ -163,7 +163,9 @@ class LogrRead:
 
     def format_timestamps(self) -> None:
         if not self.text_timestamps:
-            self.data[self.timestamp_col] = pd.to_datetime(self.data[self.timestamp_col])
+            self.data[self.timestamp_col] = pd.to_datetime(
+                self.data[self.timestamp_col]
+            )
         if self.logger_local_time and not self.text_timestamps:
             self.data["TimestampUTC"] = self.data[self.timestamp_col]
             self.data[self.timestamp_col] = self.data["TimestampUTC"] + timedelta(
@@ -276,12 +278,20 @@ class LogrRead:
             self.logger_model = self.logger_type
             self.time_zone = self._site_info["Time Zone"].values[0]
 
-            if "FTP FW Version" in list(self._site_info.keys()) and "Created FW Version" in list(self._site_info.keys()):
+            if "FTP FW Version" in list(
+                self._site_info.keys()
+            ) and "Created FW Version" in list(self._site_info.keys()):
                 self.ftp_fw_version = self._site_info["FTP FW Version"].values[0]
-                self.created_fw_version = self._site_info["Created FW Version"].values[0]
-            elif "Exported FW Version" in list(self._site_info.keys()) and "Created FW Version" in list(self._site_info.keys()):
+                self.created_fw_version = self._site_info["Created FW Version"].values[
+                    0
+                ]
+            elif "Exported FW Version" in list(
+                self._site_info.keys()
+            ) and "Created FW Version" in list(self._site_info.keys()):
                 self.ftp_fw_version = self._site_info["Exported FW Version"].values[0]
-                self.created_fw_version = self._site_info["Created FW Version"].values[0]
+                self.created_fw_version = self._site_info["Created FW Version"].values[
+                    0
+                ]
             elif "FW Version" in list(self._site_info.keys()):
                 self.ftp_fw_version = self._site_info["FW Version"].values[0]
                 self.created_fw_version = None
@@ -475,7 +485,10 @@ class LogrRead:
                         logger_local_time=self.logger_local_time,
                     )
                     self.base.data = pd.concat(
-                        [self.base.data, s.data], ignore_index=True, axis=0, join="outer"
+                        [self.base.data, s.data],
+                        ignore_index=True,
+                        axis=0,
+                        join="outer",
                     )
                     if not str(s.filename).lower().endswith(("log", "diag")):
                         self.base.ch_info = pd.concat(
@@ -518,7 +531,9 @@ class LogrRead:
                         self.base.ch_info.sort_values(by=["ch"])
                         .drop_duplicates(
                             subset=[
-                                col for col in self.array if col in self.base.ch_info.columns
+                                col
+                                for col in self.array
+                                if col in self.base.ch_info.columns
                             ],
                             ignore_index=True,
                         )
@@ -554,7 +569,6 @@ class LogrRead:
 
         if output_txt:
             self.data.to_csv(os.path.join(dat_dir, out_file), sep=",", index=False)
-
 
     def get_filtered_file_list(self) -> list:
         files = [
@@ -804,9 +818,9 @@ def shift_timestamps(
             f = os.path.join(txt_folder, f)
             fut = LogrRead(filename=f)
             fut.format_site_data()
-            fut.data[fut.timestamp_col] = pd.to_datetime(fut.data[fut.timestamp_col]) + timedelta(
-                seconds=seconds
-            )
+            fut.data[fut.timestamp_col] = pd.to_datetime(
+                fut.data[fut.timestamp_col]
+            ) + timedelta(seconds=seconds)
             fut.output_txt_file(
                 shift_timestamps=True, standard=False, out_dir=out_dir, out_file=f
             )

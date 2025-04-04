@@ -16,7 +16,7 @@ import time
 class Local:
     """For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.
 
-    This method uses locally installed SymphoniePRO Desktop software to convert *.rld 
+    This method uses locally installed SymphoniePRO Desktop software to convert *.rld
     files to txt format (tab-delimited-text).
 
     Parameters
@@ -61,17 +61,17 @@ class Local:
 
     def __init__(
         self,
-        rld_dir: str="",
-        out_dir: str="",
-        encryption_pass: str="",
-        hex_key: str="",
-        filename: str="",
-        sympro_path: str=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
-        process_type: str="convert",
-        convert_type: str="meas",
-        nec: str="",
-        site_filter: str="",
-        site_file: str="",
+        rld_dir: str = "",
+        out_dir: str = "",
+        encryption_pass: str = "",
+        hex_key: str = "",
+        filename: str = "",
+        sympro_path: str = r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
+        process_type: str = "convert",
+        convert_type: str = "meas",
+        nec: str = "",
+        site_filter: str = "",
+        site_file: str = "",
         **kwargs,
     ):
 
