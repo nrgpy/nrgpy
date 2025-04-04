@@ -156,11 +156,14 @@ class LogrRead:
             except IndexError:
                 pass
         else:
-            self.data = pd.read_csv(
-                self.filename, skiprows=header_len, sep="\t", encoding="iso-8859-1"
-            )
-            self.format_timestamps()
-            self.first_timestamp = self.data.iloc[0][self.timestamp_col]
+            try:
+                self.data = pd.read_csv(
+                    self.filename, skiprows=header_len, sep="\t", encoding="iso-8859-1"
+                )
+                self.format_timestamps()
+                self.first_timestamp = self.data.iloc[0][self.timestamp_col]
+            except IndexError:
+                pass
 
     def format_timestamps(self) -> None:
         if not self.text_timestamps:
