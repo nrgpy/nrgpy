@@ -15,4 +15,4 @@ class TestSymproTxtRead:
         reader.concat_txt(txt_dir=directory, file_filter=file_filter)
         # Assert
         assert reader.site_number == "004310"
-        assert len(reader.data) == 1
+        assert len(reader.data) == 850

@@ -1,11 +1,8 @@
-try:
-    from nrgpy import log
-except ImportError:
-    pass
 from datetime import datetime
 import json
+from nrgpy.common.log import log
+from nrgpy.cloud_api.auth import CloudApi, cloud_url_base, is_authorized
 from nrgpy.utils.utilities import string_date_check, draw_progress_bar
-from .auth import CloudApi, cloud_url_base, is_authorized
 import os
 import requests
 

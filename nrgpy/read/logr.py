@@ -1,13 +1,9 @@
-try:
-    from nrgpy import log
-except ImportError:
-    pass
 from datetime import datetime, timedelta
 from glob import glob
 import os
-import re
 import pandas as pd
 from nrgpy.common.enums import LoggerModel
+from nrgpy.common.log import log
 from nrgpy.utils.utilities import (
     check_platform,
     locate_text_in_df_column,
