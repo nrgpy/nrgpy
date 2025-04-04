@@ -152,11 +152,14 @@ class LogrRead:
             except IndexError:
                 pass
         else:
-            self.data = pd.read_csv(
-                self.filename, skiprows=header_len, sep="\t", encoding="iso-8859-1"
-            )
-            self.format_timestamps()
-            self.first_timestamp = self.data.iloc[0][self.timestamp_col]
+            try:
+                self.data = pd.read_csv(
+                    self.filename, skiprows=header_len, sep="\t", encoding="iso-8859-1"
+                )
+                self.format_timestamps()
+                self.first_timestamp = self.data.iloc[0][self.timestamp_col]
+            except IndexError:
+                pass
 
     def format_timestamps(self) -> None:
         if not self.text_timestamps:
@@ -273,15 +276,19 @@ class LogrRead:
             self.logger_model = self.logger_type
             self.time_zone = self._site_info["Time Zone"].values[0]
 
-            try:
+            if "FTP FW Version" in list(self._site_info.keys()) and "Created FW Version" in list(self._site_info.keys()):
                 self.ftp_fw_version = self._site_info["FTP FW Version"].values[0]
-                self.created_fw_version = self._site_info["Created FW Version"].values[
-                    0
-                ]
-            except KeyError:
+                self.created_fw_version = self._site_info["Created FW Version"].values[0]
+            elif "Exported FW Version" in list(self._site_info.keys()) and "Created FW Version" in list(self._site_info.keys()):
+                self.ftp_fw_version = self._site_info["Exported FW Version"].values[0]
+                self.created_fw_version = self._site_info["Created FW Version"].values[0]
+            elif "FW Version" in list(self._site_info.keys()):
                 self.ftp_fw_version = self._site_info["FW Version"].values[0]
                 self.created_fw_version = None
-            # self.ch_info.drop(columns=['Channel'], inplace=True)
+            else:
+                self.ftp_fw_version = "UNKNOWN"
+                self.created_fw_version = None
+        # self.ch_info.drop(columns=['Channel'], inplace=True)
 
         except Exception as e:
             self.e = e
