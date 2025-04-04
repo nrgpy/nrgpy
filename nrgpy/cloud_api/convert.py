@@ -1,16 +1,13 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
+from nrgpy.common.log import log
 from datetime import datetime
 from nrgpy.utils.utilities import affirm_directory, string_date_check, draw_progress_bar
-from .auth import cloud_api, cloud_url_base, is_authorized
+from .auth import CloudApi, cloud_url_base, is_authorized
 import os
 import requests
 import zipfile
 
 
-class CloudConvert(cloud_api):
+class CloudConvert(CloudApi):
     """Uses NRG hosted web-based API to convert RLD and RWD files to text format
     To sign up for the service, go to https://cloud.nrgsystems.com/.
 
@@ -253,13 +250,13 @@ class CloudConvert(cloud_api):
                 if self.progress_bar is False:
                     print("[DONE]")
 
-                logger.info(f"converted {os.path.basename(self.export_filepath)} OK")
+                log.info(f"converted {os.path.basename(self.export_filepath)} OK")
 
             elif self.resp.status_code == 401:
                 pass
 
             else:
-                logger.error(
+                log.error(
                     f"unable to convert {os.path.basename(self.export_filepath)}: FAILED"
                 )
                 print("\nunable to process file: {0}".format(rld))
@@ -270,10 +267,9 @@ class CloudConvert(cloud_api):
             if self.progress_bar is False:
                 print("[FAILED]")
 
-            logger.error(
+            log.exception(
                 f"unable to convert {os.path.basename(self.export_filepath)}: FAILED"
             )
-            logger.debug(e)
             print("unable to process file: {0}".format(rld))
             print(e)
             pass

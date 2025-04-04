@@ -1,13 +1,9 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
+from nrgpy.common.log import log
 from datetime import datetime
 from nrgpy.utils.utilities import affirm_directory
 from .auth import nrg_api, export_url
 import os
 import requests
-import traceback
 import zipfile
 
 
@@ -131,14 +127,14 @@ class nrg_api_export(nrg_api):
             "necfilebytes": self.encoded_nec_bytes,
         }
 
-        logger.debug(self.data)
+        log.debug(self.data)
 
         self.request_time = datetime.now()
         self.resp = requests.post(data=self.data, url=export_url, headers=self.headers)
         self.request_duration = datetime.now() - self.request_time
 
-        logger.debug(self.resp)
-        logger.debug(self.request_duration)
+        log.debug(self.resp)
+        log.debug(self.request_duration)
 
         try:
 
@@ -187,18 +183,17 @@ class nrg_api_export(nrg_api):
                 del self.data["necfilebytes"]
                 self.data["nec_file"] = self.nec_file
                 reader.post_json = self.data
-                logger.info(f"export created")
-                logger.info(f"export took {self.request_duration}")
+                log.info("export created")
+                log.info(f"export took {self.request_duration}")
 
                 return reader
 
             else:
 
-                logger.error(f"export not created")
-                logger.debug(traceback.format_exc())
+                log.exception("export not created")
 
                 return False
 
-        except:
+        except Exception:
 
-            logger.debug(traceback.format_exc())
+            log.exception("export failed")

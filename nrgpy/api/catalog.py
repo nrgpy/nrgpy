@@ -1,7 +1,3 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
 from datetime import datetime
 import json
 from .auth import nrg_api, data_catalog_url

@@ -1,23 +1,19 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
 from datetime import datetime
 import json
 from nrgpy.utils.utilities import (
     draw_progress_bar,
 )
-from .auth import cloud_url_base, is_authorized
-from .export import cloud_export
+from nrgpy.cloud_api.auth import cloud_url_base, is_authorized
+from nrgpy.cloud_api.export import CloudExport
+from nrgpy.common.log import log
 import os
 import requests
 import sys
 import time
-import traceback
 import zipfile
 
 
-class CloudExportJob(cloud_export):
+class CloudExportJob(CloudExport):
     """Uses NRG hosted web-based API to download data in text format as an export job
     To sign up for the service, go to https://cloud.nrgsystems.com
 
@@ -170,29 +166,27 @@ class CloudExportJob(cloud_export):
         self.request_time = datetime.now()
         self.export_request_time = datetime.now()
 
-        logger.debug(f"creating export job for site {self.site_id}")
+        log.debug(f"creating export job for site {self.site_id}")
         try:
             self.resp = requests.post(
                 json=self.data, url=self.create_export_job_url, headers=self.headers
             )
         except Exception:
-            logger.debug(f"{traceback.format_exc()}")
-            return False
+            log.exception("failed to create export job")
         self.request_duration = datetime.now() - self.request_time
         if not is_authorized(self.resp):
-            return False
+            log.error("not authorized to create export job")
+            return
 
         try:
             self.json_response = json.loads(self.resp.content)
             self.job_id = self.json_response["jobId"]
-            logger.info(f"created export job {self.job_id} for site {self.site_id}")
+            log.info(f"created export job {self.job_id} for site {self.site_id}")
             print(f"created export job {self.job_id} for site {self.site_id}")
         except Exception:
-            logger.error(
+            log.exception(
                 f"unable to create export job for {self.site_id}, {self.start_date}, {self.end_date}" #noqa E501
             )
-            logger.debug(traceback.format_exc())
-            return False
 
     def check_export_job(self) -> None:
         """Checks the status of an export job
@@ -209,14 +203,13 @@ class CloudExportJob(cloud_export):
             self.status = self.json_response["status"]
 
         elif not is_authorized(self.resp):
-            return False
+            log.error("not authorized to check export job")
         else:
-            logger.error(f"could not get status for {self.job_id}")
-            logger.debug(f"{self.resp.status_code} | {self.resp.reason}")
-            logger.debug(self.resp.text.split(":")[1].split('"')[1])
+            log.error(f"could not get status for {self.job_id}")
+            log.debug(f"{self.resp.status_code} | {self.resp.reason}")
+            log.debug(self.resp.text.split(":")[1].split('"')[1])
             print(str(self.resp.status_code) + " | " + self.resp.reason)
             print(self.resp.text.split(":")[1].split('"')[1])
-            return False
 
     def monitor_export_job(self, download: bool = False) -> None:
         """Monitor the status of an export job
@@ -245,14 +238,14 @@ class CloudExportJob(cloud_export):
             if download:
                 if self.json_response["status"].lower() == "completed":
                     print(f"\nDownloading export job {self.job_id}")
-                    logger.info(f"\nDownloading export job {self.job_id}")
+                    log.info(f"\nDownloading export job {self.job_id}")
                     self.download_export()
                 else:
                     print("Unable to download export job")
-                    logger.error("Unable to download export job")
+                    log.error("Unable to download export job")
         except KeyboardInterrupt:
             print("Keyboard Interrupt detected: stopping monitoring")
-            logger.info("Keyboard Interrupt detected: stopping monitoring")
+            log.info("Keyboard Interrupt detected: stopping monitoring")
 
     def download_export(self) -> None:
         self.request_time = datetime.now()
@@ -288,19 +281,18 @@ class CloudExportJob(cloud_export):
                 self.export_filepath = os.path.normpath(self.filepath)
                 self.export_filename = self.zip_file
 
-            logger.info(f"job_id {self.job_id} for site_id {self.site_id}")
-            logger.info(
+            log.info(f"job_id {self.job_id} for site_id {self.site_id}")
+            log.info(
                 f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes" # noqa E501
             )
         elif not is_authorized(self.resp):
-            return False
+            log.error("not authorized to download export job")
         else:
-            logger.error(f"could not get status for {self.job_id}")
-            logger.debug(f"{self.resp.status_code} | {self.resp.reason}")
-            logger.debug(self.resp.text.split(":")[1].split('"')[1])
+            log.error(f"could not get status for {self.job_id}")
+            log.debug(f"{self.resp.status_code} | {self.resp.reason}")
+            log.debug(self.resp.text.split(":")[1].split('"')[1])
             print(str(self.resp.status_code) + " | " + self.resp.reason)
             print(self.resp.text.split(":")[1].split('"')[1])
-            return False
 
 
 export_job = CloudExportJob

@@ -1,19 +1,17 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
+from nrgpy.common.log import log
 from datetime import datetime
 from nrgpy.utils.utilities import (
     affirm_directory,
 )
-from .auth import cloud_api, cloud_url_base
-from .sites import cloud_sites
+from nrgpy.cloud_api.auth import CloudApi, cloud_url_base
+from nrgpy.cloud_api.sites import cloud_sites
 import os
 import requests
+from typing import Union
 import zipfile
 
 
-class CloudExport(cloud_api):
+class CloudExport(CloudApi):
     """Uses NRG hosted web-based API to download data in text format
     To sign up for the service, go to https://cloud.nrgsystems.com
 
@@ -116,10 +114,10 @@ class CloudExport(cloud_api):
 
     def __init__(
         self,
+        site_id: int = 0,
+        site_number: Union[int, str] = 0,
         out_dir: str = "",
-        site_id: str = "",
-        site_number: str = "",
-        logger_sn: str = "",
+        logger_sn: Union[int, str] = "",
         start_date: str = "2014-01-01",
         end_date: str = "2030-12-31",
         file_format: str = "singleFile",
@@ -156,7 +154,7 @@ class CloudExport(cloud_api):
             start date/time of data export
             if just date, it will return the whole day
             times are in logger local time
-        file_format : {'singleFile', 'multipleFiles'}, 
+        file_format : {'singleFile', 'multipleFiles'},
             whether tab-delimited text or binary output; use 'multipleFiles' for RLD
         client_id : str
             available in the NRG Cloud portal
@@ -164,11 +162,11 @@ class CloudExport(cloud_api):
             available in the NRG Cloud portal
         nec_file : str, optional
             path to NEC file for custom export formatting
-        export_type : {'measurements', 'diagnostic', 'events', 'communication'}, 
+        export_type : {'measurements', 'diagnostic', 'events', 'communication'},
             default 'measurements';  which type of data to export
-        interval : {'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 
+        interval : {'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute',
             'fifteenMinute', 'thirtyMinute', 'Hour', 'Day'}, optional
-            averaging interval of exported data; must be a multiple of the logger's 
+            averaging interval of exported data; must be a multiple of the logger's
             statistical interval
         concatenate : bool
             [DEPRECATED] (True) set to False to return original CSV files in export
@@ -212,7 +210,7 @@ class CloudExport(cloud_api):
             self.encoded_nec_bytes = ""
             self.encoded_nec_string = ""
 
-    def export(self) -> None:
+    def export(self) -> Union[None, bool]:
         """Export data using the NRG Cloud API."""
 
         self.prepare_post_data()
@@ -229,16 +227,16 @@ class CloudExport(cloud_api):
 
             self.process_zip()
 
-            logger.info(f"export created for site_id {self.site_id}")
-            logger.info(
+            log.info(f"export created for site_id {self.site_id}")
+            log.info(
                 f"export took {self.request_duration} for {os.path.getsize(self.export_filepath)} bytes" # noqa E501
             )
 
         else:
-            logger.error("export not created")
-            logger.debug(f"{self.resp.status_code} | {self.resp.reason}")
+            log.error("export not created")
+            log.debug(f"{self.resp.status_code} | {self.resp.reason}")
             try:
-                logger.debug(self.resp.text.split(":")[1].split('"')[1])
+                log.debug(self.resp.text.split(":")[1].split('"')[1])
             except Exception:
                 pass
             print(str(self.resp.status_code) + " | " + self.resp.reason)
@@ -281,4 +279,4 @@ class CloudExport(cloud_api):
             self.export_filename = self.zip_file
 
 
-cloud_export = CloudExport
+CloudExport = CloudExport

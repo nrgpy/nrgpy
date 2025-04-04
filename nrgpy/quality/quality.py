@@ -1,7 +1,6 @@
 from collections import Counter
 from datetime import datetime
 import math
-import numpy as np
 import pandas as pd
 from typing import Union
 

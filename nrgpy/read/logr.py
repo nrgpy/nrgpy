@@ -1,5 +1,5 @@
 try:
-    from nrgpy import logger
+    from nrgpy import log
 except ImportError:
     pass
 from datetime import datetime, timedelta
@@ -172,7 +172,7 @@ class LogrRead:
             )
         elif self.logger_local_time and self.text_timestamps:
             print("Cannot convert timestamps to local if using text_timestamps==True")
-            logger.error(
+            log.error(
                 "Cannot convert timestamps to local if using text_timestamps==True"
             )
 
@@ -290,7 +290,7 @@ class LogrRead:
         except Exception as e:
             self.e = e
             print("Warning: error processing site_info: {}".format(e))
-            logger.exception(f"Cannot parse site info: {e}")
+            log.exception(f"Cannot parse site info: {e}")
 
     def concat_txt(
         self,
@@ -426,7 +426,7 @@ class LogrRead:
         self.start_time = datetime.now()
         self.failed_files = []
 
-        logger.info(f"Concatenating {self.file_count} files...")
+        log.info(f"Concatenating {self.file_count} files...")
 
         for f in files:
             if progress_bar:
@@ -462,7 +462,7 @@ class LogrRead:
                     if not progress_bar:
                         print("[FAILED]")
                     # print("could not concat {0}".format(os.path.basename(f)))
-                    logger.exception("could not concat {0}".format(os.path.basename(f)))
+                    log.exception("could not concat {0}".format(os.path.basename(f)))
                     break
             else:
                 try:
@@ -486,7 +486,7 @@ class LogrRead:
                     self.dat_file_names.append(os.path.basename(f))
 
                 except Exception:
-                    logger.exception(f"could not concat {os.path.basename(f)}")
+                    log.exception(f"could not concat {os.path.basename(f)}")
                     self.failed_files.append(f)
                     if not progress_bar:
                         print("[FAILED]")
@@ -522,12 +522,12 @@ class LogrRead:
                         .drop(columns=["ch", "Channel"], axis=1, errors="ignore")
                     )
                 except Exception:
-                    logger.exception("could not sort ch_info")
+                    log.exception("could not sort ch_info")
             else:
                 self.site_info = self.base.site_info
 
             if drop_duplicates:
-                logger.info("Dropping duplicate timestamps")
+                log.info("Dropping duplicate timestamps")
                 self.data = self.data.drop_duplicates(
                     subset=[self.timestamp_col], keep="first"
                 )
@@ -538,11 +538,11 @@ class LogrRead:
             self.first_timestamp = self.base.first_timestamp
             self.format_site_data()
             print("\n")
-            logger.info(f"Concatenation of {len(self.data)} rows complete")
+            log.info(f"Concatenation of {len(self.data)} rows complete")
 
         except UnboundLocalError:
             print("No files match to contatenate.")
-            logger.error(f"No files in {self.dat_dir} match to contatenate.")
+            log.error(f"No files in {self.dat_dir} match to contatenate.")
 
         if len(self.failed_files) > 0:
             print(
@@ -604,7 +604,7 @@ class LogrRead:
                             output_name
                         )
                     )
-                    logger.exception(
+                    log.exception(
                         "couldn't rename 'Effective Date:' info in {0}".format(
                             output_name
                         )
@@ -652,7 +652,7 @@ class LogrRead:
                 end="",
                 flush=True,
             )
-            logger.info("\nOutputting file: {0}   ...   ".format(output_name))
+            log.info("\nOutputting file: {0}   ...   ".format(output_name))
 
             try:
                 output_file = open(output_name, "w+", encoding="utf-8")
@@ -688,7 +688,7 @@ class LogrRead:
 
             except Exception:
                 print("[FAILED]")
-                logger.exception(f"Outputting {output_name} failed")
+                log.exception(f"Outputting {output_name} failed")
 
     def insert_blank_header_rows(self, filename: str):
         """insert blank rows when using shift_timestamps()
@@ -811,7 +811,7 @@ def shift_timestamps(
             pass
 
         except Exception:
-            logger.exception(f"unable to shift timestamps in {f}")
+            log.exception(f"unable to shift timestamps in {f}")
 
         counter += 1
 

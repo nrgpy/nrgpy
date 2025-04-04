@@ -1,16 +1,16 @@
 try:
-    from nrgpy import logger
+    from nrgpy import log
 except ImportError:
     pass
 from datetime import datetime
 import json
 from nrgpy.utils.utilities import string_date_check, draw_progress_bar
-from .auth import cloud_api, cloud_url_base, is_authorized
+from .auth import CloudApi, cloud_url_base, is_authorized
 import os
 import requests
 
 
-class CloudImport(cloud_api):
+class CloudImport(CloudApi):
     """Uses NRG hosted web-based API to import RLD and CSV/CSV.zip files to
     existing sites in NRG Cloud.
     To sign up for the service, go to https://cloud.nrgsystems.com/.
@@ -152,7 +152,7 @@ class CloudImport(cloud_api):
         self.counter = 1
 
         if len(self.files) == 0:
-            logger.debug(f"no files to process in {self.in_dir}")
+            log.debug(f"no files to process in {self.in_dir}")
             raise FileNotFoundError(f"no files to process in {self.in_dir}")
 
         for filename in self.files:
@@ -212,25 +212,25 @@ class CloudImport(cloud_api):
                 self.job_ids[os.path.basename(filename)] = json.loads(self.resp.text)[
                     "jobId"
                 ]
-                logger.info(f"imported {os.path.basename(filename)} OK")
-                logger.debug(f"{self.resp.status_code} {self.resp.text}")
+                log.info(f"imported {os.path.basename(filename)} OK")
+                log.debug(f"{self.resp.status_code} {self.resp.text}")
 
             elif self.resp.status_code == 401 or self.resp.status_code == 400:
                 if (
                     "has already been imported"
                     in json.loads(self.resp.text)["apiResponseMessage"]
                 ):
-                    logger.info(self.resp.text)
+                    log.info(self.resp.text)
                     if self.progress_bar is False:
                         print("[ALREADY IMPORTED]")
                 else:
-                    logger.info(f"{os.path.basename(filename)}: {self.resp.text} ")
+                    log.info(f"{os.path.basename(filename)}: {self.resp.text} ")
                     if self.progress_bar is False:
                         print("[PASSED]")
                 pass
 
             else:
-                logger.error(f"unable to import {os.path.basename(filename)}: FAILED")
+                log.error(f"unable to import {os.path.basename(filename)}: FAILED")
                 print(f"\nunable to process file: {filename}")
                 print(f"{str(self.resp.status_code)} | {self.resp.reason}")
                 print(self.resp.text.split(":")[1].split('"')[1])
@@ -239,8 +239,8 @@ class CloudImport(cloud_api):
             if self.progress_bar is False:
                 print("[FAILED]")
 
-            logger.error(f"unable to import {os.path.basename(filename)}: FAILED")
-            logger.debug(e)
+            log.error(f"unable to import {os.path.basename(filename)}: FAILED")
+            log.debug(e)
             print(f"unable to process file: {filename}")
 
 
