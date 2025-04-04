@@ -1,4 +1,3 @@
-from packaging.version import parse as parse_version
 from pytest import MonkeyPatch
 import nrgpy
 from nrgpy.cloud_api import upload
@@ -72,7 +71,7 @@ class TestCloudApis:
         # Act
         # Assert
         try:
-            uploader = nrgpy.CloudImport(client_id="id", client_secret="secret", in_dir="dir")
+            _ = nrgpy.CloudImport(client_id="id", client_secret="secret", in_dir="dir")
             assert False, "expected FileNotFoundError"
         except FileNotFoundError:
             assert True
