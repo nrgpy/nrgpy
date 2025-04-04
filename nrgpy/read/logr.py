@@ -82,13 +82,13 @@ class LogrRead:
     def process_file(self) -> None:
         i = 0
         self.set_timestamp_col()
-        with open(self.filename, encoding='iso-8859-1') as infile:
+        with open(self.filename, encoding="iso-8859-1") as infile:
             for line in infile:
                 if line == "Data\n":
                     break
                 else:
                     i = i + 1
-        with open(self.filename, encoding='iso-8859-1') as myfile:
+        with open(self.filename, encoding="iso-8859-1") as myfile:
             self.head = "".join([myfile.readline() for _ in range(2)])
 
         header_len = i + 1
@@ -101,7 +101,7 @@ class LogrRead:
             nrows=read_len,
             usecols=[0, 1],
             header=None,
-            encoding='iso-8859-1'
+            encoding="iso-8859-1",
         )
         self.site_info = self.site_info.iloc[
             : self.site_info.loc[self.site_info[0] == "Data"].index.tolist()[0] + 1
@@ -309,34 +309,7 @@ class LogrRead:
 
     def get_filtered_file_list(self, pre_filtered_list: List[str] = None) -> list:
         """Get filtered list of files based on filter criteria.
-        
-        Parameters
-        ----------
-        pre_filtered_list : List[str], optional
-            List of files to apply filters to. If None, uses directory contents.
-        """
-        if pre_filtered_list is not None:
-            files = [
-                f for f in pre_filtered_list
-                if self.file_filter in f
-                and self.filter2 in f
-                and self.file_type in f
-                and string_date_check(self.start_date, self.end_date, os.path.basename(f))
-            ]
-        else:
-            files = [
-                os.path.join(self.dat_dir, f)
-                for f in sorted(os.listdir(self.dat_dir))
-                if self.file_filter in f
-                and self.filter2 in f
-                and self.file_type in f
-                and string_date_check(self.start_date, self.end_date, f)
-            ]
-        return files
 
-    def get_filtered_file_list(self, pre_filtered_list: List[str] = None) -> list:
-        """Get filtered list of files based on filter criteria.
-        
         Parameters
         ----------
         pre_filtered_list : List[str], optional
@@ -344,11 +317,14 @@ class LogrRead:
         """
         if pre_filtered_list is not None:
             files = [
-                f for f in pre_filtered_list
+                f
+                for f in pre_filtered_list
                 if self.file_filter in f
                 and self.filter2 in f
                 and self.file_type in f
-                and string_date_check(self.start_date, self.end_date, os.path.basename(f))
+                and string_date_check(
+                    self.start_date, self.end_date, os.path.basename(f)
+                )
             ]
         else:
             files = [
@@ -491,8 +467,7 @@ class LogrRead:
         first_file = True
 
         all_files = [
-            os.path.join(self.dat_dir, f)
-            for f in sorted(os.listdir(self.dat_dir))
+            os.path.join(self.dat_dir, f) for f in sorted(os.listdir(self.dat_dir))
         ]
 
         if file_list is not None:
@@ -506,9 +481,9 @@ class LogrRead:
                     full_path = os.path.join(self.dat_dir, f)
                     if os.path.exists(full_path):
                         full_path_list.append(full_path)
-            
+
             if not full_path_list:
-                logger.warning("No valid files found in provided file_list")
+                log.warning("No valid files found in provided file_list")
                 files = []
             else:
                 files = [f for f in all_files if f in full_path_list]
@@ -653,18 +628,6 @@ class LogrRead:
 
         if output_txt:
             self.data.to_csv(os.path.join(dat_dir, out_file), sep=",", index=False)
-
-    def get_filtered_file_list(self) -> list:
-        files = [
-            os.path.join(self.dat_dir, f)
-            for f in sorted(os.listdir(self.dat_dir))
-            if self.file_filter in f  # type: ignore
-            and self.filter2 in f
-            and self.file_type in f
-            and string_date_check(self.start_date, self.end_date, f)
-        ]
-
-        return files
 
     def output_txt_file(
         self,

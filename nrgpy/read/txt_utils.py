@@ -1,10 +1,9 @@
 import codecs
-import datetime
 from datetime import datetime
 from glob import glob
 import os
 import traceback
-import pandas as pd
+import pandas as pd  # noqa: F401
 from nrgpy.common.log import log
 from nrgpy.read.channel_info_arrays import return_array
 from nrgpy.utils.utilities import (
