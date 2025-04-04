@@ -1,5 +1,4 @@
 from nrgpy.common.log import log
-import datetime
 from datetime import datetime, timedelta
 from glob import glob
 import os
