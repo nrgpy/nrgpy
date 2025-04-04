@@ -1,5 +1,4 @@
 import requests
-from nrgpy import logger
 from nrgpy.api.auth import (
     retrieve_token_url,
     data_catalog_url,
@@ -17,7 +16,7 @@ from nrgpy.cloud_api.auth import (
     export_job_url,
     import_url,
 )
-import traceback
+from nrgpy.common.log import log
 
 
 def test_endpoints():
@@ -55,22 +54,22 @@ def test_endpoints():
             ) and resp.status_code != 500:
 
                 print(f"Could not resolve {url}")
-                logger.error(f"test failed: could not resolve {url}")
-                logger.debug(f"resp.status_code = {resp.status_code}")
-                logger.debug(f"resp.text = {resp.text}")
+                log.error(f"test failed: could not resolve {url}")
+                log.debug(f"resp.status_code = {resp.status_code}")
+                log.debug(f"resp.text = {resp.text}")
                 return False
 
             else:
 
-                logger.debug(f"{url} resolved ok")
+                log.debug(f"{url} resolved ok")
 
-        except:
+        except Exception as e:
 
-            print(f"test failed: {traceback.format_exc()}")
-            logger.error(f"test failed: {traceback.format_exc()}")
+            print(f"test failed: {e}")
+            log.exception("test failed")
             return False
 
-    logger.info(f"test passed: test_endpoints")
+    log.info("test passed: test_endpoints")
     return True
 
 

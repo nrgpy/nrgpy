@@ -1,18 +1,17 @@
 from collections import Counter
 from datetime import datetime
 import math
-import numpy as np
 import pandas as pd
 from typing import Union
 
 
 def check_intervals(
     df: pd.DataFrame,
-    verbose: bool=True,
-    return_info: bool=False,
-    show_all_missing_timestamps: bool=False,
-    show_all_duplicate_timestamps: bool=False,
-    interval: Union[int, str]="",
+    verbose: bool = True,
+    return_info: bool = False,
+    show_all_missing_timestamps: bool = False,
+    show_all_duplicate_timestamps: bool = False,
+    interval: Union[int, str] = "",
 ) -> Union[dict, None]:
     """checks for missing or duplicate intervals in a pandas dataframe with a "Timestamp" column
 
@@ -155,7 +154,7 @@ def check_intervals(
         interval_info["duplicate_timestamps"] = duplicate_timestamps
 
         return interval_info
-    
+
     return None
 
 
@@ -234,10 +233,9 @@ def select_interval_length(df: pd.DataFrame, seconds: bool = True) -> Union[int,
     interval = []
 
     if len(df["Timestamp"]) < 3:
-        raise ValueError("Insufficient number of timestamps for select_interval_length") 
+        raise ValueError("Insufficient number of timestamps for select_interval_length")
 
-    range_size = min(5, len(df["Timestamp"])-1)
-    
+    range_size = min(5, len(df["Timestamp"]) - 1)
 
     for i in range(range_size):
         try:
@@ -252,7 +250,9 @@ def select_interval_length(df: pd.DataFrame, seconds: bool = True) -> Union[int,
 
         except Exception:
             formatter = "%Y-%m-%d %H:%M:%S.%f"
-            interval.append(int((df["Timestamp"].iloc[i + 1] - df["Timestamp"].iloc[i]).seconds))
+            interval.append(
+                int((df["Timestamp"].iloc[i + 1] - df["Timestamp"].iloc[i]).seconds)
+            )
 
     try:
         if seconds:

@@ -1,19 +1,14 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
+from nrgpy.common.log import log, token_file
 import base64
 from datetime import datetime, timedelta
 import importlib
 from importlib.metadata import version
 import json
-from nrgpy import token_file
 from packaging.version import parse as parse_version
 import pickle
 import re
 import requests
 import sys
-import traceback
 
 cloud_url_base = "https://cloud-api.nrgsystems.com/nrgcloudcustomerapi/"
 token_url = "token"
@@ -25,7 +20,7 @@ import_url = "data/import"
 sites_url = "sites"
 
 
-class CloudApi(object):
+class CloudApi:
     """
     Parent class for NRG Cloud API functionality
 
@@ -67,7 +62,7 @@ class CloudApi(object):
         client_secret: str = "",
         url_base: str = cloud_url_base,
     ):
-        logger.debug(f"cloud base: {url_base}")
+        log.debug(f"cloud base: {url_base}")
         self.client_id = client_id
         self.client_secret = client_secret
         try:
@@ -91,7 +86,7 @@ class CloudApi(object):
             print(
                 "[Access error] Valid credentials are required.\n\nPlease visit https://cloud.nrgsystems.com/data-manager/api-setup\nto access your API credentials"  # noqa: E501
             )
-            logger.error(
+            log.error(
                 "[Access error] Valid credentials are required. Please visit https://cloud.nrgsystems.com/data-manager/api-setup to access your API credentials"  # noqa: E501
             )
 
@@ -121,7 +116,7 @@ class CloudApi(object):
         session_start_time : datetime
             start time of 24 hour countdown
         """
-        logger.debug("session token requested")
+        log.debug("session token requested")
         print(
             "{} | Requesting session token ... ".format(
                 datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -150,15 +145,15 @@ class CloudApi(object):
             self.api_version = parse_version(self.resp.headers["customerapi-version"])
         except Exception:
             self.api_version = parse_version("1.8.0.0")
-        logger.info(f"customer api version {self.api_version}")
+        log.info(f"customer api version {self.api_version}")
 
         if self.resp.status_code == 200:
             print("[OK]")
-            logger.info("new session token OK")
+            log.info("new session token OK")
             self.session_token = json.loads(self.resp.text)["apiToken"]
         else:
-            logger.error("unable to get session token")
-            logger.debug(f"{self.resp.text}")
+            log.error("unable to get session token")
+            log.debug(f"{self.resp.text}")
             print("[FAILED] | unable to get session token.")
             self.session_token = False
 
@@ -222,15 +217,14 @@ def is_authorized(resp) -> bool:
         and "has already been imported" not in resp.text
     ):
         try:
-            logger.error(json.loads(resp.text)["apiResponseMessage"])
+            log.error(json.loads(resp.text)["apiResponseMessage"])
             print(json.loads(resp.text)["apiResponseMessage"])
         except Exception:
-            logger.error("Unable to process request")
-            logger.debug(traceback.format_exc())
+            log.exception("Unable to process request")
             print("Unable to complete request.  Check nrgpy log file for details")
         return False
 
     return True
 
 
-cloud_api = CloudApi
+CloudApi = CloudApi

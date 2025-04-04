@@ -1,5 +1,5 @@
 try:
-    from nrgpy import logger
+    from nrgpy import log
 except ImportError:
     pass
 from datetime import datetime
@@ -335,21 +335,21 @@ def rename_cloud_export_like_spd(filepath: str) -> bool:
 
     try:
         os.rename(filepath, os.path.join(directory, new_filename))
-        logger.info(f"renamed {filename} to {new_filename}")
+        log.info(f"renamed {filename} to {new_filename}")
         return True
 
     except FileExistsError:
-        logger.info(f"{new_filename} exists, replacing")
+        log.info(f"{new_filename} exists, replacing")
         os.remove(os.path.join(directory, new_filename))
         os.rename(filepath, os.path.join(directory, new_filename))
-        logger.info(f"renamed {filename} to {new_filename}")
+        log.info(f"renamed {filename} to {new_filename}")
 
     except Exception:
-        logger.error(f"couldn't rename {filename} to {new_filename}")
+        log.error(f"couldn't rename {filename} to {new_filename}")
         print(f"couldn't rename {filename} to {new_filename}")
         import traceback
 
-        logger.debug(traceback.format_exc())
+        log.debug(traceback.format_exc())
         print(traceback.format_exc())
         return False
 

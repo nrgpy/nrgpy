@@ -1,18 +1,15 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
+from nrgpy.common.log import log
 import nrgpy
 import pytest
 import traceback
 
 
-site_id = 175
-logger_sn = 820600087
-site_number = 353002
-start_date = "2021-01-01"
-end_date = "2021-01-05"
-unauth_site_id = 956
+SITE_ID = 175
+LOGGER_SN = 820600087
+SITE_NUMBER = 353002
+START_DATE = "2021-01-01"
+END_DATE = "2021-01-05"
+UNAUTH_SITE_ID = 956
 
 
 @pytest.mark.skip(reason="this is not set up as a pytest yet")
@@ -26,17 +23,17 @@ def test_sites_api(client_id: str, client_secret: str):
 
         if (
             sites.sites_df["siteId"]
-            .loc[sites.sites_df["loggerSerialNumber"] == logger_sn]
+            .loc[sites.sites_df["loggerSerialNumber"] == LOGGER_SN]
             .values[0]
-            != site_id
+            != SITE_ID
         ):
-            print(f"Site ID != {site_id}: SiteIds = {sites.sites_df['siteId']}")
-            logger.error(f"Site ID != {site_id}: SiteIds = {sites.sites_df['siteId']}")
+            print(f"Site ID != {SITE_ID}: SiteIds = {sites.sites_df['siteId']}")
+            log.error(f"Site ID != {SITE_ID}: SiteIds = {sites.sites_df['siteId']}")
             return False
 
-    except Exception:
-        print(traceback.format_exc())
-        logger.error(traceback.format_exc())
+    except Exception as e:
+        print(e)
+        log.exception("test failed")
         try:
             print(sites.sites_df)
         except Exception:
@@ -45,7 +42,7 @@ def test_sites_api(client_id: str, client_secret: str):
         return False
 
     print("Site API test passed!")
-    logger.info("Site API test passed!")
+    log.info("Site API test passed!")
 
     return True
 
@@ -57,9 +54,9 @@ def test_export_api(client_id: str, client_secret: str):
         exporter = nrgpy.CloudExport(
             client_id=client_id,
             client_secret=client_secret,
-            site_id=site_id,
-            start_date=start_date,
-            end_date=end_date,
+            site_id=SITE_ID,
+            start_date=START_DATE,
+            end_date=END_DATE,
             out_dir=".",
             unzip=True,
             file_format="singleFile",
@@ -69,61 +66,60 @@ def test_export_api(client_id: str, client_secret: str):
 
         reader = nrgpy.sympro_txt_read(filename=exporter.export_filepath)
 
-        if int(reader.site_number) != site_number:
+        if int(reader.site_number) != SITE_NUMBER:
             print(f"Export API test failed: site number failure: {reader.site_number}")
-            logger.error(
+            log.error(
                 f"Export API test failed: site number failure: {reader.site_number}"
             )
             return False
 
     except Exception:
         print(traceback.format_exc())
-        logger.error(traceback.format_exc())
+        log.error(traceback.format_exc())
         return False
 
     print("Export API test passed!")
-    logger.info("Export API test passed!")
+    log.info("Export API test passed!")
     return True
 
 
 @pytest.mark.skip(reason="this is not set up as a pytest yet")
-def test_export_jobs_api(client_id: str, client_secret: str):
+def test_export_jobs_api(client_id: str, client_secret: str) -> bool:
     """"""
     try:
         exporter = nrgpy.CloudExportJob(
             client_id=client_id,
             client_secret=client_secret,
-            site_id=site_id,
-            start_date=start_date,
-            end_date=end_date,
+            site_id=SITE_ID,
+            start_date=START_DATE,
+            end_date=END_DATE,
             out_dir=".",
         )
         exporter.create_export_job()
         exporter.monitor_export_job(download=True)
         reader = nrgpy.sympro_txt_read(filename=exporter.export_filepath)
-        if int(reader.site_number) != site_number:
+        if int(reader.site_number) != SITE_NUMBER:
             print(f"Export API test failed: site number failure: {reader.site_number}")
-            logger.error(
+            log.error(
                 f"Export API test failed: site number failure: {reader.site_number}"
             )
             return False
         return True
 
-    except Exception:
-
-        print(traceback.format_exc())
-        logger.error(traceback.format_exc())
+    except Exception as e:
+        print(e)
+        log.exception("test failed")
     return False
 
 
 @pytest.mark.skip(reason="this is not set up as a pytest yet")
-def test_export_jobs_api_unauthorized(client_id: str, client_secret: str):
+def test_export_jobs_api_unauthorized(client_id: str, client_secret: str) -> bool:
     """"""
     try:
         exporter = nrgpy.CloudExportJob(
             client_id=client_id,
             client_secret=client_secret,
-            site_id=unauth_site_id,
+            site_id=UNAUTH_SITE_ID,
             start_date="2022-01-01",
             end_date="2022-01-10",
             out_dir=".",
@@ -133,9 +129,9 @@ def test_export_jobs_api_unauthorized(client_id: str, client_secret: str):
         if exporter.resp.status_code == 401:
             return True
 
-    except Exception:
-        print(traceback.format_exc())
-        logger.error(traceback.format_exc())
+    except Exception as e:
+        print(e)
+        log.exception("test failed")
 
     return False
 

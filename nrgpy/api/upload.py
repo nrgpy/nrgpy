@@ -1,7 +1,3 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
 from datetime import datetime
 from nrgpy.utils.utilities import string_date_check, draw_progress_bar
 from .auth import nrg_api, upload_url

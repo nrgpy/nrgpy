@@ -1,7 +1,4 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
+from nrgpy.common.log import log
 from datetime import datetime
 import io
 from nrgpy.utils.utilities import affirm_directory, string_date_check, draw_progress_bar
@@ -201,7 +198,6 @@ class nrg_api_convert(nrg_api):
             self.resp = requests.post(data=self.data, url=convert_url, headers=headers)
 
             zipped_data_file = zipfile.ZipFile(io.BytesIO(self.resp.content))
-            reg_data_file = self.resp.content
             name = zipped_data_file.infolist().pop()
             out_filename = os.path.basename(rld)[:-3] + "txt"
 
@@ -215,12 +211,12 @@ class nrg_api_convert(nrg_api):
                 f.write(file_contents)
                 f.close()
 
-            except:
+            except Exception:
                 print(
                     "Could not convert Windows newline characters properly; file may be unstable"
                 )
 
-            logger.info(f"converted {os.path.basename(out_filename)} OK")
+            log.info(f"converted {os.path.basename(out_filename)} OK")
 
             if self.progress_bar is False:
                 print("[DONE]")
@@ -229,9 +225,7 @@ class nrg_api_convert(nrg_api):
             if self.progress_bar is False:
                 print("[FAILED]")
 
-            logger.error(f"unable to convert {os.path.basename(self.filename)}")
-            logger.debug(e)
+            log.exception(f"unable to convert {os.path.basename(self.filename)}")
             print("unable to process file: {0}".format(rld))
             print(e)
             print(str(self.resp.status_code) + " " + self.resp.reason + "\n")
-            pass

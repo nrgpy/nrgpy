@@ -35,4 +35,3 @@ def test_reader(test_file_directory):
     return SymProTextRead(
         test_file_directory / "004310_2022-03-17_00.00_000835_meas.txt"
     )
-    

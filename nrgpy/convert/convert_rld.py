@@ -1,13 +1,6 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
 from datetime import datetime
-import os
-import subprocess
-import time
-import traceback
 from nrgpy.api.convert import nrg_api_convert
+from nrgpy.common.log import log
 from nrgpy.utils.utilities import (
     check_platform,
     windows_folder_path,
@@ -15,12 +8,15 @@ from nrgpy.utils.utilities import (
     count_files,
     is_sympro_running,
 )
+import os
+import subprocess
+import time
 
 
-class local:
+class Local:
     """For handling NRG SymphoniePRO Data Logger raw data files in the *.rld format.
 
-    This method uses locally installed SymphoniePRO Desktop software to convert *.rld 
+    This method uses locally installed SymphoniePRO Desktop software to convert *.rld
     files to txt format (tab-delimited-text).
 
     Parameters
@@ -65,17 +61,17 @@ class local:
 
     def __init__(
         self,
-        rld_dir: str="",
-        out_dir: str="",
-        encryption_pass: str="",
-        hex_key: str="",
-        filename: str="",
-        sympro_path: str=r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
-        process_type: str="convert",
-        convert_type: str="meas",
-        nec: str="",
-        site_filter: str="",
-        site_file: str="",
+        rld_dir: str = "",
+        out_dir: str = "",
+        encryption_pass: str = "",
+        hex_key: str = "",
+        filename: str = "",
+        sympro_path: str = r'"C:/Program Files (x86)/Renewable NRG Systems/SymPRO Desktop/SymPRODesktop.exe"',
+        process_type: str = "convert",
+        convert_type: str = "meas",
+        nec: str = "",
+        site_filter: str = "",
+        site_file: str = "",
         **kwargs,
     ):
 
@@ -99,7 +95,7 @@ class local:
                 print(
                     "SymphoniePRO Desktop is already running. Please close it and try again."
                 )
-                logger.error(
+                log.error(
                     "SymphoniePRO Desktop is already running so it could not be run"
                 )
 
@@ -164,7 +160,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
         try:
             rld_count = count_files(self.rld_dir, self.site_filter, "rld")
             self.start_time = time.time()
-            logger.info("converting {0} files from {1}".format(rld_count, self.rld_dir))
+            log.info("converting {0} files from {1}".format(rld_count, self.rld_dir))
             print("\nConverting {0} files from {1}\n".format(rld_count, self.rld_dir))
             print("Saving outputs to {0}".format(self.out_dir))
 
@@ -193,7 +189,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             self.end = datetime.now()
             self.convert_time = str(self.end - self.start)
 
-            logger.info("TXT files saved in {0}".format(self.out_dir))
+            log.info("TXT files saved in {0}".format(self.out_dir))
             print("\nTXT files saved in {0}\n".format(self.out_dir))
 
             txt_count = count_files(
@@ -207,7 +203,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
                 start_time=self.start_time,
             )
 
-            logger.info(f"IN: {rld_count}, OUT: {txt_count}, FAILED: {log_count}")
+            log.info(f"IN: {rld_count}, OUT: {txt_count}, FAILED: {log_count}")
             print("RLDs in    : {}".format(rld_count))
             print("TXTs out   : {}".format(txt_count))
             print("LOGs out   : {}".format(log_count))
@@ -223,7 +219,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             )
 
         except FileNotFoundError:
-            logger.error(
+            log.error(
                 "SymphoniePRO Desktop Application not found: {0}".format(
                     self.sympro_path
                 )
@@ -238,8 +234,7 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
                   """
             )
         except Exception:
-            logger.error("unable to process files in {0}".format(self.rld_dir))
-            logger.debug(traceback.format_exc())
+            log.exception("unable to process files in {0}".format(self.rld_dir))
             print("Unable to process files in directory")
 
     def convert(self):
@@ -270,16 +265,15 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
 
                     try:
                         subprocess.run(" ".join(rename_cmd), stdout=subprocess.PIPE)
-                    except:
-                        logger.error("unable to rename {0}".format(f))
+                    except Exception:
+                        log.error("unable to rename {0}".format(f))
                         print("Unable to rename {0}".format(f))
                         pass
 
                 else:
                     pass
         except Exception:
-            logger.error("Could not rename files")
-            logger.debug(traceback.format_exc())
+            log.exception("Could not rename files")
             print("Could not rename files")
 
     def single_file(self, filepath=""):
@@ -346,20 +340,20 @@ https://github.com/nrgpy/nrgpy/blob/master/SymPRODeskop_Linux_README.md
             ):
                 print("[FAILED]")
                 print(f"{p.stdout.decode()}")
-                logger.error(f"{p.stdout.decode()}")
+                log.error(f"{p.stdout.decode()}")
 
             else:
-                logger.info(f"{p.stdout.decode()}")
+                log.info(f"{p.stdout.decode()}")
                 print("[DONE]")
 
         except Exception:
-            logger.error("processing {0} FAILED".format(filepath))
-            logger.debug(traceback.format_exc())
+            log.exception("processing {0} FAILED".format(filepath))
             print("\n\t processing {0} [FAILED]".format(filepath))
             pass
 
-        logger.info("files in {0} processed OK".format(self.rld_dir))
-        logger.info("TXT files saved to {0}".format(self.out_dir))
+        log.info("files in {0} processed OK".format(self.rld_dir))
+        log.info("TXT files saved to {0}".format(self.out_dir))
 
 
 nrg_convert_api = nrg_api_convert
+local = Local
