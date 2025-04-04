@@ -13,6 +13,7 @@ from nrgpy.utils.utilities import (
     string_date_check,
     renamer,
 )
+from typing import List
 
 
 class LogrRead:
@@ -81,13 +82,13 @@ class LogrRead:
     def process_file(self) -> None:
         i = 0
         self.set_timestamp_col()
-        with open(self.filename) as infile:
+        with open(self.filename, encoding='iso-8859-1') as infile:
             for line in infile:
                 if line == "Data\n":
                     break
                 else:
                     i = i + 1
-        with open(self.filename) as myfile:
+        with open(self.filename, encoding='iso-8859-1') as myfile:
             self.head = "".join([myfile.readline() for _ in range(2)])
 
         header_len = i + 1
@@ -100,6 +101,7 @@ class LogrRead:
             nrows=read_len,
             usecols=[0, 1],
             header=None,
+            encoding='iso-8859-1'
         )
         self.site_info = self.site_info.iloc[
             : self.site_info.loc[self.site_info[0] == "Data"].index.tolist()[0] + 1
@@ -305,6 +307,60 @@ class LogrRead:
             print("Warning: error processing site_info: {}".format(e))
             log.exception(f"Cannot parse site info: {e}")
 
+    def get_filtered_file_list(self, pre_filtered_list: List[str] = None) -> list:
+        """Get filtered list of files based on filter criteria.
+        
+        Parameters
+        ----------
+        pre_filtered_list : List[str], optional
+            List of files to apply filters to. If None, uses directory contents.
+        """
+        if pre_filtered_list is not None:
+            files = [
+                f for f in pre_filtered_list
+                if self.file_filter in f
+                and self.filter2 in f
+                and self.file_type in f
+                and string_date_check(self.start_date, self.end_date, os.path.basename(f))
+            ]
+        else:
+            files = [
+                os.path.join(self.dat_dir, f)
+                for f in sorted(os.listdir(self.dat_dir))
+                if self.file_filter in f
+                and self.filter2 in f
+                and self.file_type in f
+                and string_date_check(self.start_date, self.end_date, f)
+            ]
+        return files
+
+    def get_filtered_file_list(self, pre_filtered_list: List[str] = None) -> list:
+        """Get filtered list of files based on filter criteria.
+        
+        Parameters
+        ----------
+        pre_filtered_list : List[str], optional
+            List of files to apply filters to. If None, uses directory contents.
+        """
+        if pre_filtered_list is not None:
+            files = [
+                f for f in pre_filtered_list
+                if self.file_filter in f
+                and self.filter2 in f
+                and self.file_type in f
+                and string_date_check(self.start_date, self.end_date, os.path.basename(f))
+            ]
+        else:
+            files = [
+                os.path.join(self.dat_dir, f)
+                for f in sorted(os.listdir(self.dat_dir))
+                if self.file_filter in f
+                and self.filter2 in f
+                and self.file_type in f
+                and string_date_check(self.start_date, self.end_date, f)
+            ]
+        return files
+
     def concat_txt(
         self,
         dat_dir: str = "",
@@ -318,6 +374,7 @@ class LogrRead:
         out_file: str = "",
         progress_bar: bool = True,
         drop_duplicates: bool = True,
+        file_list: List[str] = None,
         **kwargs,
     ):
         """Will concatenate all text files in the dat_dir
@@ -348,6 +405,8 @@ class LogrRead:
             show bar on concat [True] or list of files [False]
         drop_duplicates : bool
             drop duplicate timestamps [True] or leave duplicates [False]
+        file_list : List[str], optional
+            Initial list of files to filter before applying directory filters. Can be a list of file
 
         Returns
         -------
@@ -431,7 +490,32 @@ class LogrRead:
 
         first_file = True
 
-        files = self.get_filtered_file_list()
+        all_files = [
+            os.path.join(self.dat_dir, f)
+            for f in sorted(os.listdir(self.dat_dir))
+        ]
+
+        if file_list is not None:
+            # Convert file_list to full paths if they're just filenames
+            full_path_list = []
+            for f in file_list:
+                if os.path.dirname(f):  # If file has a directory component
+                    if os.path.exists(f):  # Check if full path exists
+                        full_path_list.append(f)
+                else:  # If just a filename
+                    full_path = os.path.join(self.dat_dir, f)
+                    if os.path.exists(full_path):
+                        full_path_list.append(full_path)
+            
+            if not full_path_list:
+                logger.warning("No valid files found in provided file_list")
+                files = []
+            else:
+                files = [f for f in all_files if f in full_path_list]
+        else:
+            files = all_files
+
+        files = self.get_filtered_file_list(files)
 
         self.file_count = len(files)
         self.pad = len(str(self.file_count))
@@ -474,7 +558,7 @@ class LogrRead:
                 except Exception:
                     if not progress_bar:
                         print("[FAILED]")
-                    # print("could not concat {0}".format(os.path.basename(f)))
+                    # print(f"could not concat {os.path.basename(f)}")
                     log.exception("could not concat {0}".format(os.path.basename(f)))
                     break
             else:
