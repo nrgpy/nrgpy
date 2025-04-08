@@ -1,8 +1,4 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
-import datetime
+from nrgpy.common.log import log
 from datetime import datetime, timedelta
 from glob import glob
 import os
@@ -233,7 +229,7 @@ class SymProTextRead:
         except Exception as e:
             self.e = e
             print("Warning: error processing site_info: {}".format(e))
-            logger.error(f"Cannot parse site info: {e}")
+            log.error(f"Cannot parse site info: {e}")
 
     def concat_txt(
         self,
@@ -369,7 +365,7 @@ class SymProTextRead:
         self.counter = 1
         self.start_time = datetime.now()
 
-        logger.info(f"Concatenating {self.file_count} files...")
+        log.info(f"Concatenating {self.file_count} files...")
 
         for f in files:
             if progress_bar:
@@ -467,11 +463,11 @@ class SymProTextRead:
             self.site_info = s.site_info
             self.format_site_data()
             print("\n")
-            logger.info(f"Concatenation of {len(self.data)} rows complete")
+            log.info(f"Concatenation of {len(self.data)} rows complete")
 
         except UnboundLocalError:
             print("No files match to contatenate.")
-            logger.error(f"No files in {self.txt_dir} match to contatenate.")
+            log.error(f"No files in {self.txt_dir} match to contatenate.")
             return None
 
     def select_channels_for_reformat(self, epe=False, soiling=False):
@@ -1151,7 +1147,7 @@ class SymProTextRead:
 
                 except Exception:
                     print("[FAILED]")
-                    logger.exception(f"Outputting {output_name} failed")
+                    log.exception(f"Outputting {output_name} failed")
 
     def insert_blank_header_rows(self, filename):
         """insert blank rows when using shift_timestamps()

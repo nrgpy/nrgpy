@@ -1,7 +1,4 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
+from nrgpy.common.log import log
 import base64
 from datetime import datetime, timedelta
 import json
@@ -26,7 +23,7 @@ class nrg_api(object):
 
     def __init__(self, client_id="", client_secret=""):
 
-        logger.debug(f"nrg legacy api init ")
+        log.debug("nrg legacy api init ")
         self.client_id = client_id
         self.client_secret = client_secret
 
@@ -39,7 +36,7 @@ class nrg_api(object):
             print(
                 "[Access error] Valid credentials are required.\nPlease contact support@nrgsystems.com or visit \nhttps://services.nrgsystems.com for API access"
             )
-            logger.error(
+            log.error(
                 "[Access error] Valid credentials are required. Please  API credentials"
             )
 
@@ -63,7 +60,7 @@ class nrg_api(object):
         session_start_time : datetime
             start time of 24 hour countdown
         """
-        logger.debug("session token requested")
+        log.debug("session token requested")
         print(
             "{} | Requesting session token ... ".format(
                 datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -87,16 +84,16 @@ class nrg_api(object):
 
         if self.resp.status_code == 200:
 
-            logger.debug(f"{self.resp.text}")
+            log.debug(f"{self.resp.text}")
             print("[OK]")
-            logger.info("new session token OK")
+            log.info("new session token OK")
 
             self.session_token = json.loads(self.resp.text)["access_token"]
-            logger.debug(f"bearer token: {self.session_token}")
+            log.debug(f"bearer token: {self.session_token}")
 
         else:
 
-            logger.error("unable to get session token")
+            log.error("unable to get session token")
             print("[FAILED] | unable to get session token.")
 
             self.session_token = False
@@ -145,7 +142,7 @@ class nrg_api(object):
                 self.request_session_token()
                 self.save_token()
 
-        except:
+        except Exception:
 
             self.request_session_token()
             self.save_token()

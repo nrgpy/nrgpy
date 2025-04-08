@@ -1,15 +1,10 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
 import codecs
-import datetime
 from datetime import datetime
 from glob import glob
-from inspect import trace
 import os
 import traceback
-import pandas as pd
+import pandas as pd  # noqa: F401
+from nrgpy.common.log import log
 from nrgpy.read.channel_info_arrays import return_array
 from nrgpy.utils.utilities import (
     check_platform,
@@ -20,7 +15,7 @@ from nrgpy.utils.utilities import (
 )
 
 
-class read_text_data(object):
+class ReadTextData:
     """class for handling known csv-style text data files with header information
 
     Parameters
@@ -94,22 +89,22 @@ class read_text_data(object):
         ch_list = []
         ch_details = 0
 
-        for row in self.site_info.iterrows():
+        for _, row in self.site_info.iterrows():
             if (
-                row[1][0] == self.ch_info_array[0] and ch_details == 0
+                row.iloc[0] == self.ch_info_array[0] and ch_details == 0
             ):  # start channel data read
                 ch_details = 1
-                ch_data[row[1][0]] = row[1][1]
+                ch_data[row.iloc[0]] = row.iloc[1]
 
             elif (
-                row[1][0] == self.ch_info_array[0] and ch_details == 1
+                row.iloc[0] == self.ch_info_array[0] and ch_details == 1
             ):  # close channel, start new data read
                 ch_list.append(ch_data)
                 ch_data = {}
-                ch_data[row[1][0]] = row[1][1]
+                ch_data[row.iloc[0]] = row.iloc[1]
 
-            elif str(row[1][0]) in str(self.ch_info_array):
-                ch_data[row[1][0]] = row[1][1]
+            elif str(row.iloc[0]) in str(self.ch_info_array):
+                ch_data[row.iloc[0]] = row.iloc[1]
 
         ch_list.append(ch_data)  # last channel's data
 
@@ -178,7 +173,7 @@ class read_text_data(object):
                     first_file = False
 
                     try:
-                        base = read_text_data(
+                        base = ReadTextData(
                             filename=f,
                             data_type=self.data_type,
                             file_filter=self.file_filter,
@@ -196,7 +191,7 @@ class read_text_data(object):
                 else:
                     file_path = f
                     try:
-                        s = read_text_data(
+                        s = ReadTextData(
                             filename=f,
                             data_type=self.data_type,
                             file_filter=self.file_filter,
@@ -214,13 +209,10 @@ class read_text_data(object):
                         )
                         if not progress_bar:
                             print("[OK]")
-                    except:
+                    except Exception:
                         if not progress_bar:
                             print("[FAILED]")
                         print("could not concat {0}".format(file_path))
-                        pass
-            else:
-                pass
             self.counter += 1
 
         if output_txt:
@@ -280,14 +272,11 @@ class read_text_data(object):
                 self.site_info.reset_index(inplace=True)
                 self.format_rwd_site_data()
         except IndexError:
-            logger.error(f"unable to reader site header in {_file}")
-            logger.debug(traceback.format_exc())
-            pass
-        except:
-            logger.error(f"unable to read site header in {_file}")
-            logger.debug(traceback.format_exc())
+            log.exception(f"unable to reader site header in {_file}")
+        except Exception:
+            log.exception(f"unable to read site header in {_file}")
 
-    def get_head(self, _file):
+    def get_head(self, _file: str) -> None:
         """get the first lines of the file
 
         excluding those without tabs up to the self.skip_rows line
@@ -303,7 +292,7 @@ class read_text_data(object):
                     self.head.append(line.replace("\n", "").split("\t"))
                 i += 1
 
-    def get_data(self, _file):
+    def get_data(self, _file: str) -> None:
         """create dataframe of tabulated data"""
         if self.data_type == "sympro":
             self.header_len += (
@@ -314,7 +303,7 @@ class read_text_data(object):
             _file, skiprows=self.header_len, encoding="ISO-8859-1", sep=self.sep
         )
 
-    def format_rwd_site_data(self):
+    def format_rwd_site_data(self) -> None:
         """adds formatted site dataframe to reader object"""
         try:
             self.Site_info = self.site_info.copy()
@@ -344,17 +333,17 @@ class read_text_data(object):
             self.time_zone = self._site_info["Time offset (hrs)"].values[0]
 
         except IndexError:
-            logger.debug(traceback.format_exc())
-        except:
+            log.debug(traceback.format_exc())
+        except Exception:
             print(
                 "Warning: error processing site_info: {}".format(traceback.format_exc())
             )
-            logger.error(
+            log.error(
                 "Warning: error processing site_info: {}".format(traceback.format_exc())
             )
 
 
-def format_sympro_site_data(reader):
+def format_sympro_site_data(reader: ReadTextData) -> None:
     """adds formatted site dataframe to reader object"""
     try:
         reader.Site_info = reader.site_info.copy()
@@ -389,3 +378,6 @@ def format_sympro_site_data(reader):
     except Exception as e:
         reader.e = e
         print("Warning: error processing site_info: {}".format(e))
+
+
+read_text_data = ReadTextData

@@ -1,7 +1,3 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
 from datetime import datetime
 import json
 from .auth import nrg_api, data_catalog_url
@@ -61,7 +57,7 @@ class nrg_api_catalog(nrg_api):
         end_date="2023-12-31",
         client_id="",
         client_secret="",
-        **kwargs
+        **kwargs,
     ):
         super().__init__(client_id, client_secret)
         self.site_number = str(site_number).zfill(6)

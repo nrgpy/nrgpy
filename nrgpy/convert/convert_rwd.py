@@ -1,13 +1,5 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
 import datetime
-import time
-import os
-import subprocess
-import shutil
-import traceback
+from nrgpy.common.log import log
 from nrgpy.utils.utilities import (
     check_platform,
     windows_folder_path,
@@ -16,10 +8,14 @@ from nrgpy.utils.utilities import (
     count_files,
     draw_progress_bar,
 )
+import os
+import subprocess
+import shutil
+import time
 
 
-class local:
-    """nrgpy.convert_rwd.local - use local installation of 
+class Local:
+    """nrgpy.convert_rwd.local - use local installation of
     Symphonie Data Retriever (SDR) to convert *.RWD files to *.TXT
 
     Parameters
@@ -89,19 +85,19 @@ class local:
 
     def __init__(
         self,
-        rwd_dir: str="",
-        out_dir: str="",
-        filename: str="",
-        encryption_pin: str="",
-        sdr_path: str=r"C:/NRG/SymDR/SDR.exe",
-        convert_type: str="meas",
-        file_filter: str="",
-        wine_folder: str="~/.wine/drive_c/",
-        use_site_file: bool=False,
-        raw_mode: bool=False,
-        progress_bar: bool=True,
-        show_result: bool=True,
-        **kwargs
+        rwd_dir: str = "",
+        out_dir: str = "",
+        filename: str = "",
+        encryption_pin: str = "",
+        sdr_path: str = r"C:/NRG/SymDR/SDR.exe",
+        convert_type: str = "meas",
+        file_filter: str = "",
+        wine_folder: str = "~/.wine/drive_c/",
+        use_site_file: bool = False,
+        raw_mode: bool = False,
+        progress_bar: bool = True,
+        show_result: bool = True,
+        **kwargs,
     ):
 
         if encryption_pin != "":
@@ -130,7 +126,7 @@ class local:
         self.platform = check_platform()
         self.wine_folder = wine_folder
         self.check_sdr()
-        logger.info("conversion initialized")
+        log.info("conversion initialized")
 
         if self.platform == "win32":
             self.out_dir = windows_folder_path(out_dir)
@@ -159,7 +155,7 @@ class local:
                 print(
                     "SDR not installed. Please install SDR or check path.\nhttps://www.nrgsystems.com/support/product-support/software/symphonie-data-retriever-software"
                 )
-                logger.error("SDR not installed, aborting")
+                log.error("SDR not installed, aborting")
 
         else:
             # do the linux check
@@ -169,7 +165,7 @@ class local:
                 print(
                     "System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable."  # noqa: E501
                 )
-                logger.error(
+                log.error(
                     "System not configured for running SDR.\n Please follow instructions in SDR_Linux_README.md to enable."  # noqa: E501
                 )
 
@@ -181,10 +177,11 @@ class local:
 
                 os.remove(os.path.join(self.wine_folder, "NRG/ScaledData/test.log"))
 
-            except Exception:
+            except Exception as e:
                 self.sdr_ok = False
+                log.exception("SDR not installed, aborting")
                 print("SDR unable to start")
-                print(traceback.format_exc())
+                print(e)
 
     def convert(self):
         """process rwd files
@@ -336,12 +333,12 @@ class local:
                 try:
                     # shutil.copy(os.path.join(self.rwd_dir, f), os.path.join(site_folder))
                     shutil.copy(self.rwd_dir + f, os.path.join(site_folder))
-                except Exception:
-                    import traceback
+                except Exception as e:
+                    log.exception
 
                     print("unable to copy file to RawData folder:  {}".format(f))
 
-                    print(traceback.format_exc())
+                    print(e)
                     print(os.path.join(self.rwd_dir, f))
                     print(os.path.join(site_folder))
 
@@ -353,11 +350,11 @@ class local:
             txt_file_path = os.path.join(self.ScaledData, txt_file_name)
             out_path = self.file_path_joiner.join([self.out_dir, txt_file_name])
 
-        except Exception:
+        except Exception as e:
             print("could not do the needful")
-            import traceback
+            log.exception("could not do the needful")
 
-            print(traceback.format_exc())
+            print(e)
 
         if self.platform == "linux":
             out_path = linux_folder_path(self.out_dir) + txt_file_name.split("\\")[-1]
@@ -374,8 +371,7 @@ class local:
             except Exception:
                 print("{0} remains in {1}".format(txt_file_name, self.ScaledData))
 
-        except Exception:
-            import traceback
-
-            print(traceback.format_exc())
+        except Exception as e:
+            log.exception("unable to copy file")
+            print(e)
             print("Unable to copy {0} to {1}".format(txt_file_name, self.out_dir))

@@ -1,13 +1,11 @@
-try:
-    from nrgpy import logger
-except ImportError:
-    pass
-from .auth import cloud_api, cloud_url_base
+from nrgpy.common.log import log
+from nrgpy.cloud_api.auth import CloudApi, cloud_url_base
 import pandas as pd
 import requests
+from typing import Union
 
 
-class CloudSites(cloud_api):
+class CloudSites(CloudApi):
     """Find NRG Cloud sites associated with a user.
 
     Attributes
@@ -58,13 +56,15 @@ class CloudSites(cloud_api):
 
         try:
             self.sites_list = self.resp.json()["sites"]
-            logger.info(f"{len(self.sites_list)} sites found")
+            log.info(f"{len(self.sites_list)} sites found")
             self.sites_df = pd.DataFrame(self.sites_list)
         except KeyError:
-            logger.exception(f"unable to get sites for {self.client_id[:10]}")
-            logger.debug(self.resp.text)
+            log.exception(f"unable to get sites for {self.client_id[:10]}")
+            log.debug(self.resp.text)
 
-    def get_siteid(self, site_number: str = "", logger_sn: str = "") -> None:
+    def get_siteid(
+        self, site_number: str = "", logger_sn: str = ""
+    ) -> Union[int, None]:
         """Get NRG Cloud site ID that corresponds to site number and/or logger SN
 
         Parameters
@@ -91,8 +91,8 @@ class CloudSites(cloud_api):
                 return matching_sites[0]["siteId"]
 
             else:
-                logger.error(
-                    f"unable to get site matching site number {site_number} or logger serial {logger_sn}" #noqa E501
+                log.error(
+                    f"unable to get site matching site number {site_number} or logger serial {logger_sn}"  # noqa E501
                 )
                 print(
                     "No site matches this site number and logger serial number. "
@@ -108,7 +108,7 @@ class CloudSites(cloud_api):
             ]
 
             if len(matching_sites) > 1:
-                logger.error(f"more than 1 site matching site number {site_number}")
+                log.error(f"more than 1 site matching site number {site_number}")
                 print(
                     "There is more than one site with that site number. "
                     + "Please use the logger serial number."
@@ -116,13 +116,13 @@ class CloudSites(cloud_api):
                 return None
 
             elif len(matching_sites) == 1:
-                logger.info(
-                    f"found match for site number {site_number}: siteId {matching_sites[0]['siteId']}" #noqa E501
+                log.info(
+                    f"found match for site number {site_number}: siteId {matching_sites[0]['siteId']}"  # noqa E501
                 )
                 return matching_sites[0]["siteId"]
 
             else:
-                logger.error(f"no site matches site number {site_number}")
+                log.error(f"no site matches site number {site_number}")
                 print(
                     "No site matches this site number. "
                     + "Confirm that you have entered the value correctly "
@@ -137,7 +137,7 @@ class CloudSites(cloud_api):
             ]
 
             if len(matching_sites) > 1:
-                logger.error(f"more than 1 site matching serial number {logger_sn}")
+                log.error(f"more than 1 site matching serial number {logger_sn}")
                 print(
                     "There is more than one site with that logger serial number. "
                     + "Please use the site number."
@@ -145,13 +145,13 @@ class CloudSites(cloud_api):
                 return None
 
             elif len(matching_sites) == 1:
-                logger.info(
-                    f"found match for serial number {logger_sn}: siteId {matching_sites[0]['siteId']}" #noqa E501
+                log.info(
+                    f"found match for serial number {logger_sn}: siteId {matching_sites[0]['siteId']}"  # noqa E501
                 )
                 return matching_sites[0]["siteId"]
 
             else:
-                logger.error(f"no site matches serial number {logger_sn}")
+                log.error(f"no site matches serial number {logger_sn}")
                 print(
                     "No site matches this logger serial number. "
                     + "Confirm that you have entered the value correctly "
