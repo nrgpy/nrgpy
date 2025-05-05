@@ -1,5 +1,8 @@
+import glob
+from pathlib import Path
 from nrgpy.common.log import log
 import nrgpy
+import os
 import pytest
 import traceback
 
@@ -64,7 +67,7 @@ def test_export_api(client_id: str, client_secret: str):
 
         exporter.export()
 
-        reader = nrgpy.sympro_txt_read(filename=exporter.export_filepath)
+        reader = nrgpy.SymProTextRead(filename=exporter.export_filepath)
 
         if int(reader.site_number) != SITE_NUMBER:
             print(f"Export API test failed: site number failure: {reader.site_number}")
@@ -136,6 +139,38 @@ def test_export_jobs_api_unauthorized(client_id: str, client_secret: str) -> boo
     return False
 
 
+def get_test_file_directory():
+    """Return the path to the test files directory"""
+    return Path(__file__).parent.parent / "readers" / "files"
+
+
+@pytest.mark.skip(reason="this is not set up as a pytest yet")
+def test_convert_api_valid_file_success(client_id: str, client_secret: str) -> bool:
+    """Test convert API with valid file"""
+    try:
+        file_path = str(
+            get_test_file_directory() / "000110_2022-05-03_00.00_008549.rld"
+        )
+        converter = nrgpy.CloudConvert(
+            client_id=client_id,
+            client_secret=client_secret,
+            filename=file_path,
+            out_dir=".",
+        )
+        if converter.resp.status_code != 200:
+            print(f"Convert API test failed: {converter.resp.status_code}")
+            log.error(f"Convert API test failed: {converter.resp.status_code}")
+            return False
+        for file_path in glob.glob(f"{SITE_NUMBER}_*.txt"):
+            if os.path.exists(file_path):
+                os.remove(file_path)
+        return True
+    except Exception as e:
+        print(e)
+        log.exception("test failed")
+        return False
+
+
 if __name__ == "__main__":
     import sys
 
@@ -146,3 +181,5 @@ if __name__ == "__main__":
     assert test_export_api(client_id, client_secret)
     assert test_export_jobs_api(client_id, client_secret)
     assert test_export_jobs_api_unauthorized(client_id, client_secret)
+    assert test_convert_api_valid_file_success(client_id, client_secret)
+    print("All tests passed!")
