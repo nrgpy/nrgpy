@@ -26,7 +26,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.nrgpy/.cloud_token*
-          key: cloud-token-${{ github.run_id }}
+          key: cloud-token-${{ runner.os }}
           restore-keys: cloud-token-
       - name: Install dependencies
         run: |
