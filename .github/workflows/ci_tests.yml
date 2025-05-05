@@ -22,6 +22,12 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: ${{matrix.python-version}}
+      - name: Cache token file
+        uses: actions/cache@v3
+        with:
+          path: ~/.nrgpy/.cloud_token*
+          key: cloud-token-${{ github.run_id }}
+          restore-keys: cloud-token-
       - name: Install dependencies
         run: |
           pip install --upgrade pip && pip install .[test]
