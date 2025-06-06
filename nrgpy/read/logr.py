@@ -196,6 +196,7 @@ class LogrRead:
         array = [
             "Channel:",
             "Channel",  # <--- fix for missing colon in dat file Channel key
+            "Effective Date:",
             "Sensor Type:",
             "Description:",
             "Serial Number:",
@@ -205,6 +206,7 @@ class LogrRead:
             "Scale Factor:",
             "Offset:",
             "Units:",
+            "Calculation:",
             "Vane Mounting Angle:",
             "Gust Source Channel:",
         ]
