@@ -207,6 +207,8 @@ class LogrRead:
             "Offset:",
             "Units:",
             "Calculation:",
+            "Source_A:",
+            "Source_B:",
             "Vane Mounting Angle:",
             "Gust Source Channel:",
         ]
