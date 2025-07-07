@@ -20,6 +20,7 @@ venv/
 *egg-info/
 *.ipynb_checkpoints/
 *.pytest_cache/
+*.python_packages/
 *.wine/
 
 !.gitignore
