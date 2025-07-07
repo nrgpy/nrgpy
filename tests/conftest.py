@@ -35,3 +35,8 @@ def test_reader(test_file_directory):
     return SymProTextRead(
         test_file_directory / "004310_2022-03-17_00.00_000835_meas.txt"
     )
+
+
+@pytest.fixture
+def cloud_export_concat_test_dir():
+    return Path(__file__).parent / "readers" / "files" / "cloud_export_concat"

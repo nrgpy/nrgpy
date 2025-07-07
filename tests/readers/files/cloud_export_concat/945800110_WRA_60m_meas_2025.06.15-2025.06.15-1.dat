@@ -1,0 +1,274 @@
+﻿NRG Systems Data Logger
+File Created On (UTC):	2025-06-16T05:00:01Z
+Model Number:	9458
+Serial Number:	945800110
+Created FW Version:	000.07.840
+
+Site Properties
+Site:	WRA_60m
+Project:	R1.1_Hardware
+Location:	Hinesburg, VT
+Latitude:	44.33889
+Longitude:	-73.11202
+Elevation:	136
+Time Zone:	-5
+
+File Properties
+File Schema Version:	1
+SD Card Free Space (kB):	7573372
+
+Statistical Interval (min):	10
+
+Exported FW Version:	000.07.840
+
+File Content:	Statistics
+Configuration Version:	1
+Number Active Channels:	25
+Sensor History
+Channel:	1
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG 200M Vane 58m
+Units:	deg
+Serial Number:	
+Scale Factor:	147.910995
+Offset:	-1.460200
+Height:	0.00
+Excitation Type:	Excitation Off
+Vane Mounting Angle:	0.0
+Gust Source Channel:	0
+
+Channel:	2
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG 200M Vane 48m
+Units:	deg
+Serial Number:	
+Scale Factor:	147.910995
+Offset:	-1.460200
+Height:	0.00
+Excitation Type:	Excitation Off
+Vane Mounting Angle:	0.0
+Gust Source Channel:	0
+
+Channel:	3
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG 200M Vane 40m
+Units:	deg
+Serial Number:	
+Scale Factor:	147.910995
+Offset:	-1.460200
+Height:	0.00
+Excitation Type:	5V Pulse
+Vane Mounting Angle:	0.0
+Gust Source Channel:	0
+
+Channel:	4
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG BP60
+Units:	hPa
+Serial Number:	
+Scale Factor:	243.192825
+Offset:	494.948792
+Height:	0.00
+Excitation Type:	5V Pulse
+
+Channel:	5
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG T60 60m
+Units:	deg_C
+Serial Number:	
+Scale Factor:	44.676289
+Offset:	-40.921509
+Height:	0.00
+Excitation Type:	Excitation Off
+
+Channel:	6
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG T60 4.5m
+Units:	deg_C
+Serial Number:	
+Scale Factor:	44.676289
+Offset:	-40.921509
+Height:	0.00
+Excitation Type:	Excitation Off
+
+Channel:	7
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG RH5X
+Units:	%RH
+Serial Number:	
+Scale Factor:	20.000000
+Offset:	0.000000
+Height:	0.00
+Excitation Type:	Excitation Off
+
+Channel:	9
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG R1_POA_PV_Panel
+Units:	W/m^2
+Serial Number:	
+Scale Factor:	100000.000000
+Offset:	0.000000
+Height:	0.00
+Excitation Type:	Excitation Off
+
+Channel:	12
+Effective Date:	2025-05-08  13:33:14
+Description:	OP1 loopback 12V4_12to1PM
+Units:	V
+Serial Number:	
+Scale Factor:	1.000000
+Offset:	0.000000
+Height:	0.00
+Excitation Type:	Excitation Off
+
+Channel:	13
+Effective Date:	2025-05-08  13:33:14
+Description:	OP2 loopback 12V4_1_to_2PM
+Units:	V
+Serial Number:	
+Scale Factor:	1.000000
+Offset:	0.000000
+Height:	0.00
+Excitation Type:	Excitation Off
+
+Channel:	14
+Effective Date:	2025-05-08  13:33:14
+Description:	OP3 loopback 5V_2to3PM
+Units:	V
+Serial Number:	
+Scale Factor:	1.000000
+Offset:	0.000000
+Height:	0.00
+Excitation Type:	Excitation Off
+
+Channel:	15
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG Grid Monitor (0 to 30)V PV
+Units:	V
+Serial Number:	
+Scale Factor:	10.000000
+Offset:	0.000000
+Height:	0.00
+Excitation Type:	Excitation Off
+
+Channel:	16
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG Grid Monitor (0 to 30)V Bat
+Units:	V
+Serial Number:	
+Scale Factor:	10.000000
+Offset:	0.000000
+Height:	0.00
+Excitation Type:	Excitation Off
+
+Channel:	316
+Effective Date:	2025-05-23  13:14:30
+Description:	Elevation Angle
+Units:	Degrees
+Calculation:	ElevationAngle
+Source_A:	
+Source_B:	
+
+Channel:	317
+Effective Date:	2025-05-14  14:42:08
+Description:	Azimuth Angle
+Units:	Degrees
+Calculation:	AzimuthAngle
+Source_A:	
+Source_B:	
+
+Channel:	318
+Effective Date:	2025-05-14  14:42:08
+Description:	Zenith Angle
+Units:	Degrees
+Calculation:	ZenithAngle
+Source_A:	
+Source_B:	
+
+Channel:	319
+Effective Date:	2025-05-14  14:42:56
+Description:	Hourly Sum Rain Ch406
+Units:	mm
+Calculation:	HourlySum
+Source_A:	406
+Source_B:	
+
+Channel:	320
+Effective Date:	2025-05-14  14:43:28
+Description:	Daily Sum Rain Ch406
+Units:	mm
+Calculation:	DailySum
+Source_A:	406
+Source_B:	
+
+Channel:	401
+Effective Date:	2025-05-08  13:33:14
+Description:	Thies FCA_60m
+Units:	m/s
+Serial Number:	928802231945
+Scale Factor:	0.046230
+Offset:	0.229820
+Height:	60.19
+
+Channel:	402
+Effective Date:	2025-05-08  13:33:14
+Description:	Thies FCA_50m
+Units:	m/s
+Serial Number:	928802231925
+Scale Factor:	0.046360
+Offset:	0.217890
+Height:	50.20
+
+Channel:	403
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG S1_60m
+Units:	m/s
+Serial Number:	94120005803
+Scale Factor:	0.093750
+Offset:	0.124200
+Height:	60.20
+
+Channel:	404
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG S1_50m_broken_sensor
+Units:	m/s
+Serial Number:	
+Scale Factor:	0.093500
+Offset:	0.139000
+Height:	0.00
+
+Channel:	405
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG S1_40m
+Units:	m/s
+Serial Number:	94120005725
+Scale Factor:	0.093500
+Offset:	0.139000
+Height:	40.00
+
+Channel:	406
+Effective Date:	2025-05-08  13:33:14
+Description:	NovaLynx 260 TBRG
+Units:	mm
+Serial Number:	
+Scale Factor:	0.254000
+Offset:	0.000000
+Height:	0.00
+
+Channel:	407
+Effective Date:	2025-05-08  13:33:14
+Description:	NRG 40_40m
+Units:	m/s
+Serial Number:	179500370389
+Scale Factor:	0.757890
+Offset:	0.369000
+Height:	40.00
+
+Data
+Timestamp	Ch1_Avg_deg	Ch1_Min_deg	Ch1_Max_deg	Ch1_SD_deg	Ch1_Gust_Dir_deg	Ch2_Avg_deg	Ch2_Min_deg	Ch2_Max_deg	Ch2_SD_deg	Ch2_Gust_Dir_deg	Ch3_Avg_deg	Ch3_Min_deg	Ch3_Max_deg	Ch3_SD_deg	Ch3_Gust_Dir_deg	Ch4_Avg_hPa	Ch4_Min_hPa	Ch4_Max_hPa	Ch4_SD_hPa	Ch4_NotUsed	Ch5_Avg_deg_C	Ch5_Min_deg_C	Ch5_Max_deg_C	Ch5_SD_deg_C	Ch5_NotUsed	Ch6_Avg_deg_C	Ch6_Min_deg_C	Ch6_Max_deg_C	Ch6_SD_deg_C	Ch6_NotUsed	Ch7_Avg_%RH	Ch7_Min_%RH	Ch7_Max_%RH	Ch7_SD_%RH	Ch7_NotUsed	Ch9_Avg_W/m^2	Ch9_Min_W/m^2	Ch9_Max_W/m^2	Ch9_SD_W/m^2	Ch9_NotUsed	Ch12_Avg_V	Ch12_Min_V	Ch12_Max_V	Ch12_SD_V	Ch12_NotUsed	Ch13_Avg_V	Ch13_Min_V	Ch13_Max_V	Ch13_SD_V	Ch13_NotUsed	Ch14_Avg_V	Ch14_Min_V	Ch14_Max_V	Ch14_SD_V	Ch14_NotUsed	Ch15_Avg_V	Ch15_Min_V	Ch15_Max_V	Ch15_SD_V	Ch15_NotUsed	Ch16_Avg_V	Ch16_Min_V	Ch16_Max_V	Ch16_SD_V	Ch16_NotUsed	Ch316_Avg_Degrees	Ch316_Min_Degrees	Ch316_Max_Degrees	Ch316_SD_Degrees	Ch316_NotUsed	Ch317_Avg_Degrees	Ch317_Min_Degrees	Ch317_Max_Degrees	Ch317_SD_Degrees	Ch317_NotUsed	Ch318_Avg_Degrees	Ch318_Min_Degrees	Ch318_Max_Degrees	Ch318_SD_Degrees	Ch318_NotUsed	Ch319_Avg_mm	Ch319_Min_mm	Ch319_Max_mm	Ch319_SD_mm	Ch319_Sum_mm	Ch320_Avg_mm	Ch320_Min_mm	Ch320_Max_mm	Ch320_SD_mm	Ch320_Sum_mm	Ch401_Avg_m/s	Ch401_Min_m/s	Ch401_Max_m/s	Ch401_SD_m/s	Ch401_Gust_m/s	Ch402_Avg_m/s	Ch402_Min_m/s	Ch402_Max_m/s	Ch402_SD_m/s	Ch402_Gust_m/s	Ch403_Avg_m/s	Ch403_Min_m/s	Ch403_Max_m/s	Ch403_SD_m/s	Ch403_Gust_m/s	Ch404_Avg_m/s	Ch404_Min_m/s	Ch404_Max_m/s	Ch404_SD_m/s	Ch404_Gust_m/s	Ch405_Avg_m/s	Ch405_Min_m/s	Ch405_Max_m/s	Ch405_SD_m/s	Ch405_Gust_m/s	Ch406_Avg_mm	Ch406_Min_mm	Ch406_Max_mm	Ch406_SD_mm	Ch406_Total_mm	Ch407_Avg_m/s	Ch407_Min_m/s	Ch407_Max_m/s	Ch407_SD_m/s	Ch407_Gust_m/s
+2025-06-16T06:00:00Z	157.7276	0.0000	0.0000	17.1077	0.0000	158.3340	0.0000	0.0000	25.7148	0.0000	142.3867	0.0000	0.0000	21.2130	0.0000	1005.6935	1005.5393	1005.8157	0.0433	0.0000	15.5612	15.4433	15.8334	0.1052	0.0000	11.9930	11.9104	12.1145	0.0569	0.0000	94.2062	93.9417	94.7552	0.2659	0.0000	-1.5692	-2.0779	-0.6359	0.4973	0.0000	0.0156	0.0156	0.0156	0.0000	0.0000	0.0167	0.0167	0.0167	0.0000	0.0000	0.0030	0.0030	0.0031	0.0000	0.0000	0.0118	0.0086	0.0256	0.0035	0.0000	12.4915	12.4838	12.4942	0.0016	0.0000	339.6624	0.0000	0.0000	0.1559	0.0000	17.5682	0.0000	0.0000	0.6865	0.0000	110.3376	0.0000	0.0000	0.1559	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	1.4685	0.8308	2.5413	0.3876	2.4797	0.9654	0.5888	1.7014	0.1786	1.7014	0.1242	0.1242	0.1242	nan	0.1242	0.1390	0.1390	0.1390	0.0000	0.1390	0.1390	0.1390	0.1390	0.0000	0.1390	0.0000	0.0000	0.0000	0.0000	0.0000	0.3690	0.3690	0.3690	nan	0.3690
+2025-06-16T06:10:00Z	152.9782	0.0000	0.0000	12.8508	0.0000	142.1952	0.0000	0.0000	16.4792	0.0000	117.4849	0.0000	0.0000	18.2844	0.0000	1005.6974	1005.5608	1005.8296	0.0425	0.0000	15.5834	15.4178	15.7805	0.1208	0.0000	11.9212	11.8022	12.0607	0.0918	0.0000	94.7050	94.5495	94.8563	0.0965	0.0000	-1.3865	-1.8923	-0.6797	0.4399	0.0000	0.0156	0.0156	0.0156	0.0000	0.0000	0.0167	0.0166	0.0167	0.0000	0.0000	0.0030	0.0030	0.0031	0.0000	0.0000	0.0434	0.0255	0.0485	0.0045	0.0000	12.4860	12.4832	12.4887	0.0016	0.0000	340.2373	0.0000	0.0000	0.1763	0.0000	19.9330	0.0000	0.0000	0.6785	0.0000	109.7627	0.0000	0.0000	0.1763	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	1.7264	0.9695	2.6800	0.3533	2.6184	1.1287	0.5888	1.9332	0.3045	1.9332	0.1255	0.1242	0.4054	0.0153	0.3117	0.1390	0.1390	0.1390	0.0000	0.1390	0.1390	0.1390	0.1390	0.0000	0.1390	0.0000	0.0000	0.0000	0.0000	0.0000	0.3690	0.3690	0.3690	nan	0.3690
+2025-06-16T06:20:00Z	166.4672	0.0000	0.0000	10.9668	0.0000	159.6016	0.0000	0.0000	14.2506	0.0000	143.1286	0.0000	0.0000	18.6373	0.0000	1005.6658	1005.5219	1005.8047	0.0473	0.0000	15.3766	15.2728	15.4729	0.0610	0.0000	11.8073	11.7108	11.8714	0.0427	0.0000	94.6650	94.5508	94.7600	0.0519	0.0000	-1.4382	-1.8699	-0.9651	0.2718	0.0000	0.0156	0.0156	0.0156	0.0000	0.0000	0.0167	0.0166	0.0167	0.0000	0.0000	0.0030	0.0030	0.0031	0.0000	0.0000	0.0283	0.0141	0.0476	0.0119	0.0000	12.4807	12.4780	12.4836	0.0015	0.0000	340.8811	0.0000	0.0000	0.1957	0.0000	22.2687	0.0000	0.0000	0.6699	0.0000	109.1189	0.0000	0.0000	0.1957	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	1.9313	1.0620	2.9112	0.5147	2.8649	1.2138	0.5424	2.5359	0.4101	2.5050	0.1242	0.1242	0.1242	nan	0.1242	0.1390	0.1390	0.1390	0.0000	0.1390	0.1390	0.1390	0.1390	0.0000	0.1390	0.0000	0.0000	0.0000	0.0000	0.0000	0.4006	0.3690	1.8848	0.1578	1.3795
+2025-06-16T06:30:00Z	162.3402	0.0000	0.0000	12.4176	0.0000	153.7148	0.0000	0.0000	15.9957	0.0000	139.7554	0.0000	0.0000	21.6521	0.0000	1005.7498	1005.5909	1005.9062	0.0484	0.0000	15.3967	15.2063	15.5810	0.0953	0.0000	11.5573	11.4169	11.7250	0.0803	0.0000	94.7436	94.6569	94.8623	0.0415	0.0000	-1.8703	-2.0425	-1.7449	0.0742	0.0000	0.0156	0.0156	0.0156	0.0000	0.0000	0.0167	0.0166	0.0167	0.0000	0.0000	0.0030	0.0030	0.0030	0.0000	0.0000	0.0181	0.0139	0.0515	0.0072	0.0000	12.4755	12.4728	12.4793	0.0015	0.0000	341.5919	0.0000	0.0000	0.2151	0.0000	24.5731	0.0000	0.0000	0.6605	0.0000	108.4080	0.0000	0.0000	0.2143	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	2.1296	1.2006	2.9112	0.3998	2.9112	1.5373	0.5888	2.5359	0.3979	2.4895	0.4198	0.1242	2.2805	0.6416	2.1867	0.1390	0.1390	0.1390	0.0000	0.1390	0.1390	0.1390	0.1390	0.0000	0.1390	0.0000	0.0000	0.0000	0.0000	0.0000	0.6519	0.3690	1.8848	0.3994	1.6322
+2025-06-16T06:40:00Z	155.3527	0.0000	0.0000	12.4458	0.0000	147.0519	0.0000	0.0000	17.7549	0.0000	133.2506	0.0000	0.0000	22.6108	0.0000	1005.7969	1005.6937	1005.8999	0.0369	0.0000	15.1156	14.9615	15.2942	0.0612	0.0000	11.4003	11.3642	11.4991	0.0383	0.0000	95.0197	94.6621	95.1739	0.1494	0.0000	-1.3236	-1.8317	-0.7627	0.3048	0.0000	0.0156	0.0156	0.0156	0.0000	0.0000	0.0166	0.0166	0.0167	0.0000	0.0000	0.0030	0.0030	0.0030	0.0000	0.0000	0.0180	0.0134	0.0464	0.0065	0.0000	12.4703	12.4681	12.4734	0.0014	0.0000	342.3676	0.0000	0.0000	0.2334	0.0000	26.8441	0.0000	0.0000	0.6506	0.0000	107.6323	0.0000	0.0000	0.2334	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	1.7843	0.9233	2.4951	0.3590	2.4489	1.3848	0.5888	2.3041	0.3199	2.2732	0.5726	0.1242	2.3742	0.7616	2.3430	0.1390	0.1390	0.1390	0.0000	0.1390	0.1490	0.1390	0.6065	0.0506	0.4818	0.0000	0.0000	0.0000	0.0000	0.0000	0.4675	0.3690	1.8848	0.3063	1.8848
+2025-06-16T06:50:00Z	139.1094	0.0000	0.0000	16.7605	0.0000	128.4967	0.0000	0.0000	19.8841	0.0000	111.6413	0.0000	0.0000	20.3783	0.0000	1005.8360	1005.7217	1005.9644	0.0434	0.0000	14.8802	14.8246	14.9689	0.0417	0.0000	11.6048	11.4925	11.7283	0.0799	0.0000	95.3237	95.1646	95.5674	0.1211	0.0000	-0.4772	-0.9428	0.1010	0.3434	0.0000	0.0156	0.0156	0.0156	0.0000	0.0000	0.0166	0.0166	0.0167	0.0000	0.0000	0.0030	0.0030	0.0030	0.0000	0.0000	0.0301	0.0167	0.0596	0.0148	0.0000	12.4657	12.4632	12.4692	0.0014	0.0000	343.2061	0.0000	0.0000	0.2507	0.0000	29.0803	0.0000	0.0000	0.6405	0.0000	106.7939	0.0000	0.0000	0.2507	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	1.7489	0.6921	2.4951	0.3390	2.4643	1.3732	0.6815	2.1186	0.3080	2.0723	0.1309	0.1242	0.7804	0.0490	0.6242	0.1390	0.1390	0.1390	0.0000	0.1390	0.6601	0.1390	1.9155	0.5776	1.8843	0.0000	0.0000	0.0000	0.0000	0.0000	0.5534	0.3690	1.8848	0.3696	1.6322

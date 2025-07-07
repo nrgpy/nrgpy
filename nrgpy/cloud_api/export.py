@@ -42,7 +42,7 @@ class CloudExport(CloudApi):
         available in the NRG Cloud portal
     nec_file : str, optional
         path to NEC file for custom export formatting
-    export_type : {'measurements', 'diagnostic', 'events', 'communication'}
+    export_type : {'measurements', 'diagnostic', 'events', 'communication', 'samples', 'allTypes'}
         which type of data to export
     interval : {'oneMinute', 'twoMinute', 'fiveMinute', 'tenMinute', 'fifteenMinute',
         'thirtyMinute', 'Hour', 'Day'}, optional

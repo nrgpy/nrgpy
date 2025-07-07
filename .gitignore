@@ -20,8 +20,10 @@ venv/
 *egg-info/
 *.ipynb_checkpoints/
 *.pytest_cache/
+*.python_packages/
 *.wine/
 
 !.gitignore
 !tests/test_readers/test_files/*.txt
 !tests/readers/files/*
+!tests/readers/files/cloud_export_concat/*
