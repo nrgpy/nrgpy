@@ -106,3 +106,17 @@ class TestLogrRead:
             test_file_directory / "test_output.txt"
         ).exists(), "Expected test_output.txt to be created"
         os.remove(test_file_directory / "test_output.txt")
+
+    def test_logr_concat_cloud_concat_export_returns(self, cloud_export_concat_test_dir):
+        reader = LogrRead()
+        reader.concat_txt(
+            dat_dir=str(cloud_export_concat_test_dir),
+            file_type="dat",
+            file_filter="945800110",
+            drop_duplicates=False,
+        )
+
+        assert (
+            reader.site_description == "WRA_60m"
+        ), f"Expected site description {reader.site_description} to be 'WRA_60m'"
+        assert len(reader.data) == 12, f"Dataframe length {len(reader.data)} is not 12"

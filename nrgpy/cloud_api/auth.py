@@ -1,4 +1,4 @@
-from nrgpy.common.log import log, token_file
+from nrgpy.common.log import log, TOKEN_FILE
 import base64
 from datetime import datetime, timedelta
 import importlib
@@ -70,7 +70,7 @@ class CloudApi:
         except importlib.metadata.PackageNotFoundError:
             self.user_agent = "nrgpy"
         self.python_version = re.split(r"[ \n\t]", sys.version)[0]
-        self.token_file_name = token_file + "_" + self.client_id[:10]
+        self.token_file_name = TOKEN_FILE + "_" + self.client_id[:10]
         self.url_base = url_base
         self.token_url = url_base + token_url
         self.convert_url = url_base + convert_url

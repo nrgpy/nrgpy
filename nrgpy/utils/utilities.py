@@ -111,7 +111,10 @@ def string_date_check(start_date: str, end_date: str, string: str) -> bool:
         start = start_date
         end = end_date
 
-    if re.search(date_format_no_dash, string):
+    if re.search(date_format_with_dot, string):
+        date_text = re.search(date_format_with_dot, string)
+        file_date = datetime.strptime(date_text[0], strp_format_with_dot)
+    elif re.search(date_format_no_dash, string):
         date_text = re.search(date_format_no_dash, string)
         try:
             file_date = datetime.strptime(date_text[0], strp_format_no_dash)
@@ -123,9 +126,6 @@ def string_date_check(start_date: str, end_date: str, string: str) -> bool:
     elif re.search(date_format_with_dash, string):
         date_text = re.search(date_format_with_dash, string)
         file_date = datetime.strptime(date_text[0], strp_format_with_dash)
-    elif re.search(date_format_with_dot, string):
-        date_text = re.search(date_format_with_dot, string)
-        file_date = datetime.strptime(date_text[0], strp_format_with_dot)
     elif re.search(date_format_zx, string):
         date_text = re.search(date_format_zx, string)
         file_date = datetime.strptime(date_text[0], strp_format_zx)
