@@ -26,3 +26,4 @@ venv/
 !.gitignore
 !tests/test_readers/test_files/*.txt
 !tests/readers/files/*
+!tests/readers/files/cloud_export_concat/*

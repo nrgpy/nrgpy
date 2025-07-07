@@ -1,0 +1,560 @@
+NRG Export Service
+Software Version:	1.0.0.0
+Export Assembly Version:	1.0.0.143
+Export version:	3
+Generated:	2025-07-03 17:48:27
+
+Export Parameters
+Site Number:	671225
+Data Type:	Measurements
+Start Date:	
+End Date:	
+Filters Applied:	False
+Configuration: 
+
+Site Properties
+Site Description:	SunnyDog_Test_Dev
+Project:	TEST0008
+Tower:	
+Location:	Charlotte, Vermont
+Coordinate System:	WGS84
+Latitude:	44.3390216
+Longitude:	-73.1116316
+Elevation:	119
+Time Zone:	UTC-7:00
+Site Units:	SI
+
+Logger History
+Date:	2025-06-15 23:00:01
+Model:	SymphoniePRO Logger (8206)
+Serial Number:	820606716
+Firmware:	3.4.7
+
+iPack History
+Date:	2025-06-15 23:00:01
+Model:	iPackACCESS (7984)
+Serial Number:	716901069
+Firmware:	2.2.0
+
+Sensor History
+Channel:	1
+Effective Date:	2021-08-27 12:10:00
+Type:	Anemometer
+Data Logging Mode:	Statistics
+Description:	NRG 40C Anem
+Serial Number:	179500307185
+Height:	0.00
+Bearing:	1.00
+Scale Factor:	1.76500
+Offset:	1.35000
+Units:	m/s
+Signal Type:	Coil
+Internal Pull Up Enabled:	False
+
+Channel:	4
+Effective Date:	2025-05-14 21:23:04
+Type:	Totalizer
+Data Logging Mode:	Statistics
+Description:	Rainwise Rain Bucket
+Serial Number:	TEST0008
+Height:	0.00
+Bearing:	0.00
+Scale Factor:	0.25400
+Offset:	0.00000
+Units:	mm
+Signal Type:	Pulsed
+Internal Pull Up Enabled:	True
+
+Channel:	11
+Effective Date:	2025-05-14 21:23:04
+Type:	Anemometer
+Data Logging Mode:	Statistics
+Description:	NRG 40C Anem
+Serial Number:	2025.2
+Height:	
+Bearing:	
+Scale Factor:	0.76500
+Offset:	0.35000
+Units:	m/s
+Signal Type:	Coil
+Internal Pull Up Enabled:	False
+
+Channel:	13
+Effective Date:	2024-02-15 22:00:00
+Type:	Vane
+Data Logging Mode:	Statistics
+Description:	NRG 200M Vane
+Serial Number:	100706084
+Height:	0.00
+Bearing:	0.00
+Vane Mounting Angle:	180.00
+Scale Factor:	147.82100
+Offset:	-1.45240
+Total Direction Offset:	178.55
+Dead Band East:	0
+Dead Band West:	0
+Units:	Deg
+Reference Voltage:	5 V
+Excitation Mode:	Pulsed On
+Excitation Value:	5 V
+
+Channel:	14
+Effective Date:	2024-02-15 14:05:27
+Type:	Analog
+Data Logging Mode:	Statistics
+Description:	RC18 Irradiance
+Serial Number:	810226-02
+Height:	2.20
+Bearing:	30.00
+Scale Factor:	1000.00000
+Offset:	0.00000
+Units:	W/m^2
+Reference Voltage:	5 V
+Excitation Mode:	Pulsed On
+Excitation Value:	2.500 V
+
+Channel:	15
+Effective Date:	2021-08-24 16:00:01
+Type:	Analog
+Data Logging Mode:	Statistics
+Description:	NRG T60 Temp
+Serial Number:	
+Height:	0.00
+Bearing:	0.00
+Scale Factor:	44.74360
+Offset:	-40.85550
+Units:	C
+Reference Voltage:	5 V
+Excitation Mode:	Pulsed On
+Excitation Value:	5 V
+
+Channel:	16
+Effective Date:	2021-08-24 16:00:01
+Type:	Analog
+Data Logging Mode:	Statistics
+Description:	NRG BP60 Baro
+Serial Number:	
+Height:	0.00
+Bearing:	0.00
+Scale Factor:	244.19300
+Offset:	494.94900
+Units:	hPa
+Reference Voltage:	5 V
+Excitation Mode:	Pulsed On
+Excitation Value:	5 V
+
+Channel:	17
+Effective Date:	2023-08-21 05:00:02
+Type:	Analog
+Data Logging Mode:	Statistics
+Description:	NRG RH5X Humi
+Serial Number:	12345
+Height:	1.00
+Bearing:	180.00
+Scale Factor:	20.00000
+Offset:	0.00000
+Units:	%RH
+Reference Voltage:	5 V
+Excitation Mode:	Constant On
+Excitation Value:	12 V
+
+Channel:	18
+Effective Date:	2021-11-17 16:00:01
+Type:	Analog
+Data Logging Mode:	Stats and Samples
+Description:	Isc Clean
+Serial Number:	190982806
+Height:	0.00
+Bearing:	0.00
+Scale Factor:	3.12500
+Offset:	0.00000
+Units:	Amps
+Reference Voltage:	5 V
+Excitation Mode:	Constant On
+Excitation Value:	12 V
+
+Channel:	19
+Effective Date:	2021-11-17 16:00:01
+Type:	Analog
+Data Logging Mode:	Stats and Samples
+Description:	Isc Dirty
+Serial Number:	190982818
+Height:	0.00
+Bearing:	0.00
+Scale Factor:	3.12500
+Offset:	0.00000
+Units:	Amps
+Reference Voltage:	5 V
+Excitation Mode:	Constant On
+Excitation Value:	12 V
+
+Channel:	20
+Effective Date:	2021-08-24 16:00:01
+Type:	Thermistor
+Data Logging Mode:	Statistics
+Description:	PVT1 PV Temp Clean
+Serial Number:	9421000013
+Height:	0.00
+Bearing:	0.00
+Scale Factor:	1.00000
+Offset:	-273.15000
+Units:	C
+ThermistorA:	0.001032000
+ThermistorB:	0.000238700
+ThermistorC:	0.000000158
+Math Type:	Thermistor: Steinhart-Hart
+P-SCM Type:	P-SCM #9420 (0-5)V, Diff Input, Const 15uA No Exc, 2/4w
+
+Channel:	21
+Effective Date:	2021-08-24 16:00:01
+Type:	Thermistor
+Data Logging Mode:	Statistics
+Description:	PVT1 PV Temp Dirty
+Serial Number:	9421000017
+Height:	0.00
+Bearing:	0.00
+Scale Factor:	1.00000
+Offset:	-273.15000
+Units:	C
+ThermistorA:	0.001032000
+ThermistorB:	0.000238700
+ThermistorC:	0.000000158
+Math Type:	Thermistor: Steinhart-Hart
+P-SCM Type:	P-SCM #9420 (0-5)V, Diff Input, Const 15uA No Exc, 2/4w
+
+Channel:	22
+Effective Date:	2021-08-24 16:00:01
+Type:	Thermistor
+Data Logging Mode:	Statistics
+Description:	PVT1 10m N Center
+Serial Number:	942200009
+Height:	1.50
+Bearing:	0.00
+Scale Factor:	1.00000
+Offset:	-273.15000
+Units:	C
+ThermistorA:	0.001032000
+ThermistorB:	0.000238700
+ThermistorC:	0.000000158
+Math Type:	Thermistor: Steinhart-Hart
+P-SCM Type:	P-SCM #9420 (0-5)V, Diff Input, Const 15uA No Exc, 2/4w
+
+Channel:	23
+Effective Date:	2021-08-24 16:00:01
+Type:	Thermistor
+Data Logging Mode:	Statistics
+Description:	PVT1 20m NW Left INV
+Serial Number:	9423000041
+Height:	1.50
+Bearing:	0.00
+Scale Factor:	1.00000
+Offset:	-273.15000
+Units:	C
+ThermistorA:	0.001032000
+ThermistorB:	0.000238700
+ThermistorC:	0.000000158
+Math Type:	Thermistor: Steinhart-Hart
+P-SCM Type:	P-SCM #9420 (0-5)V, Diff Input, Const 15uA No Exc, 2/4w
+
+Channel:	24
+Effective Date:	2021-08-24 16:00:01
+Type:	Thermistor
+Data Logging Mode:	Statistics
+Description:	PVT1 20m NW Right
+Serial Number:	9423000043
+Height:	1.50
+Bearing:	0.00
+Scale Factor:	1.00000
+Offset:	-273.15000
+Units:	C
+ThermistorA:	0.001032000
+ThermistorB:	0.000238700
+ThermistorC:	0.000000158
+Math Type:	Thermistor: Steinhart-Hart
+P-SCM Type:	P-SCM #9420 (0-5)V, Diff Input, Const 15uA No Exc, 2/4w
+
+Channel:	25
+Effective Date:	2021-08-24 16:00:01
+Type:	Thermistor
+Data Logging Mode:	Statistics
+Description:	PVT1 50m SE Left
+Serial Number:	9424000002
+Height:	1.50
+Bearing:	0.00
+Scale Factor:	1.00000
+Offset:	-273.15000
+Units:	C
+ThermistorA:	0.001032000
+ThermistorB:	0.000238700
+ThermistorC:	0.000000158
+Math Type:	Thermistor: Steinhart-Hart
+P-SCM Type:	P-SCM #9420 (0-5)V, Diff Input, Const 15uA No Exc, 2/4w
+
+Channel:	26
+Effective Date:	2021-08-24 16:00:01
+Type:	Thermistor
+Data Logging Mode:	Statistics
+Description:	PVT1 50m SE Right
+Serial Number:	9424000001
+Height:	1.50
+Bearing:	0.00
+Scale Factor:	1.00000
+Offset:	-273.15000
+Units:	C
+ThermistorA:	0.001032000
+ThermistorB:	0.000238700
+ThermistorC:	0.000000158
+Math Type:	Thermistor: Steinhart-Hart
+P-SCM Type:	P-SCM #9420 (0-5)V, Diff Input, Const 15uA No Exc, 2/4w
+
+Channel:	27
+Effective Date:	2021-02-12 14:49:01
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	A
+Slave Address:	1
+Device:	EKO MS-40M
+Measurand:	Solar Irradiance
+Description:	MS-40M GHI
+Serial Number:	S18118030
+Height:	0.00
+Bearing:	0.00
+Scale Factor:	1.00000
+Offset:	0.00000
+Units:	W/m^2
+
+Channel:	28
+Effective Date:	2021-02-12 14:49:01
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	B
+Slave Address:	1
+Device:	EKO MS-40M
+Measurand:	Solar Irradiance
+Description:	MS-40M POA
+Serial Number:	S18118034
+Height:	0.00
+Bearing:	30.00
+Scale Factor:	1.00000
+Offset:	0.00000
+Units:	W/m^2
+
+Channel:	29
+Effective Date:	2021-02-12 14:49:01
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	A
+Slave Address:	18
+Device:	RC18 Reference Cell
+Measurand:	Irradiance
+Description:	RC18-Irrandiance POA
+Serial Number:	810226-02
+Height:	2.20
+Bearing:	30.00
+Scale Factor:	1.00000
+Offset:	0.00000
+Units:	W/m^2
+
+Channel:	30
+Effective Date:	2021-02-12 14:49:01
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	A
+Slave Address:	18
+Device:	RC18 Reference Cell
+Measurand:	Short-Circuit Current
+Description:	RC18-Isc
+Serial Number:	810226-02
+Height:	2.20
+Bearing:	30.00
+Scale Factor:	1.00000
+Offset:	0.00000
+Units:	A
+
+Channel:	31
+Effective Date:	2021-02-12 14:49:01
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	A
+Slave Address:	18
+Device:	RC18 Reference Cell
+Measurand:	PV Temperature
+Description:	RC18-PV Temp
+Serial Number:	810226-02
+Height:	2.20
+Bearing:	30.00
+Scale Factor:	1.00000
+Offset:	0.00000
+Units:	C
+
+Channel:	32
+Effective Date:	2023-01-20 08:38:53
+Type:	ModbusRTU
+Data Logging Mode:	Stats and Samples
+Com Port:	B
+Slave Address:	6
+Device:	Lufft WS600-UMB
+Measurand:	
+Description:	WS600-PrecipDiff
+Serial Number:	U01-NA
+Height:	2.00
+Bearing:	0.00
+Scale Factor:	0.01000
+Offset:	0.00000
+Units:	mm
+
+Channel:	33
+Effective Date:	2023-01-20 08:38:53
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	B
+Slave Address:	6
+Device:	Lufft WS600-UMB
+Measurand:	Precipitation
+Description:	WS600-Precip
+Serial Number:	U01-NA
+Height:	2.00
+Bearing:	0.00
+Scale Factor:	0.01000
+Offset:	0.00000
+Units:	mm
+
+Channel:	34
+Effective Date:	2024-02-09 22:00:00
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	B
+Slave Address:	6
+Device:	Lufft WS600-UMB
+Measurand:	Precipitation Type
+Description:	WS600-Precip Type
+Serial Number:	U01-NA
+Height:	2.00
+Bearing:	0.00
+Scale Factor:	1.00000
+Offset:	0.00000
+Units:	
+
+Channel:	35
+Effective Date:	2023-01-20 08:38:53
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	B
+Slave Address:	6
+Device:	Lufft WS600-UMB
+Measurand:	Wind Speed Fast
+Description:	WS600-Speed
+Serial Number:	U01-NA
+Height:	2.00
+Bearing:	0.00
+Scale Factor:	0.10000
+Offset:	0.00000
+Units:	m/s
+
+Channel:	36
+Effective Date:	2023-01-20 08:38:53
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	B
+Slave Address:	6
+Device:	Lufft WS600-UMB
+Measurand:	Wind Direction Fast
+Description:	WS600-Direction
+Serial Number:	U01-NA
+Height:	2.00
+Bearing:	0.00
+Scale Factor:	0.10000
+Offset:	0.00000
+Units:	degrees
+
+Channel:	37
+Effective Date:	2023-01-20 08:38:53
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	B
+Slave Address:	6
+Device:	Lufft WS600-UMB
+Measurand:	Temperature
+Description:	WS600-Temp
+Serial Number:	U01-NA
+Height:	2.00
+Bearing:	0.00
+Scale Factor:	0.10000
+Offset:	0.00000
+Units:	C
+
+Channel:	38
+Effective Date:	2023-04-19 22:00:00
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	B
+Slave Address:	6
+Device:	Lufft WS600-UMB
+Measurand:	Relative Humidity
+Description:	WS600-RH
+Serial Number:	U01-NA
+Height:	2.00
+Bearing:	0.00
+Scale Factor:	0.12000
+Offset:	11.00000
+Units:	%RH
+
+Channel:	39
+Effective Date:	2023-02-27 22:00:00
+Type:	ModbusRTU
+Data Logging Mode:	Statistics
+Com Port:	B
+Slave Address:	6
+Device:	Lufft WS600-UMB
+Measurand:	Pressure
+Description:	WS600-Pressure
+Serial Number:	U01-NA
+Height:	2.00
+Bearing:	0.00
+Scale Factor:	0.20000
+Offset:	1.00000
+Units:	hPa
+
+Channel:	100
+Effective Date:	2021-08-24 16:00:01
+Type:	Calculated
+Data Logging Mode:	Statistics
+Description:	Solar Zenith Angle
+Units:	Degrees
+Math Function:	ZenithAngle
+
+Channel:	101
+Effective Date:	2021-08-24 16:00:01
+Type:	Calculated
+Data Logging Mode:	Statistics
+Description:	Solar Azimuth Angle
+Units:	Degrees
+Math Function:	AzimuthAngle
+
+Channel:	102
+Effective Date:	2021-11-17 16:00:01
+Type:	Calculated
+Data Logging Mode:	Stats and Samples
+Description:	Isc_Ratio
+Units:	
+Math Function:	Ratio
+Numerator Channel:	19
+Denominator Channel:	18
+
+Channel:	104
+Effective Date:	2022-04-15 10:38:59
+Type:	Calculated
+Data Logging Mode:	Statistics
+Description:	Daily Insolation
+Units:	kWh/m^2
+Math Function:	DailyInsolation
+Input Channel:	14
+
+Data
+Timestamp	Ch1_Anem_0.00m_N_Avg_m/s	Ch1_Anem_0.00m_N_SD_m/s	Ch1_Anem_0.00m_N_Min_m/s	Ch1_Anem_0.00m_N_Max_m/s	Ch1_Anem_0.00m_N_Gust_m/s	Ch4_Total_0.00m_N_Sum_mm	Ch11_Anem___Avg_m/s	Ch11_Anem___SD_m/s	Ch11_Anem___Min_m/s	Ch11_Anem___Max_m/s	Ch11_Anem___Gust_m/s	Ch13_Vane_0.00m_N_Avg_Deg	Ch13_Vane_0.00m_N_SD_Deg	Ch13_Vane_0.00m_N_GustDir_Deg	Ch14_Analog_2.20m_NNE_Avg_W/m^2	Ch14_Analog_2.20m_NNE_SD_W/m^2	Ch14_Analog_2.20m_NNE_Min_W/m^2	Ch14_Analog_2.20m_NNE_Max_W/m^2	Ch15_Analog_0.00m_N_Avg_C	Ch15_Analog_0.00m_N_SD_C	Ch15_Analog_0.00m_N_Min_C	Ch15_Analog_0.00m_N_Max_C	Ch16_Analog_0.00m_N_Avg_hPa	Ch16_Analog_0.00m_N_SD_hPa	Ch16_Analog_0.00m_N_Min_hPa	Ch16_Analog_0.00m_N_Max_hPa	Ch17_Analog_1.00m_S_Avg_%RH	Ch17_Analog_1.00m_S_SD_%RH	Ch17_Analog_1.00m_S_Min_%RH	Ch17_Analog_1.00m_S_Max_%RH	Ch18_Analog_0.00m_N_Avg_Amps	Ch18_Analog_0.00m_N_SD_Amps	Ch18_Analog_0.00m_N_Min_Amps	Ch18_Analog_0.00m_N_Max_Amps	Ch19_Analog_0.00m_N_Avg_Amps	Ch19_Analog_0.00m_N_SD_Amps	Ch19_Analog_0.00m_N_Min_Amps	Ch19_Analog_0.00m_N_Max_Amps	Ch20_Therm_0.00m_N_Avg_C	Ch20_Therm_0.00m_N_SD_C	Ch20_Therm_0.00m_N_Min_C	Ch20_Therm_0.00m_N_Max_C	Ch21_Therm_0.00m_N_Avg_C	Ch21_Therm_0.00m_N_SD_C	Ch21_Therm_0.00m_N_Min_C	Ch21_Therm_0.00m_N_Max_C	Ch22_Therm_1.50m_N_Avg_C	Ch22_Therm_1.50m_N_SD_C	Ch22_Therm_1.50m_N_Min_C	Ch22_Therm_1.50m_N_Max_C	Ch23_Therm_1.50m_N_Avg_C	Ch23_Therm_1.50m_N_SD_C	Ch23_Therm_1.50m_N_Min_C	Ch23_Therm_1.50m_N_Max_C	Ch24_Therm_1.50m_N_Avg_C	Ch24_Therm_1.50m_N_SD_C	Ch24_Therm_1.50m_N_Min_C	Ch24_Therm_1.50m_N_Max_C	Ch25_Therm_1.50m_N_Avg_C	Ch25_Therm_1.50m_N_SD_C	Ch25_Therm_1.50m_N_Min_C	Ch25_Therm_1.50m_N_Max_C	Ch26_Therm_1.50m_N_Avg_C	Ch26_Therm_1.50m_N_SD_C	Ch26_Therm_1.50m_N_Min_C	Ch26_Therm_1.50m_N_Max_C	Ch27_ModbusRTU_0.00m_N_Avg_W/m^2	Ch27_ModbusRTU_0.00m_N_SD_W/m^2	Ch27_ModbusRTU_0.00m_N_Min_W/m^2	Ch27_ModbusRTU_0.00m_N_Max_W/m^2	Ch28_ModbusRTU_0.00m_NNE_Avg_W/m^2	Ch28_ModbusRTU_0.00m_NNE_SD_W/m^2	Ch28_ModbusRTU_0.00m_NNE_Min_W/m^2	Ch28_ModbusRTU_0.00m_NNE_Max_W/m^2	Ch29_ModbusRTU_2.20m_NNE_Avg_W/m^2	Ch29_ModbusRTU_2.20m_NNE_SD_W/m^2	Ch29_ModbusRTU_2.20m_NNE_Min_W/m^2	Ch29_ModbusRTU_2.20m_NNE_Max_W/m^2	Ch30_ModbusRTU_2.20m_NNE_Avg_A	Ch30_ModbusRTU_2.20m_NNE_SD_A	Ch30_ModbusRTU_2.20m_NNE_Min_A	Ch30_ModbusRTU_2.20m_NNE_Max_A	Ch31_ModbusRTU_2.20m_NNE_Avg_C	Ch31_ModbusRTU_2.20m_NNE_SD_C	Ch31_ModbusRTU_2.20m_NNE_Min_C	Ch31_ModbusRTU_2.20m_NNE_Max_C	Ch32_Total_2.00m_N_Sum_mm	Ch33_ModbusRTU_2.00m_N_Avg_mm	Ch33_ModbusRTU_2.00m_N_SD_mm	Ch33_ModbusRTU_2.00m_N_Min_mm	Ch33_ModbusRTU_2.00m_N_Max_mm	Ch34_ModbusRTU_2.00m_N_Avg_	Ch34_ModbusRTU_2.00m_N_SD_	Ch34_ModbusRTU_2.00m_N_Min_	Ch34_ModbusRTU_2.00m_N_Max_	Ch35_ModbusRTU_2.00m_N_Avg_m/s	Ch35_ModbusRTU_2.00m_N_SD_m/s	Ch35_ModbusRTU_2.00m_N_Min_m/s	Ch35_ModbusRTU_2.00m_N_Max_m/s	Ch36_Vane_2.00m_N_Avg_degrees	Ch36_Vane_2.00m_N_SD_degrees	Ch36_Vane_2.00m_N_GustDir_degrees	Ch37_ModbusRTU_2.00m_N_Avg_C	Ch37_ModbusRTU_2.00m_N_SD_C	Ch37_ModbusRTU_2.00m_N_Min_C	Ch37_ModbusRTU_2.00m_N_Max_C	Ch38_ModbusRTU_2.00m_N_Avg_%RH	Ch38_ModbusRTU_2.00m_N_SD_%RH	Ch38_ModbusRTU_2.00m_N_Min_%RH	Ch38_ModbusRTU_2.00m_N_Max_%RH	Ch39_ModbusRTU_2.00m_N_Avg_hPa	Ch39_ModbusRTU_2.00m_N_SD_hPa	Ch39_ModbusRTU_2.00m_N_Min_hPa	Ch39_ModbusRTU_2.00m_N_Max_hPa	Ch100_Calculated___Avg_Degrees	Ch100_Calculated___SD_Degrees	Ch100_Calculated___Min_Degrees	Ch100_Calculated___Max_Degrees	Ch101_Calculated___Avg_Degrees	Ch101_Calculated___SD_Degrees	Ch101_Calculated___Min_Degrees	Ch101_Calculated___Max_Degrees	Ch102_Calculated___Avg_	Ch102_Calculated___SD_	Ch102_Calculated___Min_	Ch102_Calculated___Max_	Ch104_Calculated___Avg_kWh/m^2	Ch104_Calculated___SD_kWh/m^2	Ch104_Calculated___Min_kWh/m^2	Ch104_Calculated___Max_kWh/m^2
+2025-06-16 00:00:00	1.350000	0.000000	1.350000	1.350000	1.350000	0.000000	0.350000	0.000000	0.350000	0.350000	0.350000	343.790000	0.050000	180.000000	12.588501	0.000000	12.512207	12.741089	13.558332	0.017068	13.531023	13.592469	1006.671498	0.018630	1006.596977	1006.764651	94.338989	0.068665	94.268799	94.523621	0.000715	0.000000	0.000715	0.000954	0.000238	0.000000	0.000238	0.000477	11.440000	0.010000	11.430000	11.470000	11.410000	0.010000	11.410000	11.430000	10.690000	0.010000	10.680000	10.720000	10.950000	0.020000	10.920000	10.990000	-28.060000	0.000000	-28.060000	-28.050000	10.470000	0.040000	10.400000	10.540000	10.400000	0.040000	10.340000	10.480000	-4.100000	0.100000	-4.500000	-4.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	13.400000	0.000000	13.400000	13.500000	0.000000	317.350000	0.000000	317.350000	317.350000	0.000000	0.000000	0.000000	0.000000	0.200000	0.100000	0.100000	0.300000	98.900000	92.100000	0.000000	13.800000	0.000000	13.800000	13.900000	112.520000	0.300000	112.040000	112.760000	2015.200000	0.000000	2015.200000	2015.400000	106.300000	0.030000	106.260000	106.350000	30.280000	0.060000	30.180000	30.400000	0.420000	0.150000	0.250000	0.670000	0.000000	0.000000	0.000000	0.000000
+2025-06-16 00:01:00	1.350000	0.000000	1.350000	1.350000	1.350000	0.000000	0.350000	0.000000	0.350000	0.350000	0.350000	343.720000	0.030000	180.000000	12.588501	0.000000	12.512207	12.741089	13.619778	0.017068	13.589055	13.647088	1006.671498	0.037261	1006.615607	1006.783281	94.255066	0.097656	94.151306	94.471741	0.000715	0.000000	0.000715	0.000954	0.000238	0.000000	0.000238	0.000477	11.450000	0.010000	11.440000	11.470000	11.430000	0.010000	11.410000	11.450000	10.720000	0.010000	10.710000	10.740000	10.970000	0.010000	10.960000	11.000000	-28.060000	0.000000	-28.060000	-28.050000	10.460000	0.050000	10.410000	10.550000	10.410000	0.040000	10.360000	10.490000	-4.700000	0.200000	-5.200000	-4.400000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	13.400000	0.100000	13.400000	13.500000	0.000000	317.350000	0.000000	317.350000	317.350000	0.000000	0.000000	0.000000	0.000000	0.200000	0.000000	0.200000	0.300000	26.840000	74.800000	0.000000	13.900000	0.000000	13.900000	14.000000	112.040000	0.100000	112.040000	112.400000	2015.200000	0.000000	2015.200000	2015.400000	106.210000	0.030000	106.170000	106.260000	30.500000	0.060000	30.400000	30.620000	0.410000	0.150000	0.250000	0.670000	0.000000	0.000000	0.000000	0.000000
+2025-06-16 00:02:00	1.350000	0.000000	1.350000	1.350000	1.350000	0.000000	0.350000	0.000000	0.350000	0.350000	0.350000	344.960000	0.690000	180.000000	12.588501	0.000000	12.512207	12.817383	13.664156	0.006827	13.650501	13.688052	1006.690129	0.018630	1006.634238	1006.764651	94.279480	0.108337	94.128418	94.474792	0.000715	0.000000	0.000715	0.000954	0.000238	0.000000	0.000238	0.000477	11.440000	0.010000	11.430000	11.450000	11.440000	0.010000	11.430000	11.470000	10.720000	0.010000	10.710000	10.740000	10.960000	0.010000	10.950000	10.990000	-28.050000	0.000000	-28.050000	-28.050000	10.480000	0.040000	10.400000	10.540000	10.440000	0.040000	10.360000	10.470000	-4.900000	0.100000	-5.100000	-4.900000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	13.400000	0.000000	13.400000	13.500000	0.000000	317.350000	0.000000	317.350000	317.350000	0.000000	0.000000	0.000000	0.000000	0.200000	0.100000	0.100000	0.300000	81.740000	79.600000	0.000000	14.000000	0.000000	14.000000	14.000000	112.400000	0.000000	112.400000	112.520000	2015.400000	0.000000	2015.400000	2015.400000	106.120000	0.030000	106.080000	106.170000	30.720000	0.060000	30.620000	30.830000	0.420000	0.140000	0.250000	0.670000	0.000000	0.000000	0.000000	0.000000
+2025-06-16 00:03:00	1.350000	0.000000	1.350000	1.350000	1.350000	0.000000	0.350000	0.000000	0.350000	0.350000	0.350000	45.700000	63.240000	180.000000	12.588501	0.000000	12.512207	12.741089	13.684638	0.003414	13.674397	13.694879	1006.708759	0.037261	1006.615607	1006.820542	93.965149	0.131226	93.711853	94.128418	0.000715	0.000000	0.000715	0.000954	0.000238	0.000000	0.000238	0.000477	11.440000	0.000000	11.430000	11.460000	11.450000	0.010000	11.440000	11.480000	10.700000	0.010000	10.680000	10.730000	10.940000	0.010000	10.940000	10.970000	-28.050000	0.000000	-28.050000	-28.050000	10.460000	0.050000	10.380000	10.530000	10.410000	0.040000	10.340000	10.470000	-5.900000	0.500000	-6.800000	-5.100000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	13.400000	0.000000	13.400000	13.500000	0.000000	317.350000	0.000000	317.350000	317.350000	0.000000	0.000000	0.000000	0.000000	0.200000	0.100000	0.100000	0.400000	4.780000	22.020000	0.000000	14.000000	0.000000	14.000000	14.000000	112.280000	0.200000	112.040000	112.520000	2015.400000	0.000000	2015.400000	2015.400000	106.030000	0.030000	105.990000	106.080000	30.940000	0.060000	30.840000	31.050000	0.400000	0.150000	0.250000	0.670000	0.000000	0.000000	0.000000	0.000000
+2025-06-16 00:04:00	1.350000	0.000000	1.350000	1.350000	1.350000	0.000000	0.350000	0.000000	0.350000	0.350000	0.350000	123.400000	8.080000	180.000000	12.588501	0.000000	12.512207	12.741089	13.684638	0.003414	13.670983	13.694879	1006.727390	0.018630	1006.652868	1006.820542	93.667603	0.056458	93.586731	93.760681	0.000715	0.000000	0.000715	0.000954	0.000238	0.000000	0.000238	0.000477	11.410000	0.020000	11.380000	11.450000	11.410000	0.020000	11.370000	11.450000	10.650000	0.020000	10.620000	10.700000	10.910000	0.020000	10.880000	10.950000	-28.060000	0.000000	-28.060000	-28.050000	10.420000	0.040000	10.340000	10.500000	10.370000	0.040000	10.290000	10.440000	-7.700000	0.600000	-8.600000	-6.800000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	13.500000	0.000000	13.500000	13.500000	0.000000	317.350000	0.000000	317.350000	317.350000	0.000000	0.000000	0.000000	0.000000	0.100000	0.100000	0.100000	0.300000	116.920000	255.000000	0.000000	13.900000	0.100000	13.800000	14.000000	112.400000	0.500000	112.040000	113.240000	2015.400000	0.000000	2015.400000	2015.400000	105.940000	0.030000	105.890000	105.990000	31.160000	0.060000	31.060000	31.270000	0.380000	0.140000	0.250000	0.670000	0.000000	0.000000	0.000000	0.000000
+2025-06-16 00:05:00	1.350000	0.000000	1.350000	1.350000	1.350000	0.000000	0.350000	0.000000	0.350000	0.350000	0.350000	135.120000	0.030000	180.000000	12.588501	0.000000	12.512207	12.817383	13.657329	0.010241	13.633433	13.681224	1006.708759	0.018630	1006.671498	1006.801912	93.382263	0.129700	93.244934	93.705750	0.000715	0.000000	0.000715	0.000954	0.000238	0.000000	0.000238	0.000477	11.340000	0.020000	11.300000	11.380000	11.330000	0.030000	11.280000	11.380000	10.590000	0.020000	10.550000	10.630000	10.840000	0.020000	10.810000	10.880000	-28.060000	0.000000	-28.060000	-28.050000	10.360000	0.050000	10.280000	10.460000	10.310000	0.050000	10.240000	10.390000	-9.100000	0.300000	-9.600000	-8.600000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	13.400000	0.000000	13.400000	13.500000	0.000000	317.350000	0.000000	317.350000	317.350000	0.000000	0.000000	0.000000	0.000000	0.100000	0.000000	0.000000	0.200000	281.600000	274.820000	0.000000	13.700000	0.100000	13.500000	13.800000	113.840000	0.800000	113.240000	115.400000	2015.400000	0.000000	2015.400000	2015.400000	105.840000	0.030000	105.800000	105.890000	31.380000	0.060000	31.280000	31.490000	0.410000	0.140000	0.250000	0.670000	0.000000	0.000000	0.000000	0.000000

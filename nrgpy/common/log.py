@@ -20,7 +20,7 @@ class NrgPythonLog(logging.Logger):
 
     def __init__(self, name: str = "nrgpy", level: Optional[int] = None) -> None:
         self.token_file_name: str = ".cloud_token"
-        self.logfile_name: str = "nrgpy.log"
+        self.logfile_name: str = f"{name}.log"
         self.log_directory: str = self._get_log_directory()
         self.logfile: str = os.path.join(self.log_directory, self.logfile_name)
         self.token_file: str = os.path.join(self.log_directory, self.token_file_name)
