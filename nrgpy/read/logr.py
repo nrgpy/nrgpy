@@ -13,7 +13,7 @@ from nrgpy.utils.utilities import (
     string_date_check,
     renamer,
 )
-from typing import List
+from typing import List, Union
 
 
 class LogrRead:
@@ -311,7 +311,7 @@ class LogrRead:
             print("Warning: error processing site_info: {}".format(e))
             log.exception(f"Cannot parse site info: {e}")
 
-    def get_filtered_file_list(self, pre_filtered_list: List[str] = None) -> list:
+    def get_filtered_file_list(self, pre_filtered_list: Union[List[str], None] = None) -> list:
         """Get filtered list of files based on filter criteria.
 
         Parameters
@@ -319,6 +319,9 @@ class LogrRead:
         pre_filtered_list : List[str], optional
             List of files to apply filters to. If None, uses directory contents.
         """
+        if not self.file_filter:
+            self.file_filter = ""
+
         if pre_filtered_list is not None:
             files = [
                 f
@@ -354,7 +357,7 @@ class LogrRead:
         out_file: str = "",
         progress_bar: bool = True,
         drop_duplicates: bool = True,
-        file_list: List[str] = None,
+        file_list: Union[List[str], None] = None,
         **kwargs,
     ):
         """Will concatenate all text files in the dat_dir
