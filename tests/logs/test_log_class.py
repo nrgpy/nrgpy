@@ -3,15 +3,21 @@ from nrgpy.common.log import NrgPythonLog
 
 
 class TestNrgPythonLog:
-    def test_log_initiates_without_env_variables(self):
-        # arrange
+    def setup_method(self, method):
         os.unsetenv("NRGPY_LOG_DIRECTORY")
         os.unsetenv("NRGPY_LOG_LEVEL")
         os.unsetenv("NRGPY_NO_LOG_FILES")
 
+    def teardown_method(self, method):
+        os.unsetenv("NRGPY_LOG_DIRECTORY")
+        os.unsetenv("NRGPY_LOG_LEVEL")
+        os.unsetenv("NRGPY_NO_LOG_FILES")
+
+    def test_log_initiates_without_env_variables(self):
+        # arrange
         # act
         log = NrgPythonLog()
-        log.debug("test_log_initiates_without_env_variables")
+        log.info("test_log_initiates_without_env_variables")
         with open(log.logfile, "r") as f:
             log_contents = f.read()
 
@@ -38,10 +44,11 @@ class TestNrgPythonLog:
         assert log.log_directory == directory, f"Expected log directory {directory}"
         assert "test_log_initiates_with_env_variables" in log_contents
 
-        # remove environment variables after test and remove log file and directory
-        os.unsetenv("NRGPY_LOG_DIRECTORY")
-        os.unsetenv("NRGPY_LOG_LEVEL")
-        os.unsetenv("NRGPY_NO_LOG_FILES")
+        # remove log file and directory
+        for handler in log.handlers[:]:
+            log.removeHandler(handler)
+            if hasattr(handler, "close"):
+                handler.close()
         if os.path.exists(log.logfile):
             os.remove(log.logfile)
             os.rmdir(directory)
@@ -59,6 +66,3 @@ class TestNrgPythonLog:
 
         # assert
         assert not os.path.exists(log.logfile), "Expected no log file to be created"
-
-        # cleanup
-        os.unsetenv("NRGPY_NO_LOG_FILES")

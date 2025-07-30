@@ -250,7 +250,7 @@ class CloudConvert(CloudApi):
                 if self.progress_bar is False:
                     print("[DONE]")
 
-                log.info(f"converted {os.path.basename(self.export_filepath)} OK")
+                log.debug(f"converted {os.path.basename(self.export_filepath)} OK")
 
             elif self.resp.status_code == 401:
                 pass
@@ -259,9 +259,8 @@ class CloudConvert(CloudApi):
                 log.error(
                     f"unable to convert {os.path.basename(self.export_filepath)}: FAILED"
                 )
-                print("\nunable to process file: {0}".format(rld))
-                print(str(self.resp.status_code) + " | " + self.resp.reason)
-                print(self.resp.text.split(":")[1].split('"')[1])
+                log.error(str(self.resp.status_code) + " | " + self.resp.reason)
+                log.error(self.resp.text.split(":")[1].split('"')[1])
 
         except Exception as e:
             if self.progress_bar is False:
