@@ -365,7 +365,7 @@ class SymProTextRead:
         self.counter = 1
         self.start_time = datetime.now()
 
-        log.info(f"Concatenating {self.file_count} files...")
+        log.debug(f"Concatenating {self.file_count} files...")
 
         for f in files:
             if progress_bar:
@@ -463,7 +463,7 @@ class SymProTextRead:
             self.site_info = s.site_info
             self.format_site_data()
             print("\n")
-            log.info(f"Concatenation of {len(self.data)} rows complete")
+            log.debug(f"Concatenation of {len(self.data)} rows complete")
 
         except UnboundLocalError:
             print("No files match to contatenate.")

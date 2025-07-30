@@ -25,7 +25,6 @@ class NrgPythonLog(logging.Logger):
         self.logfile: str = os.path.join(self.log_directory, self.logfile_name)
         self.token_file: str = os.path.join(self.log_directory, self.token_file_name)
         self.no_log_files: bool = self._get_no_log_files()
-        # Always use _get_log_level unless explicitly overridden
         self._log_level: int = self._get_log_level() if level is None else level
         super().__init__(name, self._log_level)
         self._configure_logger()
@@ -51,8 +50,8 @@ class NrgPythonLog(logging.Logger):
     def _get_log_level(self) -> int:
         env_level = os.environ.get("NRGPY_LOG_LEVEL")
         if env_level:
-            return getattr(logging, env_level.upper(), logging.DEBUG)
-        return logging.DEBUG
+            return getattr(logging, env_level.upper(), logging.INFO)
+        return logging.INFO
 
     def _get_no_log_files(self) -> bool:
         return os.environ.get("NRGPY_NO_LOG_FILES", "0") == "1"
@@ -75,7 +74,6 @@ class NrgPythonLog(logging.Logger):
         stream_handler = logging.StreamHandler()
         stream_handler.setFormatter(formatter)
         self.addHandler(stream_handler)
-        self.debug("nrgpy initialized")
 
     def set_log_directory(self, directory: str) -> None:
         os.makedirs(directory, exist_ok=True)
@@ -85,7 +83,7 @@ class NrgPythonLog(logging.Logger):
         self._reset_handlers()
 
     def set_log_level(self, level: str) -> None:
-        self._log_level = getattr(logging, level.upper(), logging.DEBUG)
+        self._log_level = getattr(logging, level.upper(), logging.INFO)
         self.setLevel(self._log_level)
 
     def set_no_log_files(self, no_log_files: bool) -> None:
@@ -105,5 +103,6 @@ class NrgPythonLog(logging.Logger):
 logging.setLoggerClass(NrgPythonLog)
 
 # Provide a backward-compatible log object for legacy code
-log: NrgPythonLog = NrgPythonLog()
-TOKEN_FILE: str = log.get_token_file()
+_log: NrgPythonLog = NrgPythonLog()
+log: logging.Logger = logging.getLogger("nrgpy")
+TOKEN_FILE: str = _log.get_token_file()
