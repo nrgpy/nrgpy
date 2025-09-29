@@ -201,6 +201,7 @@ class LogrRead:
             "Description:",
             "Serial Number:",
             "Measurand:",
+            "Measurement Type:",
             "Height:",
             "Bearing:",
             "Scale Factor:",
