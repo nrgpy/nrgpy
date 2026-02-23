@@ -457,7 +457,7 @@ class SymProTextRead:
                     ],
                     ignore_index=True,
                 )
-                .drop(columns=["ch"], axis=1)
+                .drop(columns=["ch"])
             )
             self.head = s.head
             self.site_info = s.site_info
