@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from glob import glob
+import gzip
 import os
 import pandas as pd
 from nrgpy.common.enums import LoggerModel
@@ -82,43 +83,81 @@ class LogrRead:
     def process_file(self) -> None:
         i = 0
         self.set_timestamp_col()
-        with open(self.filename, encoding="iso-8859-1") as infile:
+        
+        # Determine if file is gzipped and use appropriate opener
+        is_gzipped = str(self.filename).lower().endswith('.gz')
+        file_opener = gzip.open if is_gzipped else open
+        open_mode = 'rt' if is_gzipped else 'r'
+        
+        with file_opener(self.filename, mode=open_mode, encoding="iso-8859-1") as infile:
             for line in infile:
                 if line == "Data\n":
                     break
                 else:
                     i = i + 1
-        with open(self.filename, encoding="iso-8859-1") as myfile:
+        with file_opener(self.filename, mode=open_mode, encoding="iso-8859-1") as myfile:
             self.head = "".join([myfile.readline() for _ in range(2)])
 
         header_len = i + 1
-        read_len = header_len - 5
-        self.site_info = pd.read_csv(
-            self.filename,
-            skiprows=2,
-            sep="\t",
-            index_col=False,
-            nrows=read_len,
-            usecols=[0, 1],
-            header=None,
-            encoding="iso-8859-1",
-        )
-        self.site_info = self.site_info.iloc[
-            : self.site_info.loc[self.site_info[0] == "Data"].index.tolist()[0] + 1
-        ]
+        # Read enough rows to include the "Data" line
+        read_len = header_len - 2
+
+        # For gzipped files, we need to handle pandas differently
+        if is_gzipped:
+            self.site_info = pd.read_csv(
+                self.filename,
+                skiprows=2,
+                sep="\t",
+                index_col=False,
+                nrows=read_len,
+                usecols=[0, 1],
+                header=None,
+                encoding="iso-8859-1",
+                compression='gzip',
+            )
+        else:
+            self.site_info = pd.read_csv(
+                self.filename,
+                skiprows=2,
+                sep="\t",
+                index_col=False,
+                nrows=read_len,
+                usecols=[0, 1],
+                header=None,
+                encoding="iso-8859-1",
+            )
+        # Find the "Data" row and trim to just before it
+        data_indices = self.site_info.loc[self.site_info[0] == "Data"].index.tolist()
+        if data_indices:
+            self.site_info = self.site_info.iloc[: data_indices[0]]
+        else:
+            # If no "Data" row found, use original logic as fallback
+            self.site_info = self.site_info.iloc[: len(self.site_info) - 3]
         self.format_site_data()
         self.create_data_df(header_len)
-        if str(self.filename).lower().endswith("dat"):
+        if str(self.filename).lower().endswith(("dat", "dat.gz")):
             self.arrange_ch_info()
 
     def set_timestamp_col(self) -> None:
-        if self.filename.lower().endswith("diag"):
+        filename_lower = str(self.filename).lower()
+        if filename_lower.endswith("diag") or filename_lower.endswith("diag.gz"):
             self.timestamp_col = "Stats_Timestamp"
         else:
             self.timestamp_col = "Timestamp"
 
     def create_data_df(self, header_len: int) -> None:
-        self.suffix = str(self.filename).lower().split(".")[-1]
+        # Handle both .gz and non-.gz files
+        filename_lower = str(self.filename).lower()
+        is_gzipped = filename_lower.endswith('.gz')
+        
+        if filename_lower.endswith('.gz'):
+            # Remove .gz to get the actual file type
+            self.suffix = filename_lower.split(".")[-2]
+        else:
+            self.suffix = filename_lower.split(".")[-1]
+            
+        compression_param = 'gzip' if is_gzipped else None
+        
         if self.suffix == "log":
             try:
                 if self.logger_model in LoggerModel.LOGR_SOLAR.value:
@@ -128,6 +167,7 @@ class LogrRead:
                         skiprows=header_len,
                         sep=",",
                         encoding="iso-8859-1",
+                        compression=compression_param,
                     )
                 else:
                     self.data = pd.read_csv(
@@ -136,6 +176,7 @@ class LogrRead:
                         skiprows=header_len,
                         sep="\t",
                         encoding="iso-8859-1",
+                        compression=compression_param,
                     )
 
                 self.first_timestamp = self.data.iloc[0][self.timestamp_col]
@@ -149,6 +190,7 @@ class LogrRead:
                     skiprows=header_len,
                     sep="\t",
                     encoding="iso-8859-1",
+                    compression=compression_param,
                 )
                 self.first_timestamp = self.data.iloc[0][self.timestamp_col]
             except IndexError:
@@ -156,7 +198,11 @@ class LogrRead:
         else:
             try:
                 self.data = pd.read_csv(
-                    self.filename, skiprows=header_len, sep="\t", encoding="iso-8859-1"
+                    self.filename, 
+                    skiprows=header_len, 
+                    sep="\t", 
+                    encoding="iso-8859-1",
+                    compression=compression_param,
                 )
                 self.format_timestamps()
                 self.first_timestamp = self.data.iloc[0][self.timestamp_col]
@@ -201,6 +247,7 @@ class LogrRead:
             "Description:",
             "Serial Number:",
             "Measurand:",
+            "Measurement Type:",
             "Height:",
             "Bearing:",
             "Scale Factor:",
@@ -311,7 +358,9 @@ class LogrRead:
             print("Warning: error processing site_info: {}".format(e))
             log.exception(f"Cannot parse site info: {e}")
 
-    def get_filtered_file_list(self, pre_filtered_list: Union[List[str], None] = None) -> list:
+    def get_filtered_file_list(
+        self, pre_filtered_list: Union[List[str], None] = None
+    ) -> list:
         """Get filtered list of files based on filter criteria.
 
         Parameters
@@ -332,6 +381,7 @@ class LogrRead:
                 and string_date_check(
                     self.start_date, self.end_date, os.path.basename(f)
                 )
+                and (f.lower().endswith(('.dat', '.log', '.diag', '.dat.gz', '.log.gz', '.diag.gz')))
             ]
         else:
             files = [
@@ -341,6 +391,7 @@ class LogrRead:
                 and self.filter2 in f
                 and self.file_type in f
                 and string_date_check(self.start_date, self.end_date, f)
+                and (f.lower().endswith(('.dat', '.log', '.diag', '.dat.gz', '.log.gz', '.diag.gz')))
             ]
         return files
 
@@ -556,7 +607,7 @@ class LogrRead:
                         axis=0,
                         join="outer",
                     )
-                    if not str(s.filename).lower().endswith(("log", "diag")):
+                    if not str(s.filename).lower().endswith(("log", "diag", "log.gz", "diag.gz")):
                         self.base.ch_info = pd.concat(
                             [self.base.ch_info, s.ch_info],
                             ignore_index=True,
@@ -583,7 +634,8 @@ class LogrRead:
             self.out_file = out_file
 
         try:
-            if str(self.dat_file_names[-1]).lower().endswith("dat"):
+            self.head = self.base.head
+            if str(self.dat_file_names[-1]).lower().endswith(("dat", "dat.gz")):
                 self.ch_info = s.ch_info
                 self.ch_list = s.ch_list
                 self.site_info = s.site_info
@@ -700,7 +752,7 @@ class LogrRead:
                 f.write(text)
 
             with open(output_name, "a", encoding="utf-8") as f:
-                self.data.round(6).to_csv(
+                self.data.to_csv(
                     f,
                     header=True,
                     sep="\t",
@@ -726,26 +778,48 @@ class LogrRead:
             log.info("\nOutputting file: {0}   ...   ".format(output_name))
 
             try:
-                output_file = open(output_name, "w+", encoding="utf-8")
-                output_file.truncate()
-                # output_file.write(self.head)
-                output_file.close()
+                with open(output_name, "w+", encoding="utf-8") as f:
+                    # Write the initial header lines if available
+                    if hasattr(self, "head") and self.head:
+                        f.write(self.head)
 
-                # write header
-                with open(output_name, "a", encoding="utf-8") as f:
-                    self.site_info.to_csv(
-                        f,
-                        header=False,
-                        sep="\t",
-                        index=False,
-                        index_label=False,
-                        lineterminator="\n",
-                    )
-                output_file.close()
+                    # Write the site_info section using original structure
+                    # but ensure we write key-value pairs properly and add blank lines between Channel blocks
+                    prev_key = None
+                    for idx, row in self.site_info.iterrows():
+                        key = row.iloc[0]
+                        value = row.iloc[1]
 
-                # write data
-                with open(output_name, "a", encoding="utf-8") as f:
-                    self.data.round(6).to_csv(
+                        # Skip the "Data" row as we'll add it later
+                        if key == "Data":
+                            break
+
+                        # Add blank line before Channel: (except the first one after Sensor History)
+                        if (
+                            key == "Channel:"
+                            and prev_key is not None
+                            and prev_key != "Sensor History"
+                        ):
+                            f.write("\n")
+
+                        # Handle section headers (NaN value, key has no colon)
+                        # vs key-value with empty value (key ends with colon)
+                        if pd.isna(value):
+                            key_str = str(key)
+                            if key_str.endswith(":"):
+                                f.write(f"{key}\t\n")
+                            else:
+                                f.write(f"\n{key}\n")
+                        else:
+                            f.write(f"{key}\t{value}\n")
+
+                        prev_key = key
+
+                    # Data section
+                    f.write("\nData\n")
+
+                    # Write data with proper headers (no rounding for round-trip integrity)
+                    self.data.to_csv(
                         f,
                         header=True,
                         sep="\t",
@@ -753,13 +827,12 @@ class LogrRead:
                         index_label=False,
                         lineterminator="\n",
                     )
-                output_file.close()
-                self.insert_blank_header_rows(output_name)
+
                 print("[OK]")
 
-            except Exception:
+            except Exception as e:
                 print("[FAILED]")
-                log.exception(f"Outputting {output_name} failed")
+                log.exception(f"Outputting {output_name} failed: {e}")
 
     def insert_blank_header_rows(self, filename: str):
         """insert blank rows when using shift_timestamps()

@@ -26,7 +26,7 @@ jobs:
             - name: Install dependencies
               run: pip install .[docs]
             - name: Build Sphinx Files
-              run: cd docs/ && sphinx-apidoc -f -o source/ ../ && sphinx-build -b html source/ . && cd -
+              run: cd docs/ && sphinx-apidoc -f -o source/ ../ ../venv ../build ../dist ../nrgpy.egg-info && sphinx-build -b html source/ _build/html && cd -
             - name: Deploy to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3
               if: github.ref == 'refs/heads/master'

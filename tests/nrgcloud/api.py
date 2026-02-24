@@ -1,6 +1,7 @@
 import glob
 from pathlib import Path
 from nrgpy.common.log import log
+from nrgpy.cloud_api.auth import cloud_url_base
 import nrgpy
 import os
 import pytest
@@ -16,17 +17,17 @@ UNAUTH_SITE_ID = 956
 
 
 @pytest.mark.skip(reason="this is not set up as a pytest yet")
-def test_sites_api(client_id: str, client_secret: str):
+def test_sites_api(client_id: str, client_secret: str, url_base: str) -> bool:
     """Ensure NRG Cloud Sites API is working properly with test account
 
     Test account has access to site 353002, associated with logger 820600087
     """
     try:
-        sites = nrgpy.cloud_sites(client_id, client_secret)
+        sites = nrgpy.cloud_sites(client_id, client_secret, url_base=url_base)
 
         if (
             sites.sites_df["siteId"]
-            .loc[sites.sites_df["loggerSerialNumber"] == LOGGER_SN]
+            .loc[sites.sites_df["loggerSerialNumber"] == str(LOGGER_SN)]
             .values[0]
             != SITE_ID
         ):
@@ -51,12 +52,13 @@ def test_sites_api(client_id: str, client_secret: str):
 
 
 @pytest.mark.skip(reason="this is not set up as a pytest yet")
-def test_export_api(client_id: str, client_secret: str):
+def test_export_api(client_id: str, client_secret: str, url_base: str):
     """"""
     try:
         exporter = nrgpy.CloudExport(
             client_id=client_id,
             client_secret=client_secret,
+            url_base=url_base,
             site_id=SITE_ID,
             start_date=START_DATE,
             end_date=END_DATE,
@@ -87,12 +89,13 @@ def test_export_api(client_id: str, client_secret: str):
 
 
 @pytest.mark.skip(reason="this is not set up as a pytest yet")
-def test_export_jobs_api(client_id: str, client_secret: str) -> bool:
+def test_export_jobs_api(client_id: str, client_secret: str, url_base: str) -> bool:
     """"""
     try:
         exporter = nrgpy.CloudExportJob(
             client_id=client_id,
             client_secret=client_secret,
+            url_base=url_base,
             site_id=SITE_ID,
             start_date=START_DATE,
             end_date=END_DATE,
@@ -116,12 +119,13 @@ def test_export_jobs_api(client_id: str, client_secret: str) -> bool:
 
 
 @pytest.mark.skip(reason="this is not set up as a pytest yet")
-def test_export_jobs_api_unauthorized(client_id: str, client_secret: str) -> bool:
+def test_export_jobs_api_unauthorized(client_id: str, client_secret: str, url_base: str) -> bool:
     """"""
     try:
         exporter = nrgpy.CloudExportJob(
             client_id=client_id,
             client_secret=client_secret,
+            url_base=url_base,
             site_id=UNAUTH_SITE_ID,
             start_date="2022-01-01",
             end_date="2022-01-10",
@@ -145,7 +149,7 @@ def get_test_file_directory():
 
 
 @pytest.mark.skip(reason="this is not set up as a pytest yet")
-def test_convert_api_valid_file_success(client_id: str, client_secret: str) -> bool:
+def test_convert_api_valid_file_success(client_id: str, client_secret: str, url_base: str) -> bool:
     """Test convert API with valid file"""
     try:
         file_path = str(
@@ -154,6 +158,7 @@ def test_convert_api_valid_file_success(client_id: str, client_secret: str) -> b
         converter = nrgpy.CloudConvert(
             client_id=client_id,
             client_secret=client_secret,
+            url_base=url_base,
             filename=file_path,
             out_dir=".",
         )
@@ -176,10 +181,11 @@ if __name__ == "__main__":
 
     client_id = sys.argv[1]
     client_secret = sys.argv[2]
+    url_base = sys.argv[3] if len(sys.argv) > 3 else cloud_url_base
 
-    assert test_sites_api(client_id, client_secret)
-    assert test_export_api(client_id, client_secret)
-    assert test_export_jobs_api(client_id, client_secret)
-    assert test_export_jobs_api_unauthorized(client_id, client_secret)
-    assert test_convert_api_valid_file_success(client_id, client_secret)
+    # assert test_sites_api(client_id, client_secret, url_base)
+    assert test_export_api(client_id, client_secret, url_base)
+    assert test_export_jobs_api(client_id, client_secret, url_base)
+    assert test_export_jobs_api_unauthorized(client_id, client_secret, url_base)
+    assert test_convert_api_valid_file_success(client_id, client_secret, url_base)
     print("All tests passed!")

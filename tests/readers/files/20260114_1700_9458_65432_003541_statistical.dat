@@ -1,0 +1,223 @@
+NRG Systems Data Logger
+File Created On (UTC):	2026-01-14T17:00:01Z
+Model Number:	9458
+Serial Number:	945865432
+Created FW Version:	001.01.012
+Bootloader Version:	001.00.002
+
+Site Properties
+Site:	WRA_60m
+Project:	NRG DEMO SITES
+Location:	Hinesburg, VT
+Coordinate System:	WGS84
+Latitude:	44.33889
+Longitude:	-73.11202
+Elevation:	136
+Time Zone:	-5
+
+File Properties
+File Schema Version:	1
+SD Card Free Space (kB):	7558266
+
+Statistical Interval (min):	10
+
+Exported FW Version:	001.01.012
+
+File Content:	Statistics
+Configuration Version:	1
+Number Active Channels:	17
+Sensor History
+Channel:	1
+Effective Date:	2025-08-28  15:38:51
+Description:	NRG 200M Vane 58m
+Measurement Type:	wind_direction
+Units:	deg
+Serial Number:	945865432
+Scale Factor:	148.005997
+Offset:	-0.922900
+Height:	58.00
+Boom Bearing:	0.0
+Excitation Type:	Excitation Off
+Vane Mounting Angle:	0.0
+Gust Source Channel:	401
+
+Channel:	2
+Effective Date:	2025-08-28  15:38:51
+Description:	NRG 200M Vane 48m
+Measurement Type:	wind_direction
+Units:	deg
+Serial Number:	945865432
+Scale Factor:	147.811005
+Offset:	-0.819400
+Height:	48.00
+Boom Bearing:	0.0
+Excitation Type:	Excitation Off
+Vane Mounting Angle:	0.0
+Gust Source Channel:	402
+
+Channel:	3
+Effective Date:	2025-09-03  15:34:11
+Description:	NRG 200M Vane 40m
+Measurement Type:	wind_direction
+Units:	deg
+Serial Number:	945865432
+Scale Factor:	147.897995
+Offset:	-0.979100
+Height:	40.00
+Boom Bearing:	0.0
+Excitation Type:	5V Pulse
+Vane Mounting Angle:	0.0
+Gust Source Channel:	405
+
+Channel:	4
+Effective Date:	2025-08-28  15:38:51
+Description:	NRG BP65
+Measurement Type:	absolute_air_pressure
+Units:	hPa
+Serial Number:	945865432
+Scale Factor:	243.899261
+Offset:	494.732941
+Height:	59.00
+Boom Bearing:	0.0
+Excitation Type:	5V Pulse
+
+Channel:	5
+Effective Date:	2025-08-28  15:38:51
+Description:	NRG T60 60m
+Measurement Type:	air_temperature
+Units:	deg_C
+Serial Number:	945865432
+Scale Factor:	44.676289
+Offset:	-40.921509
+Height:	60.00
+Boom Bearing:	0.0
+Excitation Type:	Excitation Off
+
+Channel:	6
+Effective Date:	2025-08-28  15:38:51
+Description:	NRG T60 4.5m
+Measurement Type:	air_temperature
+Units:	deg_C
+Serial Number:	945865432
+Scale Factor:	44.676289
+Offset:	-40.921509
+Height:	4.50
+Boom Bearing:	0.0
+Excitation Type:	Excitation Off
+
+Channel:	7
+Effective Date:	2025-08-28  15:38:51
+Description:	NRG RH5X
+Measurement Type:	relative_humidity
+Units:	%
+Serial Number:	945865432
+Scale Factor:	20.000000
+Offset:	0.000000
+Height:	2.00
+Boom Bearing:	0.0
+Excitation Type:	Excitation Off
+
+Channel:	9
+Effective Date:	2025-08-28  15:38:51
+Description:	NRG R1_POA_PV_Panel
+Measurement Type:	irradiance
+Units:	W/m^2
+Serial Number:	945865432
+Scale Factor:	100000.000000
+Offset:	0.000000
+Height:	2.00
+Boom Bearing:	0.0
+Excitation Type:	Excitation Off
+
+Channel:	319
+Effective Date:	2025-08-28  15:38:52
+Description:	Hourly Sum Rain Ch406
+Measurement Type:	hourly_sum
+Units:	mm
+Calculation:	HourlySum
+Source_A:	406
+Source_B:	
+
+Channel:	320
+Effective Date:	2025-08-28  15:38:52
+Description:	Daily Sum Rain Ch406
+Measurement Type:	daily_sum
+Units:	mm
+Calculation:	DailySum
+Source_A:	406
+Source_B:	
+
+Channel:	401
+Effective Date:	2025-08-28  15:38:51
+Description:	Thies FCA_60m
+Measurement Type:	wind_speed
+Units:	m/s
+Serial Number:	945865432
+Scale Factor:	0.046230
+Offset:	0.229820
+Height:	60.19
+Boom Bearing:	270.0
+
+Channel:	402
+Effective Date:	2025-08-28  15:38:51
+Description:	Thies FCA_50m
+Measurement Type:	wind_speed
+Units:	m/s
+Serial Number:	945865432
+Scale Factor:	0.046360
+Offset:	0.217890
+Height:	50.20
+Boom Bearing:	270.0
+
+Channel:	404
+Effective Date:	2025-08-28  15:38:51
+Description:	NRG S1_50m_broken_sensor
+Measurement Type:	wind_speed
+Units:	m/s
+Serial Number:	945865432
+Scale Factor:	0.093650
+Offset:	0.126900
+Height:	0.00
+Boom Bearing:	0.0
+
+Channel:	405
+Effective Date:	2025-08-28  15:38:51
+Description:	NRG S1_40m
+Measurement Type:	wind_speed
+Units:	m/s
+Serial Number:	945865432
+Scale Factor:	0.093500
+Offset:	0.139000
+Height:	40.00
+Boom Bearing:	90.0
+
+Channel:	406
+Effective Date:	2025-08-28  15:38:51
+Description:	NovaLynx 260 TBRG
+Measurement Type:	precipitation
+Units:	mm
+Serial Number:	945865432
+Scale Factor:	0.254000
+Offset:	0.000000
+Height:	0.00
+Boom Bearing:	0.0
+
+Channel:	407
+Effective Date:	2025-08-28  15:38:51
+Description:	NRG 40_40m
+Measurement Type:	wind_speed
+Units:	m/s
+Serial Number:	945865432
+Scale Factor:	0.757890
+Offset:	0.369000
+Height:	40.00
+Boom Bearing:	270.0
+
+Data
+Timestamp	Ch1_Avg_deg	Ch1_Min_deg	Ch1_Max_deg	Ch1_SD_deg	Ch1_Gust_Dir_deg	Ch2_Avg_deg	Ch2_Min_deg	Ch2_Max_deg	Ch2_SD_deg	Ch2_Gust_Dir_deg	Ch3_Avg_deg	Ch3_Min_deg	Ch3_Max_deg	Ch3_SD_deg	Ch3_Gust_Dir_deg	Ch4_Avg_hPa	Ch4_Min_hPa	Ch4_Max_hPa	Ch4_SD_hPa	Ch4_NotUsed	Ch5_Avg_deg_C	Ch5_Min_deg_C	Ch5_Max_deg_C	Ch5_SD_deg_C	Ch5_NotUsed	Ch6_Avg_deg_C	Ch6_Min_deg_C	Ch6_Max_deg_C	Ch6_SD_deg_C	Ch6_NotUsed	Ch7_Avg_%	Ch7_Min_%	Ch7_Max_%	Ch7_SD_%	Ch7_NotUsed	Ch9_Avg_W/m^2	Ch9_Min_W/m^2	Ch9_Max_W/m^2	Ch9_SD_W/m^2	Ch9_NotUsed	Ch319_Avg_mm	Ch319_Min_mm	Ch319_Max_mm	Ch319_SD_mm	Ch319_Sum_mm	Ch320_Avg_mm	Ch320_Min_mm	Ch320_Max_mm	Ch320_SD_mm	Ch320_Sum_mm	Ch401_Avg_m/s	Ch401_Min_m/s	Ch401_Max_m/s	Ch401_SD_m/s	Ch401_Gust_m/s	Ch402_Avg_m/s	Ch402_Min_m/s	Ch402_Max_m/s	Ch402_SD_m/s	Ch402_Gust_m/s	Ch403_Avg_m/s	Ch403_Min_m/s	Ch403_Max_m/s	Ch403_SD_m/s	Ch403_Gust_m/s	Ch404_Avg_m/s	Ch404_Min_m/s	Ch404_Max_m/s	Ch404_SD_m/s	Ch404_Gust_m/s	Ch405_Avg_m/s	Ch405_Min_m/s	Ch405_Max_m/s	Ch405_SD_m/s	Ch405_Gust_m/s	Ch406_Avg_mm	Ch406_Min_mm	Ch406_Max_mm	Ch406_SD_mm	Ch406_Total_mm	Ch407_Avg_m/s	Ch407_Min_m/s	Ch407_Max_m/s	Ch407_SD_m/s	Ch407_Gust_m/s
+2026-01-14T17:00:00Z	192.5293	0.0000	0.0000	14.1037	186.2706	198.1246	0.0000	0.0000	15.4123	191.3409	199.8542	0.0000	0.0000	14.2033	219.9880	985.6519	985.4966	985.8022	0.0557	0.0000	7.0217	7.0009	7.1232	0.0196	0.0000	7.3737	7.3585	7.4003	0.0087	0.0000	54.8866	53.6642	56.0848	0.6425	0.0000	70.7261	68.6104	73.7727	1.3544	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	3.6465	1.5705	5.5925	0.7641	5.4384	3.4246	1.4233	5.5956	0.7746	5.4720	3.7570	1.7179	5.5617	0.7394	5.5305	0.1269	0.1269	0.1269	0.0000	0.1269	2.0944	0.1390	4.8140	1.5756	4.5958	0.0000	0.0000	0.0000	0.0000	0.0000	3.2313	1.1269	5.6742	0.9332	5.1690
+2026-01-14T17:10:00Z	182.5095	0.0000	0.0000	15.3610	173.3748	188.7941	0.0000	0.0000	15.4522	195.3708	191.5504	0.0000	0.0000	14.2466	198.0839	985.5446	985.4039	985.7125	0.0622	0.0000	7.0541	7.0231	7.1581	0.0256	0.0000	7.4221	7.3974	7.4524	0.0101	0.0000	54.5754	53.4625	55.7802	0.4994	0.0000	71.7159	68.3987	72.9499	1.0438	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	3.6354	1.4318	6.3784	0.9906	6.1164	3.3563	1.2378	6.3374	0.9692	6.2756	3.6848	1.5304	6.4992	1.0384	6.4680	0.1269	0.1269	0.1269	0.0000	0.1269	3.1926	0.6065	5.8425	1.0373	5.6555	0.0000	0.0000	0.0000	0.0000	0.0000	3.1050	0.3690	5.6742	1.0123	5.4216
+2026-01-14T17:20:00Z	184.1548	0.0000	0.0000	17.9326	183.1164	189.0716	0.0000	0.0000	18.6474	196.0674	189.9185	0.0000	0.0000	18.9713	198.2072	985.4732	985.3224	985.5729	0.0369	0.0000	7.0315	7.0061	7.1243	0.0189	0.0000	7.3896	7.3476	7.4380	0.0258	0.0000	54.5441	53.3763	56.1829	0.6743	0.0000	62.5687	58.9688	68.3791	2.2976	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	3.6471	1.6167	6.2397	0.9231	5.8545	3.3334	1.2842	5.8738	0.8634	5.5184	3.6884	0.9679	6.1242	1.0185	5.9992	0.1269	0.1269	0.1269	0.0000	0.1269	2.9906	1.0740	5.1880	0.9076	5.1568	0.0000	0.0000	0.0000	0.0000	0.0000	3.0090	0.3690	5.6742	0.8834	5.1690
+2026-01-14T17:30:00Z	186.2197	0.0000	0.0000	12.6886	193.7683	188.8550	0.0000	0.0000	12.8212	181.5087	188.6173	0.0000	0.0000	11.9977	181.1218	985.4431	985.3230	985.5839	0.0460	0.0000	6.9915	6.9619	7.0953	0.0222	0.0000	7.3131	7.2974	7.3555	0.0121	0.0000	54.6240	53.8651	55.5779	0.3842	0.0000	56.3798	54.9474	58.9706	1.2590	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	3.8564	2.3102	5.6850	0.6716	5.5463	3.6080	1.8869	5.3639	0.7124	5.3020	3.8676	2.1867	5.3742	0.6691	5.2492	0.1269	0.1269	0.1269	0.0000	0.1269	3.5083	1.8220	5.2815	0.6739	5.1568	0.0000	0.0000	0.0000	0.0000	0.0000	3.4422	1.1269	5.6742	0.7110	5.1690
+2026-01-14T17:40:00Z	183.7356	0.0000	0.0000	11.3006	189.3380	187.0866	0.0000	0.0000	12.3952	188.3704	188.1181	0.0000	0.0000	12.1602	197.9448	985.3646	985.1752	985.4971	0.0505	0.0000	6.9864	6.9529	7.0800	0.0222	0.0000	7.2775	7.2394	7.3062	0.0157	0.0000	54.6098	53.7618	55.7756	0.3703	0.0000	52.9140	49.9250	55.1377	1.5363	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	4.6285	1.8016	7.0719	1.1072	6.9023	4.2634	1.7941	6.6619	1.0880	6.4765	4.6469	1.5304	7.4367	1.1094	6.9367	0.1269	0.1269	0.1269	0.0000	0.1269	3.6213	0.1390	6.4970	1.7316	6.3412	0.0000	0.0000	0.0000	0.0000	0.0000	3.9526	1.1269	7.1900	1.1151	6.6847
+2026-01-14T17:50:00Z	180.5877	0.0000	0.0000	12.3075	177.7153	182.7767	0.0000	0.0000	14.2706	192.5997	183.2625	0.0000	0.0000	14.5555	180.8379	985.3650	985.1909	985.4622	0.0388	0.0000	6.9568	6.8928	7.1005	0.0436	0.0000	7.2103	7.1690	7.2568	0.0193	0.0000	55.1657	54.4712	56.1848	0.4352	0.0000	46.2534	44.5454	49.9157	1.6814	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	0.0000	4.7689	1.8479	7.9502	1.0099	7.8269	4.2830	1.1451	6.5229	1.0702	6.3065	4.8100	2.0930	8.0929	1.0210	7.9680	0.1269	0.1269	0.1269	0.0000	0.1269	3.5814	0.1390	6.2165	1.5750	6.1230	0.0000	0.0000	0.0000	0.0000	0.0000	3.9690	1.1269	6.4321	1.0412	6.1795

@@ -167,7 +167,7 @@ def draw_progress_bar(
 
 def linux_folder_path(folder_path) -> str:
     """assert folder_path ending with '/'"""
-    folder_path = folder_path.replace("\\", "/").replace(" ", "\ ")
+    folder_path = folder_path.replace("\\", "/").replace(" ", "\\ ")
 
     if folder_path.endswith("/"):
         pass
